@@ -4,6 +4,7 @@ import "./my_reset.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import "./css/setting.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
