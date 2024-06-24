@@ -1,0 +1,41 @@
+.present {
+  border: 1px solid blue;
+  padding: 48px 0;
+}
+.temperature {
+  border: 1px solid orange;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+}
+.temperature span {
+  font-size: 36px;
+  color: var(--primary-variant-color);
+}
+.temperature p {
+  border: 1px solid lightblue;
+  text-align: right;
+}
+.temperature p:nth-of-type(2) {
+  color: var(--primary-variant-color);
+  margin-top: 4px;
+}
+.others {
+  border: 1px solid orange;
+  display: flex;
+  justify-content: center;
+  gap: 50.5px;
+}
+.minmax p:nth-of-type(1),
+.others span {
+  color: var(--grey-600);
+}
+.others p {
+  color: var(--primary-variant-color);
+}
+.con {
+  border: 1px solid red;
+  text-align: center;
+}

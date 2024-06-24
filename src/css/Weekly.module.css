@@ -1,0 +1,29 @@
+.weekly {
+  width: calc(100% - 2rem);
+  border-radius: 16px;
+  padding: 16px;
+  background-color: var(--white);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 15%);
+}
+.list {
+  /* border: 1px solid lightblue; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+h2 {
+  color: var(--grey-600);
+  margin-bottom: 16px;
+}
+.prob,
+.icons,
+.maxmin {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.prob {
+  gap: 4px;
+  color: var(--grey-600);
+}
