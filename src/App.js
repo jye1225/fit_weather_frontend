@@ -60,9 +60,9 @@ function App() {
         <Route path="/codiEdit" element={<CodiEdit />} />
       </Routes>
 
-
-        {/* 로그인, 회원가입, 바로 아래 코드는 제가 편하려고 넣었던 코드입니다. */}
-        {/* <Route path="/" element={<Navigate to="/login" />} /> */}
+      {/* 로그인, 회원가입, 바로 아래 코드는 제가 편하려고 넣었던 코드입니다. */}
+      {/* <Route path="/" element={<Navigate to="/login" />} /> */}
+      <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/oauth" element={<KakaoCallback />} />
