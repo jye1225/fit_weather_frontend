@@ -1,0 +1,8 @@
+.region {
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  border-radius: 99px 99px 99px 0;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.65rem;
+  font-weight: bold;
+}
