@@ -39,7 +39,6 @@ function App() {
       <CodyWeather />
       <Hours />
       <Weekly />
-
       <Routes>
         <Route path="/community" element={<CommunityPage />}>
           <Route path="" element={<TalkPage />} />
@@ -57,8 +56,10 @@ function App() {
 
         {/* 여기부턴 mypage - 코디기록 */}
         <Route path="/codiLog" element={<CodiLog />} />
-        <Route path="codiWrite" element={<CodiWrite />} />
-        <Route path="codiEdit" element={<CodiEdit />} />
+        <Route path="/codiWrite" element={<CodiWrite />} />
+        <Route path="/codiEdit" element={<CodiEdit />} />
+      </Routes>
+
 
         {/* 로그인, 회원가입, 바로 아래 코드는 제가 편하려고 넣었던 코드입니다. */}
         {/* <Route path="/" element={<Navigate to="/login" />} /> */}
