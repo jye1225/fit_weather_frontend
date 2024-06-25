@@ -1,64 +1,51 @@
+// src/components/Header.jsx
 import style from "../css/Header.module.css";
 import { useEffect, useState } from "react";
+import useFetchStore from "../store/fetchStore";
 
 const Header = () => {
-  const [location, setLocation] = useState({});
-  const { kakao } = window;
+  const {
+    location,
+    fetchLocation,
+    regionFirstName,
+    regionSecondName,
+    setRegionFirstName,
+    setRegionSecondName,
+  } = useFetchStore();
+  const [isSideOpen, setIsSideOpen] = useState(false);
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setLocation({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-      });
-    } else {
-      console.log("현재 브라우저는 위치정보를 가져올 수 없습니다.");
-    }
-  }, []);
+    fetchLocation();
+  }, [fetchLocation]);
 
   useEffect(() => {
     if (location.latitude && location.longitude) {
-      // 주소-좌표 변환 객체 생성하기
+      const { kakao } = window;
       const geocoder = new kakao.maps.services.Geocoder();
       const coords = new kakao.maps.LatLng(
         location.latitude,
         location.longitude
       );
 
-      // 현재 좌표로 주소를 검색해서 header에 표시하기
-      searchAddr(geocoder, coords, displayAddr);
-    }
-  }, [location]);
-
-  // 좌표로 행정동 주소 정보를 요청하는 함수
-  const searchAddr = (geocoder, coords, callback) => {
-    geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
-  };
-
-  // header에 주소 정보를 표시하는 함수
-  const displayAddr = (result, status) => {
-    if (status === kakao.maps.services.Status.OK) {
-      let infoDiv = document.getElementById("myAddr");
-
-      // console.log(result);
-      // console.log(result.length);
-
-      for (let i = 0; i < result.length; i++) {
-        // 행정동의 region_type 값은 'H'
-        // 법정동은 'B'
-        if (result[i].region_type === "H") {
-          infoDiv.innerHTML =
-            result[i].region_1depth_name + " " + result[i].region_2depth_name;
-          break;
+      geocoder.coord2RegionCode(
+        coords.getLng(),
+        coords.getLat(),
+        (result, status) => {
+          if (status === kakao.maps.services.Status.OK) {
+            const region = result.find((item) => item.region_type === "H");
+            if (region) {
+              setRegionFirstName(region.region_1depth_name);
+              setRegionSecondName(region.region_2depth_name);
+            } else {
+              setRegionFirstName(result[0].region_1depth_name);
+              setRegionSecondName(result[0].region_2depth_name);
+            }
+          }
         }
-      }
+      );
     }
-  };
+  }, [location, setRegionFirstName, setRegionSecondName]);
 
-  // 사이드 메뉴 기능
-  const [isSideOpen, setIsSideOpen] = useState(false);
   const handleHamClick = () => {
     setIsSideOpen(!isSideOpen);
   };
@@ -72,7 +59,9 @@ const Header = () => {
           alt="햄버거버튼"
           onClick={handleHamClick}
         />
-        <h1 id="myAddr"></h1>
+        <h1 id="myAddr">
+          {regionFirstName} {regionSecondName}
+        </h1>
         <img
           className={style.refresh}
           src="img/icons/common/refresh.svg"
