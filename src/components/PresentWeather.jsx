@@ -1,37 +1,37 @@
-import style from "../css/PresentWeather.module.css";
-import { useEffect, useState } from "react";
+import style from '../css/PresentWeather.module.css';
+import { useEffect, useState } from 'react';
 
 const regionCodes = [
-  { code: "1100000000", name: "서울특별시" },
-  { code: "5100000000", name: "강원특별자치도" },
-  { code: "4100000000", name: "경기도" },
-  { code: "4800000000", name: "경상남도" },
-  { code: "4700000000", name: "경상북도" },
-  { code: "2900000000", name: "광주광역시" },
-  { code: "2700000000", name: "대구광역시" },
-  { code: "3000000000", name: "대전광역시" },
-  { code: "2600000000", name: "부산광역시" },
-  { code: "3600000000", name: "세종특별자치시" },
-  { code: "3100000000", name: "울산광역시" },
-  { code: "2800000000", name: "인천광역시" },
-  { code: "4600000000", name: "전라남도" },
-  { code: "5200000000", name: "전북특별자치도" },
-  { code: "5000000000", name: "제주특별자치도" },
-  { code: "4400000000", name: "충청남도" },
-  { code: "4300000000", name: "충청북도" },
+  { code: '1100000000', name: '서울특별시' },
+  { code: '5100000000', name: '강원특별자치도' },
+  { code: '4100000000', name: '경기도' },
+  { code: '4800000000', name: '경상남도' },
+  { code: '4700000000', name: '경상북도' },
+  { code: '2900000000', name: '광주광역시' },
+  { code: '2700000000', name: '대구광역시' },
+  { code: '3000000000', name: '대전광역시' },
+  { code: '2600000000', name: '부산광역시' },
+  { code: '3600000000', name: '세종특별자치시' },
+  { code: '3100000000', name: '울산광역시' },
+  { code: '2800000000', name: '인천광역시' },
+  { code: '4600000000', name: '전라남도' },
+  { code: '5200000000', name: '전북특별자치도' },
+  { code: '5000000000', name: '제주특별자치도' },
+  { code: '4400000000', name: '충청남도' },
+  { code: '4300000000', name: '충청북도' },
 ];
 
 const PresentWeather = () => {
   const [location, setLocation] = useState({});
   const { kakao } = window;
-  const [temperature, setTemperature] = useState("");
-  const [maxTemp, setMaxTemp] = useState("");
-  const [minTemp, setMinTemp] = useState("");
-  const [rain, setRain] = useState("");
-  const [regionFirstName, setRegionFirstName] = useState("");
-  const [regionSecondName, setRegionSecondName] = useState("");
-  const [dust, setDust] = useState("");
-  const [uv, setUv] = useState("");
+  const [temperature, setTemperature] = useState('');
+  const [maxTemp, setMaxTemp] = useState('');
+  const [minTemp, setMinTemp] = useState('');
+  const [rain, setRain] = useState('');
+  const [regionFirstName, setRegionFirstName] = useState('');
+  const [regionSecondName, setRegionSecondName] = useState('');
+  const [dust, setDust] = useState('');
+  const [uv, setUv] = useState('');
 
   // 현재 위치의 위도, 경도 불러오기
   useEffect(() => {
@@ -43,7 +43,7 @@ const PresentWeather = () => {
         });
       });
     } else {
-      console.log("현재 브라우저는 위치정보를 가져올 수 없습니다.");
+      console.log('현재 브라우저는 위치정보를 가져올 수 없습니다.');
     }
   }, []);
 
@@ -62,7 +62,7 @@ const PresentWeather = () => {
         (result, status) => {
           if (status === kakao.maps.services.Status.OK) {
             // result[0].region_2depth_name 값만 필요하므로, state에 저장
-            const region = result.find((item) => item.region_type === "H");
+            const region = result.find((item) => item.region_type === 'H');
             if (region) {
               setRegionFirstName(region.region_1depth_name);
               setRegionSecondName(region.region_2depth_name);
@@ -106,20 +106,20 @@ const PresentWeather = () => {
     var ro = Math.tan(Math.PI * 0.25 + olat * 0.5);
     ro = (re * sf) / Math.pow(ro, sn);
     var rs = {};
-    if (code == "toXY") {
-      rs["lat"] = v1;
-      rs["lng"] = v2;
+    if (code == 'toXY') {
+      rs['lat'] = v1;
+      rs['lng'] = v2;
       var ra = Math.tan(Math.PI * 0.25 + v1 * DEGRAD * 0.5);
       ra = (re * sf) / Math.pow(ra, sn);
       var theta = v2 * DEGRAD - olon;
       if (theta > Math.PI) theta -= 2.0 * Math.PI;
       if (theta < -Math.PI) theta += 2.0 * Math.PI;
       theta *= sn;
-      rs["x"] = Math.floor(ra * Math.sin(theta) + XO + 0.5);
-      rs["y"] = Math.floor(ro - ra * Math.cos(theta) + YO + 0.5);
+      rs['x'] = Math.floor(ra * Math.sin(theta) + XO + 0.5);
+      rs['y'] = Math.floor(ro - ra * Math.cos(theta) + YO + 0.5);
     } else {
-      rs["x"] = v1;
-      rs["y"] = v2;
+      rs['x'] = v1;
+      rs['y'] = v2;
       var xn = v1 - XO;
       var yn = ro - v2 + YO;
       ra = Math.sqrt(xn * xn + yn * yn);
@@ -136,8 +136,8 @@ const PresentWeather = () => {
         } else theta = Math.atan2(xn, yn);
       }
       var alon = theta / sn + olon;
-      rs["lat"] = alat * RADDEG;
-      rs["lng"] = alon * RADDEG;
+      rs['lat'] = alat * RADDEG;
+      rs['lng'] = alon * RADDEG;
     }
     return rs;
   }
@@ -150,20 +150,20 @@ const PresentWeather = () => {
       regionFirstName &&
       regionSecondName
     ) {
-      let rs = dfs_xy_conv("toXY", location.latitude, location.longitude);
+      let rs = dfs_xy_conv('toXY', location.latitude, location.longitude);
       // console.log(rs.x, rs.y);
 
       // 날씨 api 불러오기
       const API_KEY =
-        "GHL4EyAD%2B1JXd4bO0mbvcE28GOOhWZmfhkdcqWe63mC02FDwcKPaePr38d5RZyGhW8yO6AE4gcW5F2lyAJ06jA%3D%3D";
+        'GHL4EyAD%2B1JXd4bO0mbvcE28GOOhWZmfhkdcqWe63mC02FDwcKPaePr38d5RZyGhW8yO6AE4gcW5F2lyAJ06jA%3D%3D';
       const nx = rs.x;
       const ny = rs.y;
       const date = new Date();
       const year = date.getFullYear();
-      const month = ("0" + (1 + date.getMonth())).slice(-2);
-      const day = ("0" + date.getDate()).slice(-2);
+      const month = ('0' + (1 + date.getMonth())).slice(-2);
+      const day = ('0' + date.getDate()).slice(-2);
       const today = year + month + day;
-      const hours = ("0" + date.getHours()).slice(-2) + "00";
+      const hours = ('0' + date.getHours()).slice(-2) + '00';
 
       // console.log(today);
       // console.log(hours);
@@ -187,10 +187,10 @@ const PresentWeather = () => {
             // console.log("presentTemp--", presentTemp);
             setTemperature(presentTemp[3].obsrValue.substr(0, 2));
           } else {
-            console.error("초단기실황 API 응답 구조가 예상과 다릅니다.", data);
+            console.error('초단기실황 API 응답 구조가 예상과 다릅니다.', data);
           }
         } catch (error) {
-          console.error("Fetch error: ", error);
+          console.error('Fetch error: ', error);
         }
       };
 
@@ -213,10 +213,10 @@ const PresentWeather = () => {
             setMinTemp(shortWeather[48].fcstValue.substr(0, 2));
             setRain(shortWeather[7].fcstValue);
           } else {
-            console.error("단기예보 API 응답 구조가 예상과 다릅니다.", data);
+            console.error('단기예보 API 응답 구조가 예상과 다릅니다.', data);
           }
         } catch (error) {
-          console.error("Fetch error: ", error);
+          console.error('Fetch error: ', error);
         }
       };
 
@@ -239,35 +239,35 @@ const PresentWeather = () => {
           ) {
             let pm10 = data.response.body.items[0].pm10Grade1h;
             switch (pm10) {
-              case "1":
-                pm10 = "좋음";
+              case '1':
+                pm10 = '좋음';
                 break;
-              case "2":
-                pm10 = "보통";
+              case '2':
+                pm10 = '보통';
                 break;
-              case "3":
-                pm10 = "나쁨";
+              case '3':
+                pm10 = '나쁨';
                 break;
-              case "4":
-                pm10 = "매우나쁨";
+              case '4':
+                pm10 = '매우나쁨';
                 break;
               default:
-                pm10 = "-";
+                pm10 = '-';
             }
             // console.log(pm10);
             setDust(pm10);
           } else {
-            console.error("미세먼지 API 응답 구조가 예상과 다릅니다.", data);
+            console.error('미세먼지 API 응답 구조가 예상과 다릅니다.', data);
           }
         } catch (error) {
-          console.error("Fetch error: ", error);
+          console.error('Fetch error: ', error);
         }
       };
 
       const getUv = async () => {
         const region = regionCodes.find((r) => r.name === regionFirstName);
         // console.log(region);
-        const areaNo = region ? region.code : "1100000000"; // 기본값은 서울특별시로 설정
+        const areaNo = region ? region.code : '1100000000'; // 기본값은 서울특별시로 설정
         // console.log(areaNo);
 
         const url = new URL(
@@ -286,25 +286,25 @@ const PresentWeather = () => {
 
             const uvDegree =
               maxUv >= 0 && maxUv <= 2
-                ? "낮음"
+                ? '낮음'
                 : maxUv >= 3 && maxUv <= 5
-                ? "보통"
+                ? '보통'
                 : maxUv >= 6 && maxUv <= 7
-                ? "높음"
+                ? '높음'
                 : maxUv >= 8 && maxUv <= 10
-                ? "매우높음"
+                ? '매우높음'
                 : maxUv >= 11
-                ? "위험"
-                : "유효하지 않은 값";
+                ? '위험'
+                : '유효하지 않은 값';
 
-            // console.log("maxUv--", maxUv);
+            // console.log('maxUv--', maxUv);
             // console.log("uvDegree--", uvDegree);
             setUv(uvDegree);
           } else {
-            console.error("자외선 API 응답 구조가 예상과 다릅니다.", data);
+            console.error('자외선 API 응답 구조가 예상과 다릅니다.', data);
           }
         } catch (error) {
-          console.error("Fetch error: ", error);
+          console.error('Fetch error: ', error);
         }
       };
 

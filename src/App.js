@@ -39,6 +39,7 @@ function App() {
       <CodyWeather />
       <Hours />
       <Weekly />
+
       <Routes>
         <Route path="/community" element={<CommunityPage />}>
           <Route path="" element={<TalkPage />} />

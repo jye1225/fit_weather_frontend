@@ -5,10 +5,13 @@ import PostWriteArea from '../components/PostWriteArea';
 import CancelBtn from '../components/CancelBtn';
 import SubmitBtn from '../components/SubmitBtn';
 import PagesHeader from '../components/PagesHeader';
+import { useNavigate } from 'react-router-dom';
 
 function PostWritePage() {
+  const navigate = useNavigate();
   const postSubmit = (e) => {
     e.preventDefault();
+    navigate('/postWriteCmplt');
     console.log(e);
   };
 
