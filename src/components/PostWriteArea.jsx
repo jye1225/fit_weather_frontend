@@ -1,12 +1,26 @@
-import { useRef, useState } from 'react';
 import style from '../css/PostWriteArea.module.css';
 import PostImgFalse from './PostImgFalse';
 import PostImgTrue from './PostImgTrue';
+import { useRef, useState } from 'react';
 
 function PostWriteArea() {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const [imgPreviewUrl, setImgPreviewUrl] = useState(null);
   const fileInputRef = useRef(null);
 
+  // console.log(title);
+  // console.log(content);
+
+  const writeTitle = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const writePostContent = (e) => {
+    setContent(e.target.value);
+  };
+
+  //선택한 사진 미리보기
   const ImgSelect = (e) => {
     e.preventDefault();
     console.log(e.target.files);
@@ -24,7 +38,7 @@ function PostWriteArea() {
     }
   };
 
-  const handleRemoveImage = () => {
+  const removeImage = () => {
     setImgPreviewUrl(null);
     fileInputRef.current.value = null;
   };
@@ -34,10 +48,12 @@ function PostWriteArea() {
       <label htmlFor="postTitle" className={style.postTitle}>
         <span className="fontHead3">제목</span>
         <input
-          id="postTitle"
-          name="postTitle"
           type="text"
+          name="postTitle"
+          id="postTitle"
           placeholder="제목을 입력하세요."
+          value={title}
+          onChange={writeTitle}
           className="fontBodyM"
         />
       </label>
@@ -47,6 +63,8 @@ function PostWriteArea() {
           id="postContent"
           name="postContent"
           placeholder="오늘 코디를 공유해주세요! 오늘 날씨에는 어떻게 입는게 좋을까요?"
+          value={content}
+          onChange={writePostContent}
           className="fontBodyM"
         />
       </label>
@@ -69,7 +87,10 @@ function PostWriteArea() {
           {imgPreviewUrl ? (
             <>
               <PostImgTrue src={imgPreviewUrl} />
-              <i onClick={handleRemoveImage}>Remove Image</i>
+              <i
+                className={`fa-solid fa-xmark ${style.removeImg}`}
+                onClick={removeImage}
+              ></i>
             </>
           ) : (
             <PostImgFalse />

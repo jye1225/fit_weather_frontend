@@ -1,20 +1,24 @@
 import style from '../css/ConfirmModal.module.css';
 
+import { useEffect, useRef } from 'react';
+
 import CancelBtn from './CancelBtn';
 import DeleteEditBtn from './DeleteEditBtn';
 import { useOpenMenuModal } from '../store/DetailOpMenuModalStore';
 import { useCmntOptnMenu } from '../store/OnCmntOptnMenuStore';
-import { useEffect, useRef } from 'react';
+import { useRewriteStore } from '../store/RewriteStore';
 
-function ConfirmModal({ message, clickDelete, clickCancel }) {
+function ConfirmModal({ message, btnText, clickDelAndSubmt, clickCancel }) {
   const { isModalOpen, modalClose, opMenuClose } = useOpenMenuModal();
   const { isModalOn } = useCmntOptnMenu();
+  const { isRwrtCofirm, onRwrtCofirm, offRwrtCofirm } = useRewriteStore();
+
   const receiveMessage = message || '삭제하시겠습니까?';
 
   const confirmModalRef = useRef();
   const clickBg = (e) => {
-    console.log(e.target);
-    console.log(confirmModalRef.current);
+    // console.log(e.target);
+    // console.log(confirmModalRef.current);
     if (
       confirmModalRef.current &&
       !confirmModalRef.current.contains(e.target) &&
@@ -34,13 +38,15 @@ function ConfirmModal({ message, clickDelete, clickCancel }) {
   return (
     <div
       className={`${style.confirmModal} ${
-        isModalOn || isModalOpen ? style.on : ''
+        // isModalOn || isModalOpen || isRwrtCofirm ?
+        style.on
+        //  : ''
       } `}
     >
       <div className={style.confirmMsg} ref={confirmModalRef}>
         <p className="fontHead3">{receiveMessage}</p>
         <CancelBtn clickCancel={clickCancel} />
-        <DeleteEditBtn clickDelete={clickDelete} />
+        <DeleteEditBtn btnText={btnText} clickDelAndSubmt={clickDelAndSubmt} />
       </div>
     </div>
   );

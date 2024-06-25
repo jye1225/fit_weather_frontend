@@ -1,10 +1,10 @@
 import style from '../css/DeleteEditBtn.module.css';
 
-function DeleteEditBtn({ btnText, clickDelete }) {
+function DeleteEditBtn({ btnText, clickDelAndSubmt }) {
   const receiveBtnText = btnText || '삭제하기';
 
   const clickDeleteBtn = () => {
-    clickDelete();
+    clickDelAndSubmt();
   };
 
   return (

@@ -1,7 +1,7 @@
 import style from '../css/CancelBtn.module.css';
 
 function CancelBtn({ clickCancel }) {
-  const clickCanceBtn = (e) => {
+  const clickCancelBtn = (e) => {
     clickCancel();
 
     // console.log(e);
@@ -12,7 +12,7 @@ function CancelBtn({ clickCancel }) {
     <button
       type="button"
       className={`fontTitleM ${style.writeCancelBtn}`}
-      onClick={clickCanceBtn}
+      onClick={clickCancelBtn}
     >
       취소
     </button>
