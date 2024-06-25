@@ -36,7 +36,10 @@ function OptionMenu() {
         </button>
       </div>
       {isModalOpen && (
-        <ConfirmModal clickCancel={handleCancel} clickDelete={handleDelete} />
+        <ConfirmModal
+          clickCancel={handleCancel}
+          clickDelAndSubmt={handleDelete}
+        />
       )}
     </>
   );

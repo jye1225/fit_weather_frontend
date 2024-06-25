@@ -9,7 +9,7 @@ function PagesHeader({ title }) {
   };
 
   return (
-    <header className={`mw mainHd ${style.pagesHd}`}>
+    <header className={`mw ${style.hd} ${style.pagesHd}`}>
       <i className="fa-solid fa-chevron-left" onClick={goBack}></i>
       <div className={style.pagesHdRight}>
         <strong className="fontHead2">{title}</strong>

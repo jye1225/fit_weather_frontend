@@ -85,4 +85,24 @@
   border: 1px solid var(--grey-200);
   overflow: hidden;
   text-align: center;
+  position: relative;
+}
+
+.removeImg {
+  cursor: pointer;
+  background-color: var(--grey-200);
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+.removeImg:hover {
+  background-color: var(--grey-600);
+  color: var(--white);
 }

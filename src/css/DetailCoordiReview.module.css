@@ -8,8 +8,6 @@
   border-top: 1px solid var(--grey-200);
 }
 .coordiReview p {
-  font-family: var(--title-medium-font);
-  font-weight: bold;
   text-align: center;
   width: 100%;
   padding-block: 1rem;
