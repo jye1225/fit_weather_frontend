@@ -12,9 +12,11 @@
 }
 
 .header2 h2 {
+  color: var(--white);
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .btnGoBack {
@@ -41,7 +43,7 @@
   position: absolute;
   width: 40px;
   background-color: var(--primary-color);
-  height: 22px;
+  height: 24px;
   border-radius: 999px;
   /* 달력 선택 */
   left: 2px;

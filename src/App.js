@@ -34,12 +34,11 @@ import KakaoCallback from "./pages/login/KakaoCallback";
 function App() {
   return (
     <div className="App">
-      <Header />
-      <PresentWeather />
+      {/* <Header /> */}
+      {/* <PresentWeather />
       <CodyWeather />
       <Hours />
-      <Weekly />
-
+      <Weekly /> */}
       <Routes>
         <Route path="/community" element={<CommunityPage />}>
           <Route path="" element={<TalkPage />} />
