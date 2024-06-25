@@ -25,6 +25,7 @@ import CodiLog from "../src/pages/CodiLog";
 import CodiWrite from "./pages/CodiWrite";
 import CodiEdit from "./pages/CodiEdit";
 import CodiMain from "./pages/CodiMain";
+import CodiCompleted from "./pages/CodiCompleted";
 
 import Login from "./pages/login/login";
 import Signup from "./pages/signup";
@@ -58,6 +59,9 @@ function App() {
         <Route path="/codiLog" element={<CodiLog />} />
         <Route path="/codiWrite" element={<CodiWrite />} />
         <Route path="/codiEdit" element={<CodiEdit />} />
+
+        <Route path="/codiCompleted" element={<CodiCompleted />} />
+
       </Routes>
 
       {/* 로그인, 회원가입, 바로 아래 코드는 제가 편하려고 넣었던 코드입니다. */}

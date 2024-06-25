@@ -128,7 +128,7 @@ const CodiWrite = () => {
 
             if (response) {
                 console.log('/n response@@@@', response);
-                // navigate('/codiLog');
+                navigate('/codiCompleted');
             }
 
         } catch (error) {
