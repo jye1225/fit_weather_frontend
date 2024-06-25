@@ -3,7 +3,7 @@ import style from '../css/DetailCoordiReview.module.css';
 function DetailCoordiReview() {
   return (
     <div className={style.coordiReview}>
-      <p>이 코디 어때요?</p>
+      <p className="fontHead2">이 코디 어때요?</p>
       <button className={style.goodBtn}>
         <svg
           width="24"
@@ -17,8 +17,8 @@ function DetailCoordiReview() {
             fill="black"
           />
         </svg>
-        <span>좋아요</span>
-        <span>10</span>
+        <span className="fontTitleXS">좋아요</span>
+        <span className="fontBodyS">10</span>
       </button>
       <button className={`${style.sosoBtn} ${style.on}`}>
         <svg
@@ -33,8 +33,8 @@ function DetailCoordiReview() {
             fill="black"
           />
         </svg>
-        <span>무난해요</span>
-        <span>5</span>
+        <span className="fontTitleXS">무난해요</span>
+        <span className="fontBodyS">5</span>
       </button>
       <button className={style.badBtn}>
         <svg
@@ -49,8 +49,8 @@ function DetailCoordiReview() {
             fill="black"
           />
         </svg>
-        <span>별로예요</span>
-        <span>2</span>
+        <span className="fontTitleXS">별로예요</span>
+        <span className="fontBodyS">2</span>
       </button>
     </div>
   );

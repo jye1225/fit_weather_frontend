@@ -18,13 +18,13 @@ function DetailComment() {
       <div className={style.userImg}>
         <img src="/img/img2.jpg" alt="유저이미지" />
       </div>
-      <span className={style.userName}>유저B</span>
-      <span className={style.commentDate}>10분 전</span>
+      <span className={`fontTitleS ${style.userName}`}>유저B</span>
+      <span className={`fontBodyS ${style.commentDate}`}>10분 전</span>
       <i
         className="fa-solid fa-ellipsis-vertical"
         onClick={cmntOptnMenuToggle}
       ></i>
-      <p>
+      <p className="fontBodyM">
         댓글이 들어갑니다댓글이 들어갑니다댓글이 들어갑니다댓글이
         들어갑니다댓글이 들어갑니다댓글이 들어갑니다
       </p>
