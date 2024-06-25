@@ -24,7 +24,7 @@ import TalkPage from "./pages/TalkPage";
 import CodiLog from "../src/pages/CodiLog";
 import CodiWrite from "./pages/CodiWrite";
 import CodiEdit from "./pages/CodiEdit";
-import Codi from "./pages/Codi";
+import CodiMain from "./pages/CodiMain";
 
 import Login from "./pages/login/login";
 import Signup from "./pages/signup";
@@ -35,10 +35,10 @@ function App() {
   return (
     <div className="App">
       {/* <Header /> */}
-      {/* <PresentWeather />
-      <CodyWeather />
-      <Hours />
-      <Weekly /> */}
+      {/* <PresentWeather /> */}
+      {/*   <CodyWeather /> */}
+      {/* <Hours /> */}
+      {/* <Weekly /> */}
       <Routes>
         <Route path="/community" element={<CommunityPage />}>
           <Route path="" element={<TalkPage />} />
@@ -52,7 +52,7 @@ function App() {
         <Route path="*" element={<div>없는 페이지 입니다.</div>} />
 
         {/* 코디 main */}
-        <Route path="/codi" element={<Codi />} />
+        <Route path="/codiMain" element={<CodiMain />} />
 
         {/* 여기부턴 mypage - 코디기록 */}
         <Route path="/codiLog" element={<CodiLog />} />

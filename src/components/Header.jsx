@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import useFetchStore from "../store/fetchStore";
 
 const Header = () => {
+
+  const [regionthirdName, setRegionthirdName] = useState("");
   const {
     location,
     fetchLocation,
@@ -36,10 +38,16 @@ const Header = () => {
             if (region) {
               setRegionFirstName(region.region_1depth_name);
               setRegionSecondName(region.region_2depth_name);
+              setRegionthirdName(region.region_3depth_name);
             } else {
               setRegionFirstName(result[0].region_1depth_name);
               setRegionSecondName(result[0].region_2depth_name);
+              setRegionthirdName(result[0].region_3depth_name);
+
             }
+            // 로컬스토리지에 저장
+            localStorage.setItem('regionSecondName', region.region_2depth_name);
+            localStorage.setItem('regionthirdName', region.region_3depth_name);
           }
         }
       );

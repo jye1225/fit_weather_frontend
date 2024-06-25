@@ -85,11 +85,15 @@ const useFetchStore = create((set, get) => ({
         const data = await res.json();
         if (data.response?.body?.items?.item) {
           const shortWeather = data.response.body.items.item;
+          // 로컬스토리지에 저장
+          localStorage.setItem('maxTemp', shortWeather[157].fcstValue.substr(0, 2));
+          localStorage.setItem('minTemp', shortWeather[48].fcstValue.substr(0, 2));
           return {
             maxTemp: shortWeather[157].fcstValue.substr(0, 2),
             minTemp: shortWeather[48].fcstValue.substr(0, 2),
             rain: shortWeather[7].fcstValue,
           };
+
         } else {
           console.error("Unexpected response structure:", data);
         }
@@ -152,14 +156,14 @@ const useFetchStore = create((set, get) => ({
             maxUv >= 0 && maxUv <= 2
               ? "낮음"
               : maxUv >= 3 && maxUv <= 5
-              ? "보통"
-              : maxUv >= 6 && maxUv <= 7
-              ? "높음"
-              : maxUv >= 8 && maxUv <= 10
-              ? "매우높음"
-              : maxUv >= 11
-              ? "위험"
-              : "유효하지 않은 값";
+                ? "보통"
+                : maxUv >= 6 && maxUv <= 7
+                  ? "높음"
+                  : maxUv >= 8 && maxUv <= 10
+                    ? "매우높음"
+                    : maxUv >= 11
+                      ? "위험"
+                      : "유효하지 않은 값";
           return { uv: uvDegree };
         } else {
           console.error("Unexpected response structure:", data);

@@ -1,15 +1,17 @@
-import { useState, useEffect } from "react";
 import style from '../css/Codi.module.css'
+
+import Header from "../components/Header";
 import H2Codi from '../components/H2Codi'
 
-const Codi = () => {
+const CodiMain = () => {
     return (
         <main className={`mw ${style.codiMain}`}>
+            <Header />
             <H2Codi />
 
-            codi
+            CodiMain
         </main>
     );
 };
 
-export default Codi;
+export default CodiMain;
