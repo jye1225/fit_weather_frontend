@@ -43,7 +43,7 @@
   position: absolute;
   width: 40px;
   background-color: var(--primary-color);
-  height: 22px;
+  height: 24px;
   border-radius: 999px;
   /* 달력 선택 */
   left: 2px;

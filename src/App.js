@@ -35,10 +35,10 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <PresentWeather />
+      {/* <PresentWeather />
       <CodyWeather />
       <Hours />
-      <Weekly />
+      <Weekly /> */}
       <Routes>
         <Route path="/community" element={<CommunityPage />}>
           <Route path="" element={<TalkPage />} />

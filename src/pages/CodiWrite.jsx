@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import H2CodiWrite from "../components/H2CodiWrite";
 import style from '../css/Codi.module.css';
 import { useFeltOptionsStore } from '../store/codiStore';
+import { useNavigate } from 'react-router-dom';
+
 
 const CodiWrite = () => {
+    const navigate = useNavigate();
+
     const { feltOptions } = useFeltOptionsStore();  // Zustand 스토어에서 필요한 상태 가져오기
 
     // 상태 설정
@@ -68,11 +72,11 @@ const CodiWrite = () => {
                 credentials: 'include',  // 쿠키 주고받기 위한 설정
             });
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+            if (response) {
+                console.log('/n response@@@@', response);
+
+                navigate('/codiLog');
             }
-            console.log("Frontend에서 POST 요청 성공");
-            // 필요한 경우 여기서 추가적인 처리 가능
 
         } catch (error) {
             console.error('Error:', error);
