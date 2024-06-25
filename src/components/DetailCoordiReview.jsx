@@ -1,10 +1,20 @@
+import { useState } from 'react';
 import style from '../css/DetailCoordiReview.module.css';
 
 function DetailCoordiReview() {
+  const [onBtn, setOnBtn] = useState(null);
+
+  const reviewBtnClick = (btnType) => {
+    setOnBtn(btnType);
+  };
+
   return (
     <div className={style.coordiReview}>
       <p className="fontHead2">이 코디 어때요?</p>
-      <button className={style.goodBtn}>
+      <button
+        className={`${style.goodBtn} ${onBtn === 'good' ? style.on : ''}`}
+        onClick={() => reviewBtnClick('good')}
+      >
         <svg
           width="24"
           height="24"
@@ -20,7 +30,10 @@ function DetailCoordiReview() {
         <span className="fontTitleXS">좋아요</span>
         <span className="fontBodyS">10</span>
       </button>
-      <button className={`${style.sosoBtn} ${style.on}`}>
+      <button
+        className={`${style.sosoBtn} ${onBtn === 'soso' ? style.on : ''}`}
+        onClick={() => reviewBtnClick('soso')}
+      >
         <svg
           width="24"
           height="24"
@@ -36,7 +49,10 @@ function DetailCoordiReview() {
         <span className="fontTitleXS">무난해요</span>
         <span className="fontBodyS">5</span>
       </button>
-      <button className={style.badBtn}>
+      <button
+        className={`${style.badBtn} ${onBtn === 'bad' ? style.on : ''}`}
+        onClick={() => reviewBtnClick('bad')}
+      >
         <svg
           width="24"
           height="24"

@@ -35,3 +35,45 @@
 .comment p {
   width: 100%;
 }
+
+.reCmntBtnCon {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+.reCmntSubmitBtn {
+  cursor: pointer;
+  padding: 0.7rem 1rem;
+  border-radius: 5rem;
+  border: 1px solid var(--primary-variant-color);
+  background-color: var(--primary-variant-color);
+  color: var(--white);
+  transition: 0.3s;
+}
+.reCmntSubmitBtn:hover {
+  background-color: transparent;
+  color: var(--primary-variant-color);
+}
+
+.reCmntCancelBtn {
+  cursor: pointer;
+  padding: 0.7rem 1rem;
+  border-radius: 5rem;
+  border: 1px solid var(--grey-400);
+  background-color: var(--grey-400);
+  color: var(--white);
+  transition: 0.3s;
+}
+.reCmntCancelBtn:hover {
+  background-color: var(--grey-200);
+  border: 1px solid var(--grey-200);
+}
+.comntRewrite {
+  outline: none;
+  border: 1px solid var(--grey-200);
+  width: 100%;
+  height: 3.5rem;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  resize: none;
+}
