@@ -13,6 +13,7 @@ const Header = () => {
     setRegionSecondName,
   } = useFetchStore();
   const [isSideOpen, setIsSideOpen] = useState(false);
+  const [regionthirdName, setRegionthirdName] = useState("");
 
   useEffect(() => {
     fetchLocation();
@@ -36,9 +37,11 @@ const Header = () => {
             if (region) {
               setRegionFirstName(region.region_1depth_name);
               setRegionSecondName(region.region_2depth_name);
+              setRegionthirdName(region.region_3depth_name);
             } else {
               setRegionFirstName(result[0].region_1depth_name);
               setRegionSecondName(result[0].region_2depth_name);
+              setRegionthirdName(result[0].region_3depth_name);
             }
           }
         }
@@ -60,7 +63,7 @@ const Header = () => {
           onClick={handleHamClick}
         />
         <h1 id="myAddr">
-          {regionFirstName} {regionSecondName}
+          {regionFirstName} {regionSecondName} {regionthirdName}
         </h1>
         <img
           className={style.refresh}

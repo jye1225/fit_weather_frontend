@@ -51,6 +51,96 @@ const Weekly = () => {
             <span className="fontTitleL">17°C</span>
           </div>
         </li>
+        <li className={style.list}>
+          <span className="fontTitleS">오늘</span>
+          <div className={style.prob}>
+            <img src="img/icons/common/probUpto80.svg" alt="강수확률" />
+            <span className="fontTitleS">50%</span>
+          </div>
+          <div className={style.icons}>
+            <img src="img/icons/weather/clear.svg" alt="오전날씨" />
+            <img src="img/icons/weather/cloudy.svg" alt="오후날씨" />
+          </div>
+          <div className={style.maxmin}>
+            <span className="fontTitleL">21°C</span>
+            <span className="fontTitleL">17°C</span>
+          </div>
+        </li>
+        <li className={style.list}>
+          <span className="fontTitleS">오늘</span>
+          <div className={style.prob}>
+            <img src="img/icons/common/probUpto80.svg" alt="강수확률" />
+            <span className="fontTitleS">50%</span>
+          </div>
+          <div className={style.icons}>
+            <img src="img/icons/weather/clear.svg" alt="오전날씨" />
+            <img src="img/icons/weather/cloudy.svg" alt="오후날씨" />
+          </div>
+          <div className={style.maxmin}>
+            <span className="fontTitleL">21°C</span>
+            <span className="fontTitleL">17°C</span>
+          </div>
+        </li>
+        <li className={style.list}>
+          <span className="fontTitleS">오늘</span>
+          <div className={style.prob}>
+            <img src="img/icons/common/probUpto80.svg" alt="강수확률" />
+            <span className="fontTitleS">50%</span>
+          </div>
+          <div className={style.icons}>
+            <img src="img/icons/weather/clear.svg" alt="오전날씨" />
+            <img src="img/icons/weather/cloudy.svg" alt="오후날씨" />
+          </div>
+          <div className={style.maxmin}>
+            <span className="fontTitleL">21°C</span>
+            <span className="fontTitleL">17°C</span>
+          </div>
+        </li>
+        <li className={style.list}>
+          <span className="fontTitleS">오늘</span>
+          <div className={style.prob}>
+            <img src="img/icons/common/probUpto80.svg" alt="강수확률" />
+            <span className="fontTitleS">50%</span>
+          </div>
+          <div className={style.icons}>
+            <img src="img/icons/weather/clear.svg" alt="오전날씨" />
+            <img src="img/icons/weather/cloudy.svg" alt="오후날씨" />
+          </div>
+          <div className={style.maxmin}>
+            <span className="fontTitleL">21°C</span>
+            <span className="fontTitleL">17°C</span>
+          </div>
+        </li>
+        <li className={style.list}>
+          <span className="fontTitleS">오늘</span>
+          <div className={style.prob}>
+            <img src="img/icons/common/probUpto80.svg" alt="강수확률" />
+            <span className="fontTitleS">50%</span>
+          </div>
+          <div className={style.icons}>
+            <img src="img/icons/weather/clear.svg" alt="오전날씨" />
+            <img src="img/icons/weather/cloudy.svg" alt="오후날씨" />
+          </div>
+          <div className={style.maxmin}>
+            <span className="fontTitleL">21°C</span>
+            <span className="fontTitleL">17°C</span>
+          </div>
+        </li>
+        <li className={style.list}>
+          <span className="fontTitleS">오늘</span>
+          <div className={style.prob}>
+            <img src="img/icons/common/probUpto80.svg" alt="강수확률" />
+            <span className="fontTitleS">50%</span>
+          </div>
+          <div className={style.icons}>
+            <img src="img/icons/weather/clear.svg" alt="오전날씨" />
+            <img src="img/icons/weather/cloudy.svg" alt="오후날씨" />
+          </div>
+          <div className={style.maxmin}>
+            <span className="fontTitleL">21°C</span>
+            <span className="fontTitleL">17°C</span>
+          </div>
+        </li>
         {/* Add more list items as needed */}
       </ul>
     </section>
