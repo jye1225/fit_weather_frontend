@@ -34,7 +34,7 @@ import KakaoCallback from "./pages/login/KakaoCallback";
 function App() {
   return (
     <div className="App">
-      <Header />
+      {/* <Header /> */}
       {/* <PresentWeather />
       <CodyWeather />
       <Hours />
