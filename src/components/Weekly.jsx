@@ -33,7 +33,7 @@ const Weekly = () => {
   }, [location, regionFirstName, regionSecondName, fetchWeatherData]);
 
   return (
-    <section className={`mw ${style.weekly}`}>
+    <section className={style.weekly}>
       <h2 className="fontHead3">주간별 날씨!</h2>
       <ul className={style.con}>
         <li className={style.list}>
