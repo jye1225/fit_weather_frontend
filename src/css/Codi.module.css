@@ -34,6 +34,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 15%);
     transition: 0.15s;
     cursor: pointer;
+    border: none;
 }
 
 .btnMethod:hover {
@@ -41,6 +42,7 @@
 }
 
 .btnCancel {
+    border: none;
     color: var(--grey-400);
     height: 40px;
     display: flex;
