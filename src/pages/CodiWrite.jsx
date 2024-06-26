@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import H2CodiWrite from "../components/H2CodiWrite";
 import style from '../css/Codi.module.css';
 import { useFeltOptionsStore } from '../store/codiStore';
-
 import { useNavigate } from 'react-router-dom';
 
 
 const CodiWrite = () => {
+
     const navigate = useNavigate();
     const { feltOptions } = useFeltOptionsStore();  // Zustand 스토어에서 필요한 상태 가져오기
 
-    const [codiDate, setCodiDate] = useState('');
+    const [codiDate, setCodiDate] = useState('');//저장 X 표시용..
 
     const [regionSecondName, setRegionSecondName] = useState('');
     const [regionthirdName, setRegionthirdName] = useState('');
@@ -18,6 +18,7 @@ const CodiWrite = () => {
 
     const [minTemp, setMinTemp] = useState('');
     const [maxTemp, setMaxTemp] = useState('');
+
 
     useEffect(() => {
         // 오늘 날짜 저장
@@ -53,6 +54,13 @@ const CodiWrite = () => {
         const storedMaxTemp = localStorage.getItem('maxTemp');
         if (storedMinTemp) setMinTemp(storedMinTemp);
         if (storedMaxTemp) setMaxTemp(storedMaxTemp);
+
+        // pmSKY pmPTY 로컬스토리지에서 가져와서 설정
+        // const storedSKY = localStorage.getItem('pmSKY');
+        // const storedPTY = localStorage.getItem('pmPTY');
+        // if (storedSKY) setSKY(storedSKY);
+        // if (storedPTY) setPTY(storedPTY);
+        // console.log('--------하늘---------', SKY, PTY, '----');
     }, []);
 
     useEffect(() => {
@@ -137,6 +145,13 @@ const CodiWrite = () => {
         }
     };
 
+    const handleKeyDown = (e) => {
+        // Enter 키 입력을 감지하여 기본 동작을 막습니다.
+        if (e.key === 'Enter') {
+            e.preventDefault();  // 기본 동작을 막음
+        }
+    };
+
     return (
         <main className={`mw ${style.codiWrite}`}>
             <H2CodiWrite tagAddress={tagAddress} />
@@ -191,6 +206,8 @@ const CodiWrite = () => {
                         placeholder='날씨와 코디에 대한 간단한 메모를 남겨보세요. (최대 100자)'
                         value={memo}
                         onChange={(e) => { setMemo(e.target.value) }}
+                        onKeyDown={handleKeyDown}  // 엔터 키 이벤트 핸들러 추가
+
                     ></textarea>
                 </div>
             </section>

@@ -1,13 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import style from '../css/Codi.module.css'
 
 import ActionSheet from '../components/ActionSheet'
 
 
-const CodiLogBox = ({ setModalActive }) => {
-
+const CodiLogBox = ({ setModalActive, modalActive }) => {
+    console.log(modalActive);
     // ** ActionSheet
     const [actionSheetActive, setActionSheetActive] = useState(false)
+
+    useEffect(() => {
+
+    })
 
     return (
         <div className={style.CodiLogBox}>

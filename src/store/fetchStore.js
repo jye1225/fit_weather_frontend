@@ -98,9 +98,10 @@ const useFetchStore = create((set, get) => ({
         if (data.response?.body?.items?.item) {
           const shortWeather = data.response.body.items.item;
 
-          // 로컬스토리지에 저장
+          //로컬스토리지에 저장 - 최고최저기온
           localStorage.setItem('maxTemp', shortWeather[157].fcstValue.substr(0, 2));
           localStorage.setItem('minTemp', shortWeather[48].fcstValue.substr(0, 2));
+
 
           const temp = shortWeather.filter((item) => item.category === "TMP");
           const sky = shortWeather.filter((item) => item.category === "SKY");
@@ -113,6 +114,8 @@ const useFetchStore = create((set, get) => ({
             maxTemp: shortWeather[157].fcstValue.substr(0, 2),
             minTemp: shortWeather[48].fcstValue.substr(0, 2),
             rain: shortWeather[7].fcstValue,
+            pmSKY: shortWeather[175].fcstValue,
+            pmPTY: shortWeather[176].fcstValue,
           };
 
         } else {
@@ -121,7 +124,9 @@ const useFetchStore = create((set, get) => ({
       } catch (error) {
         console.error("Error fetching short weather data:", error);
       }
-      return { maxTemp: "", minTemp: "", rain: "" };
+      return {
+        maxTemp: "", minTemp: "", rain: "", pmSKY: "", pmPTY: ""
+      };
     };
 
     const fetchDust = async () => {
