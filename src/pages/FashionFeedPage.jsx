@@ -1,19 +1,24 @@
 import style from '../css/FashionFeedPage.module.css';
 import FashionFeedModal from '../components/FashionFeedModal';
+import { useState } from 'react';
 
 function FashionFeedPage() {
+  const [onFshModal, setOnFshModal] = useState(false);
+  const clickOneFeed = () => {
+    setOnFshModal(true);
+  };
   return (
     <main className={`mw ${style.fashionFeedPage}`}>
       <h3 className={`fontHead3 ${style.fshFeedTitle}`}>
         패션 인플루언서의 코디
       </h3>
       <ul className={style.fshFeedCon}>
-        <li>피드</li>
+        <li onClick={clickOneFeed}>피드</li>
         <li>피드</li>
         <li>피드</li>
         <li>피드</li>
       </ul>
-      <FashionFeedModal />
+      <FashionFeedModal onFshModal={onFshModal} setOnFshModal={setOnFshModal} />
     </main>
   );
 }

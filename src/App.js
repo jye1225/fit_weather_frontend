@@ -50,7 +50,7 @@ function App() {
         <Route path="/postWrite" element={<PostWritePage />} />
         <Route path="/postWriteCmplt" element={<PostWriteCmpltPage />} />
         <Route path="/postEdit/:postId" element={<PostEditPage />} />
-        <Route path="*" element={<div>없는 페이지 입니다.</div>} />
+        <Route path="/*" element={<div>없는 페이지 입니다.</div>} />
 
         {/* 로그인, 회원가입, 바로 아래 코드는 제가 편하려고 넣었던 코드입니다. */}
         {/* <Route path="/" element={<Navigate to="/login" />} /> */}

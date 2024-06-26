@@ -42,11 +42,19 @@ function CommentOptionMenu() {
 
   return (
     <>
-      <div className={` ${style.cmntOptionMenu} ${isOn ? style.on : ''}`}>
-        <button className={style.cmntEditBtn} onClick={cmntEditBtnClick}>
+      <div
+        className={`fontBodyS ${style.cmntOptionMenu} ${isOn ? style.on : ''}`}
+      >
+        <button
+          className={`fontBodyS ${style.cmntEditBtn}`}
+          onClick={cmntEditBtnClick}
+        >
           수정하기
         </button>
-        <button className={style.cmntDelBtn} onClick={deleteComment}>
+        <button
+          className={`fontBodyS ${style.cmntDelBtn}`}
+          onClick={deleteComment}
+        >
           삭제하기
         </button>
       </div>
