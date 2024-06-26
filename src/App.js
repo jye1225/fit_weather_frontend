@@ -38,7 +38,7 @@ function App() {
         <Route path="/" element={<IndexPage />} />
 
         {/* 코디 main */}
-        <Route path="/codi" element={<Codi />} />
+        <Route path="/codiMain" element={<codiMain />} />
         {/* 여기부턴 mypage - 코디기록 */}
         <Route path="/codiLog" element={<CodiLog />} />
         <Route path="/codiWrite" element={<CodiWrite />} />

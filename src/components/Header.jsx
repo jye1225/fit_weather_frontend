@@ -5,7 +5,6 @@ import useFetchStore from '../store/fetchStore';
 
 const Header = () => {
 
-  const [regionthirdName, setRegionthirdName] = useState("");
   const {
     location,
     fetchLocation,
