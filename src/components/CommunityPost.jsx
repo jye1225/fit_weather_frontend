@@ -1,6 +1,7 @@
-import { useNavigate } from 'react-router-dom';
 import style from '../css/CommunityPost.module.css';
 import CommunityCategory from './CommunitySubCategory';
+
+import { useNavigate } from 'react-router-dom';
 
 function CommunityPost() {
   const navigate = useNavigate();
@@ -11,8 +12,8 @@ function CommunityPost() {
   return (
     <li className={style.comuList} onClick={goDetail}>
       <CommunityCategory />
-      <strong>제목이 들어갑니다</strong>
-      <div className={style.postInfo}>
+      <strong className="fontTitleS">제목이 들어갑니다</strong>
+      <div className={`fontTitleXS ${style.postInfo}`}>
         <span>아이디</span>
         <span>2024년 06월 16일</span>
         <div className={style.commentIcon}>

@@ -46,6 +46,7 @@ function PostWritePage() {
     data.set('onReview', onReview);
     data.set('title', postTitle);
     data.set('content', postContent);
+    // data.set('region', );
     if (file) {
       data.append('file', file);
     }

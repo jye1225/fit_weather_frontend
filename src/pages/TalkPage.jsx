@@ -6,16 +6,6 @@ import { useEffect } from 'react';
 import { url } from '../store/ref';
 
 function TalkPage() {
-  // useEffect(() => {
-  //   fetch(`${url}/postsList`, {
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => console.log(data));
-  // }, []);
-
   const goPostWrite = () => {
     window.location = '/postWrite';
   };

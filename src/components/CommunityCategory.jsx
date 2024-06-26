@@ -1,12 +1,15 @@
+import { useState } from 'react';
 import style from '../css/CommunityCategory.module.css';
 
 import { Link, Outlet } from 'react-router-dom';
 
 function CommunityCategory() {
-  const toggleOn = (e) => {
-    const links = document.querySelectorAll(`.${style.buttonCon} a`);
-    links.forEach((link) => link.classList.remove(style.on));
-    e.currentTarget.classList.add(style.on);
+  const [onCate, setOnCate] = useState('talk');
+  const talkOn = () => {
+    setOnCate('talk');
+  };
+  const feedOn = () => {
+    setOnCate('feed');
   };
 
   return (
@@ -16,12 +19,16 @@ function CommunityCategory() {
         <div className={style.buttonCon}>
           <Link
             to="/community"
-            className={`fontBodyM ${style.on}`}
-            onClick={toggleOn}
+            className={`fontBodyM ${onCate === 'talk' ? style.on : ''}`}
+            onClick={talkOn}
           >
             날씨패션 톡
           </Link>
-          <Link to="/community/feed" className={`fontBodyM`} onClick={toggleOn}>
+          <Link
+            to="/community/feed"
+            className={`fontBodyM ${onCate === 'feed' ? style.on : ''}`}
+            onClick={feedOn}
+          >
             패션 인스타
           </Link>
         </div>
