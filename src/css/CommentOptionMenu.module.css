@@ -26,7 +26,6 @@
   left: 0.5rem;
 }
 .cmntOptionMenu button {
-  font-family: var(--body-light-font);
   padding: 0.8rem 1rem;
   border: none;
   background-color: transparent;
