@@ -1,4 +1,3 @@
-// src/components/Hours.jsx
 import style from "../css/Hours.module.css";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -6,24 +5,60 @@ import { useState, useEffect } from "react";
 import useFetchStore from "../store/fetchStore";
 
 const Hours = () => {
+  const [checked, setChecked] = useState(false);
   const {
     location,
-    fetchLocation,
     regionFirstName,
     regionSecondName,
+    tempData,
+    skyData,
+    fetchLocation,
     fetchWeatherData,
-    commonValues,
-    commonValues2,
   } = useFetchStore();
-  const [checked, setChecked] = useState(false);
-  const weatherHour = Array.from(
-    { length: 12 },
-    (_, i) => (new Date().getHours() + i) % 24
-  );
+  const { kakao } = window;
+
+  const btnToggle = () => {
+    setChecked(!checked);
+  };
+
+  const date = new Date();
+  const hour = date.getHours();
+  const weatherHour = Array.from({ length: 12 }, (_, i) => (hour + i) % 24);
 
   useEffect(() => {
     fetchLocation();
-  }, [fetchLocation]);
+  }, []);
+
+  useEffect(() => {
+    if (location.latitude && location.longitude) {
+      const geocoder = new kakao.maps.services.Geocoder();
+      const coords = new kakao.maps.LatLng(
+        location.latitude,
+        location.longitude
+      );
+
+      geocoder.coord2RegionCode(
+        coords.getLng(),
+        coords.getLat(),
+        (result, status) => {
+          if (status === kakao.maps.services.Status.OK) {
+            const region = result.find((item) => item.region_type === "H");
+            if (region) {
+              useFetchStore.setState({
+                regionFirstName: region.region_1depth_name,
+                regionSecondName: region.region_2depth_name,
+              });
+            } else {
+              useFetchStore.setState({
+                regionFirstName: result[0].region_1depth_name,
+                regionSecondName: result[0].region_2depth_name,
+              });
+            }
+          }
+        }
+      );
+    }
+  }, [location]);
 
   useEffect(() => {
     if (
@@ -32,18 +67,9 @@ const Hours = () => {
       regionFirstName &&
       regionSecondName
     ) {
-      fetchWeatherData(
-        location.latitude,
-        location.longitude,
-        regionFirstName,
-        regionSecondName
-      );
+      fetchWeatherData();
     }
-  }, [location, regionFirstName, regionSecondName, fetchWeatherData]);
-
-  const btnToggle = () => {
-    setChecked(!checked);
-  };
+  }, [location, regionFirstName, regionSecondName]);
 
   return (
     <section className={`mw ${style.hours}`}>
@@ -55,6 +81,7 @@ const Hours = () => {
           <span className={`fontBodyS ${style.slider}`}></span>
         </label>
       </div>
+
       <ul
         className={`${style.filterCon} ${
           checked ? style.visible : style.hidden
@@ -72,18 +99,20 @@ const Hours = () => {
         className={`mySwiper ${style.weatherCon}`}
       >
         {weatherHour.map((h, index) => {
-          const value = commonValues?.find(
+          const skyValue = skyData.find(
             (item) => item.fcstTime === ("0" + h).slice(-2) + "00"
           );
-          const skyValue = commonValues2?.find(
+          const tempValue = tempData.find(
             (item) => item.fcstTime === ("0" + h).slice(-2) + "00"
           );
-          let imgSrc = "img/icons/weather/clear.svg";
+
+          let imgSrc = "img/icons/weather/clear.svg"; // 기본 이미지 설정
           if (skyValue && skyValue.fcstValue === "1") {
             imgSrc = "img/icons/weather/clear.svg";
           } else if (skyValue && skyValue.fcstValue !== "1") {
             imgSrc = "img/icons/weather/cloudy.svg";
           }
+
           return (
             <SwiperSlide key={index}>
               <div className={style.weatherItem}>
@@ -91,7 +120,9 @@ const Hours = () => {
                 <div id="imgCon">
                   <img src={imgSrc} alt="날씨 이미지" />
                 </div>
-                <p className="fontTitleM">{value ? value.fcstValue : "-"}°C</p>
+                <p className="fontTitleM">
+                  {tempValue ? `${tempValue.fcstValue}°C` : "-°C"}
+                </p>
               </div>
               <div
                 className={`${style.exItem} ${style.activity} ${

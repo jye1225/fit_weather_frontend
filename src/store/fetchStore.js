@@ -15,11 +15,15 @@ const useFetchStore = create((set, get) => ({
   uv: "",
   regionFirstName: "",
   regionSecondName: "",
+  tempData: [], // temp 데이터를 저장할 상태 추가
+  skyData: [], // sky 데이터를 저장할 상태 추가
 
   setLocation: (location) => set({ location }),
   setWeatherData: (data) => set(data),
   setRegionFirstName: (name) => set({ regionFirstName: name }),
   setRegionSecondName: (name) => set({ regionSecondName: name }),
+  setTempData: (tempData) => set({ tempData }),
+  setSkyData: (skyData) => set({ skyData }),
 
   fetchLocation: () => {
     if (navigator.geolocation) {
@@ -93,6 +97,12 @@ const useFetchStore = create((set, get) => ({
         const data = await res.json();
         if (data.response?.body?.items?.item) {
           const shortWeather = data.response.body.items.item;
+          const temp = shortWeather.filter((item) => item.category === "TMP");
+          const sky = shortWeather.filter((item) => item.category === "SKY");
+          console.log(temp);
+
+          set({ tempData: temp, skyData: sky });
+
           return {
             maxTemp: shortWeather[157].fcstValue.substr(0, 2),
             minTemp: shortWeather[48].fcstValue.substr(0, 2),
@@ -117,7 +127,6 @@ const useFetchStore = create((set, get) => ({
           throw new Error(`HTTP error! status: ${res.status}`);
         }
         const data = await res.json();
-        console.log("data--", data);
         if (
           data.response &&
           data.response.body &&
