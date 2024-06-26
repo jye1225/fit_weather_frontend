@@ -1,7 +1,7 @@
 // src/components/Header.jsx
-import style from "../css/Header.module.css";
-import { useEffect, useState } from "react";
-import useFetchStore from "../store/fetchStore";
+import style from '../css/Header.module.css';
+import { useEffect, useState } from 'react';
+import useFetchStore from '../store/fetchStore';
 
 const Header = () => {
   const {
@@ -13,6 +13,7 @@ const Header = () => {
     setRegionSecondName,
   } = useFetchStore();
   const [isSideOpen, setIsSideOpen] = useState(false);
+  const [regionthirdName, setRegionthirdName] = useState('');
 
   useEffect(() => {
     fetchLocation();
@@ -32,14 +33,19 @@ const Header = () => {
         coords.getLat(),
         (result, status) => {
           if (status === kakao.maps.services.Status.OK) {
-            const region = result.find((item) => item.region_type === "H");
+            const region = result.find((item) => item.region_type === 'H');
             if (region) {
               setRegionFirstName(region.region_1depth_name);
               setRegionSecondName(region.region_2depth_name);
+              setRegionthirdName(region.region_3depth_name);
             } else {
               setRegionFirstName(result[0].region_1depth_name);
               setRegionSecondName(result[0].region_2depth_name);
+              setRegionthirdName(result[0].region_3depth_name);
             }
+            // 로컬스토리지에 저장
+            localStorage.setItem('regionSecondName', region.region_2depth_name);
+            localStorage.setItem('regionthirdName', region.region_3depth_name);
           }
         }
       );
@@ -60,7 +66,7 @@ const Header = () => {
           onClick={handleHamClick}
         />
         <h1 id="myAddr">
-          {regionFirstName} {regionSecondName}
+          {regionFirstName} {regionSecondName} {regionthirdName}
         </h1>
         <img
           className={style.refresh}

@@ -49,7 +49,7 @@ function App() {
         <Route path="/postWrite" element={<PostWritePage />} />
         <Route path="/postWriteCmplt" element={<PostWriteCmpltPage />} />
         <Route path="/postEdit/:postId" element={<PostEditPage />} />
-        <Route path="*" element={<div>없는 페이지 입니다.</div>} />
+        <Route path="/*" element={<div>없는 페이지 입니다.</div>} />
 
         {/* 코디 main */}
         <Route path="/codi" element={<Codi />} />

@@ -1,33 +1,34 @@
 import style from '../css/PostWriteArea.module.css';
 import PostImgFalse from './PostImgFalse';
 import PostImgTrue from './PostImgTrue';
+import { useVerifyPost } from '../store/VerifyPostContentStore';
 import { useRef, useState } from 'react';
 
 function PostWriteArea() {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const {
+    postTitle,
+    postContent,
+    setPostTitle,
+    setPostContent,
+    titleErrMsg,
+    contentErrMsg,
+  } = useVerifyPost();
   const [imgPreviewUrl, setImgPreviewUrl] = useState(null);
   const fileInputRef = useRef(null);
 
-  // console.log(title);
-  // console.log(content);
-
   const writeTitle = (e) => {
-    setTitle(e.target.value);
+    setPostTitle(e.target.value);
   };
 
   const writePostContent = (e) => {
-    setContent(e.target.value);
+    setPostContent(e.target.value);
   };
 
   //선택한 사진 미리보기
   const ImgSelect = (e) => {
     e.preventDefault();
-    console.log(e.target.files);
-
     let reader = new FileReader();
     let file = e.target.files[0];
-    console.log(file);
 
     reader.onloadend = () => {
       setImgPreviewUrl(reader.result);
@@ -52,21 +53,24 @@ function PostWriteArea() {
           name="postTitle"
           id="postTitle"
           placeholder="제목을 입력하세요."
-          value={title}
+          value={postTitle}
           onChange={writeTitle}
           className="fontBodyM"
         />
+        <p className={`fontBodyS ${style.warningMsg}`}>{titleErrMsg}</p>
       </label>
+
       <label htmlFor="postContent" className={style.postContent}>
         <span className="fontHead3">내용</span>
         <textarea
           id="postContent"
           name="postContent"
           placeholder="오늘 코디를 공유해주세요! 오늘 날씨에는 어떻게 입는게 좋을까요?"
-          value={content}
+          value={postContent}
           onChange={writePostContent}
           className="fontBodyM"
         />
+        <p className={`fontBodyS ${style.warningMsg}`}>{contentErrMsg}</p>
       </label>
 
       <div className={style.postImg}>
@@ -81,8 +85,9 @@ function PostWriteArea() {
             onChange={ImgSelect}
             ref={fileInputRef}
           />
-          <button type="button"></button>
+          <button type="button">파일업로드</button>
         </div>
+
         <div className={style.postImgPreview}>
           {imgPreviewUrl ? (
             <>
