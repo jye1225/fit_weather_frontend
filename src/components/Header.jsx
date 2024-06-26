@@ -1,9 +1,10 @@
-// src/components/Header.jsx
-import style from '../css/Header.module.css';
-import { useEffect, useState } from 'react';
-import useFetchStore from '../store/fetchStore';
+import { useNavigate } from "react-router-dom";
+import style from "../css/Header.module.css";
+import { useEffect, useState } from "react";
+import useFetchStore from "../store/fetchStore";
 
 const Header = () => {
+  const navigate = useNavigate();
 
   const {
     location,
@@ -34,7 +35,7 @@ const Header = () => {
         coords.getLat(),
         (result, status) => {
           if (status === kakao.maps.services.Status.OK) {
-            const region = result.find((item) => item.region_type === 'H');
+            const region = result.find((item) => item.region_type === "H");
             if (region) {
               setRegionFirstName(region.region_1depth_name);
               setRegionSecondName(region.region_2depth_name);
@@ -45,8 +46,8 @@ const Header = () => {
               setRegionthirdName(result[0].region_3depth_name);
             }
             // 로컬스토리지에 저장
-            localStorage.setItem('regionSecondName', region.region_2depth_name);
-            localStorage.setItem('regionthirdName', region.region_3depth_name);
+            localStorage.setItem("regionSecondName", region.region_2depth_name);
+            localStorage.setItem("regionthirdName", region.region_3depth_name);
           }
         }
       );
@@ -55,6 +56,14 @@ const Header = () => {
 
   const handleHamClick = () => {
     setIsSideOpen(!isSideOpen);
+  };
+
+  const handleLoginClick = () => {
+    navigate("/login"); // 로그인 버튼 클릭 시 /login 경로로 이동
+  };
+
+  const handleSignupClick = () => {
+    navigate("/signup"); // 회원가입 버튼 클릭 시 /signup 경로로 이동
   };
 
   return (
@@ -81,11 +90,15 @@ const Header = () => {
         <div className={`${isSideOpen ? `${style.sideon}` : `${style.side}`}`}>
           <img src="" alt="로고" />
           <div className={style.login}>
-            <div>
+            <div onClick={handleLoginClick}>
+              {" "}
+              {/* 로그인 버튼 클릭 시 handleLoginClick 함수가 호출됨 */}
               <img src="img/icons/common/login.svg" alt="로그인" />
               <p className="fontTitleS">로그인</p>
             </div>
-            <div>
+            <div onClick={handleSignupClick}>
+              {" "}
+              {/* 회원가입 버튼 클릭 시 handleSignupClick 함수가 호출됨 */}
               <img src="img/icons/common/join.svg" alt="회원가입" />
               <p className="fontTitleS">회원가입</p>
             </div>
