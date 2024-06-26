@@ -1,9 +1,11 @@
 import style from '../css/DetailTitleArea.module.css';
+import { useRef, useState, useEffect } from 'react';
+
+import { useOpenMenuModal } from '../store/DetailOpMenuModalStore';
+
 import CommunityCategory from './CommunitySubCategory';
 import Region from './Region';
 import OptionMenu from './OptionMenu';
-import { useRef, useState, useEffect } from 'react';
-import { useOpenMenuModal } from '../store/DetailOpMenuModalStore';
 
 function DetailTitleArea() {
   const [isLike, setLikeOn] = useState(false);
@@ -45,12 +47,15 @@ function DetailTitleArea() {
   return (
     <div className={style.titleArea}>
       <CommunityCategory />
-      <Region />
-      <strong>제목이 들어갑니다</strong>
+      <Region
+        color={`var(--primary-color)`}
+        border={`1px solid var(--primary-color)`}
+      />
+      <strong className="fontHead3">제목이 들어갑니다</strong>
       <div className={style.postInfo}>
-        <span>유저A</span>
-        <span>2024년 06월 11일</span>
-        <div className={style.like}>
+        <span className="fontTitleS">유저A</span>
+        <span className="fontTitleS">2024년 06월 11일</span>
+        <div className={`fontTitleS ${style.like}`}>
           <span>3</span>
           <button
             className={`${style.likeBtn} ${isLike ? style.on : ''}`}

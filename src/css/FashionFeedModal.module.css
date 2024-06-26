@@ -3,7 +3,6 @@
 }
 .fshfeedModal.on {
   display: block;
-  display: none;
 }
 .fshfeedModal::before {
   content: '';

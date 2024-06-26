@@ -28,15 +28,24 @@ function OptionMenu() {
         id="optionMenu"
         className={`mw ${style.optionMenu} ${isOpMenuOn ? style.on : ''}`}
       >
-        <button className={style.postEditBtn} onClick={goEditePage}>
+        <button
+          className={`fontTitleM ${style.postEditBtn}`}
+          onClick={goEditePage}
+        >
           수정하기
         </button>
-        <button className={style.postDelBtn} onClick={modalOpen}>
+        <button
+          className={`fontTitleM ${style.postDelBtn}`}
+          onClick={modalOpen}
+        >
           삭제하기
         </button>
       </div>
       {isModalOpen && (
-        <ConfirmModal clickCancel={handleCancel} clickDelete={handleDelete} />
+        <ConfirmModal
+          clickCancel={handleCancel}
+          clickDelAndSubmt={handleDelete}
+        />
       )}
     </>
   );

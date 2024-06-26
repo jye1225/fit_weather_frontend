@@ -1,19 +1,34 @@
-import { useRef, useState } from 'react';
 import style from '../css/PostWriteArea.module.css';
 import PostImgFalse from './PostImgFalse';
 import PostImgTrue from './PostImgTrue';
+import { useVerifyPost } from '../store/VerifyPostContentStore';
+import { useRef, useState } from 'react';
 
 function PostWriteArea() {
+  const {
+    postTitle,
+    postContent,
+    setPostTitle,
+    setPostContent,
+    titleErrMsg,
+    contentErrMsg,
+  } = useVerifyPost();
   const [imgPreviewUrl, setImgPreviewUrl] = useState(null);
   const fileInputRef = useRef(null);
 
+  const writeTitle = (e) => {
+    setPostTitle(e.target.value);
+  };
+
+  const writePostContent = (e) => {
+    setPostContent(e.target.value);
+  };
+
+  //선택한 사진 미리보기
   const ImgSelect = (e) => {
     e.preventDefault();
-    console.log(e.target.files);
-
     let reader = new FileReader();
     let file = e.target.files[0];
-    console.log(file);
 
     reader.onloadend = () => {
       setImgPreviewUrl(reader.result);
@@ -24,7 +39,7 @@ function PostWriteArea() {
     }
   };
 
-  const handleRemoveImage = () => {
+  const removeImage = () => {
     setImgPreviewUrl(null);
     fileInputRef.current.value = null;
   };
@@ -34,21 +49,28 @@ function PostWriteArea() {
       <label htmlFor="postTitle" className={style.postTitle}>
         <span className="fontHead3">제목</span>
         <input
-          id="postTitle"
-          name="postTitle"
           type="text"
+          name="postTitle"
+          id="postTitle"
           placeholder="제목을 입력하세요."
+          value={postTitle}
+          onChange={writeTitle}
           className="fontBodyM"
         />
+        <p className={`fontBodyS ${style.warningMsg}`}>{titleErrMsg}</p>
       </label>
+
       <label htmlFor="postContent" className={style.postContent}>
         <span className="fontHead3">내용</span>
         <textarea
           id="postContent"
           name="postContent"
           placeholder="오늘 코디를 공유해주세요! 오늘 날씨에는 어떻게 입는게 좋을까요?"
+          value={postContent}
+          onChange={writePostContent}
           className="fontBodyM"
         />
+        <p className={`fontBodyS ${style.warningMsg}`}>{contentErrMsg}</p>
       </label>
 
       <div className={style.postImg}>
@@ -63,13 +85,17 @@ function PostWriteArea() {
             onChange={ImgSelect}
             ref={fileInputRef}
           />
-          <button type="button"></button>
+          <button type="button">파일업로드</button>
         </div>
+
         <div className={style.postImgPreview}>
           {imgPreviewUrl ? (
             <>
               <PostImgTrue src={imgPreviewUrl} />
-              <i onClick={handleRemoveImage}>Remove Image</i>
+              <i
+                className={`fa-solid fa-xmark ${style.removeImg}`}
+                onClick={removeImage}
+              ></i>
             </>
           ) : (
             <PostImgFalse />

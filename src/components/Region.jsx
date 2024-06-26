@@ -1,14 +1,30 @@
 import style from '../css/Region.module.css';
+import { useState, useEffect } from 'react';
 
 function Region({ color, border }) {
+  const [regionSecondName, setRegionSecondName] = useState('');
+  const [regionthirdName, setRegionthirdName] = useState('');
+
+  useEffect(() => {
+    const storedRegionSecondName = localStorage.getItem('regionSecondName');
+    const storedRegionthirdName = localStorage.getItem('regionthirdName');
+
+    if (storedRegionSecondName) setRegionSecondName(storedRegionSecondName);
+    if (storedRegionthirdName) setRegionthirdName(storedRegionthirdName);
+  }, []);
+
   const customStyle = {
-    color: color || 'var(--primary-color)',
-    border: border || `1px solid var(--primary-color)`,
+    color: color,
+    border: border,
   };
 
   return (
-    <span className={style.region} style={customStyle}>
-      강남구
+    <span
+      className={style.region}
+      // ref={regionRef}
+      style={customStyle}
+    >
+      {regionSecondName} {regionthirdName}
     </span>
   );
 }

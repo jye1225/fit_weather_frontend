@@ -25,7 +25,6 @@
   cursor: pointer;
   border: none;
   background-color: transparent;
-  font-family: var(--body-medium-font);
   color: var(--grey-600);
   transition: 0.3s;
 }
@@ -41,10 +40,4 @@
 
 .optionMenu button:hover {
   color: var(--primary-variant-color);
-}
-
-@media (max-width: 360px) {
-  .optionMenu button {
-    font-size: 0.75rem;
-  }
 }

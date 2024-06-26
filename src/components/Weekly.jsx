@@ -1,8 +1,39 @@
+// src/components/Weekly.jsx
 import style from "../css/Weekly.module.css";
+import useFetchStore from "../store/fetchStore";
+import { useEffect } from "react";
 
 const Weekly = () => {
+  const {
+    location,
+    fetchLocation,
+    regionFirstName,
+    regionSecondName,
+    fetchWeatherData,
+  } = useFetchStore();
+
+  useEffect(() => {
+    fetchLocation();
+  }, [fetchLocation]);
+
+  useEffect(() => {
+    if (
+      location.latitude &&
+      location.longitude &&
+      regionFirstName &&
+      regionSecondName
+    ) {
+      fetchWeatherData(
+        location.latitude,
+        location.longitude,
+        regionFirstName,
+        regionSecondName
+      );
+    }
+  }, [location, regionFirstName, regionSecondName, fetchWeatherData]);
+
   return (
-    <section className={`mw ${style.weekly}`}>
+    <section className={style.weekly}>
       <h2 className="fontHead3">주간별 날씨!</h2>
       <ul className={style.con}>
         <li className={style.list}>
@@ -110,6 +141,7 @@ const Weekly = () => {
             <span className="fontTitleL">17°C</span>
           </div>
         </li>
+        {/* Add more list items as needed */}
       </ul>
     </section>
   );
