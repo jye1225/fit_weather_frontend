@@ -23,7 +23,6 @@ import TalkPage from "./pages/TalkPage";
 
 import Login from "./pages/login/login";
 import Signup from "./pages/signup";
-import NaverCallback from "./pages/login/NaverCallback";
 import KakaoCallback from "./pages/login/KakaoCallback";
 
 function App() {
@@ -57,7 +56,6 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/oauth" element={<KakaoCallback />} />
-        <Route path="/naver-callback" element={<NaverCallback />} />
       </Routes>
     </div>
   );
