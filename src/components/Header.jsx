@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import useFetchStore from '../store/fetchStore';
 
 const Header = () => {
+
   const {
     location,
     fetchLocation,

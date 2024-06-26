@@ -3,6 +3,10 @@ import style from '../css/Codi.module.css'
 
 const CodiLogGallery = ({ feltWeather, setModalActive }) => {
     console.log('필터 종류 전달됨 - 갤러리', feltWeather);
+
+
+
+
     return (
 
         <ul className={style.galleryWrap}>

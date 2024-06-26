@@ -1,7 +1,7 @@
 import style from "../css/H2.module.css";
 import { useNavigate } from 'react-router-dom';
 
-const H2CodiWrite = () => {
+const H2CodiWrite = ({ tagAddress }) => {
 
     // ** btnGoBack
     const navigate = useNavigate();
@@ -13,7 +13,7 @@ const H2CodiWrite = () => {
             <img src="img/icons/common/goBack.svg" onClick={goBack} className={style.btnGoBack} alt="goBack" />
             <h2 className='fontHead2'>코디 기록하기</h2>
             <span className={`fontTitleXS ${style.miniTag}`}>
-                강남구
+                {tagAddress}
             </span>
         </section>
     )

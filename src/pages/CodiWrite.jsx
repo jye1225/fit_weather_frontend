@@ -2,13 +2,63 @@ import React, { useState, useEffect } from 'react';
 import H2CodiWrite from "../components/H2CodiWrite";
 import style from '../css/Codi.module.css';
 import { useFeltOptionsStore } from '../store/codiStore';
+
 import { useNavigate } from 'react-router-dom';
 
 
 const CodiWrite = () => {
     const navigate = useNavigate();
-
     const { feltOptions } = useFeltOptionsStore();  // Zustand 스토어에서 필요한 상태 가져오기
+
+    const [codiDate, setCodiDate] = useState('');
+
+    const [regionSecondName, setRegionSecondName] = useState('');
+    const [regionthirdName, setRegionthirdName] = useState('');
+    const [tagAddress, setTagAddress] = useState('');//최종 태그에 출력될 주소
+
+    const [minTemp, setMinTemp] = useState('');
+    const [maxTemp, setMaxTemp] = useState('');
+
+    useEffect(() => {
+        // 오늘 날짜 저장
+        const currentDate = new Date();
+        const options = {
+            year: 'numeric',
+            month: '2-digit', //2자리 맞추도록 
+            day: '2-digit',
+        };
+
+        const today = currentDate.toLocaleString('ko-KR', options).replace(/\./g, '').replace(/\ /g, '-');//0000-00-00
+        console.log('today', today);
+        setCodiDate(today);
+    }, []);
+
+    useEffect(() => {
+        // regionSecondName regionthirdName 로컬스토리지에서 가져와서 설정
+        const storedRegionSecondName = localStorage.getItem('regionSecondName');
+        const storedRegionthirdName = localStorage.getItem('regionthirdName');
+
+        if (storedRegionSecondName) {
+            if (storedRegionSecondName.split(' ').length === 2) {// '부천시 원미구' 처럼 두 단어일때
+                const splitSecondName = storedRegionSecondName.split(' ')[1]; //부천시 원미구 -> 원미구
+                setRegionSecondName(splitSecondName);
+            } else {  //'강남구' 처럼 한 단어일 때
+                setRegionSecondName(storedRegionSecondName);
+            }
+        };
+        if (storedRegionthirdName) setRegionthirdName(storedRegionthirdName);
+
+        // minTemp와 maxTemp를 로컬스토리지에서 가져와서 설정
+        const storedMinTemp = localStorage.getItem('minTemp');
+        const storedMaxTemp = localStorage.getItem('maxTemp');
+        if (storedMinTemp) setMinTemp(storedMinTemp);
+        if (storedMaxTemp) setMaxTemp(storedMaxTemp);
+    }, []);
+
+    useEffect(() => {
+        // tagAddress 업데이트
+        setTagAddress(`${regionSecondName} ${regionthirdName}`);
+    }, [regionSecondName, regionthirdName]);
 
     // 상태 설정
     const [activeOptions, setActiveOptions] = useState([]);    // 선택한 옵션 배열. 초기 상태는 빈 배열
@@ -59,6 +109,10 @@ const CodiWrite = () => {
         data.append('file', file);
         data.append('memo', memo);
         activeOptions.forEach(option => data.append('tag', option));
+        data.append('address', tagAddress);
+        data.append('minTemp', minTemp);
+        data.append('maxTemp', maxTemp);
+        data.append('codiDate', codiDate);
 
         // FormData 객체의 내용 확인 (디버깅용)
         for (let [key, value] of data.entries()) {
@@ -74,8 +128,7 @@ const CodiWrite = () => {
 
             if (response) {
                 console.log('/n response@@@@', response);
-
-                navigate('/codiLog');
+                navigate('/codiCompleted');
             }
 
         } catch (error) {
@@ -86,14 +139,14 @@ const CodiWrite = () => {
 
     return (
         <main className={`mw ${style.codiWrite}`}>
-            <H2CodiWrite />
+            <H2CodiWrite tagAddress={tagAddress} />
             <section className={style.codiWriteFrame}>
-                <h3 className='fontHead3'>2023년 00월 99일 9요일</h3>
+                <h3 className='fontHead3'>{codiDate.split('-')[0]}년 {codiDate.split('-')[1]}월 {codiDate.split('-')[2]}일</h3>
                 <div className={style.weatherInfo}>
-                    <span className={`fontTitleXS ${style.miniTag}`}>강남구</span>
-                    <span className={`fontTitleS ${style.date}`}>2023년 06월 08일</span>
+                    <span className={`fontTitleXS ${style.miniTag}`}>{tagAddress}</span>
+                    <span className={`fontTitleS ${style.temp}`}>{maxTemp}°C/{minTemp}°C</span>
                     <img src="img/icons/common/12devider.svg" alt="12devider" />
-                    <span className={`fontTitleS ${style.weather}`}>17°/28° 비</span>
+                    <span className={`fontTitleS ${style.sky}`}>흐리고 비</span>
                 </div>
                 <div className={style.imgCon}>
                     {file && (

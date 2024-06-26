@@ -1,10 +1,15 @@
 /***** 공통 *****/
+button {
+    border: none;
+}
+
 .postInfo {
     border: 1px solid orange;
     display: flex;
     gap: 8px;
     align-items: center;
 }
+
 
 .miniTag {
     box-shadow: inset 0 0 0 1px var(--primary-color);
@@ -18,7 +23,7 @@
     margin: 0 1rem 1rem 1rem;
     display: flex;
     gap: 0.5rem;
-
+    transition: 0.15s;
 }
 
 .btnMethod {
@@ -34,7 +39,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 15%);
     transition: 0.15s;
     cursor: pointer;
-    border: none;
 }
 
 .btnMethod:hover {
@@ -42,7 +46,6 @@
 }
 
 .btnCancel {
-    border: none;
     color: var(--grey-400);
     height: 40px;
     display: flex;
@@ -63,7 +66,6 @@
 
 .BtnToggle {
     white-space: nowrap;
-    /* 아이템이 자신의 컨텐츠 크기에 맞게 유지되도록 합니다. 이는 flex-grow, flex-shrink, flex-basis의 축약형입니다. */
     background-color: var(--white);
     border: 1px solid var(--grey-200);
     color: var(--grey-800);
@@ -98,6 +100,7 @@
 
 /* ===codiLog.jsx 내코디기록=== */
 .codiLog {
+
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -176,9 +179,10 @@
 .CodiViewFrame {
     background-color: var(--white);
     /* border: 1px solid red; */
+    margin: 0 1rem 1rem 1rem;
+    transition: 0.15s;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 15%);
     flex: 1;
-    margin: 0 1rem 1rem 1rem;
     border-radius: 1rem;
     padding: 1rem;
     overflow-y: scroll;
@@ -188,6 +192,7 @@
     scrollbar-width: none;
 }
 
+
 .CodiViewFrame::-webkit-scrollbar {
     /* 웹킷 브라우저 (Chrome, Safari)에서 스크롤바 숨기기 */
     display: none;
@@ -196,7 +201,6 @@
 /* ========CodiLogGallery.jsx ========*/
 
 .galleryWrap {
-    border: 1px solid red;
     display: grid;
     grid-template-columns: auto auto auto;
     /* 3개의 열을 가로 방향으로 설정 */
@@ -363,7 +367,6 @@
     display: flex;
     bottom: -100px;
     transition: 0.15s;
-    /* trnasition 왜 안되지 ㅠㅠ */
 
 }
 
@@ -406,6 +409,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 15%);
     flex: 1;
     margin: 0 1rem;
+    transition: 0.15s;
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -416,6 +420,9 @@
     /* Internet Explorer 10+, Edge에서 스크롤바 숨기기 */
     scrollbar-width: none;
 }
+
+
+
 
 .codiWriteFrame::-webkit-scrollbar {
     /* 웹킷 브라우저 (Chrome, Safari)에서 스크롤바 숨기기 */
@@ -518,4 +525,68 @@
 
 .Qmemo textarea::placeholder {
     color: var(--grey-400);
+}
+
+
+/* ====== codiCompleted.jsx ======*/
+.CodiCompleted {
+    /* border: 1px solid red; */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.CodiCompleted .textCon {
+    border: 2px solid gold;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.CodiCompleted .bottomWideBtns {
+    gap: 0.5rem;
+    flex-direction: column;
+    display: flex;
+    padding: 1rem;
+    flex: 0 0 auto;
+    /* flex-grow, flex-shrink, flex-basis */
+}
+
+.CodiCompleted .btnMethodWide {
+    color: var(--white);
+    background-color: var(--primary-variant-color);
+    border-radius: 999px;
+    height: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 15%);
+    transition: 0.15s;
+}
+
+.CodiCompleted .btnMethodWide:last-of-type {
+    background-color: var(--primary-color);
+
+}
+
+.CodiCompleted .btnMethodWide:hover {
+    background-color: var(--grey-600);
+}
+
+@media screen and (min-width:736px) {
+    .CodiViewFrame {
+        margin: 0 0 1rem 0;
+    }
+
+    .codiWriteFrame {
+        margin: 0;
+    }
+
+    .bottomBtns {
+        margin: 0 0 1rem 0;
+    }
+
+    .CodiCompleted .bottomWideBtns {
+        padding: 1rem 0;
+    }
 }
