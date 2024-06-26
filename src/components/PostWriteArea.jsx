@@ -12,6 +12,7 @@ function PostWriteArea() {
     setPostContent,
     titleErrMsg,
     contentErrMsg,
+    setFile,
   } = useVerifyPost();
   const [imgPreviewUrl, setImgPreviewUrl] = useState(null);
   const fileInputRef = useRef(null);
@@ -36,11 +37,14 @@ function PostWriteArea() {
 
     if (file) {
       reader.readAsDataURL(file);
+      setFile(file);
     }
   };
 
+  //선택한 사진 삭제
   const removeImage = () => {
     setImgPreviewUrl(null);
+    setFile(null);
     fileInputRef.current.value = null;
   };
 

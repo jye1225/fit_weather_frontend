@@ -36,12 +36,6 @@ function App() {
         {/* 메인 */}
         <Route path="/" element={<IndexPage />} />
 
-        {/* 코디 main */}
-        <Route path="/codiMain" element={<codiMain />} />
-        {/* 여기부턴 mypage - 코디기록 */}
-        <Route path="/codiLog" element={<CodiLog />} />
-        <Route path="/codiWrite" element={<CodiWrite />} />
-        <Route path="/codiEdit" element={<CodiEdit />} />
 
         {/* 커뮤니티 */}
         <Route path="/community" element={<CommunityPage />}>
