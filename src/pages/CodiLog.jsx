@@ -29,7 +29,7 @@ const CodiLog = () => {
     }
 
     // ** codi Modal */
-    const [modalActive, setModalActive] = useState(null); //codiDate OR null
+    const [modalActive, setModalActive] = useState(null); //코디기록 데이터 _id OR null
     // console.log('modalActive??', modalActive);
 
     // *** codiLog list 받아오기 **********

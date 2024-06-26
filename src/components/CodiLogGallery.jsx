@@ -11,7 +11,7 @@ const CodiLogGallery = ({ feltWeather, setModalActive, codiLogList }) => {
 
         <ul className={style.galleryWrap}>
             {codiLogList.map((codiLog) => {
-                return (<li className={style.galleryItem} onClick={() => setModalActive(codiLog.codiDate)}>
+                return (<li className={style.galleryItem} onClick={() => setModalActive(codiLog._id)}>
                     <div className={style.dateBox}>
                         <span className={`fontTitleM ${style.day}`}>
                             {codiLog.codiDate.slice(8, 9) === '0' ? codiLog.codiDate.slice(9, 10) : codiLog.codiDate.slice(8, 10)}

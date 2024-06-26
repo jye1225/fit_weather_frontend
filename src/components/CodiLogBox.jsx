@@ -9,9 +9,21 @@ const CodiLogBox = ({ setModalActive, modalActive }) => {
     // ** ActionSheet
     const [actionSheetActive, setActionSheetActive] = useState(false)
 
-    useEffect(() => {
+    const [codiLog, setCodiLog] = useState([]);
+    const [tags, setTags] = useState([]);
+    const [date, setDate] = useState('');
 
-    })
+    useEffect(() => {
+        fetch(`https://localhost:8080/codiLogDetail/${modalActive}`)//get요청 보냄 
+            .then((res) => res.json())//
+            .then((data) => {
+                setCodiLog(data);
+                setTags(data.tag);
+                setDate(data.codiDate);
+                // console.log('디테일박스 데이터 전달 성공 >>', data); // 받아온 데이터를 출력-> 확인
+            })//
+    }, [])
+    console.log('디테일박스 데이터 전달 성공 >>', codiLog);
 
     return (
         <div className={style.CodiLogBox}>
@@ -21,22 +33,31 @@ const CodiLogBox = ({ setModalActive, modalActive }) => {
                 <img src="img/icons/common/dot.svg" className={style.DotIcon} onClick={() => setActionSheetActive(true)} alt="dot" />
             </div>
             <div className={style.postInfo}>
-                <span className={`fontTitleS ${style.date}`}>2023년 06월 08일</span>
+                <span className={`fontTitleS ${style.date}`}>
+                    {/* {codiLog.codiDate} */}
+                    {date.split('-')[0]}년  {date.split('-')[1]}월 {date.split('-')[2]}일
+                </span>
                 <img src="img/icons/common/12devider.svg" alt="12devider" />
-
-                <span className={`fontTitleS ${style.weather}`}>17°/28° 비</span>
+                <span className={`fontTitleS ${style.weather}`}> {codiLog.maxTemp}°/ {codiLog.minTemp}°</span>
+                {/* <img src="img/icons/common/12devider.svg" alt="12devider" /> */}
+                <span className={`fontTitleS ${style.sky}`}>흐리고 비</span>
             </div>
             <div className={style.imgBox}>
-                <img src="https://image.msscdn.net/thumbnails/display/images/usersnap/2021/11/25/24340afcde7143f084faa7022dcc6515.jpg?w=780" alt="" />
-                {/* <img src="https://mblogthumb-phinf.pstatic.net/MjAxODAyMDhfMjI2/MDAxNTE4MDY0MDQxNjc1.X6VjMGWoiuwH1RUmsLAjGALRp_5A2d7Q4ilojFzPl04g.EXzmjqkpOqO8qYC5eglDnTKgRFBbx5gewBe5lYFlhJYg.PNG.steal10/1.png?type=w800" alt="" /> */}
+                <img src={`https://localhost:8080/${codiLog.image}`} alt="" />
             </div>
             <div className={style.tags}>
-                <span className={`fontTitleXS ${style.miniTag}`}>쌀쌀해</span>
-                <span className={`fontTitleXS ${style.miniTag}`}>눅눅해</span>
+                {
+                    // <span className={`fontTitleXS ${style.miniTag}`}>ddd</span>
+
+                    tags.map((feltTag) => {
+                        return (
+                            <span className={`fontTitleXS ${style.miniTag}`}>{feltTag}</span>
+                        );
+                    })
+                }
             </div>
             <p className={`fontDecorate ${style.codiMemo}`}>
-                오늘은 흐리고 비가 내리면서 쌀쌀한 날씨였다.
-                우산을 챙겨 나갔지만, 옷이 젖어서 불편했다. 기온이 내려가서 따뜻한 옷을 입어야 할 것 같다. 날씨가 좋지 않아 기분도 가라앉았다일이삼사오육.
+                {codiLog.memo}
             </p>
 
             <ActionSheet setActionSheetActive={setActionSheetActive} actionSheetActive={actionSheetActive} />
