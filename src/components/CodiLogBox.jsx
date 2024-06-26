@@ -7,23 +7,34 @@ import ActionSheet from '../components/ActionSheet'
 const CodiLogBox = ({ setModalActive, modalActive }) => {
     console.log(modalActive);
     // ** ActionSheet
-    const [actionSheetActive, setActionSheetActive] = useState(false)
-
+    const [actionSheetActive, setActionSheetActive] = useState(false);
+    const [canEdit, setCanEdit] = useState(false);//수정 가능한지 아닌지
     const [codiLog, setCodiLog] = useState([]);
     const [tags, setTags] = useState([]);
     const [date, setDate] = useState('');
 
+
     useEffect(() => {
         fetch(`https://localhost:8080/codiLogDetail/${modalActive}`)//get요청 보냄 
-            .then((res) => res.json())//
+            .then((res) => res.json())
             .then((data) => {
                 setCodiLog(data);
                 setTags(data.tag);
                 setDate(data.codiDate);
-                // console.log('디테일박스 데이터 전달 성공 >>', data); // 받아온 데이터를 출력-> 확인
-            })//
+
+                console.log('---선택 기록 data 전달 성공----', data);
+                // 오늘 날짜 저장
+                const today = new Date();
+                // codiDate 문자열을 Date 객체로 변환
+                const codiDate = new Date(data.codiDate);
+                const diff = (today - codiDate) / (1000 * 60 * 60 * 24); // 며칠 차이나는지 계산
+                if (diff < 3) {
+                    setCanEdit(true);
+                } else {
+                    setCanEdit(false);
+                }
+            })
     }, [])
-    console.log('디테일박스 데이터 전달 성공 >>', codiLog);
 
     return (
         <div className={style.CodiLogBox}>
@@ -43,15 +54,15 @@ const CodiLogBox = ({ setModalActive, modalActive }) => {
                 <span className={`fontTitleS ${style.sky}`}>흐리고 비</span>
             </div>
             <div className={style.imgBox}>
-                <img src={`https://localhost:8080/${codiLog.image}`} alt="" />
+                <img src={`https://localhost:8080/${codiLog.image}`} alt={codiLog.image} />
             </div>
             <div className={style.tags}>
                 {
                     // <span className={`fontTitleXS ${style.miniTag}`}>ddd</span>
 
-                    tags.map((feltTag) => {
+                    tags.map((feltTag, index) => {
                         return (
-                            <span className={`fontTitleXS ${style.miniTag}`}>{feltTag}</span>
+                            <span className={`fontTitleXS ${style.miniTag}`} key={index}>{feltTag}</span>
                         );
                     })
                 }
@@ -60,7 +71,7 @@ const CodiLogBox = ({ setModalActive, modalActive }) => {
                 {codiLog.memo}
             </p>
 
-            <ActionSheet setActionSheetActive={setActionSheetActive} actionSheetActive={actionSheetActive} />
+            <ActionSheet setActionSheetActive={setActionSheetActive} actionSheetActive={actionSheetActive} canEdit={canEdit} />
 
         </div>
     )

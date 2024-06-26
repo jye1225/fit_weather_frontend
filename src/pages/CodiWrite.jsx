@@ -10,7 +10,7 @@ const CodiWrite = () => {
     const navigate = useNavigate();
     const { feltOptions } = useFeltOptionsStore();  // Zustand 스토어에서 필요한 상태 가져오기
 
-    const [codiDate, setCodiDate] = useState('');//저장 X 표시용..
+    const [codiDate, setCodiDate] = useState('');//작성날짜xx 코디 기록의 날짜
 
     const [regionSecondName, setRegionSecondName] = useState('');
     const [regionthirdName, setRegionthirdName] = useState('');

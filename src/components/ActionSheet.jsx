@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import style from '../css/Codi.module.css'
 
 
-const ActionSheet = ({ actionSheetActive, setActionSheetActive }) => {
+const ActionSheet = ({ actionSheetActive, setActionSheetActive, canEdit }) => {
 
     useEffect(() => {
         // console.log(actionSheetActive, 'actionSheetActive');
@@ -36,7 +36,9 @@ const ActionSheet = ({ actionSheetActive, setActionSheetActive }) => {
     return (
         <section className={`${style.ActionSheet} ${actionSheetActive ? style.active : ''}`}>
             <div className={`${style.ActionBox} ${actionSheetActive ? style.active : ''}`} >
-                <button className='fontTitleM' onClick={editLog}>수정하기</button>
+                {canEdit ?
+                    <button className='fontTitleM' onClick={editLog}>수정하기</button> : ''
+                }
                 <button className='fontTitleM' onClick={deleteLog}>삭제하기</button>
             </div>
         </section>

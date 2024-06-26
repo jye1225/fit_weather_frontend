@@ -322,7 +322,6 @@ button {
 .ActionSheet {
     position: absolute;
     background-color: var(--modal-bg);
-
     top: 0;
     left: 0;
     width: 100%;
@@ -336,7 +335,6 @@ button {
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.15s;
-    /* trnasition 왜 안되지 ㅠㅠ */
 
 }
 
@@ -351,7 +349,6 @@ button {
     min-width: 320px;
     background-color: var(--white);
     width: 100%;
-    padding: 0 0.5rem;
     border-radius: 1rem 1rem 0 0;
     flex-direction: column;
     position: relative;
@@ -372,16 +369,26 @@ button {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    transition: 0.15s;
+    position: relative;
 }
 
 .ActionBox button:hover {
     font-weight: bolder;
-    color: var(--primary-variant-color);
+    background-color: var(--primary-color);
+    color: var(--white);
 }
 
-.ActionBox button:first-of-type {
-    border-bottom: 1px solid var(--grey-200);
+.ActionBox button:first-of-type::after {
+    content: '';
+    position: absolute;
+    width: calc(100% - 2rem);
+    height: 1px;
+    bottom: -1px;
+    background-color: var(--grey-200);
+    z-index: 1;
 }
+
 
 /* =====CodiWrite.jsx===== */
 
