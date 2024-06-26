@@ -15,11 +15,15 @@ const useFetchStore = create((set, get) => ({
   uv: "",
   regionFirstName: "",
   regionSecondName: "",
+  tempData: [], // temp 데이터를 저장할 상태 추가
+  skyData: [], // sky 데이터를 저장할 상태 추가
 
   setLocation: (location) => set({ location }),
   setWeatherData: (data) => set(data),
   setRegionFirstName: (name) => set({ regionFirstName: name }),
   setRegionSecondName: (name) => set({ regionSecondName: name }),
+  setTempData: (tempData) => set({ tempData }),
+  setSkyData: (skyData) => set({ skyData }),
 
   fetchLocation: () => {
     if (navigator.geolocation) {
@@ -63,6 +67,10 @@ const useFetchStore = create((set, get) => ({
           `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=${API_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${today}&base_time=${hours}&nx=${x}&ny=${y}`
         );
         const res = await fetch(url);
+        if (!res.ok) {
+          console.error("Error fetching weather data:", res.statusText);
+          return { temperature: "" };
+        }
         const data = await res.json();
         if (data.response?.body?.items?.item) {
           const presentTemp = data.response.body.items.item;
@@ -82,9 +90,19 @@ const useFetchStore = create((set, get) => ({
           `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${API_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${today}&base_time=0200&nx=${x}&ny=${y}`
         );
         const res = await fetch(url);
+        if (!res.ok) {
+          console.error("Error fetching short weather data:", res.statusText);
+          return { maxTemp: "", minTemp: "", rain: "" };
+        }
         const data = await res.json();
         if (data.response?.body?.items?.item) {
           const shortWeather = data.response.body.items.item;
+          const temp = shortWeather.filter((item) => item.category === "TMP");
+          const sky = shortWeather.filter((item) => item.category === "SKY");
+          console.log(temp);
+
+          set({ tempData: temp, skyData: sky });
+
           return {
             maxTemp: shortWeather[157].fcstValue.substr(0, 2),
             minTemp: shortWeather[48].fcstValue.substr(0, 2),
@@ -105,8 +123,16 @@ const useFetchStore = create((set, get) => ({
           `https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?serviceKey=${API_KEY}&returnType=json&numOfRows=100&pageNo=1&stationName=${regionSecondName}&dataTerm=DAILY&ver=1.4`
         );
         const res = await fetch(url);
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
         const data = await res.json();
-        if (data.response?.body?.items && data.response.body.items.length > 0) {
+        if (
+          data.response &&
+          data.response.body &&
+          data.response.body.items &&
+          data.response.body.items[0]
+        ) {
           let pm10 = data.response.body.items[0].pm10Grade1h;
           switch (pm10) {
             case "1":
@@ -134,7 +160,7 @@ const useFetchStore = create((set, get) => ({
       } catch (error) {
         console.error("Error fetching dust data:", error);
       }
-      return { dust: "" };
+      return { dust: "없음" };
     };
 
     const fetchUv = async () => {
@@ -145,6 +171,10 @@ const useFetchStore = create((set, get) => ({
           `https://apis.data.go.kr/1360000/LivingWthrIdxServiceV4/getUVIdxV4?serviceKey=${API_KEY}&pageNo=1&numOfRows=10&dataType=JSON&areaNo=${areaNo}&time=${today}12`
         );
         const res = await fetch(url);
+        if (!res.ok) {
+          console.error("Error fetching UV data:", res.statusText);
+          return { uv: "" };
+        }
         const data = await res.json();
         if (data.response?.body?.items?.item) {
           const maxUv = data.response.body.items.item[0].h0;
