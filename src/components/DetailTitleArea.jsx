@@ -51,11 +51,11 @@ function DetailTitleArea() {
         color={`var(--primary-color)`}
         border={`1px solid var(--primary-color)`}
       />
-      <strong>제목이 들어갑니다</strong>
+      <strong className="fontHead3">제목이 들어갑니다</strong>
       <div className={style.postInfo}>
-        <span>유저A</span>
-        <span>2024년 06월 11일</span>
-        <div className={style.like}>
+        <span className="fontTitleS">유저A</span>
+        <span className="fontTitleS">2024년 06월 11일</span>
+        <div className={`fontTitleS ${style.like}`}>
           <span>3</span>
           <button
             className={`${style.likeBtn} ${isLike ? style.on : ''}`}

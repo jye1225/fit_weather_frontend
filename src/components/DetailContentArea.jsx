@@ -4,7 +4,7 @@ import DetailCoordiReview from './DetailCoordiReview';
 function DetailContentArea() {
   return (
     <div className={style.contentArea}>
-      <p>
+      <p className="fontBodyM">
         오늘도 그댄 어여쁜 바다로 내게 다가와 투명한 그대 마음에 하늘을 가득
         담은 걸 밝았던 많은 모습들 그대로 남아있을 때 내가 바라고 바랬던 사람이
         내게로 올까 네가 그 바다에 닿을 때까지 나는 네 줄을 놓지 않을게 너를

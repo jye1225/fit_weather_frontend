@@ -1,5 +1,4 @@
 .contentArea {
-  /* border: 1px solid red; */
   padding-block: 1rem;
   display: flex;
   flex-direction: column;
@@ -7,7 +6,6 @@
 }
 .contentArea p {
   line-height: 1.4;
-  font-size: 0.96rem;
 }
 
 .imgCon {
@@ -18,10 +16,4 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-@media (max-width: 360px) {
-  .contentArea p {
-    font-size: 0.75rem;
-  }
 }

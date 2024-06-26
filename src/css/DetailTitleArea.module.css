@@ -8,18 +8,13 @@
 }
 .titleArea strong {
   width: 100%;
-  font-family: var(--title-bold-font);
-  font-weight: bold;
-  font-size: 1.2rem;
   padding-block: 0.5rem;
 }
 
 .titleArea .postInfo {
-  font-size: 0.8rem;
   display: flex;
   gap: 0.8rem;
   color: var(--grey-600);
-  font-family: var(--body-medium-font);
 }
 
 .titleArea .like {
@@ -58,7 +53,6 @@
   right: 0;
 }
 .titleArea .option i {
-  font-size: 1.2rem;
   cursor: pointer;
   padding-inline: 0.5rem;
   transition: 0.3s;
@@ -69,17 +63,4 @@
 
 .titleArea .option i:hover ~ div {
   bottom: 0;
-}
-
-@media (max-width: 360px) {
-  .titleArea strong {
-    font-size: 0.75rem;
-  }
-
-  .titleArea .postInfo {
-    font-size: 0.625rem;
-  }
-  .titleArea .like i {
-    font-size: 1rem;
-  }
 }

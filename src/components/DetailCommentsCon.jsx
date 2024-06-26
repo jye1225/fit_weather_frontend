@@ -17,17 +17,20 @@ function DetailCommentsCon() {
   return (
     <div className={style.commentsCon}>
       <div className={style.commentCount}>
-        <span>댓글 </span>
-        <span>5</span>
+        <span className="fontHead3">댓글</span>
+        <span className="fontHead3">5</span>
       </div>
       <div className={style.commentWrite}>
         <textarea
+          className="fontBodyM"
           placeholder="댓글을 입력하세요."
           maxLength="300"
           value={comment}
           onChange={getComment}
         />
-        <button onClick={commentSubmit}>등록</button>
+        <button className="fontTitleM" onClick={commentSubmit}>
+          등록
+        </button>
       </div>
       <ul className={style.commentsList}>
         <DetailComment />
