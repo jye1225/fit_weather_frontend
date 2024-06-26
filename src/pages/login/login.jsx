@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import KakaoLogin from "./KakaoLogin"; // 카카오 로그인 컴포넌트 import
 import axios from "axios";
-import "../../css/login.css";
+import "../../css/login.css"; // 경로 확인
 
 export default function Login() {
   const [id, setId] = useState("");
@@ -64,8 +64,19 @@ export default function Login() {
     navigate("/signup");
   };
 
+  const handleLogoClick = () => {
+    navigate("/"); // 로고 클릭 시 홈 페이지로 이동
+  };
+
   return (
-    <div className="page">
+    <div className="mw page">
+      <div
+        className="logo"
+        onClick={handleLogoClick}
+        style={{ cursor: "pointer" }}
+      >
+        <img src="/img/Fit Weather.png" alt="Fit Weather Logo" />
+      </div>
       <div className="titleWrap fontHead2">로그인</div>
 
       <div className="contentWrap">

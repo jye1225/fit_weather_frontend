@@ -10,7 +10,7 @@ export default function KakaoLogin() {
   };
 
   return (
-    <button onClick={handleKakaoLogin} className="socialButton">
+    <button onClick={handleKakaoLogin} className="socialButton fontBodyM">
       카카오 로그인
     </button>
   );
