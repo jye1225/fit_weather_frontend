@@ -1,16 +1,21 @@
 import { useState } from 'react';
 import style from '../css/PostCategorySelect.module.css';
 import CoordiReviewOption from './CoordiReviewOption';
+import { useVerifyPost } from '../store/verifyPostContentStore';
 
 function PostCategorySelect() {
+  const { selectPostCate, setSelectPostCate, setOnReview } = useVerifyPost();
   const [showCoordiReview, setShowCoordiReview] = useState(false);
 
   const selectTodayCoordi = (e) => {
     // console.log('오늘코디', e.target);
     if (e.target.id === 'todayCoordi') {
       setShowCoordiReview(true);
+      setSelectPostCate('coordi');
     } else {
       setShowCoordiReview(false);
+      setSelectPostCate('weather');
+      setOnReview('no');
     }
   };
 
@@ -27,6 +32,7 @@ function PostCategorySelect() {
             type="radio"
             id="todayWeather"
             name="PostCateSelect"
+            checked={selectPostCate === 'weather'}
             onChange={selectTodayCoordi}
           />
 
@@ -41,6 +47,7 @@ function PostCategorySelect() {
             type="radio"
             id="todayCoordi"
             name="PostCateSelect"
+            checked={selectPostCate === 'coordi'}
             onChange={selectTodayCoordi}
           />
           <span className="fontBodyM">오늘코디</span>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import style from '../css/DetailComment.module.css';
-import { useCmntOptnMenu } from '../store/OnCmntOptnMenuStore';
-import { useCmntRewrite } from '../store/CmntRewriteStore';
+import { useCmntOptnMenu } from '../store/onCmntOptnMenuStore';
+import { useCmntRewrite } from '../store/cmntRewriteStore';
 import CommentOptionMenu from './CommentOptionMenu';
 
 function DetailComment() {

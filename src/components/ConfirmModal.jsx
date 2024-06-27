@@ -4,9 +4,9 @@ import { useEffect, useRef } from 'react';
 
 import CancelBtn from './CancelBtn';
 import DeleteEditBtn from './DeleteEditBtn';
-import { useOpenMenuModal } from '../store/DetailOpMenuModalStore';
-import { useCmntOptnMenu } from '../store/OnCmntOptnMenuStore';
-import { useRewriteStore } from '../store/RewriteStore';
+import { useOpenMenuModal } from '../store/detailOpMenuModalStore';
+import { useCmntOptnMenu } from '../store/onCmntOptnMenuStore';
+import { useRewriteStore } from '../store/rewriteStore';
 
 function ConfirmModal({ message, btnText, clickDelAndSubmt, clickCancel }) {
   const { isModalOpen, modalClose, opMenuClose } = useOpenMenuModal();

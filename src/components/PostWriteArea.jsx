@@ -1,7 +1,7 @@
 import style from '../css/PostWriteArea.module.css';
 import PostImgFalse from './PostImgFalse';
 import PostImgTrue from './PostImgTrue';
-import { useVerifyPost } from '../store/VerifyPostContentStore';
+import { useVerifyPost } from '../store/verifyPostContentStore';
 import { useRef, useState } from 'react';
 
 function PostWriteArea() {
@@ -12,6 +12,7 @@ function PostWriteArea() {
     setPostContent,
     titleErrMsg,
     contentErrMsg,
+    setFile,
   } = useVerifyPost();
   const [imgPreviewUrl, setImgPreviewUrl] = useState(null);
   const fileInputRef = useRef(null);
@@ -36,11 +37,14 @@ function PostWriteArea() {
 
     if (file) {
       reader.readAsDataURL(file);
+      setFile(file);
     }
   };
 
+  //선택한 사진 삭제
   const removeImage = () => {
     setImgPreviewUrl(null);
+    setFile(null);
     fileInputRef.current.value = null;
   };
 

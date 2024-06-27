@@ -1,5 +1,5 @@
 import style from '../css/TodayCoordiButton.module.css';
-import { buttonStore } from '../store/TalkbuttonStore';
+import { buttonStore } from '../store/talkbuttonStore';
 
 function TodayCoordiButton({ onClick }) {
   const { onBtn } = buttonStore();

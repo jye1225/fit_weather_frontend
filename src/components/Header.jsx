@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import useFetchStore from "../store/fetchStore";
 
 const Header = () => {
-  const navigate = useNavigate();
+const navigate = useNavigate();
 
   const {
     location,
@@ -15,7 +15,7 @@ const Header = () => {
     setRegionSecondName,
   } = useFetchStore();
   const [isSideOpen, setIsSideOpen] = useState(false);
-  const [regionthirdName, setRegionthirdName] = useState("");
+  const [regionthirdName, setRegionthirdName] = useState('');
 
   useEffect(() => {
     fetchLocation();
