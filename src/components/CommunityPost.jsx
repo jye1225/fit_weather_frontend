@@ -11,7 +11,7 @@ function CommunityPost({ post }) {
 
   return (
     <li className={style.comuList} onClick={goDetail}>
-      <CommunityCategory />
+      <CommunityCategory category={post.category} />
       <strong className="fontTitleS">{post.title}</strong>
       <div className={`fontTitleXS ${style.postInfo}`}>
         <span>{post.username || post.userId}</span>

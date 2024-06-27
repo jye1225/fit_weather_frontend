@@ -28,7 +28,7 @@
 .communityHd a {
   width: 100%;
   border: 1px solid var(--white);
-  padding: 0.8rem 1.5rem;
+  padding: 0.8rem 1rem;
   background-color: var(--primary-color);
   color: var(--white);
   border-radius: 999px;

@@ -1,15 +1,16 @@
 import style from '../css/DetailTitleArea.module.css';
-import { useRef, useState, useEffect } from 'react';
-
-import { useOpenMenuModal } from '../store/detailOpMenuModalStore';
-
 import CommunityCategory from './CommunitySubCategory';
 import Region from './Region';
 import OptionMenu from './OptionMenu';
 
+import { useRef, useState, useEffect } from 'react';
+import { useOpenMenuModal } from '../store/detailOpMenuModalStore';
+import { usePostData } from '../store/postDataStore';
+
 function DetailTitleArea() {
   const [isLike, setLikeOn] = useState(false);
   const { isOpMenuOn, opMenuOpen, opMenuClose } = useOpenMenuModal();
+  const { postDetail } = usePostData();
 
   const addLikeOn = () => {
     setLikeOn(!isLike);
@@ -46,23 +47,27 @@ function DetailTitleArea() {
 
   return (
     <div className={style.titleArea}>
-      <CommunityCategory />
+      <CommunityCategory category={postDetail.category} />
       <Region
+        region={postDetail.region}
         color={`var(--primary-color)`}
         border={`1px solid var(--primary-color)`}
       />
-      <strong className="fontHead3">제목이 들어갑니다</strong>
+      <strong className="fontHead3">{postDetail.title}</strong>
       <div className={style.postInfo}>
-        <span className="fontTitleS">유저A</span>
-        <span className="fontTitleS">2024년 06월 11일</span>
+        <span className="fontTitleS">
+          {postDetail.username ? postDetail.username : postDetail.userId}
+        </span>
+        <span className="fontTitleS">{postDetail.createdAt}</span>
         <div className={`fontTitleS ${style.like}`}>
-          <span>3</span>
+          <span>{postDetail.likeCount}</span>
           <button
             className={`${style.likeBtn} ${isLike ? style.on : ''}`}
             onClick={addLikeOn}
           ></button>
         </div>
       </div>
+      {/* 로그인한 이용자와 글쓴이가 일치할때 노출 */}
       <div className={style.option} ref={optionMenuRef}>
         <i className="fa-solid fa-ellipsis-vertical" onClick={opMenuToggle}></i>
         <OptionMenu />

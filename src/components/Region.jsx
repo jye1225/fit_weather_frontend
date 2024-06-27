@@ -1,7 +1,7 @@
 import style from '../css/Region.module.css';
 import { useState, useEffect } from 'react';
 
-function Region({ color, border }) {
+function Region({ color, border, region }) {
   const [regionSecondName, setRegionSecondName] = useState('');
   const [regionthirdName, setRegionthirdName] = useState('');
 
@@ -24,7 +24,7 @@ function Region({ color, border }) {
       // ref={regionRef}
       style={customStyle}
     >
-      {regionSecondName} {regionthirdName}
+      {region ? region : `${regionSecondName} ${regionthirdName}`}
     </span>
   );
 }

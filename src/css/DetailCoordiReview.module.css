@@ -5,12 +5,13 @@
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  border-top: 1px solid var(--grey-200);
+  border-top: 1px solid var(--grey-100);
 }
 .coordiReview p {
   text-align: center;
   width: 100%;
   padding-block: 1rem;
+  color: var(--grey-800);
 }
 .coordiReview button {
   display: flex;

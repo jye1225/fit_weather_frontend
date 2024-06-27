@@ -1,8 +1,10 @@
 .hd {
   position: fixed;
   z-index: 99;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
-
 .hd .top {
   /* border: 1px solid red; */
   height: 48px;

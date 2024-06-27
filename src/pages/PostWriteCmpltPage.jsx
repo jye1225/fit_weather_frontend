@@ -1,10 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import style from '../css/PostWriteCmpltPage.module.css';
+import { usePostData } from '../store/postDataStore';
 
 function PostWriteCmpltPage() {
   const navigate = useNavigate();
+  const { postId } = usePostData();
+
   const goDetail = () => {
-    navigate(`/detail/:id`);
+    navigate(`/detail/${postId}`);
   };
   const goPostList = () => {
     navigate('/community');

@@ -5,13 +5,6 @@ import DetailContentCon from '../components/DetailContentCon';
 import PagesHeader from '../components/PagesHeader';
 
 function DetailPage() {
-  // useEffect(() => {
-  //   fetch(`${url}/postDetail/${postId}`) //
-  //     .then((res) => res.json()) //
-  //     .then((data) => {
-  //       setPostInfo(data);
-  //     });
-  // }, [postId]);
   return (
     <>
       <PagesHeader title={'날씨패션톡'} />
