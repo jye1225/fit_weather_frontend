@@ -9,13 +9,20 @@ function CommunityPost({ post }) {
     navigate(`/detail/${post._id}`);
   };
 
+  const date = new Date(post.createdAt);
+  const formatDate = date.toLocaleDateString('ko-KR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
   return (
     <li className={style.comuList} onClick={goDetail}>
       <CommunityCategory category={post.category} />
       <strong className="fontTitleS">{post.title}</strong>
       <div className={`fontTitleXS ${style.postInfo}`}>
         <span>{post.username || post.userId}</span>
-        <span>{post.createdAt}</span>
+        <span>{formatDate}</span>
         <div className={style.commentIcon}>
           <i className="fa-regular fa-comment"></i>
           <span>{post.commentsCount}</span>

@@ -5,7 +5,7 @@ import PostWriteArea from '../components/PostWriteArea';
 import CancelBtn from '../components/CancelBtn';
 import SubmitBtn from '../components/SubmitBtn';
 import PagesHeader from '../components/PagesHeader';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useVerifyPost } from '../store/verifyPostContentStore';
 import { url } from '../store/ref';
 import { usePostData } from '../store/postDataStore';
@@ -23,7 +23,6 @@ function PostWritePage() {
   } = useVerifyPost();
   const { setNewPostId } = usePostData();
   const RegionFirstName = localStorage.getItem('regionFirstName').slice(0, 2);
-  const { postId } = useParams();
 
   const postSubmit = async (e) => {
     e.preventDefault();

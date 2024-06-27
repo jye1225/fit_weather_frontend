@@ -43,7 +43,12 @@ function DetailTitleArea() {
     };
   }, [isOpMenuOn]);
 
-  // const addOpMenuOn = () => {};
+  const date = new Date(postDetail.createdAt);
+  const formatDate = date.toLocaleDateString('ko-KR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 
   return (
     <div className={style.titleArea}>
@@ -58,7 +63,7 @@ function DetailTitleArea() {
         <span className="fontTitleS">
           {postDetail.username ? postDetail.username : postDetail.userId}
         </span>
-        <span className="fontTitleS">{postDetail.createdAt}</span>
+        <span className="fontTitleS">{formatDate}</span>
         <div className={`fontTitleS ${style.like}`}>
           <span>{postDetail.likeCount}</span>
           <button
