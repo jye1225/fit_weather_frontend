@@ -9,8 +9,10 @@ export const usePostData = create((set) => ({
   originalData: [],
   setOriginalData: (originalData) => set({ originalData }),
 
-  postId: '',
-  setPostId: (postId) => set({ postId }),
+  newPostId: null,
+  setNewPostId: (postId) => set({ newPostId: postId }),
+  clearNewPostId: () => set({ newPostId: null }),
+
   postDetail: [],
   setPostDetail: (postDetail) => set({ postDetail })
 }))

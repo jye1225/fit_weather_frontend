@@ -1,8 +1,10 @@
 import style from '../css/DetailCoordiReview.module.css';
 import { useState } from 'react';
+import { usePostData } from '../store/postDataStore';
 
 function DetailCoordiReview() {
   const [onBtn, setOnBtn] = useState(null);
+  const { postDetail } = usePostData();
 
   const reviewBtnClick = (btnType) => {
     setOnBtn(btnType);
@@ -28,7 +30,7 @@ function DetailCoordiReview() {
           />
         </svg>
         <span className="fontTitleXS">좋아요</span>
-        <span className="fontBodyS">10</span>
+        <span className="fontBodyS">{postDetail.coordiGood}</span>
       </button>
       <button
         className={`${style.sosoBtn} ${onBtn === 'soso' ? style.on : ''}`}
@@ -47,7 +49,7 @@ function DetailCoordiReview() {
           />
         </svg>
         <span className="fontTitleXS">무난해요</span>
-        <span className="fontBodyS">5</span>
+        <span className="fontBodyS">{postDetail.coordiSoso}</span>
       </button>
       <button
         className={`${style.badBtn} ${onBtn === 'bad' ? style.on : ''}`}
@@ -66,7 +68,7 @@ function DetailCoordiReview() {
           />
         </svg>
         <span className="fontTitleXS">별로예요</span>
-        <span className="fontBodyS">2</span>
+        <span className="fontBodyS">{postDetail.coordiBad}</span>
       </button>
     </div>
   );

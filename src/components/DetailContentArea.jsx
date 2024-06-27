@@ -21,7 +21,6 @@ function DetailContentArea() {
         </p>
       )}
       {postDetail.coordiReview && <DetailCoordiReview />}
-      {/* <DetailCoordiReview /> */}
     </div>
   );
 }
