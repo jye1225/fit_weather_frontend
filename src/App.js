@@ -59,7 +59,6 @@ function App() {
         <Route path="/codiCompleted" element={<CodiCompleted />} />
 
         {/* 로그인, 회원가입, 바로 아래 코드는 제가 편하려고 넣었던 코드입니다. */}
-
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/oauth" element={<KakaoCallback />} />

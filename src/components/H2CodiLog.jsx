@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from "../css/H2.module.css";
 
-// import { ReactComponent as GoBackIcon } from 'img/icons/common/goBack.svg'; // SVG 파일을 React 컴포넌트로 가져오기
 
 
 const H2CodiLog = ({ codiView, setCodiView }) => {

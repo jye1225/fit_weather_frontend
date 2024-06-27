@@ -142,5 +142,5 @@
 
 body {
   background-color: var(--grey-100);
+  position: relative;
 }
-
