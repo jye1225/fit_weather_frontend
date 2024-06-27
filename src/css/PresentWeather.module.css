@@ -1,9 +1,10 @@
 .present {
-  border: 1px solid blue;
+  width: calc(100% - 2rem);
+  /* border: 1px solid blue; */
   padding: 48px 0;
 }
 .temperature {
-  border: 1px solid orange;
+  /* border: 1px solid orange; */
   margin-bottom: 8px;
   display: flex;
   justify-content: center;
@@ -27,7 +28,7 @@
   margin-bottom: 8px;
 }
 .others {
-  border: 1px solid orange;
+  /* border: 1px solid orange; */
   display: flex;
   justify-content: center;
   gap: 50.5px;
@@ -36,6 +37,6 @@
   color: var(--grey-600);
 }
 .con {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   text-align: center;
 }
