@@ -6,7 +6,7 @@ import CancelBtn from '../components/CancelBtn';
 import SubmitBtn from '../components/SubmitBtn';
 import PagesHeader from '../components/PagesHeader';
 import { useNavigate } from 'react-router-dom';
-import { useVerifyPost } from '../store/VerifyPostContentStore';
+import { useVerifyPost } from '../store/verifyPostContentStore';
 import { url } from '../store/ref';
 
 function PostWritePage() {

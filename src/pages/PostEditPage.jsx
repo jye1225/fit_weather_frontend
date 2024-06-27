@@ -6,7 +6,7 @@ import CancelBtn from '../components/CancelBtn';
 import SubmitBtn from '../components/SubmitBtn';
 import PagesHeader from '../components/PagesHeader';
 import ConfirmModal from '../components/ConfirmModal';
-import { useRewriteStore } from '../store/RewriteStore';
+import { useRewriteStore } from '../store/rewriteStore';
 
 function PostEditPage() {
   const { isRwrtCofirm, onRwrtCofirm, offRwrtCofirm } = useRewriteStore();

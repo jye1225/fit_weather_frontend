@@ -1,8 +1,8 @@
 import style from '../css/CommentOptionMenu.module.css';
 
 import ConfirmModal from './ConfirmModal';
-import { useCmntOptnMenu } from '../store/OnCmntOptnMenuStore';
-import { useCmntRewrite } from '../store/CmntRewriteStore';
+import { useCmntOptnMenu } from '../store/onCmntOptnMenuStore';
+import { useCmntRewrite } from '../store/cmntRewriteStore';
 
 function CommentOptionMenu() {
   const {

@@ -3,8 +3,10 @@ import CommunityPost from './CommunityPost';
 
 import { useEffect } from 'react';
 import { url } from '../store/ref';
+import { useVerifyPost } from '../store/verifyPostContentStore';
 
 function CommunityPostCon() {
+  const { postsData, setPostsData } = useVerifyPost();
   useEffect(() => {
     fetch(`${url}/posts/getAllPosts`, {
       headers: {
@@ -12,15 +14,14 @@ function CommunityPostCon() {
       },
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => setPostsData(data));
   }, []);
 
   return (
     <ul className={style.commuListCon}>
-      <CommunityPost />
-      <CommunityPost />
-      <CommunityPost />
-      <CommunityPost />
+      {postsData.map((post) => (
+        <CommunityPost key={post._id} post={post} />
+      ))}
     </ul>
   );
 }

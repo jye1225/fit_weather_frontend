@@ -1,7 +1,7 @@
 import style from '../css/PostWriteArea.module.css';
 import PostImgFalse from './PostImgFalse';
 import PostImgTrue from './PostImgTrue';
-import { useVerifyPost } from '../store/VerifyPostContentStore';
+import { useVerifyPost } from '../store/verifyPostContentStore';
 import { useRef, useState } from 'react';
 
 function PostWriteArea() {

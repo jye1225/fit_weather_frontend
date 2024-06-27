@@ -1,7 +1,7 @@
 import style from '../css/DetailTitleArea.module.css';
 import { useRef, useState, useEffect } from 'react';
 
-import { useOpenMenuModal } from '../store/DetailOpMenuModalStore';
+import { useOpenMenuModal } from '../store/detailOpMenuModalStore';
 
 import CommunityCategory from './CommunitySubCategory';
 import Region from './Region';
