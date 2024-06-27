@@ -1,12 +1,6 @@
 .page {
-  position: absolute;
-  bottom: 0;
   padding: 0 20px 15px 20px;
   background-color: white;
-
-  left: 50%;
-  transform: translate(-50%, 0);
-
   display: flex;
   flex-direction: column;
 }
@@ -14,12 +8,15 @@
 .logo {
   display: flex;
   justify-content: center;
-  margin-top: 20px; /* 상단 여백 추가 */
+  margin-top: 20px;
+  /* 상단 여백 추가 */
 }
 
 .logo img {
-  width: 40%; /* 원하는 크기로 설정 */
-  height: auto; /* 비율을 유지하여 높이를 자동으로 조정 */
+  width: 40%;
+  /* 원하는 크기로 설정 */
+  height: auto;
+  /* 비율을 유지하여 높이를 자동으로 조정 */
 }
 
 .titleWrap {
@@ -117,4 +114,5 @@
   font-weight: bold;
   margin-top: 27px;
 }
+
 /* 이 아래 회원가입 추가 예정 */

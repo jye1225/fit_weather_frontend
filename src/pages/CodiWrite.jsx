@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 
 
 const CodiWrite = () => {
+    const imgCon = document.querySelector(`.${style.imgCon}`);
+
 
     const navigate = useNavigate();
     const { feltOptions } = useFeltOptionsStore();  // Zustand 스토어에서 필요한 상태 가져오기
@@ -87,6 +89,7 @@ const CodiWrite = () => {
 
     // 파일 선택 시 미리보기 URL 업데이트
     useEffect(() => {
+
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
@@ -95,18 +98,22 @@ const CodiWrite = () => {
             reader.readAsDataURL(file);  // 파일을 Data URL로 읽기
 
             setFileMss('');
-            document.querySelector(`.${style.imgCon}`).style.border = '1px solid var(--grey-200)';
+            // document.querySelector(`.${style.imgCon}`).style.border = '1px solid var(--grey-200)';
+            imgCon.style.border = '1px solid var(--grey-200)';
+
         } else {
             setFilePreview('');  // 파일이 없을 때 미리보기 URL 초기화
         }
     }, [file]);
+
 
     // 폼 제출 핸들러
     const handleSubmit = async (e) => {
         e.preventDefault();  // 기본 제출 동작 막기
         if (filePreview === '') {
             setFileMss('* 사진을 첨부해주세요.');
-            document.querySelector(`.${style.imgCon}`).style.border = '1px solid var(--accnet-color)';
+            // document.querySelector(`.${style.imgCon}`).style.border = '1px solid var(--accnet-color)';
+            imgCon.style.border = '1px solid var(--accnet-color)';
             return;
         } else {
             setFileMss('');

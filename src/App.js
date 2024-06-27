@@ -26,7 +26,8 @@ import CodiCompleted from "./pages/CodiCompleted";
 import Login from "./pages/login/login";
 import Signup from "./pages/signup";
 import KakaoCallback from "./pages/login/KakaoCallback";
-import Header from "./components/Header";
+
+
 
 function App() {
   return (
