@@ -47,6 +47,7 @@ function PostWritePage() {
     const data = new FormData();
     data.set('postCate', selectPostCate);
     data.set('onReview', onReview);
+    // data.set('like', isLike)
     data.set('title', postTitle);
     data.set('content', postContent);
     data.set('region', RegionFirstName);

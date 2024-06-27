@@ -14,5 +14,8 @@ export const usePostData = create((set) => ({
   clearNewPostId: () => set({ newPostId: null }),
 
   postDetail: [],
-  setPostDetail: (postDetail) => set({ postDetail })
+  setPostDetail: (postDetail) => set({ postDetail }),
+
+  isLike: false,
+  setLiketoggle: (isLike) => set({ isLike })
 }))
