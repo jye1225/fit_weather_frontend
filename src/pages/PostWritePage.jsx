@@ -6,14 +6,22 @@ import CancelBtn from '../components/CancelBtn';
 import SubmitBtn from '../components/SubmitBtn';
 import PagesHeader from '../components/PagesHeader';
 import { useNavigate } from 'react-router-dom';
-import { useVerifyPost } from '../store/VerifyPostContentStore';
+import { useVerifyPost } from '../store/verifyPostContentStore';
+import { url } from '../store/ref';
 
 function PostWritePage() {
   const navigate = useNavigate();
-  const { postTitle, postContent, setTitleErrMsg, setContentErrMsg } =
-    useVerifyPost();
+  const {
+    postTitle,
+    postContent,
+    setTitleErrMsg,
+    setContentErrMsg,
+    file,
+    onReview,
+    selectPostCate,
+  } = useVerifyPost();
 
-  const postSubmit = (e) => {
+  const postSubmit = async (e) => {
     e.preventDefault();
 
     // 유효성 검사
@@ -33,23 +41,32 @@ function PostWritePage() {
       setContentErrMsg('');
     }
 
-    navigate('/postWriteCmplt');
+    const data = new FormData();
+    data.set('postCate', selectPostCate);
+    data.set('onReview', onReview);
+    data.set('title', postTitle);
+    data.set('content', postContent);
+    // data.set('region', );
+    if (file) {
+      data.append('file', file);
+    }
 
-    // const data = new FormData();
-    // data.set('title', title);
-    // data.set('summary', summary);
-    // data.append('content', content);
-    // data.append('files', files[0]);
-    // // 백엔드로 데이터를 전송하는 부분
-    // const response = await fetch(`${url}/postWrite`, {
-    //   method: 'POST',
-    //   body: data,
-    //   credentials: 'include',
-    // });
-    // if (response.ok) {
-    //   console.log(response);
-    //   navigate('/');
-    // }
+    console.log('카테고리', data.get('postCate'));
+    console.log('코디리뷰', data.get('onReview'));
+    console.log('제목', data.get('title'));
+    console.log('내용', data.get('content'));
+    console.log('파일', data.get('file'));
+
+    // 백엔드로 데이터를 전송하는 부분
+    const response = await fetch(`${url}/posts/writePost`, {
+      method: 'POST',
+      body: data,
+      credentials: 'include',
+    });
+    if (response.ok) {
+      console.log(response);
+      navigate('/postWriteCmplt');
+    }
   };
 
   const clickCancel = () => {

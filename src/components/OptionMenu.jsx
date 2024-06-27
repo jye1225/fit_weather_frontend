@@ -1,6 +1,6 @@
 import style from '../css/OptionMenu.module.css';
 import ConfirmModal from './ConfirmModal';
-import { useOpenMenuModal } from '../store/DetailOpMenuModalStore';
+import { useOpenMenuModal } from '../store/detailOpMenuModalStore';
 import { useNavigate } from 'react-router-dom';
 
 function OptionMenu() {

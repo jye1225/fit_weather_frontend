@@ -28,6 +28,11 @@
   position: absolute;
 }
 
+.coordiReviewOption p,
+.coordiReviewOption div {
+  padding: 0 1rem;
+}
+
 .onOffSelcet {
   display: flex;
   align-items: center;

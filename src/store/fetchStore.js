@@ -118,6 +118,15 @@ const useFetchStore = create((set, get) => ({
           );
           // console.log(temp);
           // console.log(shortWeather);
+          
+          //로컬스토리지에 저장 - 최고최저기온
+          localStorage.setItem('maxTemp', shortWeather[157].fcstValue.substr(0, 2));
+          localStorage.setItem('minTemp', shortWeather[48].fcstValue.substr(0, 2));
+
+
+          const temp = shortWeather.filter((item) => item.category === "TMP");
+          const sky = shortWeather.filter((item) => item.category === "SKY");
+          console.log(temp);
 
           const pmSKY = shortWeather[175].fcstValue;
           const pmPTY = shortWeather[176].fcstValue;
@@ -148,9 +157,14 @@ const useFetchStore = create((set, get) => ({
             maxTemp: shortWeather[157].fcstValue.substr(0, 2),
             minTemp: shortWeather[48].fcstValue.substr(0, 2),
             rain: shortWeather[7].fcstValue,
+
             amSKY: shortWeather[66].fcstValue,
             amPTY: shortWeather[67].fcstValue,
             weatherText,
+
+            pmSKY: shortWeather[175].fcstValue,
+            pmPTY: shortWeather[176].fcstValue,
+
           };
         } else {
           console.error("Unexpected response structure:", data);

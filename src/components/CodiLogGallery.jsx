@@ -1,8 +1,8 @@
 import style from '../css/Codi.module.css'
 
 
-const CodiLogGallery = ({ feltWeather, setModalActive }) => {
-    console.log('필터 종류 전달됨 - 갤러리', feltWeather);
+const CodiLogGallery = ({ feltWeather, setModalActive, codiLogList }) => {
+    console.log('필터 종류, 리스트 - 갤러리', feltWeather, codiLogList);
 
 
 
@@ -10,50 +10,23 @@ const CodiLogGallery = ({ feltWeather, setModalActive }) => {
     return (
 
         <ul className={style.galleryWrap}>
-            <li className={style.galleryItem} onClick={() => setModalActive(true)}>
-                <div className={style.dateBox}>
-                    <span className={`fontTitleM ${style.day}`}>2</span>
-                    <span className={`fontBodyS ${style.month}`}>6월</span>
-                </div>
-                <img src="https://image.msscdn.net/thumbnails/display/images/usersnap/2024/01/08/37db6b31fb5d4e06bac3e18f6a0f6168.jpg?w=780" alt="" />
-            </li>
-            <li className={style.galleryItem} onClick={() => setModalActive(true)}>
-                <div className={style.dateBox}>
-                    <span className={`fontTitleM ${style.day}`}>2</span>
-                    <span className={`fontBodyS ${style.month}`}>6월</span>
-                </div>
-                <img src="https://image.msscdn.net/thumbnails/display/images/usersnap/2024/01/08/37db6b31fb5d4e06bac3e18f6a0f6168.jpg?w=780" alt="" />
-            </li>              <li className={style.galleryItem} onClick={() => setModalActive(true)}>
-                <div className={style.dateBox}>
-                    <span className={`fontTitleM ${style.day}`}>2</span>
-                    <span className={`fontBodyS ${style.month}`}>6월</span>
-                </div>
-                <img src="https://image.msscdn.net/thumbnails/display/images/usersnap/2024/01/08/37db6b31fb5d4e06bac3e18f6a0f6168.jpg?w=780" alt="" />
-            </li>              <li className={style.galleryItem} onClick={() => setModalActive(true)}>
-                <div className={style.dateBox}>
-                    <span className={`fontTitleM ${style.day}`}>2</span>
-                    <span className={`fontBodyS ${style.month}`}>6월</span>
-                </div>
-                <img src="https://image.msscdn.net/thumbnails/display/images/usersnap/2024/01/08/37db6b31fb5d4e06bac3e18f6a0f6168.jpg?w=780" alt="" />
-            </li>              <li className={style.galleryItem} onClick={() => setModalActive(true)}>
-                <div className={style.dateBox}>
-                    <span className={`fontTitleM ${style.day}`}>2</span>
-                    <span className={`fontBodyS ${style.month}`}>6월</span>
-                </div>
-                <img src="https://image.msscdn.net/thumbnails/display/images/usersnap/2024/01/08/37db6b31fb5d4e06bac3e18f6a0f6168.jpg?w=780" alt="" />
-            </li>              <li className={style.galleryItem} onClick={() => setModalActive(true)}>
-                <div className={style.dateBox}>
-                    <span className={`fontTitleM ${style.day}`}>2</span>
-                    <span className={`fontBodyS ${style.month}`}>6월</span>
-                </div>
-                <img src="https://image.msscdn.net/thumbnails/display/images/usersnap/2024/01/08/37db6b31fb5d4e06bac3e18f6a0f6168.jpg?w=780" alt="" />
-            </li>              <li className={style.galleryItem} onClick={() => setModalActive(true)}>
-                <div className={style.dateBox}>
-                    <span className={`fontTitleM ${style.day}`}>2</span>
-                    <span className={`fontBodyS ${style.month}`}>6월</span>
-                </div>
-                <img src="https://image.msscdn.net/thumbnails/display/images/usersnap/2024/01/08/37db6b31fb5d4e06bac3e18f6a0f6168.jpg?w=780" alt="" />
-            </li>
+            {codiLogList.map((codiLog) => {
+                return (<li className={style.galleryItem} onClick={() => setModalActive(codiLog._id)}>
+                    <div className={style.dateBox}>
+                        <span className={`fontTitleM ${style.day}`}>
+                            {codiLog.codiDate.slice(8, 9) === '0' ? codiLog.codiDate.slice(9, 10) : codiLog.codiDate.slice(8, 10)}
+                        </span>
+                        <span className={`fontBodyS ${style.month}`}>
+                            {codiLog.codiDate.slice(5, 6) === '0' ? codiLog.codiDate.slice(6, 7) : codiLog.codiDate.slice(5, 7)}월
+                        </span>
+                    </div>
+                    <img src={`https://localhost:8080/${codiLog.image}`} alt="" />
+                </li>)
+            })
+
+            }
+
+
         </ul>
 
 

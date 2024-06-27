@@ -26,6 +26,7 @@ import CodiCompleted from "./pages/CodiCompleted";
 import Login from "./pages/login/login";
 import Signup from "./pages/signup";
 import KakaoCallback from "./pages/login/KakaoCallback";
+import Header from "./components/Header";
 
 function App() {
   return (
@@ -33,7 +34,6 @@ function App() {
       <Routes>
         {/* 메인 */}
         <Route path="/" element={<IndexPage />} />
-
         {/* 커뮤니티 */}
         <Route path="/community" element={<CommunityPage />}>
           <Route path="" element={<TalkPage />} />

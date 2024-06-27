@@ -1,5 +1,10 @@
+.hd {
+  position: fixed;
+  z-index: 99;
+}
+
 .hd .top {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   height: 48px;
   padding: 0 16px;
   display: flex;
@@ -8,15 +13,18 @@
   background-color: var(--primary-color);
   border-radius: 0 0 16px 16px;
 }
+
 .ham {
   cursor: pointer;
   visibility: hidden;
 }
+
 h1 {
   font-family: var(--body-medium-font);
   color: var(--white);
   font-weight: bold;
 }
+
 .refresh {
   cursor: pointer;
 }
@@ -41,6 +49,7 @@ h1 {
   transition: 0.5s;
   z-index: 999;
 }
+
 .sideOn {
   left: 0;
 }
@@ -84,6 +93,7 @@ h1 {
   width: 100%;
   height: 100%;
 }
+
 .sideBgOn {
   opacity: 1;
 }
@@ -93,6 +103,7 @@ h1 {
     visibility: visible;
   }
 }
+
 @media (min-width: 908px) {
   .side {
     top: -48px;
@@ -101,9 +112,11 @@ h1 {
     transition: none;
     z-index: 1;
   }
+
   .sideOn {
     transition: none;
   }
+
   .sideBg {
     display: none;
   }

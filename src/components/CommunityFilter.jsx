@@ -1,7 +1,7 @@
 import style from '../css/CommunityFilter.module.css';
 import TodayCoordiButton from './TodayCoordiButton';
 import TodayWeatherButton from './TodayWeatherButton';
-import { buttonStore } from '../store/TalkbuttonStore';
+import { buttonStore } from '../store/talkbuttonStore';
 
 function CommunityFilter() {
   const { onBtn, setOnBtn } = buttonStore();

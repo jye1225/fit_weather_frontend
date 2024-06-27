@@ -1,5 +1,5 @@
 import style from '../css/TodayWeatherButton.module.css';
-import { buttonStore } from '../store/TalkbuttonStore';
+import { buttonStore } from '../store/talkbuttonStore';
 
 function TodayWeatherButton({ onClick }) {
   const { onBtn } = buttonStore();
