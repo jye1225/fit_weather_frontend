@@ -568,6 +568,12 @@ button {
     background-color: var(--grey-600);
 }
 
+
+
+/*------------- codiMain.jsx-------------*/
+
+
+
 @media screen and (min-width:736px) {
     .CodiViewFrame {
         margin: 0 0 1rem 0;
