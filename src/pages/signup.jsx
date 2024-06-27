@@ -114,8 +114,8 @@ const Signup = () => {
   };
 
   return (
-    <div className="page">
-      <div className="titleWrap fontHead2">회원가입</div>
+    <div className="mw page_s">
+      <div className="titleWrap_s fontHead2">회원가입</div>
       <form onSubmit={handleSubmit}>
         <div className="inputTitle fontTitleXL">아이디</div>
         <div className="inputGroup">

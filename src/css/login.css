@@ -1,23 +1,29 @@
 .page {
   position: absolute;
-  top: 0;
   bottom: 0;
-  width: 100%;
-  max-width: 500px;
-  padding: 0 20px;
+  padding: 0 20px 15px 20px;
+  background-color: white;
 
   left: 50%;
   transform: translate(-50%, 0);
-
-  overflow: hidden;
 
   display: flex;
   flex-direction: column;
 }
 
+.logo {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* 상단 여백 추가 */
+}
+
+.logo img {
+  width: 40%; /* 원하는 크기로 설정 */
+  height: auto; /* 비율을 유지하여 높이를 자동으로 조정 */
+}
+
 .titleWrap {
   text-align: center;
-  margin-top: 130px;
   color: #262626;
 }
 
@@ -59,6 +65,7 @@
 
 .input::placeholder {
   color: #dadada;
+  font-family: "S-CoreDream-3Light";
 }
 
 .errorMessageWrap {
