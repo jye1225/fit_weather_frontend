@@ -7,9 +7,11 @@ import SubmitBtn from '../components/SubmitBtn';
 import PagesHeader from '../components/PagesHeader';
 import ConfirmModal from '../components/ConfirmModal';
 import { useRewriteStore } from '../store/rewriteStore';
+import { useParams } from 'react-router-dom';
 
 function PostEditPage() {
   const { isRwrtCofirm, onRwrtCofirm, offRwrtCofirm } = useRewriteStore();
+  const { postId } = useParams();
 
   const postSubmit = (e) => {
     e.preventDefault();
@@ -20,7 +22,7 @@ function PostEditPage() {
     onRwrtCofirm();
   };
   const cancelEditBtn = () => {
-    window.location = `/detail/:posId`;
+    window.location = `/detail/${postId}`;
   };
 
   const cofirmCancelBtn = () => {
@@ -29,7 +31,7 @@ function PostEditPage() {
 
   const confirmSubmitBtn = () => {
     offRwrtCofirm();
-    window.location = `/detail/:posId`;
+    window.location = `/detail/${postId}`;
   };
 
   return (

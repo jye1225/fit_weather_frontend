@@ -1,15 +1,17 @@
 import style from '../css/OptionMenu.module.css';
 import ConfirmModal from './ConfirmModal';
 import { useOpenMenuModal } from '../store/detailOpMenuModalStore';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function OptionMenu() {
   const { modalClose, opMenuClose, isModalOpen, modalOpen, isOpMenuOn } =
     useOpenMenuModal();
+  const { postId } = useParams();
   const navigate = useNavigate();
 
   const goEditePage = () => {
-    navigate(`/postEdit/:postId`);
+    navigate(`/postEdit/${postId}`);
+    opMenuClose();
   };
 
   const handleCancel = () => {
