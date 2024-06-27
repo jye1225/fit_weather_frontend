@@ -90,38 +90,84 @@ const useFetchStore = create((set, get) => ({
           `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${API_KEY}&pageNo=1&numOfRows=1000&dataType=JSON&base_date=${today}&base_time=0200&nx=${x}&ny=${y}`
         );
         const res = await fetch(url);
-        if (!res.ok) {
-          console.error("Error fetching short weather data:", res.statusText);
-          return { maxTemp: "", minTemp: "", rain: "" };
-        }
         const data = await res.json();
         if (data.response?.body?.items?.item) {
           const shortWeather = data.response.body.items.item;
 
           // 로컬스토리지에 저장
-          localStorage.setItem('maxTemp', shortWeather[157].fcstValue.substr(0, 2));
-          localStorage.setItem('minTemp', shortWeather[48].fcstValue.substr(0, 2));
+          localStorage.setItem(
+            "maxTemp",
+            shortWeather[157].fcstValue.substr(0, 2)
+          );
+          localStorage.setItem(
+            "minTemp",
+            shortWeather[48].fcstValue.substr(0, 2)
+          );
 
-          const temp = shortWeather.filter((item) => item.category === "TMP");
-          const sky = shortWeather.filter((item) => item.category === "SKY");
-          console.log(temp);
+          const tempArry = shortWeather.filter(
+            (item) => item.category === "TMP"
+          );
+          const skyArry = shortWeather.filter(
+            (item) => item.category === "SKY"
+          );
+          const ptyArry = shortWeather.filter(
+            (item) => item.category === "PTY"
+          );
+          const popArry = shortWeather.filter(
+            (item) => item.category === "POP"
+          );
+          // console.log(temp);
+          // console.log(shortWeather);
 
-          set({ tempData: temp, skyData: sky });
+          const pmSKY = shortWeather[175].fcstValue;
+          const pmPTY = shortWeather[176].fcstValue;
+          // 날씨 텍스트 객체
+          const weatherObj = {
+            "1_0": "맑음",
+            "4_0": "흐림",
+            "3_0": "구름많음",
+            "3_1": "구름많고 비",
+            "4_1": "흐리고 비",
+            "3_4": "구름많고 소나기",
+            "4_4": "흐리고 소나기",
+            "4_3": "흐리고 눈",
+            "3_3": "구름많고 눈",
+            "3_2": "구름많고 비/눈",
+            "4_2": "흐리고 비/눈",
+          };
+          const weatherText = weatherObj[`${pmSKY}_${pmPTY}`] || "로딩중";
 
+          set({
+            tempData: tempArry,
+            skyData: skyArry,
+            ptyData: ptyArry,
+            popData: popArry,
+          });
 
           return {
             maxTemp: shortWeather[157].fcstValue.substr(0, 2),
             minTemp: shortWeather[48].fcstValue.substr(0, 2),
             rain: shortWeather[7].fcstValue,
+            amSKY: shortWeather[66].fcstValue,
+            amPTY: shortWeather[67].fcstValue,
+            weatherText,
           };
-
         } else {
           console.error("Unexpected response structure:", data);
         }
       } catch (error) {
         console.error("Error fetching short weather data:", error);
       }
-      return { maxTemp: "", minTemp: "", rain: "" };
+      return {
+        maxTemp: "",
+        minTemp: "",
+        rain: "",
+        amSKY: "",
+        amPTY: "",
+        pmSKY: "",
+        pmPTY: "",
+        weatherText: "",
+      };
     };
 
     const fetchDust = async () => {
@@ -189,14 +235,14 @@ const useFetchStore = create((set, get) => ({
             maxUv >= 0 && maxUv <= 2
               ? "낮음"
               : maxUv >= 3 && maxUv <= 5
-                ? "보통"
-                : maxUv >= 6 && maxUv <= 7
-                  ? "높음"
-                  : maxUv >= 8 && maxUv <= 10
-                    ? "매우높음"
-                    : maxUv >= 11
-                      ? "위험"
-                      : "유효하지 않은 값";
+              ? "보통"
+              : maxUv >= 6 && maxUv <= 7
+              ? "높음"
+              : maxUv >= 8 && maxUv <= 10
+              ? "매우높음"
+              : maxUv >= 11
+              ? "위험"
+              : "유효하지 않은 값";
           return { uv: uvDegree };
         } else {
           console.error("Unexpected response structure:", data);

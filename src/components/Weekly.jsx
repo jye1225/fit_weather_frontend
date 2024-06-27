@@ -10,6 +10,8 @@ const Weekly = () => {
     regionFirstName,
     regionSecondName,
     fetchWeatherData,
+    pmSKY,
+    pmPTY,
   } = useFetchStore();
 
   useEffect(() => {

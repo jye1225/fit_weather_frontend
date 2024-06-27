@@ -8,7 +8,6 @@ import {
 
 import IndexPage from "./pages/IndexPage";
 
-
 import CommunityPage from "./pages/CommunityPage";
 import DetailPage from "./pages/DetailPage";
 import PostWritePage from "./pages/PostWritePage";
@@ -31,17 +30,9 @@ import KakaoCallback from "./pages/login/KakaoCallback";
 function App() {
   return (
     <div className="App">
-
       <Routes>
         {/* 메인 */}
         <Route path="/" element={<IndexPage />} />
-
-        {/* 코디 main */}
-        <Route path="/codiMain" element={<codiMain />} />
-        {/* 여기부턴 mypage - 코디기록 */}
-        <Route path="/codiLog" element={<CodiLog />} />
-        <Route path="/codiWrite" element={<CodiWrite />} />
-        <Route path="/codiEdit" element={<CodiEdit />} />
 
         {/* 커뮤니티 */}
         <Route path="/community" element={<CommunityPage />}>
@@ -55,7 +46,6 @@ function App() {
         <Route path="/postEdit/:postId" element={<PostEditPage />} />
         <Route path="/*" element={<div>없는 페이지 입니다.</div>} />
 
-
         {/* 코디 main */}
         <Route path="/codiMain" element={<CodiMain />} />
 
@@ -66,10 +56,7 @@ function App() {
 
         <Route path="/codiCompleted" element={<CodiCompleted />} />
 
-
-
         {/* 로그인, 회원가입, 바로 아래 코드는 제가 편하려고 넣었던 코드입니다. */}
-
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/oauth" element={<KakaoCallback />} />

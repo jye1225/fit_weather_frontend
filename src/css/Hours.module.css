@@ -1,8 +1,9 @@
 .hours {
+  width: calc(100% - 2rem);
   background-color: var(--white);
   border-radius: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 15%);
-  margin: 16px 0;
+  margin: 16px auto;
 }
 .top {
   border-bottom: 1px solid var(--grey-200);
