@@ -1,6 +1,6 @@
 import Header from "../components/Header";
 import PresentWeather from "../components/PresentWeather";
-import Avatar from "../components/Avatar";
+import WeatherTalk from "../components/WeatherTalk";
 import Hours from "../components/Hours";
 import Weekly from "../components/Weekly";
 
@@ -10,7 +10,7 @@ const IndexPage = () => {
       <Header />
       <main className="mw">
         <PresentWeather />
-        <Avatar />
+        <WeatherTalk />
         <Hours />
         <Weekly />
       </main>
