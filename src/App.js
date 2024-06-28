@@ -23,10 +23,10 @@ import CodiEdit from "./pages/CodiEdit";
 import CodiMain from "./pages/CodiMain";
 import CodiCompleted from "./pages/CodiCompleted";
 
-import Login from "./pages/login/login";
-import Signup from "./pages/signup";
+import Login from "./pages/login/Login";
+import Signup from "./pages/Signup";
 import KakaoCallback from "./pages/login/KakaoCallback";
-import SignupComplete from "./pages/signupcomplete"; // 추가
+import SignupComplete from "./pages/SignupComplete"; // 추가
 
 function App() {
   return (
