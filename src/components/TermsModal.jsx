@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../css/TermsModal.css";
 
 const TermsModal = ({ onClose }) => {
@@ -8,6 +9,8 @@ const TermsModal = ({ onClose }) => {
     service: false,
     privacy: false,
   });
+
+  const navigate = useNavigate();
 
   const handleAllChecked = () => {
     const newChecked = !allChecked;
@@ -28,6 +31,12 @@ const TermsModal = ({ onClose }) => {
 
   const isFormValid = () => {
     return checks.location && checks.service && checks.privacy;
+  };
+
+  const handleSubmit = () => {
+    if (isFormValid()) {
+      navigate("/signupcomplete");
+    }
   };
 
   return (
@@ -76,7 +85,7 @@ const TermsModal = ({ onClose }) => {
         <div className="modal-footer">
           <button
             className="submit-button fontBodyM"
-            onClick={onClose}
+            onClick={handleSubmit}
             disabled={!isFormValid()}
           >
             가입 완료

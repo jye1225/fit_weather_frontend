@@ -1,7 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../css/signupcomplete.css";
 
 const SignupComplete = () => {
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate("/login");
+  };
+
   return (
     <div className="mw signup-complete-container">
       <div className="signup-complete-status">
@@ -10,7 +17,9 @@ const SignupComplete = () => {
       </div>
 
       <div className="signup-complete-footer">
-        <button className="login-button fontTitleM">로그인하기</button>
+        <button className="login-button fontTitleM" onClick={handleLogin}>
+          로그인하기
+        </button>
       </div>
     </div>
   );
