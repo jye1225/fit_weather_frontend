@@ -1,34 +1,70 @@
-import { useEffect, useState } from 'react';
 import style from '../css/DetailCommentsCon.module.css';
-import DetailComment from './DetailComment';
-import { usePostData } from '../store/postDataStore';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
+import DetailComment from './DetailComment';
 import { url } from '../store/ref';
+import { usePostData } from '../store/postDataStore';
+import { useCmntOptnMenu } from '../store/onCmntOptnMenuStore';
 
 function DetailCommentsCon() {
   const { postDetail } = usePostData();
-  const [comment, setComment] = useState();
+  const [comment, setComment] = useState('');
+  const { cmntErrMsg, setCmntErrMsg, cmntData, setCmntData } =
+    useCmntOptnMenu();
   const { postId } = useParams();
 
   const getComment = (e) => {
     setComment(e.target.value);
+    if (e.target.value !== '') {
+      setCmntErrMsg('');
+    }
   };
 
-  const commentSubmit = () => {
-    //댓글 등록버튼 클릭시
-    //DB에 저장하는 로직 추가
+  //댓글 등록버튼 클릭시
+  const commentSubmit = async () => {
+    if (comment === '') {
+      setCmntErrMsg('댓글 내용을 입력해주세요');
+      document.getElementById('cmntInput').focus();
+      return;
+    }
+
+    //DB에 저장하는 로직
+    try {
+      const response = await fetch(`${url}/comments/cmntAdd`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          // userId, 로그인 구현되면 추가 or 백엔드에서
+          postId,
+          content: comment,
+        }),
+        credentials: 'include',
+      });
+      const data = await response.json();
+      console.log('새로운 댓글', data);
+      // setCmntData(data);
+      setComment('');
+      fetchCmnts();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  useEffect(() => {
-    fetch(`${url}/posts/postCmnt/${postId}`) //
+  // 댓글 데이터 불러오기 요청
+  const fetchCmnts = useCallback(() => {
+    fetch(`${url}/comments/cmntList/${postId}`) //
       .then((res) => res.json()) //
       .then((data) => {
-        // setPostDetail(data);
-        // setLikes(data.likeCount);
-        // setOriginImgPath(data.image);
+        console.log('받아온 데이터', data);
+        setCmntData(data);
+        // console.log('cmntData에 저장된', cmntData);
       });
-    console.log(postDetail);
   }, [postId]);
+
+  useEffect(() => {
+    fetchCmnts();
+  }, [fetchCmnts]);
 
   return (
     <div className={style.commentsCon}>
@@ -39,19 +75,21 @@ function DetailCommentsCon() {
       <div className={style.commentWrite}>
         <textarea
           className="fontBodyM"
+          id="cmntInput"
           placeholder="댓글을 입력하세요."
           maxLength="300"
           value={comment}
           onChange={getComment}
         />
+        <p className={`fontBodyS ${style.cmntErrMsg}`}>{cmntErrMsg}</p>
         <button className="fontTitleM" onClick={commentSubmit}>
           등록
         </button>
       </div>
       <ul className={style.commentsList}>
-        <DetailComment />
-        <DetailComment />
-        <DetailComment />
+        {cmntData.map((cmnt) => (
+          <DetailComment key={cmnt._id} cmnt={cmnt} />
+        ))}
       </ul>
     </div>
   );

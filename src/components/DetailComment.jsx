@@ -1,12 +1,13 @@
-import { useState } from 'react';
 import style from '../css/DetailComment.module.css';
+import { useEffect, useState } from 'react';
 import { useCmntOptnMenu } from '../store/onCmntOptnMenuStore';
 import { useCmntRewrite } from '../store/cmntRewriteStore';
 import CommentOptionMenu from './CommentOptionMenu';
 
-function DetailComment() {
+function DetailComment({ cmnt }) {
   const { isOn, cmntOptnMenuOn, cmntOptnMenuOff } = useCmntOptnMenu();
   const { cmntRewrite, offCmntRewrite, commentText } = useCmntRewrite();
+  const [cmntCreateAt, setCmntCreateAt] = useState();
 
   const cmntOptnMenuToggle = () => {
     // 댓글 수정,삭제 버튼 노출
@@ -25,25 +26,50 @@ function DetailComment() {
     //댓글 업데이트 로직 추가하기
   };
 
+  //입력 시간 표시 변환
+  const formatDate = () => {
+    const now = new Date();
+    const createdDate = new Date(cmnt.createdAt);
+    const diffInMilscnds = now - createdDate;
+
+    const minutes = Math.floor(diffInMilscnds / 1000 / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (days > 0) {
+      return setCmntCreateAt(
+        `${createdDate.getFullYear()}년 ${
+          createdDate.getMonth() + 1
+        }월 ${createdDate.getDate()}일`
+      );
+    } else if (hours > 0) {
+      return setCmntCreateAt(`${hours}시간 전`);
+    } else {
+      return setCmntCreateAt(`${minutes}분 전`);
+    }
+  };
+  useEffect(() => {
+    formatDate();
+  }, []);
+
   return (
     <li className={style.comment}>
       <div className={style.userImg}>
-        <img src="/img/img2.jpg" alt="유저이미지" />
+        {/* 유저이미지는 유저정보 생기면 수정예정 */}
+        <img src="/img/img2.jpg" alt={cmnt.userId} />
       </div>
-      <span className={`fontTitleS ${style.userName}`}>유저B</span>
-      <span className={`fontBodyS ${style.commentDate}`}>10분 전</span>
+      <span className={`fontTitleS ${style.userName}`}>{cmnt.userId} </span>
+      <span className={`fontBodyS ${style.commentDate}`}>{cmntCreateAt}</span>
       {!cmntRewrite && (
         <>
           <i
             className="fa-solid fa-ellipsis-vertical"
             onClick={cmntOptnMenuToggle}
           ></i>
-          <p className="fontBodyM">
-            댓글이 들어갑니다댓글이 들어갑니다댓글이 들어갑니다댓글이
-            들어갑니다댓글이 들어갑니다댓글이 들어갑니다
-          </p>
+          <p className="fontBodyM">{cmnt.content}</p>
         </>
       )}
+      {/* 수정삭제버튼은 로그인한 사용자와 댓글 작성자가 일치할떄 노출되게 설정 예정 */}
       {cmntRewrite && (
         <>
           <div className={style.reCmntBtnCon}>
