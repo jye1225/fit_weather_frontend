@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 import style from "../css/Nav.module.css";
 
 const Nav = ({ navOpen, setNavOpen }) => {
-    console.log('>>>>>>', navOpen);
+    // console.log('>>>>>>', navOpen);
 
-    const [userLogin, setUserLogin] = useState('null');   //로그인 정보 여부
+    // const [userLogin, setUserLogin] = useState(null);   //로그인 정보 여부
+    const [userLogin, setUserLogin] = useState(true);   //로그인 정보 여부
     const [alert, setAlert] = useState(false);
 
     return (

@@ -1,13 +1,15 @@
 .hd {
   position: fixed;
   z-index: 99;
-  width: 100vw;
+  /* width 수정해주세요!! */
+  width: 100%;
   top: 0;
-  left:0;
-  /* border: 1px solid darkorange; */
+  left: 0;
+  /* border: 3px solid darkorange; */
+}
 
 .hd .top {
-  width: 100%;
+  /* width: 100%; */
   /* border: 1px solid red; */
   height: 48px;
   padding: 0 16px;
@@ -36,7 +38,7 @@ h1 {
 /* 햄버거 메뉴 */
 
 .side {
-  border: 1px solid lightcoral;
+  /* border: 1px solid lightcoral; */
   border-radius: 0 16px 0 0;
   background-color: var(--white);
   width: 93px;
