@@ -1,4 +1,5 @@
 import React from "react";
+import style from "../../css/login.module.css";
 
 const KAKAO_AUTH_URL = "https://kauth.kakao.com/oauth/authorize";
 const REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
@@ -10,7 +11,10 @@ export default function KakaoLogin() {
   };
 
   return (
-    <button onClick={handleKakaoLogin} className="socialButton fontBodyM">
+    <button
+      onClick={handleKakaoLogin}
+      className={`fontBodyM ${style.socialButton}`}
+    >
       카카오 로그인
     </button>
   );

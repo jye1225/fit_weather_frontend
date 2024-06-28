@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import KakaoLogin from "./KakaoLogin"; // 카카오 로그인 컴포넌트 import
 import axios from "axios";
-import "../../css/login.css"; // 경로 확인
+import style from "../../css/login.module.css"; // 경로 확인
 
 export default function Login() {
   const [id, setId] = useState("");
@@ -69,21 +69,21 @@ export default function Login() {
   };
 
   return (
-    <div className="mw page">
+    <div className={`mw ${style.page}`}>
       <div
-        className="logo"
+        className={style.logo}
         onClick={handleLogoClick}
         style={{ cursor: "pointer" }}
       >
         <img src="/img/Fit Weather.png" alt="Fit Weather Logo" />
       </div>
-      <div className="titleWrap fontHead2">로그인</div>
+      <div className={`fontHead2 ${style.titleWrap}`}>로그인</div>
 
-      <div className="contentWrap">
-        <div className="inputTitle fontTitleXL">아이디</div>
-        <div className="inputWrap">
+      <div className={style.contentWrap}>
+        <div className={`fontTitleXL ${style.inputTitle}`}>아이디</div>
+        <div className={style.inputWrap}>
           <input
-            className="input"
+            className={style.input}
             placeholder="아이디를 입력하세요."
             value={id}
             onChange={(e) => {
@@ -92,15 +92,18 @@ export default function Login() {
             }}
           />
         </div>
-        {idError && <div className="errorMessageWrap">{idError}</div>}
+        {idError && <div className={style.errorMessageWrap}>{idError}</div>}
 
-        <div style={{ marginTop: "26px" }} className="inputTitle fontTitleXL">
+        <div
+          style={{ marginTop: "26px" }}
+          className={`fontTitleXL ${style.inputTitle}`}
+        >
           비밀번호
         </div>
-        <div className="inputWrap">
+        <div className={style.inputWrap}>
           <input
             type="password"
-            className="input"
+            className={style.input}
             placeholder="비밀번호를 입력하세요."
             value={pw}
             onChange={(e) => {
@@ -109,10 +112,10 @@ export default function Login() {
             }}
           />
         </div>
-        {pwError && <div className="errorMessageWrap">{pwError}</div>}
+        {pwError && <div className={style.errorMessageWrap}>{pwError}</div>}
       </div>
 
-      <div className="autologin fontBodyM">
+      <div className={`fontBodyM ${style.autologin}`}>
         <input
           type="checkbox"
           checked={autoLogin}
@@ -122,7 +125,10 @@ export default function Login() {
       </div>
 
       <div>
-        <button onClick={handleLogin} className="bottomButton fontBodyM">
+        <button
+          onClick={handleLogin}
+          className={`fontBodyM ${style.bottomButton}`}
+        >
           로그인
         </button>
       </div>
@@ -130,11 +136,11 @@ export default function Login() {
         <KakaoLogin />
       </div>
 
-      <div className="signup fontBodyM">
+      <div className={`fontBodyM ${style.signup}`}>
         아직 웨더핏 회원이 아니시라면{" "}
         <button
           onClick={handleSignupRedirect}
-          className="signupButton fontBodyM"
+          className={`fontBodyM ${style.signupButton}`}
         >
           회원가입
         </button>

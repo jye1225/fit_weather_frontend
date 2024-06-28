@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../css/TermsModal.css";
+import style from "../css/TermsModal.module.css";
 
 const TermsModal = ({ onClose }) => {
   const [allChecked, setAllChecked] = useState(false);

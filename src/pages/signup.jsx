@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "../css/signup.css";
+import style from "../css/signup.module.css";
 import TermsModal from "../components/TermsModal";
+import HeaderSignup from "../components/HeaderSignup";
+import { url } from "../store/ref";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -46,7 +48,7 @@ const Signup = () => {
 
   const handleIdCheck = async () => {
     try {
-      const response = await axios.post("/api/auth/check-id", {
+      const response = await axios.post(`${url}/api/auth/check-id`, {
         id: formData.id,
       });
       setIdCheckMessage(response.data.message);
@@ -107,101 +109,109 @@ const Signup = () => {
   };
 
   return (
-    <div className="mw page_s">
-      <div className="titleWrap_s fontHead2">회원가입</div>
-      <form onSubmit={handleSubmit}>
-        <div className="inputTitle fontTitleXL">아이디</div>
-        <div className="inputGroup">
-          <div className="inputWrap">
+    <>
+      {" "}
+      <HeaderSignup />
+      <div className={`mw ${style.page_s}`}>
+        <div className={`fontHead2 ${style.titleWrap_s}`}></div>
+        <form onSubmit={handleSubmit}>
+          <div className={`fontTitleXL ${style.inputTitle}`}>아이디</div>
+          <div className={style.inputGroup}>
+            <div className={style.inputWrap}>
+              <input
+                className={style.input}
+                type="text"
+                id="id"
+                name="id"
+                value={formData.id}
+                onChange={handleChange}
+              />
+            </div>
+            <button
+              type="button"
+              className={style.checkButton}
+              onClick={handleIdCheck}
+            >
+              중복확인
+            </button>
+          </div>
+          {idCheckMessage && (
+            <div className={style.errorMessageWrap}>{idCheckMessage}</div>
+          )}
+
+          <div className={`fontTitleXL ${style.inputTitle}`}>닉네임</div>
+          <div className={style.inputGroup}>
+            <div className={style.inputWrap}>
+              <input
+                className={style.input}
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+              />
+            </div>
+            <button
+              type="button"
+              className={style.checkButton}
+              onClick={handleNameCheck}
+            >
+              중복확인
+            </button>
+          </div>
+          {nameCheckMessage && (
+            <div className={style.errorMessageWrap}>{nameCheckMessage}</div>
+          )}
+
+          <div className={`fontTitleXL ${style.inputTitle}`}>비밀번호</div>
+          <div className={style.inputWrap}>
             <input
-              className="input"
-              type="text"
-              id="id"
-              name="id"
-              value={formData.id}
+              className={style.input}
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
               onChange={handleChange}
             />
           </div>
-          <button type="button" className="checkButton" onClick={handleIdCheck}>
-            중복확인
-          </button>
-        </div>
-        {idCheckMessage && (
-          <div className="errorMessageWrap">{idCheckMessage}</div>
-        )}
-
-        <div className="inputTitle fontTitleXL">닉네임</div>
-        <div className="inputGroup">
-          <div className="inputWrap">
+          <div className={`fontTitleXL ${style.inputTitle}`}>비밀번호 확인</div>
+          <div className={style.inputWrap}>
             <input
-              className="input"
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
+              className={style.input}
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              value={formData.confirmPassword}
               onChange={handleChange}
             />
           </div>
-          <button
-            type="button"
-            className="checkButton"
-            onClick={handleNameCheck}
-          >
-            중복확인
+          <div className={`fontTitleXL ${style.inputTitle}`}>성별</div>
+          <div className={style.gender_select}>
+            <div
+              className={`${style.gender_button} ${
+                formData.gender === "female" ? "selected" : ""
+              }`}
+              onClick={() => handleGenderSelect("female")}
+            >
+              여자
+            </div>
+            <div
+              className={`${style.gender_button} ${
+                formData.gender === "male" ? "selected" : ""
+              }`}
+              onClick={() => handleGenderSelect("male")}
+            >
+              남자
+            </div>
+          </div>
+          <button type="submit" className={`fontBodyM ${style.bottomButton}`}>
+            다음으로
           </button>
-        </div>
-        {nameCheckMessage && (
-          <div className="errorMessageWrap">{nameCheckMessage}</div>
-        )}
-
-        <div className="inputTitle fontTitleXL">비밀번호</div>
-        <div className="inputWrap">
-          <input
-            className="input"
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="inputTitle fontTitleXL">비밀번호 확인</div>
-        <div className="inputWrap">
-          <input
-            className="input"
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="inputTitle fontTitleXL">성별</div>
-        <div className="gender-select">
-          <div
-            className={`gender-button ${
-              formData.gender === "female" ? "selected" : ""
-            }`}
-            onClick={() => handleGenderSelect("female")}
-          >
-            여자
-          </div>
-          <div
-            className={`gender-button ${
-              formData.gender === "male" ? "selected" : ""
-            }`}
-            onClick={() => handleGenderSelect("male")}
-          >
-            남자
-          </div>
-        </div>
-        <button type="submit" className="bottomButton fontBodyM">
-          다음으로
-        </button>
-      </form>
-      {message && <p>{message}</p>}
-      {showModal && <TermsModal onClose={handleCloseModal} />}
-    </div>
+        </form>
+        {message && <p>{message}</p>}
+        {showModal && <TermsModal onClose={handleCloseModal} />}
+      </div>{" "}
+    </>
   );
 };
 
