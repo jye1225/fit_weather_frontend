@@ -50,7 +50,6 @@ const Signup = () => {
       setIdCheckMessage(response.data.message);
       setIsIdChecked(true);
     } catch (error) {
-      console.error("아이디 중복확인 오류:", error);
       setIdCheckMessage(
         error.response?.data?.message || "중복확인에 실패했습니다."
       );
@@ -65,7 +64,6 @@ const Signup = () => {
       setNameCheckMessage(response.data.message);
       setIsNameChecked(true);
     } catch (error) {
-      console.error("닉네임 중복확인 오류:", error);
       setNameCheckMessage(
         error.response?.data?.message || "중복확인에 실패했습니다."
       );
@@ -111,7 +109,6 @@ const Signup = () => {
         gender: "",
       });
     } catch (error) {
-      console.error("회원가입 오류:", error);
       setMessage(error.response?.data?.message || "회원가입에 실패했습니다.");
     }
   };

@@ -1,8 +1,13 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom"; // 'Router'와 'Navigate' 제거
 import "./css/common.css";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 import IndexPage from "./pages/IndexPage";
+
 import CommunityPage from "./pages/CommunityPage";
 import DetailPage from "./pages/DetailPage";
 import PostWritePage from "./pages/PostWritePage";
@@ -11,7 +16,8 @@ import FashionFeedPage from "./pages/FashionFeedPage";
 import PostEditPage from "./pages/PostEditPage";
 import TalkPage from "./pages/TalkPage";
 
-import CodiLog from "./pages/CodiLog";
+//pages
+import CodiLog from "../src/pages/CodiLog";
 import CodiWrite from "./pages/CodiWrite";
 import CodiEdit from "./pages/CodiEdit";
 import CodiMain from "./pages/CodiMain";
@@ -20,6 +26,7 @@ import CodiCompleted from "./pages/CodiCompleted";
 import Login from "./pages/login/login";
 import Signup from "./pages/signup";
 import KakaoCallback from "./pages/login/KakaoCallback";
+import Header from "./components/Header";
 
 function App() {
   return (
@@ -32,6 +39,7 @@ function App() {
           <Route path="" element={<TalkPage />} />
           <Route path="feed" element={<FashionFeedPage />} />
         </Route>
+
         <Route path="/detail/:postId" element={<DetailPage />} />
         <Route path="/postWrite" element={<PostWritePage />} />
         <Route path="/postWriteCmplt" element={<PostWriteCmpltPage />} />
@@ -45,9 +53,10 @@ function App() {
         <Route path="/codiLog" element={<CodiLog />} />
         <Route path="/codiWrite" element={<CodiWrite />} />
         <Route path="/codiEdit" element={<CodiEdit />} />
+
         <Route path="/codiCompleted" element={<CodiCompleted />} />
 
-        {/* 로그인, 회원가입 */}
+        {/* 로그인, 회원가입, 바로 아래 코드는 제가 편하려고 넣었던 코드입니다. */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/oauth" element={<KakaoCallback />} />
