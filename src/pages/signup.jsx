@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import axios from "axios";
-import "../css/signup.css";
+import React, { useState } from 'react';
+import axios from 'axios';
+import '../css/signup.css';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
-    id: "",
-    name: "",
-    password: "",
-    confirmPassword: "",
-    gender: "",
+    id: '',
+    name: '',
+    password: '',
+    confirmPassword: '',
+    gender: '',
   });
 
-  const [message, setMessage] = useState("");
-  const [idCheckMessage, setIdCheckMessage] = useState("");
-  const [nameCheckMessage, setNameCheckMessage] = useState("");
+  const [message, setMessage] = useState('');
+  const [idCheckMessage, setIdCheckMessage] = useState('');
+  const [nameCheckMessage, setNameCheckMessage] = useState('');
   const [isIdChecked, setIsIdChecked] = useState(false);
   const [isNameChecked, setIsNameChecked] = useState(false);
 
@@ -24,14 +24,14 @@ const Signup = () => {
       [name]: value,
     });
 
-    if (name === "id") {
+    if (name === 'id') {
       setIsIdChecked(false);
-      setIdCheckMessage("");
+      setIdCheckMessage('');
     }
 
-    if (name === "name") {
+    if (name === 'name') {
       setIsNameChecked(false);
-      setNameCheckMessage("");
+      setNameCheckMessage('');
     }
   };
 
@@ -44,28 +44,28 @@ const Signup = () => {
 
   const handleIdCheck = async () => {
     try {
-      const response = await axios.post("/api/auth/check-id", {
+      const response = await axios.post('/api/auth/check-id', {
         id: formData.id,
       });
       setIdCheckMessage(response.data.message);
       setIsIdChecked(true);
     } catch (error) {
       setIdCheckMessage(
-        error.response?.data?.message || "중복확인에 실패했습니다."
+        error.response?.data?.message || '중복확인에 실패했습니다.'
       );
     }
   };
 
   const handleNameCheck = async () => {
     try {
-      const response = await axios.post("/api/auth/check-name", {
+      const response = await axios.post('/api/auth/check-name', {
         name: formData.name,
       });
       setNameCheckMessage(response.data.message);
       setIsNameChecked(true);
     } catch (error) {
       setNameCheckMessage(
-        error.response?.data?.message || "중복확인에 실패했습니다."
+        error.response?.data?.message || '중복확인에 실패했습니다.'
       );
     }
   };
@@ -81,35 +81,35 @@ const Signup = () => {
       !formData.confirmPassword ||
       !formData.gender
     ) {
-      setMessage("모든 필드를 입력해주세요.");
+      setMessage('모든 필드를 입력해주세요.');
       return;
     }
 
     // 중복확인 검사
     if (!isIdChecked || !isNameChecked) {
-      setMessage("아이디와 닉네임 중복확인을 해주세요.");
+      setMessage('아이디와 닉네임 중복확인을 해주세요.');
       return;
     }
 
     // 비밀번호 일치 확인
     if (formData.password !== formData.confirmPassword) {
-      setMessage("비밀번호가 일치하지 않습니다.");
+      setMessage('비밀번호가 일치하지 않습니다.');
       return;
     }
 
     try {
-      const response = await axios.post("/api/auth/signup", formData);
+      const response = await axios.post('/api/auth/signup', formData);
       setMessage(response.data.message);
       // 폼 필드 리셋
       setFormData({
-        id: "",
-        name: "",
-        password: "",
-        confirmPassword: "",
-        gender: "",
+        id: '',
+        name: '',
+        password: '',
+        confirmPassword: '',
+        gender: '',
       });
     } catch (error) {
-      setMessage(error.response?.data?.message || "회원가입에 실패했습니다.");
+      setMessage(error.response?.data?.message || '회원가입에 실패했습니다.');
     }
   };
 
@@ -187,17 +187,17 @@ const Signup = () => {
         <div className="gender-select">
           <div
             className={`gender-button ${
-              formData.gender === "female" ? "selected" : ""
+              formData.gender === 'female' ? 'selected' : ''
             }`}
-            onClick={() => handleGenderSelect("female")}
+            onClick={() => handleGenderSelect('female')}
           >
             여자
           </div>
           <div
             className={`gender-button ${
-              formData.gender === "male" ? "selected" : ""
+              formData.gender === 'male' ? 'selected' : ''
             }`}
-            onClick={() => handleGenderSelect("male")}
+            onClick={() => handleGenderSelect('male')}
           >
             남자
           </div>
