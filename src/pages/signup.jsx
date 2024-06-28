@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../css/signup.css';
+import { url } from '../store/ref';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -44,7 +45,7 @@ const Signup = () => {
 
   const handleIdCheck = async () => {
     try {
-      const response = await axios.post('/api/auth/check-id', {
+      const response = await axios.post(`${url}/api/auth/check-id`, {
         id: formData.id,
       });
       setIdCheckMessage(response.data.message);
@@ -58,7 +59,7 @@ const Signup = () => {
 
   const handleNameCheck = async () => {
     try {
-      const response = await axios.post('/api/auth/check-name', {
+      const response = await axios.post(`${url}/api/auth/check-name`, {
         name: formData.name,
       });
       setNameCheckMessage(response.data.message);
@@ -98,7 +99,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post('/api/auth/signup', formData);
+      const response = await axios.post(`${url}/api/auth/signup`, formData);
       setMessage(response.data.message);
       // 폼 필드 리셋
       setFormData({

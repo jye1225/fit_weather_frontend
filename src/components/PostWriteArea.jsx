@@ -16,18 +16,25 @@ function PostWriteArea() {
     contentErrMsg,
     setFile,
   } = useVerifyPost();
-  const { postDetail } = usePostData();
+  const { postDetail, setOriginImgPath } = usePostData();
   const [imgPreviewUrl, setImgPreviewUrl] = useState(null);
   const fileInputRef = useRef(null);
 
-  console.log(postDetail.image);
-
   useEffect(() => {
+    if (postDetail.title || postDetail.content) {
+      setPostTitle(postDetail.title);
+      setPostContent(postDetail.content);
+    }
+
     if (postDetail.image) {
       setImgPreviewUrl(`${url}/${postDetail.image}`);
-      console.log(setImgPreviewUrl);
+      setOriginImgPath(postDetail.image);
     }
-  }, [postDetail.image]);
+
+    console.log(postTitle);
+    console.log(postContent);
+    console.log('DB 이미지경로', postDetail.image);
+  }, [postDetail, setPostTitle, setPostContent, postDetail.image]);
 
   const writeTitle = (e) => {
     setPostTitle(e.target.value);
@@ -51,6 +58,8 @@ function PostWriteArea() {
       reader.readAsDataURL(file);
       setFile(file);
     }
+
+    console.log(file);
   };
 
   //선택한 사진 삭제
@@ -69,7 +78,7 @@ function PostWriteArea() {
           name="postTitle"
           id="postTitle"
           placeholder="제목을 입력하세요."
-          value={postDetail.title ? postDetail.title : postTitle}
+          value={postTitle}
           onChange={writeTitle}
           className="fontBodyM"
         />
@@ -82,7 +91,7 @@ function PostWriteArea() {
           id="postContent"
           name="postContent"
           placeholder="오늘 코디를 공유해주세요! 오늘 날씨에는 어떻게 입는게 좋을까요?"
-          value={postDetail.content ? postDetail.content : postContent}
+          value={postContent}
           onChange={writePostContent}
           className="fontBodyM"
         />

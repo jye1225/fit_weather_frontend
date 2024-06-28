@@ -28,14 +28,27 @@ function OptionMenu() {
     }
   };
 
-  const handleCancel = () => {
+  const handleCancel = async () => {
     modalClose();
     opMenuClose();
   };
-  const handleDelete = () => {
+
+  const handleDelete = async () => {
     modalClose();
     opMenuClose();
-    navigate('/community');
+    try {
+      const response = await fetch(`${url}/posts/delPost/${postId}`, {
+        method: 'DELETE',
+      });
+      const data = await response.json();
+      if (data.msg === 'ok') {
+        // 변환된 데이터에서 msg 확인
+        console.log(`포스트 삭제 성공`);
+        navigate('/community');
+      }
+    } catch (error) {
+      console.error('삭제 실패', error);
+    }
   };
 
   return (

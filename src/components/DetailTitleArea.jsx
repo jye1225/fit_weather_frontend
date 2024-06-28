@@ -13,7 +13,8 @@ function DetailTitleArea() {
   const { isOpMenuOn, opMenuOpen, opMenuClose } = useOpenMenuModal();
   const { postDetail } = usePostData();
 
-  // 좋아요 수 실시간 반영 구현하기v
+  // 수정해야 되는 사항
+  // 좋아요 수 실시간 반영 구현하기 - 이상하게 작동돼서 수정필요
   // 이용자가 좋아요 눌렀던 상태일때 하트 채워져 있는 기능 구현하기
   const toggleLike = async () => {
     try {

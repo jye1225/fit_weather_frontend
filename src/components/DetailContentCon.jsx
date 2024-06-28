@@ -13,7 +13,8 @@ function DetailContentCon() {
   // 로그인 가능하게되면
   // -> 유저아이디랑 작성자 아이디 비교해서 수정삭제메뉴 노출 유무
 
-  const { postDetail, setPostDetail, setLikes } = usePostData();
+  const { postDetail, setPostDetail, setLikes, setOriginImgPath } =
+    usePostData();
   const { postId } = useParams();
 
   useEffect(() => {
@@ -22,6 +23,7 @@ function DetailContentCon() {
       .then((data) => {
         setPostDetail(data);
         setLikes(data.likeCount);
+        setOriginImgPath(data.image);
       });
     console.log(postDetail);
   }, [postId]);
