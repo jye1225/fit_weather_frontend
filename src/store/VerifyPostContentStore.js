@@ -1,20 +1,20 @@
-import { create } from 'zustand'
+import { create } from "zustand";
 
 export const useVerifyPost = create((set) => ({
-  postTitle: '',
+  postTitle: "",
   setPostTitle: (postTitle) => set({ postTitle }),
-  postContent: '',
+  postContent: "",
   setPostContent: (postContent) => set({ postContent }),
   file: null,
   setFile: (file) => set({ file }),
-  titleErrMsg: '',
+  titleErrMsg: "",
   setTitleErrMsg: (titleErrMsg) => set({ titleErrMsg }),
-  contentErrMsg: '',
+  contentErrMsg: "",
   setContentErrMsg: (contentErrMsg) => set({ contentErrMsg }),
-  onReview: 'no',
+  onReview: "no",
   setOnReview: (text) => set({ onReview: text }),
-  selectPostCate: 'weather',
+  selectPostCate: "weather",
   setSelectPostCate: (text) => set({ selectPostCate: text }),
   postsData: [],
-  setPostsData: (postsData) => set({ postsData })
-}))
+  setPostsData: (postsData) => set({ postsData }),
+}));

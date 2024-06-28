@@ -1,9 +1,9 @@
 // 말풍선 테스트 해보고 싶으시면, 주석처리 싹 다 해제하면 돼요!
-import style from "../css/Avatar.module.css";
+import style from "../css/WeatherTalk.module.css";
 import { useEffect, useState } from "react";
 import useFetchStore from "../store/fetchStore";
 
-const Avatar = () => {
+const WeatherTalk = () => {
   const {
     location,
     fetchLocation,
@@ -88,14 +88,11 @@ const Avatar = () => {
   // }, [dataLoaded, temperature, maxTemp, minTemp, rain, dust, uv]);
 
   return (
-    <section className={style.main}>
-      <div className={style.talkBox}>
-        <p className={`fontHead3 ${style.title}`}>오늘 날씨는?</p>
-        {/* {chatData && <p className={`fontDecorate ${style.talk}`}>{chatData}</p>} */}
-      </div>
-      <div className={style.avatar}></div>
+    <section className={style.talkBox}>
+      <p className={`fontHead3 ${style.title}`}>오늘 날씨는?</p>
+      {/* {chatData && <p className={`fontDecorate ${style.talk}`}>{chatData}</p>} */}
     </section>
   );
 };
 
-export default Avatar;
+export default WeatherTalk;
