@@ -89,11 +89,10 @@ button {
 }
 
 /* ===codi.jsx 내코디 메인=== */
-.codiMain {
-    border: 1px solid red;
-}
 
-
+/*.codiMain {
+  border: 1px solid red; 
+}*/
 
 /* ===codiLog.jsx 내코디기록=== */
 .codiLog {

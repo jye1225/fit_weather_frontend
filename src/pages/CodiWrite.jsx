@@ -5,17 +5,75 @@ import { useFeltOptionsStore } from "../store/codiStore";
 import { useNavigate } from "react-router-dom";
 
 const CodiWrite = () => {
+   const imgCon = document.querySelector(`.${style.imgCon}`);
   const navigate = useNavigate();
   const { feltOptions } = useFeltOptionsStore(); // Zustand 스토어에서 필요한 상태 가져오기
 
   const [codiDate, setCodiDate] = useState(""); //작성날짜xx 코디 기록의 날짜
 
-  const [regionSecondName, setRegionSecondName] = useState("");
-  const [regionthirdName, setRegionthirdName] = useState("");
-  const [tagAddress, setTagAddress] = useState(""); //최종 태그에 출력될 주소
+    // 파일 선택 시 미리보기 URL 업데이트
+    useEffect(() => {
 
-  const [minTemp, setMinTemp] = useState("");
-  const [maxTemp, setMaxTemp] = useState("");
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setFilePreview(reader.result);  // 파일 읽기가 끝나면 파일 미리보기 URL 업데이트
+            };
+            reader.readAsDataURL(file);  // 파일을 Data URL로 읽기
+
+            setFileMss('');
+            // document.querySelector(`.${style.imgCon}`).style.border = '1px solid var(--grey-200)';
+            imgCon.style.border = '1px solid var(--grey-200)';
+
+        } else {
+            setFilePreview('');  // 파일이 없을 때 미리보기 URL 초기화
+        }
+    }, [file]);
+
+
+    // 폼 제출 핸들러
+    const handleSubmit = async (e) => {
+        e.preventDefault();  // 기본 제출 동작 막기
+        if (filePreview === '') {
+            setFileMss('* 사진을 첨부해주세요.');
+            // document.querySelector(`.${style.imgCon}`).style.border = '1px solid var(--accnet-color)';
+            imgCon.style.border = '1px solid var(--accnet-color)';
+            return;
+        } else {
+            setFileMss('');
+        }
+
+        // FormData 객체 생성 및 데이터 추가
+        const data = new FormData();
+        data.append('file', file);
+        data.append('memo', memo);
+        activeOptions.forEach(option => data.append('tag', option));
+        data.append('address', tagAddress);
+        data.append('minTemp', minTemp);
+        data.append('maxTemp', maxTemp);
+        data.append('codiDate', codiDate);
+
+        // FormData 객체의 내용 확인 (디버깅용)
+        for (let [key, value] of data.entries()) {
+            console.log(key, value);
+        }
+
+        try {
+            const response = await fetch(`https://localhost:8080/codiWrite`, {
+                method: 'POST',
+                body: data,
+                credentials: 'include',  // 쿠키 주고받기 위한 설정
+            });
+
+            if (response) {
+                console.log('/n response@@@@', response);
+                navigate('/codiCompleted');
+            }
+
+        } catch (error) {
+            console.error('Error:', error);
+            // 오류 처리
+        }
 
   useEffect(() => {
     // 오늘 날짜 저장
