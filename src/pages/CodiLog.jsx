@@ -32,17 +32,36 @@ const CodiLog = () => {
   // console.log('modalActive??', modalActive);
 
   // *** codiLog list 받아오기 **********
-  const [codiLogList, setCodiLogList] = useState([]);
+  const [codiLogList, setCodiLogList] = useState([]);//화면에 뿌릴 리스트
+  const [ALLcodiLogList, setALLCodiLogList] = useState([]);//전체 리스트
 
   useEffect(() => {
     fetch('https://localhost:8080/codiLogList') //get요청 보냄
       .then((res) => res.json()) //
       .then((data) => {
+        setALLCodiLogList(data);
         setCodiLogList(data);
         // console.log(data); // 받아온 데이터를 출력-> 확인
       });
-    console.log(codiLogList, '<<<codiLogList'); // 받아온 데이터를 출력-> 확인
+    // console.log(ALLcodiLogList, '<<<codiLogList'); // 받아온 전체 리스트를 출력-> 확인
   }, []);
+
+
+  useEffect(() => {//선택한 태그를 포함하는 게시물 필터링
+    if (feltWeather) {//필터링 선택한게 있다면..
+      const filteredList = ALLcodiLogList.filter((codiLog) => {
+        return (
+          feltWeather.every((activeTag) => codiLog.tag.includes(activeTag))
+          // every() -> feltWeather 배열의 모든 요소에 대해 콜백 함수를 실행하여 모든 요소가 true인 경우에만 true를 반환.
+          // 즉, 모든 필터 조건이 item.tag에 포함되어 있어야만 true가 반환.
+        );
+      });
+      setCodiLogList(filteredList);
+    } else {
+      setCodiLogList(ALLcodiLogList);
+    }
+  }, [feltWeather]);
+
 
   return (
     <main className={`mw ${style.codiLog}`}>
@@ -55,9 +74,8 @@ const CodiLog = () => {
             {feltOptions.map((Option, index) => (
               <button
                 key={'feltOptions' + index}
-                className={`${style.BtnToggle} fontBodyM ${
-                  feltWeather.includes(Option) ? style.active : ''
-                }`}
+                className={`${style.BtnToggle} fontBodyM ${feltWeather.includes(Option) ? style.active : ''
+                  }`}
                 onClick={() => handleOptionClick(Option)}
               >
                 {Option}
