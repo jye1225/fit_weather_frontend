@@ -1,11 +1,11 @@
 .hd {
   position: fixed;
   z-index: 99;
-  width: 100vw;
+  width: 100%;
   top: 0;
-  left:0;
+  left: 0;
   /* border: 1px solid darkorange; */
-
+}
 .hd .top {
   width: 100%;
   /* border: 1px solid red; */
@@ -75,7 +75,7 @@ h1 {
 }
 
 .logout {
-  font-family: "GmarketSansBold";
+  font-family: 'GmarketSansBold';
   font-size: 12px;
   color: var(--grey-200);
 }

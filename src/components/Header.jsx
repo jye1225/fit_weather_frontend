@@ -1,12 +1,11 @@
-import { useNavigate } from "react-router-dom";
-import style from "../css/Header.module.css";
-import { useEffect, useState } from "react";
-import useFetchStore from "../store/fetchStore";
-import Nav from "./Nav";
+import { useNavigate } from 'react-router-dom';
+import style from '../css/Header.module.css';
+import { useEffect, useState } from 'react';
+import useFetchStore from '../store/fetchStore';
+import Nav from './Nav';
 
 const Header = () => {
-
-  const [navOpen, setNavOpen] = useState(window.innerWidth >= 909);//nav 여닫기
+  const [navOpen, setNavOpen] = useState(window.innerWidth >= 909); //nav 여닫기
   // navOpen 상태 변화 확인용 콘솔 로그
   useEffect(() => {
     console.log('navOpen 상태:', navOpen);
@@ -95,7 +94,7 @@ const Header = () => {
         />
       </div>
       <Nav navOpen={navOpen} setNavOpen={setNavOpen} />
-    </header >
+    </header>
   );
 };
 

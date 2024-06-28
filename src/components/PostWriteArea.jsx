@@ -2,7 +2,9 @@ import style from '../css/PostWriteArea.module.css';
 import PostImgFalse from './PostImgFalse';
 import PostImgTrue from './PostImgTrue';
 import { useVerifyPost } from '../store/verifyPostContentStore';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { usePostData } from '../store/postDataStore';
+import { url } from '../store/ref';
 
 function PostWriteArea() {
   const {
@@ -14,8 +16,18 @@ function PostWriteArea() {
     contentErrMsg,
     setFile,
   } = useVerifyPost();
+  const { postDetail } = usePostData();
   const [imgPreviewUrl, setImgPreviewUrl] = useState(null);
   const fileInputRef = useRef(null);
+
+  console.log(postDetail.image);
+
+  useEffect(() => {
+    if (postDetail.image) {
+      setImgPreviewUrl(`${url}/${postDetail.image}`);
+      console.log(setImgPreviewUrl);
+    }
+  }, [postDetail.image]);
 
   const writeTitle = (e) => {
     setPostTitle(e.target.value);
@@ -57,7 +69,7 @@ function PostWriteArea() {
           name="postTitle"
           id="postTitle"
           placeholder="제목을 입력하세요."
-          value={postTitle}
+          value={postDetail.title ? postDetail.title : postTitle}
           onChange={writeTitle}
           className="fontBodyM"
         />
@@ -70,7 +82,7 @@ function PostWriteArea() {
           id="postContent"
           name="postContent"
           placeholder="오늘 코디를 공유해주세요! 오늘 날씨에는 어떻게 입는게 좋을까요?"
-          value={postContent}
+          value={postDetail.content ? postDetail.content : postContent}
           onChange={writePostContent}
           className="fontBodyM"
         />

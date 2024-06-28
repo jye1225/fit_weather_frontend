@@ -1,17 +1,31 @@
 import style from '../css/OptionMenu.module.css';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import ConfirmModal from './ConfirmModal';
 import { useOpenMenuModal } from '../store/detailOpMenuModalStore';
-import { useNavigate, useParams } from 'react-router-dom';
+import { usePostData } from '../store/postDataStore';
+import { url } from '../store/ref';
 
 function OptionMenu() {
   const { modalClose, opMenuClose, isModalOpen, modalOpen, isOpMenuOn } =
     useOpenMenuModal();
+  const { setPostDetail } = usePostData();
   const { postId } = useParams();
   const navigate = useNavigate();
 
-  const goEditePage = () => {
-    navigate(`/postEdit/${postId}`);
+  // 글수정 페이지로 이동
+  const goEditePage = async () => {
     opMenuClose();
+
+    try {
+      const response = await fetch(`${url}/posts/postEdit/${postId}`);
+      const data = await response.json();
+      console.log(data);
+      setPostDetail(data);
+      navigate(`/postEdit/${postId}`);
+    } catch (error) {
+      console.error('수정버튼 요청 에러');
+    }
   };
 
   const handleCancel = () => {

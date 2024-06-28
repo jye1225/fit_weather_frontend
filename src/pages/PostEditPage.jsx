@@ -8,9 +8,11 @@ import PagesHeader from '../components/PagesHeader';
 import ConfirmModal from '../components/ConfirmModal';
 import { useRewriteStore } from '../store/rewriteStore';
 import { useParams } from 'react-router-dom';
+import { usePostData } from '../store/postDataStore';
 
 function PostEditPage() {
   const { isRwrtCofirm, onRwrtCofirm, offRwrtCofirm } = useRewriteStore();
+  const { postDetail } = usePostData();
   const { postId } = useParams();
 
   const postSubmit = (e) => {

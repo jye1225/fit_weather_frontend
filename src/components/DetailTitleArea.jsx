@@ -9,10 +9,11 @@ import { usePostData } from '../store/postDataStore';
 import { url } from '../store/ref';
 
 function DetailTitleArea() {
-  const { isLike, setLiketoggle } = usePostData();
+  const { isLike, setLiketoggle, likes, setLikes } = usePostData();
   const { isOpMenuOn, opMenuOpen, opMenuClose } = useOpenMenuModal();
   const { postDetail } = usePostData();
 
+  // 좋아요 수 실시간 반영 구현하기v
   // 이용자가 좋아요 눌렀던 상태일때 하트 채워져 있는 기능 구현하기
   const toggleLike = async () => {
     try {
@@ -21,8 +22,8 @@ function DetailTitleArea() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           isLike: !isLike,
-          //userId: Math.random, //로그인 기능 생기면 변경
           postId: postDetail._id,
+          //userId: Math.random, //로그인 기능 생기면 변경
         }),
         credentials: 'include',
       });
@@ -30,6 +31,7 @@ function DetailTitleArea() {
       if (data.success === true) {
         console.log('좋아요 토글');
         setLiketoggle(!isLike);
+        setLikes(data.likes);
       }
     } catch (err) {
       console.log(err);
@@ -85,7 +87,7 @@ function DetailTitleArea() {
         </span>
         <span className="fontTitleS">{formatDate}</span>
         <div className={`fontTitleS ${style.like}`}>
-          <span>{postDetail.likeCount}</span>
+          <span>{likes}</span>
           <button
             className={`${style.likeBtn} ${isLike ? style.on : ''}`}
             onClick={toggleLike}
