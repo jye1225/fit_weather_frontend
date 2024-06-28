@@ -15,6 +15,4 @@ export const useVerifyPost = create((set) => ({
   setOnReview: (text) => set({ onReview: text }),
   selectPostCate: "weather",
   setSelectPostCate: (text) => set({ selectPostCate: text }),
-  postsData: [],
-  setPostsData: (postsData) => set({ postsData }),
-}));
+}))

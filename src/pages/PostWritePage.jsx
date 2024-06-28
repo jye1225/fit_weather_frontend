@@ -8,6 +8,7 @@ import PagesHeader from '../components/PagesHeader';
 import { useNavigate } from 'react-router-dom';
 import { useVerifyPost } from '../store/verifyPostContentStore';
 import { url } from '../store/ref';
+import { usePostData } from '../store/postDataStore';
 
 function PostWritePage() {
   const navigate = useNavigate();
@@ -20,6 +21,8 @@ function PostWritePage() {
     onReview,
     selectPostCate,
   } = useVerifyPost();
+  const { setNewPostId } = usePostData();
+  const RegionFirstName = localStorage.getItem('regionFirstName').slice(0, 2);
 
   const postSubmit = async (e) => {
     e.preventDefault();
@@ -44,9 +47,10 @@ function PostWritePage() {
     const data = new FormData();
     data.set('postCate', selectPostCate);
     data.set('onReview', onReview);
+    // data.set('like', isLike)
     data.set('title', postTitle);
     data.set('content', postContent);
-    // data.set('region', );
+    data.set('region', RegionFirstName);
     if (file) {
       data.append('file', file);
     }
@@ -56,6 +60,7 @@ function PostWritePage() {
     console.log('제목', data.get('title'));
     console.log('내용', data.get('content'));
     console.log('파일', data.get('file'));
+    console.log('지역', data.get('region'));
 
     // 백엔드로 데이터를 전송하는 부분
     const response = await fetch(`${url}/posts/writePost`, {
@@ -64,8 +69,13 @@ function PostWritePage() {
       credentials: 'include',
     });
     if (response.ok) {
-      console.log(response);
-      navigate('/postWriteCmplt');
+      const data = await response.json();
+      const newPostId = data._id;
+      // console.log(response);
+      // console.log(data);
+      // console.log(newPostId);
+      setNewPostId(newPostId);
+      navigate(`/postWriteCmplt/${newPostId}`);
     }
   };
 

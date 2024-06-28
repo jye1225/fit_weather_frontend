@@ -62,7 +62,7 @@
 
 .input::placeholder {
   color: #dadada;
-  font-family: "S-CoreDream-3Light";
+  font-family: 'S-CoreDream-3Light';
 }
 
 .errorMessageWrap {

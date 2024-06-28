@@ -27,8 +27,6 @@ import Login from "./pages/login/login";
 import Signup from "./pages/signup";
 import KakaoCallback from "./pages/login/KakaoCallback";
 
-
-
 function App() {
   return (
     <div className="App">
@@ -43,7 +41,7 @@ function App() {
 
         <Route path="/detail/:postId" element={<DetailPage />} />
         <Route path="/postWrite" element={<PostWritePage />} />
-        <Route path="/postWriteCmplt" element={<PostWriteCmpltPage />} />
+        <Route path="/postWriteCmplt/:postid" element={<PostWriteCmpltPage />} />
         <Route path="/postEdit/:postId" element={<PostEditPage />} />
         <Route path="/*" element={<div>없는 페이지 입니다.</div>} />
 

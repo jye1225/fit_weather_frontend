@@ -1,14 +1,17 @@
-import { useState } from 'react';
 import style from '../css/CommunityCategory.module.css';
 
+import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { buttonStore } from '../store/talkbuttonStore';
 
 function CommunityCategory() {
   const [onCate, setOnCate] = useState('talk');
+  const { setOnBtn } = buttonStore();
   const talkOn = () => {
     setOnCate('talk');
   };
   const feedOn = () => {
+    setOnBtn('all');
     setOnCate('feed');
   };
 

@@ -1,14 +1,21 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import style from '../css/PostWriteCmpltPage.module.css';
+import { usePostData } from '../store/postDataStore';
+import { useEffect } from 'react';
 
 function PostWriteCmpltPage() {
   const navigate = useNavigate();
+  const { newPostId, clearNewPostId } = usePostData();
+
   const goDetail = () => {
-    navigate(`/detail/:id`);
+    navigate(`/detail/${newPostId}`);
+    clearNewPostId();
   };
+
   const goPostList = () => {
     navigate('/community');
   };
+
   return (
     <main className="mw">
       <div className={style.cmpltMessage}>

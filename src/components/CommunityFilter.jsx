@@ -2,22 +2,33 @@ import style from '../css/CommunityFilter.module.css';
 import TodayCoordiButton from './TodayCoordiButton';
 import TodayWeatherButton from './TodayWeatherButton';
 import { buttonStore } from '../store/talkbuttonStore';
+import { usePostData } from '../store/postDataStore';
 
 function CommunityFilter() {
+  const { setPostsData, originalData } = usePostData();
   const { onBtn, setOnBtn } = buttonStore();
   const buttonId = 'all';
   const isOn = onBtn === buttonId;
 
   const allBtnClick = () => {
-    setOnBtn(buttonId);
+    setOnBtn('all');
+    setPostsData(originalData);
   };
 
-  const todayWeatherBtn = () => {
+  const getCatePost = async (category) => {
+    // console.log('오리지널', originalData);
+    const filtered = originalData.filter((post) => post.category === category);
+    setPostsData(filtered);
+  };
+
+  const todayWeatherBtn = async () => {
     setOnBtn('todayWeather');
+    getCatePost('weather');
   };
 
   const todayCoordiBtn = () => {
     setOnBtn('todayCoordi');
+    getCatePost('coordi');
   };
 
   return (

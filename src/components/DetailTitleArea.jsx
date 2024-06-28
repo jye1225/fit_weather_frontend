@@ -1,18 +1,39 @@
 import style from '../css/DetailTitleArea.module.css';
-import { useRef, useState, useEffect } from 'react';
-
-import { useOpenMenuModal } from '../store/detailOpMenuModalStore';
-
 import CommunityCategory from './CommunitySubCategory';
 import Region from './Region';
 import OptionMenu from './OptionMenu';
 
-function DetailTitleArea() {
-  const [isLike, setLikeOn] = useState(false);
-  const { isOpMenuOn, opMenuOpen, opMenuClose } = useOpenMenuModal();
+import { useRef, useState, useEffect } from 'react';
+import { useOpenMenuModal } from '../store/detailOpMenuModalStore';
+import { usePostData } from '../store/postDataStore';
+import { url } from '../store/ref';
 
-  const addLikeOn = () => {
-    setLikeOn(!isLike);
+function DetailTitleArea() {
+  const { isLike, setLiketoggle } = usePostData();
+  const { isOpMenuOn, opMenuOpen, opMenuClose } = useOpenMenuModal();
+  const { postDetail } = usePostData();
+
+  // 이용자가 좋아요 눌렀던 상태일때 하트 채워져 있는 기능 구현하기
+  const toggleLike = async () => {
+    try {
+      const response = await fetch(`${url}/posts/like`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          isLike: !isLike,
+          //userId: Math.random, //로그인 기능 생기면 변경
+          postId: postDetail._id,
+        }),
+        credentials: 'include',
+      });
+      const data = await response.json();
+      if (data.success === true) {
+        console.log('좋아요 토글');
+        setLiketoggle(!isLike);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const opMenuToggle = (e) => {
@@ -42,27 +63,36 @@ function DetailTitleArea() {
     };
   }, [isOpMenuOn]);
 
-  // const addOpMenuOn = () => {};
+  const date = new Date(postDetail.createdAt);
+  const formatDate = date.toLocaleDateString('ko-KR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 
   return (
     <div className={style.titleArea}>
-      <CommunityCategory />
+      <CommunityCategory category={postDetail.category} />
       <Region
+        region={postDetail.region}
         color={`var(--primary-color)`}
         border={`1px solid var(--primary-color)`}
       />
-      <strong className="fontHead3">제목이 들어갑니다</strong>
+      <strong className="fontHead3">{postDetail.title}</strong>
       <div className={style.postInfo}>
-        <span className="fontTitleS">유저A</span>
-        <span className="fontTitleS">2024년 06월 11일</span>
+        <span className="fontTitleS">
+          {postDetail.username ? postDetail.username : postDetail.userId}
+        </span>
+        <span className="fontTitleS">{formatDate}</span>
         <div className={`fontTitleS ${style.like}`}>
-          <span>3</span>
+          <span>{postDetail.likeCount}</span>
           <button
             className={`${style.likeBtn} ${isLike ? style.on : ''}`}
-            onClick={addLikeOn}
+            onClick={toggleLike}
           ></button>
         </div>
       </div>
+      {/* 로그인한 이용자와 글쓴이가 일치할때 노출 */}
       <div className={style.option} ref={optionMenuRef}>
         <i className="fa-solid fa-ellipsis-vertical" onClick={opMenuToggle}></i>
         <OptionMenu />

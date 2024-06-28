@@ -28,7 +28,6 @@ const Header = () => {
     };
   }, []);
 
-
   const {
     location,
     fetchLocation,
@@ -57,7 +56,7 @@ const Header = () => {
         coords.getLat(),
         (result, status) => {
           if (status === kakao.maps.services.Status.OK) {
-            const region = result.find((item) => item.region_type === "H");
+            const region = result.find((item) => item.region_type === 'H');
             if (region) {
               setRegionFirstName(region.region_1depth_name);
               setRegionSecondName(region.region_2depth_name);
@@ -68,14 +67,14 @@ const Header = () => {
               setRegionthirdName(result[0].region_3depth_name);
             }
             // 로컬스토리지에 저장
-            localStorage.setItem("regionSecondName", region.region_2depth_name);
-            localStorage.setItem("regionthirdName", region.region_3depth_name);
+            localStorage.setItem('regionSecondName', region.region_2depth_name);
+            localStorage.setItem('regionthirdName', region.region_3depth_name);
+            localStorage.setItem('regionFirstName', region.region_1depth_name);
           }
         }
       );
     }
   }, [location, setRegionFirstName, setRegionSecondName]);
-
 
   return (
     <header className={style.hd}>
@@ -95,10 +94,7 @@ const Header = () => {
           alt="새로고침"
         />
       </div>
-
       <Nav navOpen={navOpen} setNavOpen={setNavOpen} />
-
-
     </header >
   );
 };
