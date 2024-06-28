@@ -9,6 +9,7 @@ import { useCmntOptnMenu } from '../store/onCmntOptnMenuStore';
 
 function DetailCommentsCon() {
   const { postDetail } = usePostData();
+  const [editingCommentId, setEditingCommentId] = useState(null);
   const [comment, setComment] = useState('');
   const { cmntErrMsg, setCmntErrMsg, cmntData, setCmntData } =
     useCmntOptnMenu();
@@ -88,7 +89,13 @@ function DetailCommentsCon() {
       </div>
       <ul className={style.commentsList}>
         {cmntData.map((cmnt) => (
-          <DetailComment key={cmnt._id} cmnt={cmnt} />
+          <DetailComment
+            key={cmnt._id}
+            cmnt={cmnt}
+            fetchCmnts={fetchCmnts}
+            editingCommentId={editingCommentId}
+            setEditingCommentId={setEditingCommentId}
+          />
         ))}
       </ul>
     </div>

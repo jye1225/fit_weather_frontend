@@ -2,48 +2,37 @@ import style from '../css/CommentOptionMenu.module.css';
 
 import ConfirmModal from './ConfirmModal';
 import { useCmntOptnMenu } from '../store/onCmntOptnMenuStore';
-import { useCmntRewrite } from '../store/cmntRewriteStore';
+import { url } from '../store/ref';
+import { useState } from 'react';
 
-function CommentOptionMenu() {
-  const {
-    isOn,
-    cmntOptnMenuToggle,
-    cmntOptnMenuOff,
-    isModalOn,
-    modalOpen,
-    modalOff,
-  } = useCmntOptnMenu();
-
-  const { onCmntRewrite, setCommentText } = useCmntRewrite();
-
-  const cmntEditBtnClick = (e) => {
-    console.log('수정하기 버튼 클릭');
-    cmntOptnMenuOff();
-    onCmntRewrite();
-
-    const commentArea = e.target.parentElement.previousElementSibling;
-    const commentText = commentArea.innerText;
-
-    setCommentText(commentText);
-  };
+function CommentOptionMenu({
+  toggleCmntOptMenu,
+  setToggleCmntOptMenu,
+  isModalToggle,
+  setIsModalToggle,
+  cmntEditBtnClick,
+  handleCmntDelete,
+  setEditingCommentId,
+}) {
+  // const [isModalToggle, setIsModalToggle] = useState(false);
 
   const deleteComment = () => {
     console.log('삭제버튼');
-    cmntOptnMenuToggle();
-    modalOpen();
+    setToggleCmntOptMenu(false);
+    setEditingCommentId('');
+    setIsModalToggle(true);
   };
 
   const handleCancel = () => {
-    modalOff();
-  };
-  const handleDelete = () => {
-    window.location = `/detail/:postId`;
+    setIsModalToggle(false);
   };
 
   return (
     <>
       <div
-        className={`fontBodyS ${style.cmntOptionMenu} ${isOn ? style.on : ''}`}
+        className={`fontBodyS ${style.cmntOptionMenu} ${
+          toggleCmntOptMenu ? style.on : ''
+        }`}
       >
         <button
           className={`fontBodyS ${style.cmntEditBtn}`}
@@ -58,10 +47,10 @@ function CommentOptionMenu() {
           삭제하기
         </button>
       </div>
-      {isModalOn && (
+      {isModalToggle && (
         <ConfirmModal
           clickCancel={handleCancel}
-          clickDelAndSubmt={handleDelete}
+          clickDelAndSubmt={handleCmntDelete}
         />
       )}
     </>
