@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import style from '../css/Codi.module.css'
 import ActionSheet from './ActionSheet';
+
 
 const CodiLogBoxsMain = () => {
     // useState for ActionSheet
@@ -12,10 +14,9 @@ const CodiLogBoxsMain = () => {
     // 로컬스토리지에서 받아올 오늘 날씨 정보
     const [minTemp, setMinTemp] = useState('');
     const [maxTemp, setMaxTemp] = useState('');
+    const [sky, setSky] = useState('');
 
-    const [logToday, setLogToday] = useState({});
-
-
+    const [logToday, setLogToday] = useState('');//받아온 오늘 기록
 
     useEffect(() => {
         // 오늘 날짜 저장
@@ -32,16 +33,17 @@ const CodiLogBoxsMain = () => {
 
         // minTemp와 maxTemp를 로컬스토리지에서 가져와서 설정
         const storedMinTemp = localStorage.getItem('minTemp');
-        const storedMaxTemp = localStorage.getItem('maxTemp');
+        const storedMaxTemp = localStorage.getItem('maxTemp'); const storedSky = localStorage.getItem('weatherText');
+
         if (storedMinTemp) setMinTemp(storedMinTemp);
-        if (storedMaxTemp) setMaxTemp(storedMaxTemp);
+        if (storedMaxTemp) setMaxTemp(storedMaxTemp); if (storedSky) setSky(storedSky);
 
 
         fetch(`https://localhost:8080/codiLogToday/${today}`)//get요청 보냄 
             .then((res) => res.json())
             .then((data) => {
+
                 setLogToday(data);
-                // setDate(data.codiDate);
                 setTags(data.tag);
 
                 console.log('---선택 기록 setLogToday 전달 성공----', data);
@@ -55,8 +57,15 @@ const CodiLogBoxsMain = () => {
                 //     } else {
                 //         setCanEdit(false);
                 //     }
-            })
+            });
+
     }, [])
+
+    useEffect(() => {
+        if (sky && minTemp && maxTemp) {
+            fetch(`https://localhost:8080/codiLogSimilar/${maxTemp}/${minTemp}/${sky}`);
+        }
+    }, [sky, minTemp, maxTemp]);
 
 
     return (
@@ -75,27 +84,37 @@ const CodiLogBoxsMain = () => {
                     <img src="img/icons/common/12devider.svg" alt="12devider" />
                     <span className={`fontTitleS ${style.weather}`}> {maxTemp}°/ {minTemp}°</span>
                     {/* <img src="img/icons/common/12devider.svg" alt="12devider" /> */}
-                    <span className={`fontTitleS ${style.sky}`}>흐리고 비</span>
+                    <span className={`fontTitleS ${style.sky}`}>{sky}</span>
                 </div>
 
-                <div className={style.imgBox}>
-                    <img src={`https://localhost:8080/${logToday.image}`} alt={logToday.image} />
-                </div>
-                <div className={style.tags}>
-                    {
-                        // <span className={`fontTitleXS ${style.miniTag}`}>ddd</span>
+                {
+                    logToday.length !== 0 ? (
+                        <>
+                            <div className={style.imgBox}>
+                                <img src={`https://localhost:8080/${logToday.image}`} alt={logToday.image} />
+                            </div>
+                            <div className={style.tags}>
+                                {
+                                    // <span className={`fontTitleXS ${style.miniTag}`}>ddd</span>
 
-                        tags.map((feltTag, index) => {
-                            return (
-                                <span className={`fontTitleXS ${style.miniTag}`} key={index}>{feltTag}</span>
-                            );
-                        })
-                    }
-                </div>
-                <p className={`fontDecorate ${style.codiMemo}`}>{logToday.memo}</p>
+                                    tags.map((feltTag, index) => {
+                                        return (
+                                            <span className={`fontTitleXS ${style.miniTag}`} key={index}>{feltTag}</span>
+                                        );
+                                    })
+                                }
+                            </div>
+                            <p className={`fontDecorate ${style.codiMemo}`}>{logToday.memo}</p>
+                        </>) : (<>
+                            <div className={style.noLogToday}>
+                                <img src="img/icons/common/alertG600.svg" alt="alert" />
+                                <span className='fontTitleM'>오늘 코디 기록을 안하셨어요 !</span>
+                            </div>
+                            <Link to={'/codiWrite'} className={`fontTitleM ${style.btnWide}`}>오늘 코디 기록하기</Link>
+                        </>)
+                }
             </div>
             <ActionSheet setActionSheetActive={setActionSheetActive} actionSheetActive={actionSheetActive} canEdit={true} />
-
         </section>
     )
 }

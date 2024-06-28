@@ -19,6 +19,7 @@ const CodiWrite = () => {
 
   const [minTemp, setMinTemp] = useState('');
   const [maxTemp, setMaxTemp] = useState('');
+  const [sky, setSky] = useState('');
 
 
   useEffect(() => {
@@ -53,15 +54,11 @@ const CodiWrite = () => {
     // minTemp와 maxTemp를 로컬스토리지에서 가져와서 설정
     const storedMinTemp = localStorage.getItem('minTemp');
     const storedMaxTemp = localStorage.getItem('maxTemp');
+    const storedSky = localStorage.getItem('weatherText');
     if (storedMinTemp) setMinTemp(storedMinTemp);
     if (storedMaxTemp) setMaxTemp(storedMaxTemp);
+    if (storedSky) setSky(storedSky);
 
-    // pmSKY pmPTY 로컬스토리지에서 가져와서 설정
-    // const storedSKY = localStorage.getItem('pmSKY');
-    // const storedPTY = localStorage.getItem('pmPTY');
-    // if (storedSKY) setSKY(storedSKY);
-    // if (storedPTY) setPTY(storedPTY);
-    // console.log('--------하늘---------', SKY, PTY, '----');
   }, []);
 
   useEffect(() => {
@@ -126,6 +123,7 @@ const CodiWrite = () => {
     data.append('address', tagAddress);
     data.append('minTemp', minTemp);
     data.append('maxTemp', maxTemp);
+    data.append('sky', sky);
     data.append('codiDate', codiDate);
 
     // FormData 객체의 내용 확인 (디버깅용)
@@ -167,7 +165,7 @@ const CodiWrite = () => {
           <span className={`fontTitleXS ${style.miniTag}`}>{tagAddress}</span>
           <span className={`fontTitleS ${style.temp}`}>{maxTemp}°C/{minTemp}°C</span>
           <img src="img/icons/common/12devider.svg" alt="12devider" />
-          <span className={`fontTitleS ${style.sky}`}>흐리고 비</span>
+          <span className={`fontTitleS ${style.sky}`}>{sky}</span>
         </div>
         <div className={style.imgCon}>
           {file && (

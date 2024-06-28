@@ -88,11 +88,8 @@ button {
     color: var(--white);
 }
 
-/* ===codi.jsx 내코디 메인=== */
+/* ===codiMain.jsx 내코디 메인=== */
 
-/*.codiMain {
-  border: 1px solid red; 
-}*/
 
 /* ===codiLog.jsx 내코디기록=== */
 .codiLog {
@@ -549,7 +546,7 @@ button {
     /* flex-grow, flex-shrink, flex-basis */
 }
 
-.CodiCompleted .btnMethodWide {
+.btnMethodWide {
     color: var(--white);
     background-color: var(--primary-variant-color);
     border-radius: 999px;
@@ -563,7 +560,7 @@ button {
 
 }
 
-.CodiCompleted .btnMethodWide:hover {
+.btnMethodWide:hover {
     background-color: var(--grey-600);
 }
 
@@ -571,12 +568,19 @@ button {
 
 /*------------- codiMain.jsx-------------*/
 
+
+.codiMain {
+    padding-bottom: 2rem;
+}
+
 .bigBtnCon {
     /* border: 1px solid red; */
     padding: 0 1rem;
     display: flex;
     gap: 1rem;
 }
+
+
 
 .bigBtnCon .bigBtn {
     background-color: var(--white);
@@ -654,7 +658,33 @@ button {
     object-fit: contain;
 }
 
+.logBox .noLogToday {
+    background-color: var(--grey-100);
+    border-radius: 1rem;
+    padding: 2rem;
+    color: var(--grey-600);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
 
+.logBox .btnWide {
+    color: var(--white);
+    background-color: var(--primary-variant-color);
+    border-radius: 999px;
+    height: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 15%);
+    transition: 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logBox .btnWide:hover {
+    background-color: var(--primary-color);
+}
 
 @media screen and (min-width:736px) {
     .CodiViewFrame {

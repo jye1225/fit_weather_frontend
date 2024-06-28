@@ -2,11 +2,12 @@
     position: absolute;
     top: 0;
     width: 100%;
-    /* border: 1px solid red; */
+    height: 100vh;
     left: 0;
     opacity: 1;
     transition: opacity 0.3s;
     visibility: 1;
+
 }
 
 .Nav.hidden {
@@ -16,7 +17,6 @@
 }
 
 .Nav .navBg {
-    /* border: 3px solid forestgreen; */
     background-color: rgba(0, 0, 0, 0.7);
     position: absolute;
     top: 0;
@@ -43,6 +43,7 @@
 
 .sideCon.hidden {
     transform: translateX(-100%);
+    width: 0;
 }
 
 .logo {

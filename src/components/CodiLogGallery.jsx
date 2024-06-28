@@ -5,8 +5,6 @@ const CodiLogGallery = ({ feltWeather, setModalActive, codiLogList }) => {
     console.log('필터 종류, 리스트 - 갤러리', feltWeather, codiLogList);
 
 
-
-
     return (
 
         <ul className={style.galleryWrap}>
@@ -23,10 +21,7 @@ const CodiLogGallery = ({ feltWeather, setModalActive, codiLogList }) => {
                     <img src={`https://localhost:8080/${codiLog.image}`} alt="" />
                 </li>)
             })
-
             }
-
-
         </ul>
 
 
