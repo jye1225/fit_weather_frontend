@@ -12,7 +12,7 @@ const Signup = () => {
   const [username, setUsername] = useState(""); //닉네임
   const [password, setPassword] = useState(""); //비밀번호
   const [pdcon, setPdcon] = useState(""); //비밀번호 확인
-  const [gender, setGender] = useState(""); //성별
+  // const [gender, setGender] = useState("");
   const [message1, setMessage1] = useState("");
   const [message2, setMessage2] = useState("");
   const [message3, setMessage3] = useState("");
@@ -21,9 +21,9 @@ const Signup = () => {
   // 회원가입 기능 함수
   const register = async (e) => {
     e.preventDefault();
-    console.log(username, password);
+    // console.log(userid, username, password);
 
-    if (!/^[a-zA-Z][a-zA-Z0-9]{3,}$/.test(username)) {
+    if (!/^[a-zA-Z][a-zA-Z0-9]{3,}$/.test(userid)) {
       setMessage1("아이디는 4자 이상이어야 하며 영어로 시작해야 합니다.");
       return;
     } else {
@@ -41,21 +41,21 @@ const Signup = () => {
     } else {
       setMessage3("");
     }
-    if (!gender) {
-      setMessage4("성별을 선택해주세요.");
-      return;
-    } else {
-      setMessage4("");
-    }
+    // if (!gender) {
+    //   setMessage4("성별을 선택해주세요.");
+    //   return;
+    // } else {
+    //   setMessage4("");
+    // }
 
     //백엔드로 POST 요청 및 응답
     const response = await fetch(`${url}/register`, {
       method: "POST",
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ userid, username, password }),
       headers: { "Content-Type": "application/json" },
     });
     if (response.status === 200) {
-      window.location.href = "/login";
+      window.location.href = "/";
     } else {
       alert("존재하는 아이디 입니다.");
     }
@@ -241,7 +241,7 @@ const Signup = () => {
           </div>
           <span>{message3}</span> {/*비밀번호 확인 문구 */}
           {/*성별*/}
-          <div className={`fontTitleXL ${style.inputTitle}`}>성별</div>
+          {/* <div className={`fontTitleXL ${style.inputTitle}`}>성별</div>
           <div className={style.gender_select}>
             <button
               type="button"
@@ -259,7 +259,7 @@ const Signup = () => {
               {" "}
               여성{" "}
             </button>
-          </div>
+          </div> */}
           <button type="submit" className={`fontBodyM ${style.bottomButton}`}>
             다음으로
           </button>
