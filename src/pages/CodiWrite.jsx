@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
+
 import H2CodiWrite from "../components/H2CodiWrite";
 import style from '../css/Codi.module.css';
 import { useFeltOptionsStore } from '../store/codiStore';
 import { useNavigate } from 'react-router-dom';
-
 
 const CodiWrite = () => {
   const imgCon = document.querySelector(`.${style.imgCon}`);
@@ -31,6 +31,7 @@ const CodiWrite = () => {
     };
 
     const today = currentDate.toLocaleString('ko-KR', options).replace(/\./g, '').replace(/\ /g, '-');//0000-00-00
+
     console.log('today', today);
     setCodiDate(today);
   }, []);
@@ -41,7 +42,9 @@ const CodiWrite = () => {
     const storedRegionthirdName = localStorage.getItem('regionthirdName');
 
     if (storedRegionSecondName) {
+
       if (storedRegionSecondName.split(' ').length === 2) {// '부천시 원미구' 처럼 두 단어일때
+
         const splitSecondName = storedRegionSecondName.split(' ')[1]; //부천시 원미구 -> 원미구
         setRegionSecondName(splitSecondName);
       } else {  //'강남구' 처럼 한 단어일 때
@@ -66,11 +69,13 @@ const CodiWrite = () => {
   }, [regionSecondName, regionthirdName]);
 
   // 상태 설정
+
   const [activeOptions, setActiveOptions] = useState([]);    // 선택한 옵션 배열. 초기 상태는 빈 배열
   const [memo, setMemo] = useState('');                       // 메모 상태
   const [file, setFile] = useState('');                       // 파일 상태
   const [filePreview, setFilePreview] = useState('');         // 파일 미리보기 URL 상태
   const [fileMss, setFileMss] = useState('');                 // 파일 메시지 상태
+
 
   // 체감날씨 버튼 클릭 핸들러
   const handleBtnClick = (option) => {
@@ -96,8 +101,10 @@ const CodiWrite = () => {
       // document.querySelector(`.${style.imgCon}`).style.border = '1px solid var(--grey-200)';
       imgCon.style.border = '1px solid var(--grey-200)';
 
+
     } else {
       setFilePreview('');  // 파일이 없을 때 미리보기 URL 초기화
+
     }
   }, [file]);
 

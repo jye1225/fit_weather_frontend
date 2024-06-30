@@ -7,8 +7,8 @@ import SubmitBtn from '../components/SubmitBtn';
 import PagesHeader from '../components/PagesHeader';
 import { useNavigate } from 'react-router-dom';
 import { useVerifyPost } from '../store/verifyPostContentStore';
-import { url } from '../store/ref';
 import { usePostData } from '../store/postDataStore';
+import { url } from '../store/ref';
 
 function PostWritePage() {
   const navigate = useNavigate();

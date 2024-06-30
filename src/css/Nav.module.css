@@ -7,13 +7,12 @@
     opacity: 1;
     transition: opacity 0.3s;
     visibility: 1;
-
 }
 
 .Nav.hidden {
-    visibility: 0;
-    width: 0;
-    opacity: 0;
+  visibility: 0;
+  width: 0;
+  opacity: 0;
 }
 
 .Nav .navBg {
@@ -27,18 +26,18 @@
 }
 
 .sideCon {
-    z-index: 999;
-    border-radius: 0 1rem 1rem 0;
-    background-color: var(--white);
-    width: 94px;
-    height: 100vh;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
+  z-index: 999;
+  border-radius: 0 1rem 1rem 0;
+  background-color: var(--white);
+  width: 94px;
+  height: 100vh;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
 
-    position: absolute;
-    transform: translateX(-0%);
-    transition: transform 0.3s;
+  position: absolute;
+  transform: translateX(-0%);
+  transition: transform 0.3s;
 }
 
 .sideCon.hidden {
@@ -47,46 +46,45 @@
 }
 
 .logo {
-    padding: 0.25rem;
-    margin: 1rem 0;
+  padding: 0.25rem;
+  margin: 1rem 0;
 }
 
 .accountBtns,
 .cateBtns {
-    padding: 1rem 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 0.25rem;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.25rem;
 }
 
 .cateBtns {
-    border-top: 1px solid var(--grey-200);
-    background-color: transparent;
+  border-top: 1px solid var(--grey-200);
+  background-color: transparent;
 }
 
 .btnNav {
-    border: 1px solid transparent;
-    width: 100%;
-    padding: 0.625rem 0;
-    border-radius: 999px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-    color: var(--grey-600);
+  border: 1px solid transparent;
+  width: 100%;
+  padding: 0.625rem 0;
+  border-radius: 999px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--grey-600);
 }
 
 .btnNav.disable {
-    position: relative;
-    overflow: hidden;
-    z-index: 0;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
 }
 
-.btnNav.disable>* {
-
-    opacity: 0.3;
+.btnNav.disable > * {
+  opacity: 0.3;
 }
 
 .btnNav.disable::after {
@@ -110,26 +108,26 @@
     /* transition: 0.15s; */
 }
 
-
 .btnNav.disable:hover::after {
-    opacity: 1;
+  opacity: 1;
+
 }
 
 .btnNav.btnUser {
-    gap: 4px;
-    padding-bottom: 16px;
-    margin: 0.5rem 0 1rem 0;
+  gap: 4px;
+  padding-bottom: 16px;
+  margin: 0.5rem 0 1rem 0;
 }
 
 .profileImg {
-    background-color: var(--primary-color);
-    width: 48px;
-    height: 48px;
-    display: flex;
-    margin-bottom: 4px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 999px;
+  background-color: var(--primary-color);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  margin-bottom: 4px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
 }
 
 /* .btnNav.active {
@@ -138,46 +136,42 @@
 }
 */
 .btnNav:hover {
-    /* border: 1px solid var(--grey-200); */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-
+  /* border: 1px solid var(--grey-200); */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-
 .Logout {
-    /* border: 1px solid red; */
-    flex: 1;
-    display: flex;
-    align-items: end;
-    justify-content: center;
-    color: var(--grey-200);
-    padding: 1rem 0;
+  /* border: 1px solid red; */
+  flex: 1;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  color: var(--grey-200);
+  padding: 1rem 0;
 }
 
 .alertCon {
-    outline: 1px dotted var(--accnet-color);
-    padding: 1rem 0;
-    color: var(--accnet-color);
-    display: flex;
-    flex-direction: column;
+  outline: 1px dotted var(--accnet-color);
+  padding: 1rem 0;
+  color: var(--accnet-color);
+  display: flex;
+  flex-direction: column;
 }
 
-
-
 @media screen and (min-width: 909px) {
-    .Nav {
-        width: auto;
-        left: 50%;
-        transform: translateX(-454px);
-    }
+  .Nav {
+    width: auto;
+    left: 50%;
+    transform: translateX(-454px);
+  }
 
-    .Nav .navBg {
-        display: none;
-    }
+  .Nav .navBg {
+    display: none;
+  }
 
-    .sideCon {
-        background-color: transparent;
-        box-shadow: inset -2px 0 4px rgba(0, 0, 0, 0.05);
-        border-radius: 0;
-    }
+  .sideCon {
+    background-color: transparent;
+    box-shadow: inset -2px 0 4px rgba(0, 0, 0, 0.05);
+    border-radius: 0;
+  }
 }

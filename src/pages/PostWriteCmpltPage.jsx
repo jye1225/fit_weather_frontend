@@ -1,7 +1,7 @@
-import { useNavigate, useParams } from 'react-router-dom';
 import style from '../css/PostWriteCmpltPage.module.css';
+
+import { useNavigate } from 'react-router-dom';
 import { usePostData } from '../store/postDataStore';
-import { useEffect } from 'react';
 
 function PostWriteCmpltPage() {
   const navigate = useNavigate();
