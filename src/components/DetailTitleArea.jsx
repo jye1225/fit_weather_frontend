@@ -9,7 +9,7 @@ import { usePostData } from '../store/postDataStore';
 import { url } from '../store/ref';
 
 function DetailTitleArea({ fetchPostDetail }) {
-  const { isLike, setLiketoggle, likes, setLikes } = usePostData();
+  const { isLike, setLiketoggle, likes, setLikes, fetchPosts } = usePostData();
   const { isOpMenuOn, opMenuOpen, opMenuClose } = useOpenMenuModal();
   const { postDetail } = usePostData();
 
@@ -34,6 +34,7 @@ function DetailTitleArea({ fetchPostDetail }) {
         setLiketoggle(!isLike);
         setLikes(data.likes);
         fetchPostDetail();
+        fetchPosts();
       }
     } catch (err) {
       console.log(err);

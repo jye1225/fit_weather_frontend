@@ -34,14 +34,6 @@ function DetailContentCon() {
 
   useEffect(() => {
     fetchPostDetail();
-    // fetch(`${url}/posts/postDetail/${postId}`) //
-    //   .then((res) => res.json()) //
-    //   .then((data) => {
-    //     setPostDetail(data);
-    //     setLikes(data.likeCount);
-    //     setOriginImgPath(data.image);
-    //   });
-    // console.log(postDetail);
   }, [postId]);
 
   return (

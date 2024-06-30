@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 
 function DetailCoordiReview({ fetchPostDetail }) {
   const [onBtn, setOnBtn] = useState('');
-  const { postDetail, setPostsData } = usePostData();
+  const { postDetail, setPostsData, fetchPosts } = usePostData();
   const { postId } = useParams();
 
   const reviewBtnClick = async (btnType) => {
@@ -27,6 +27,7 @@ function DetailCoordiReview({ fetchPostDetail }) {
       setOnBtn(btnType);
     }
     fetchPostDetail();
+    fetchPosts();
   };
 
   const updateReviewCount = async (btnType, count) => {
