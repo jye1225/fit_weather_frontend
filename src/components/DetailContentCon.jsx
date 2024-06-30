@@ -17,21 +17,37 @@ function DetailContentCon() {
     usePostData();
   const { postId } = useParams();
 
-  useEffect(() => {
-    fetch(`${url}/posts/postDetail/${postId}`) //
-      .then((res) => res.json()) //
-      .then((data) => {
+  const fetchPostDetail = async () => {
+    try {
+      const response = await fetch(`${url}/posts/postDetail/${postId}`); //
+      const data = await response.json();
+      if (response.ok) {
         setPostDetail(data);
         setLikes(data.likeCount);
         setOriginImgPath(data.image);
-      });
-    console.log(postDetail);
+        console.log(postDetail);
+      }
+    } catch (error) {
+      console.error('상세페이지 오류', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPostDetail();
+    // fetch(`${url}/posts/postDetail/${postId}`) //
+    //   .then((res) => res.json()) //
+    //   .then((data) => {
+    //     setPostDetail(data);
+    //     setLikes(data.likeCount);
+    //     setOriginImgPath(data.image);
+    //   });
+    // console.log(postDetail);
   }, [postId]);
 
   return (
     <section className={style.detailContent}>
-      <DetailTitleArea />
-      <DetailContentArea />
+      <DetailTitleArea fetchPostDetail={fetchPostDetail} />
+      <DetailContentArea fetchPostDetail={fetchPostDetail} />
     </section>
   );
 }

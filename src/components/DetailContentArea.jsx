@@ -3,7 +3,7 @@ import DetailCoordiReview from './DetailCoordiReview';
 import { usePostData } from '../store/postDataStore';
 import { url } from '../store/ref';
 
-function DetailContentArea() {
+function DetailContentArea({ fetchPostDetail }) {
   const { postDetail } = usePostData();
 
   return (
@@ -20,7 +20,9 @@ function DetailContentArea() {
           {postDetail.content}
         </p>
       )}
-      {postDetail.coordiReview && <DetailCoordiReview />}
+      {postDetail.coordiReview && (
+        <DetailCoordiReview fetchPostDetail={fetchPostDetail} />
+      )}
     </div>
   );
 }

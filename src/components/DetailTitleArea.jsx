@@ -8,7 +8,7 @@ import { useOpenMenuModal } from '../store/detailOpMenuModalStore';
 import { usePostData } from '../store/postDataStore';
 import { url } from '../store/ref';
 
-function DetailTitleArea() {
+function DetailTitleArea({ fetchPostDetail }) {
   const { isLike, setLiketoggle, likes, setLikes } = usePostData();
   const { isOpMenuOn, opMenuOpen, opMenuClose } = useOpenMenuModal();
   const { postDetail } = usePostData();
@@ -33,6 +33,7 @@ function DetailTitleArea() {
         console.log('좋아요 토글');
         setLiketoggle(!isLike);
         setLikes(data.likes);
+        fetchPostDetail();
       }
     } catch (err) {
       console.log(err);
