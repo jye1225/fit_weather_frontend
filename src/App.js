@@ -26,7 +26,7 @@ import CodiCompleted from "./pages/CodiCompleted";
 import Login from "./pages/login/Login";
 import Signup from "./pages/Signup";
 import KakaoCallback from "./pages/login/KakaoCallback";
-import SignupComplete from "./pages/SignupComplete"; // 추가
+import SignupComplete from "./pages/Signupcomplete"; // 추가
 
 function App() {
   return (
