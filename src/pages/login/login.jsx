@@ -98,7 +98,7 @@ const LoginPage = () => {
             onChange={(e) => setAutoLogin(e.target.checked)}
           />
           자동 로그인
-        </div> */}
+        </div> 자동로그인 일단 후순위로 미뤄둠*/}
         <div>
           <button type="submit" className={`fontBodyM ${style.bottomButton}`}>
             로그인
