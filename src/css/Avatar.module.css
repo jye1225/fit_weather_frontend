@@ -1,0 +1,43 @@
+.avatar {
+  border: 1px solid red;
+  max-width: 450px;
+  width: calc(100% - 2rem);
+  margin: 32px auto 48px auto;
+  position: relative;
+}
+.person {
+  width: 36%;
+  position: relative;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.top {
+  width: 30%;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+.outer {
+  width: 38%;
+  position: absolute;
+  top: 30%;
+  left: 51%;
+  transform: translateX(-49%);
+  z-index: 2;
+}
+.bottom {
+  width: 27%;
+  position: absolute;
+  top: 52%;
+  left: 51%;
+  transform: translateX(-49%);
+}
+
+@media (max-width: 500px) {
+  .avatar {
+    width: 360px;
+  }
+}

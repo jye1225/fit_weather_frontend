@@ -4,6 +4,8 @@ import style from "../css/Nav.module.css";
 import { url } from "../store/ref";
 
 const Nav = ({ navOpen, setNavOpen }) => {
+  // console.log('>>>>>>', navOpen);
+
 
     function preventScroll(event) {    // 스크롤 막기 함수
         event.preventDefault();
@@ -28,7 +30,7 @@ const Nav = ({ navOpen, setNavOpen }) => {
 
     // const [userLogin, setUserLogin] = useState(null);   //로그인 정보 없음 테스트
     const [userLogin, setUserLogin] = useState(true);   //로그인 정보 있음 테스트
-
+  
   //로그아웃
   const logout = async () => {
     const response = await fetch(`${url}/logout`, {
@@ -109,6 +111,7 @@ const Nav = ({ navOpen, setNavOpen }) => {
 
         {userLogin ? (
           <div className={`fontHead3 ${style.Logout}`}>
+
             <Link to={"#"} className={style.btnLogout} onClick={logout}>
               로그아웃
             </Link>

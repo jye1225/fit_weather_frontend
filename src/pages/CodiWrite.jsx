@@ -20,7 +20,7 @@ const CodiWrite = () => {
   const [minTemp, setMinTemp] = useState('');
   const [maxTemp, setMaxTemp] = useState('');
   const [sky, setSky] = useState('');
-  
+
   useEffect(() => {
     // 오늘 날짜 저장
     const currentDate = new Date();
@@ -139,7 +139,8 @@ const CodiWrite = () => {
 
     try {
       const response = await fetch(`https://localhost:8080/codiWrite`, {
-        method: 'POST',
+        method: "POST",
+
         body: data,
         credentials: 'include',  // 쿠키 주고받기 위한 설정
       });

@@ -8,7 +8,7 @@ const Header = () => {
   const [navOpen, setNavOpen] = useState(window.innerWidth >= 909); //nav 여닫기
   // navOpen 상태 변화 확인용 콘솔 로그
   useEffect(() => {
-    console.log('navOpen 상태:', navOpen);
+    // console.log('navOpen 상태:', navOpen);
   }, [navOpen]);
 
   useEffect(() => {
@@ -20,10 +20,10 @@ const Header = () => {
       }
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     // 컴포넌트 언마운트 시 이벤트 리스너 제거
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -35,7 +35,7 @@ const Header = () => {
     setRegionFirstName,
     setRegionSecondName,
   } = useFetchStore();
-  const [regionthirdName, setRegionthirdName] = useState('');
+  const [regionthirdName, setRegionthirdName] = useState("");
 
   useEffect(() => {
     fetchLocation();
@@ -55,7 +55,7 @@ const Header = () => {
         coords.getLat(),
         (result, status) => {
           if (status === kakao.maps.services.Status.OK) {
-            const region = result.find((item) => item.region_type === 'H');
+            const region = result.find((item) => item.region_type === "H");
             if (region) {
               setRegionFirstName(region.region_1depth_name);
               setRegionSecondName(region.region_2depth_name);
@@ -66,9 +66,9 @@ const Header = () => {
               setRegionthirdName(result[0].region_3depth_name);
             }
             // 로컬스토리지에 저장
-            localStorage.setItem('regionSecondName', region.region_2depth_name);
-            localStorage.setItem('regionthirdName', region.region_3depth_name);
-            localStorage.setItem('regionFirstName', region.region_1depth_name);
+            localStorage.setItem("regionSecondName", region.region_2depth_name);
+            localStorage.setItem("regionthirdName", region.region_3depth_name);
+            localStorage.setItem("regionFirstName", region.region_1depth_name);
           }
         }
       );
