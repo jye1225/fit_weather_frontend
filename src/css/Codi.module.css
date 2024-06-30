@@ -88,11 +88,8 @@ button {
     color: var(--white);
 }
 
-/* ===codi.jsx 내코디 메인=== */
+/* ===codiMain.jsx 내코디 메인=== */
 
-/*.codiMain {
-  border: 1px solid red; 
-}*/
 
 /* ===codiLog.jsx 내코디기록=== */
 .codiLog {
@@ -284,6 +281,7 @@ button {
     cursor: pointer;
 }
 
+
 .CodiLogBox .imgBox {
     background-color: var(--grey-100);
     border-radius: 0.5rem;
@@ -319,22 +317,21 @@ button {
 
 /* =======Actionsheet (수정,삭제) =======*/
 .ActionSheet {
-    position: absolute;
+    position: fixed;
     background-color: var(--modal-bg);
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     align-items: center;
     flex-direction: column;
     justify-content: flex-end;
     overflow: hidden;
     display: flex;
-
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.15s;
-
+    z-index: 9999;
 }
 
 .ActionSheet.active {
@@ -549,7 +546,7 @@ button {
     /* flex-grow, flex-shrink, flex-basis */
 }
 
-.CodiCompleted .btnMethodWide {
+.btnMethodWide {
     color: var(--white);
     background-color: var(--primary-variant-color);
     border-radius: 999px;
@@ -563,7 +560,7 @@ button {
 
 }
 
-.CodiCompleted .btnMethodWide:hover {
+.btnMethodWide:hover {
     background-color: var(--grey-600);
 }
 
@@ -572,6 +569,122 @@ button {
 /*------------- codiMain.jsx-------------*/
 
 
+.codiMain {
+    padding-bottom: 2rem;
+}
+
+.bigBtnCon {
+    /* border: 1px solid red; */
+    padding: 0 1rem;
+    display: flex;
+    gap: 1rem;
+}
+
+
+
+.bigBtnCon .bigBtn {
+    background-color: var(--white);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 15%);
+    border-radius: 1rem;
+    padding: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+.bigBtnCon .bigBtn:hover {
+    background-color: var(--primary-color);
+}
+
+.bigBtnCon .bigBtn:hover>* {
+    filter: invert(100%);
+    font-weight: bolder;
+
+}
+
+.bigBtnCon .bigBtn span {
+    /* border: 1px solid khaki; */
+    width: 100%;
+    text-align: left;
+    padding-right: 2rem;
+    word-break: keep-all;
+    /* 단어 단위로 줄바꿈 설정 */
+    white-space: normal;
+    /* 기본 줄바꿈 동작 유지 */
+}
+
+.CodiLogBoxsMain {
+    padding: 1rem;
+}
+
+.logBox {
+    background-color: var(--white);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 15%);
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.logBox h3 {
+    color: var(--grey-600);
+}
+
+.logBox .imgBox {
+    background-color: var(--grey-100);
+    border-radius: 0.5rem;
+    width: 100%;
+    padding-top: 100%;
+    /* flex: 1; */
+    overflow: hidden;
+    /* display: flex; */
+    /* align-items: center; */
+    justify-content: center;
+    position: relative;
+}
+
+.logBox .imgBox img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.logBox .noLogToday {
+    background-color: var(--grey-100);
+    border-radius: 1rem;
+    padding: 2rem;
+    color: var(--grey-600);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.logBox .btnWide {
+    color: var(--white);
+    background-color: var(--primary-variant-color);
+    border-radius: 999px;
+    height: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 15%);
+    transition: 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logBox .btnWide:hover {
+    background-color: var(--primary-color);
+}
 
 @media screen and (min-width:736px) {
     .CodiViewFrame {
