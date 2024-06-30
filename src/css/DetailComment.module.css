@@ -62,7 +62,7 @@
   border: 1px solid var(--grey-400);
   background-color: var(--grey-400);
   color: var(--white);
-  transition: 0.3s;
+  transition: background-color 0.3s, color 0.3s;
 }
 .reCmntCancelBtn:hover {
   background-color: var(--grey-200);
@@ -76,4 +76,24 @@
   border-radius: 1rem;
   padding: 0.5rem;
   resize: none;
+}
+
+/* ----임시---- */
+.cmntOptionMenu {
+  /* border: 1px solid; */
+  margin-left: auto;
+  display: flex;
+  gap: 0.5rem;
+}
+.cmntOptionMenu button {
+  border: 1px solid transparent;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  color: var(--grey-400);
+  border-radius: 5rem;
+  transition: 0.3s;
+}
+.cmntOptionMenu button:hover {
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
 }

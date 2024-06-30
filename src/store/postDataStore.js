@@ -4,9 +4,7 @@ export const usePostData = create((set) => ({
   //날씨패션톡 리스트용
   allPostsData: [],
   setPostsData: (newPosts) => set({ allPostsData: newPosts }),
-  // addPostsData: (newPosts) => set((state) => ({
-  //   allPostsData: [...state.allPostsData, ...newPosts]
-  // })), --- 무한 스크롤용이긴 한데...
+
   originalData: [],
   setOriginalData: (originalData) => set({ originalData }),
 

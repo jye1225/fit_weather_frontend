@@ -5,6 +5,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { url } from '../store/ref';
 import { usePostData } from '../store/postDataStore';
 
+import InfiniteScroll from 'react-infinite-scroll-component';
+
 function CommunityPostCon() {
   const { allPostsData, setPostsData, setOriginalData } = usePostData();
   console.log(allPostsData);
@@ -35,11 +37,23 @@ function CommunityPostCon() {
 
   return (
     <ul className={style.commuListCon}>
-      {allPostsData &&
-        allPostsData.map((post) => (
-          <CommunityPost key={post._id} post={post} />
-        ))}
-      {}
+      <InfiniteScroll
+        dataLength={allPostsData.length}
+        // next={fetchData}
+        hasMore={true}
+        loader={<h4>Loading...</h4>}
+        endMessage={
+          <p style={{ textAlign: 'center' }}>
+            <b>Yay! You have seen it all</b>
+          </p>
+        }
+      >
+        {allPostsData &&
+          allPostsData.map((post) => (
+            <CommunityPost key={post._id} post={post} />
+          ))}
+      </InfiniteScroll>
+      ;
     </ul>
   );
 }

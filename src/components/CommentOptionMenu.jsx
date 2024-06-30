@@ -1,28 +1,15 @@
 import style from '../css/CommentOptionMenu.module.css';
 
 import ConfirmModal from './ConfirmModal';
-import { useCmntOptnMenu } from '../store/onCmntOptnMenuStore';
-import { url } from '../store/ref';
-import { useState } from 'react';
 
 function CommentOptionMenu({
   toggleCmntOptMenu,
-  setToggleCmntOptMenu,
   isModalToggle,
   setIsModalToggle,
   cmntEditBtnClick,
   handleCmntDelete,
-  setEditingCommentId,
+  deleteComment,
 }) {
-  // const [isModalToggle, setIsModalToggle] = useState(false);
-
-  const deleteComment = () => {
-    console.log('삭제버튼');
-    setToggleCmntOptMenu(false);
-    setEditingCommentId('');
-    setIsModalToggle(true);
-  };
-
   const handleCancel = () => {
     setIsModalToggle(false);
   };

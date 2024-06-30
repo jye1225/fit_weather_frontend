@@ -3,7 +3,7 @@ import CommunityCategory from './CommunitySubCategory';
 import Region from './Region';
 import OptionMenu from './OptionMenu';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { useOpenMenuModal } from '../store/detailOpMenuModalStore';
 import { usePostData } from '../store/postDataStore';
 import { url } from '../store/ref';

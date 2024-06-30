@@ -6,27 +6,30 @@ import { url } from '../store/ref';
 function DetailComment({
   cmnt,
   fetchCmnts,
-  editingCommentId,
+  editingCommentId, // 현재 조작 중인 구분용
   setEditingCommentId,
 }) {
-  const [toggleCmntOptMenu, setToggleCmntOptMenu] = useState(false);
-  const [onCmntRewrite, setOnCmntRewrite] = useState(false);
-  const [isModalToggle, setIsModalToggle] = useState(false);
+  const [toggleCmntOptMenu, setToggleCmntOptMenu] = useState(false); // 댓글 수정,삭제버튼 노충 유무
+  const [onCmntRewrite, setOnCmntRewrite] = useState(false); // 수정하기 클릭 유무
+  const [isModalToggle, setIsModalToggle] = useState(false); // 삭제하기 클릭시 뜨는 모달
   const [cmntCreateAt, setCmntCreateAt] = useState();
   const [commentText, setCommentText] = useState(cmnt.content);
 
   // 댓글 수정,삭제 버튼 노출
   const cmntOptnMenuToggle = (e) => {
     console.log('댓글편집버튼클릭');
+
     const editCmntId = e.target.closest('li').dataset.id;
-    console.log(editCmntId);
-    if (editingCommentId === editCmntId) {
-      setEditingCommentId('');
+    console.log('클릭한 li', editCmntId);
+    console.log('현재 li', cmnt._id);
+    if (editingCommentId !== editCmntId) {
       setToggleCmntOptMenu(false);
-    } else {
-      setEditingCommentId(editCmntId);
-      setToggleCmntOptMenu(true);
+      setEditingCommentId(null);
     }
+
+    setOnCmntRewrite(false);
+    setToggleCmntOptMenu((prev) => !prev); // 현재 클릭된 메뉴 토글
+    setEditingCommentId(editCmntId);
   };
 
   //수정하기 버튼 클릭 시 실행할 함수
@@ -34,27 +37,38 @@ function DetailComment({
     console.log('수정하기 버튼 클릭');
     const editCmntId = e.target.closest('li').dataset.id;
     setToggleCmntOptMenu(false);
-    setEditingCommentId(editCmntId);
     setOnCmntRewrite(true);
-
-    const commentArea = e.target.parentElement.previousElementSibling;
-    const commentText = commentArea.innerText;
-    setCommentText(commentText);
-
-    // if (editingCommentId === editCmntId) {
-    //   setEditingCommentId('');
-    //   setToggleCmntOptMenu(false);
-    // } else {
-    //   setEditingCommentId(editCmntId);
-    //   setToggleCmntOptMenu(true);
-    // }
+    setEditingCommentId(editCmntId);
+    setCommentText(cmnt.content);
   };
 
   //댓글 수정 후 최종 수정 버튼 클릭했을 때
-  const cmntRewriteSubmit = () => {
+  const cmntRewriteSubmit = async () => {
     console.log('댓글수정 버튼 클릭');
+    setEditingCommentId('');
     setOnCmntRewrite(false);
-    //댓글 업데이트 로직 추가하기
+
+    //댓글 업데이트 로직
+    try {
+      const response = await fetch(`${url}/comments/cmntUpdate/${cmnt._id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          comment: commentText,
+        }),
+      });
+      console.log(response);
+      if (response.ok) {
+        fetchCmnts();
+      }
+    } catch (error) {
+      console.error('댓글 수정 실패', error);
+    }
+  };
+
+  const deleteComment = () => {
+    console.log('삭제하기 버튼');
+    setIsModalToggle(true);
   };
 
   //삭제 모달에서 삭제하기 클릭했을 때
@@ -102,33 +116,21 @@ function DetailComment({
   }, []);
 
   return (
-    <li className={style.comment} data-id={cmnt._id}>
+    <li className={`post ${style.comment}`} data-id={cmnt._id}>
       <div className={style.userImg}>
         {/* 유저이미지는 유저정보 생기면 수정예정 */}
         <img src="/img/img2.jpg" alt={cmnt.userId} />
       </div>
       <span className={`fontTitleS ${style.userName}`}>{cmnt.userId} </span>
       <span className={`fontBodyS ${style.commentDate}`}>{cmntCreateAt}</span>
-      {!onCmntRewrite && (
-        <>
-          {/* 수정삭제버튼은 
-          로그인한 사용자와 댓글 작성자가 일치할떄 
-          노출되게 설정 예정 */}
-          <i
-            className="fa-solid fa-ellipsis-vertical"
-            onClick={cmntOptnMenuToggle}
-          ></i>
-          <p className="fontBodyM">{cmnt.content}</p>
-        </>
-      )}
-      {onCmntRewrite && (
+      {editingCommentId === cmnt._id && onCmntRewrite ? (
         <>
           <div className={style.reCmntBtnCon}>
             <button
               className={`fontTitleM ${style.reCmntCancelBtn}`}
               onClick={() => {
-                setOnCmntRewrite(false);
                 setEditingCommentId('');
+                setOnCmntRewrite(false);
               }}
             >
               취소
@@ -147,17 +149,27 @@ function DetailComment({
             maxLength={300}
           ></textarea>
         </>
-      )}
-      {editingCommentId === cmnt._id && !onCmntRewrite && (
-        <CommentOptionMenu
-          toggleCmntOptMenu={toggleCmntOptMenu}
-          setToggleCmntOptMenu={setToggleCmntOptMenu}
-          isModalToggle={isModalToggle}
-          setIsModalToggle={setIsModalToggle}
-          cmntEditBtnClick={cmntEditBtnClick}
-          handleCmntDelete={handleCmntDelete}
-          setEditingCommentId={setEditingCommentId}
-        />
+      ) : (
+        <>
+          {/* 수정삭제버튼은 
+          로그인한 사용자와 댓글 작성자가 일치할떄 
+          노출되게 설정 예정 */}
+          <i
+            className="fa-solid fa-ellipsis-vertical"
+            onClick={cmntOptnMenuToggle}
+          ></i>
+          <p className="fontBodyM">{cmnt.content}</p>
+          {toggleCmntOptMenu && editingCommentId === cmnt._id && (
+            <CommentOptionMenu
+              toggleCmntOptMenu={toggleCmntOptMenu}
+              isModalToggle={isModalToggle}
+              setIsModalToggle={setIsModalToggle}
+              cmntEditBtnClick={cmntEditBtnClick}
+              handleCmntDelete={handleCmntDelete}
+              deleteComment={deleteComment}
+            />
+          )}
+        </>
       )}
     </li>
   );

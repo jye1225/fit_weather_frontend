@@ -8,6 +8,7 @@ import { usePostData } from '../store/postDataStore';
 import { useCmntOptnMenu } from '../store/onCmntOptnMenuStore';
 
 function DetailCommentsCon() {
+  const [onCmntRewrite, setOnCmntRewrite] = useState(false); // 수정하기 클릭 유무
   const { postDetail } = usePostData();
   const [editingCommentId, setEditingCommentId] = useState(null);
   const [comment, setComment] = useState('');
@@ -62,7 +63,6 @@ function DetailCommentsCon() {
         // console.log('cmntData에 저장된', cmntData);
       });
   }, [postId]);
-
   useEffect(() => {
     fetchCmnts();
   }, [fetchCmnts]);
@@ -95,6 +95,8 @@ function DetailCommentsCon() {
             fetchCmnts={fetchCmnts}
             editingCommentId={editingCommentId}
             setEditingCommentId={setEditingCommentId}
+            onCmntRewrite={onCmntRewrite}
+            setOnCmntRewrite={setOnCmntRewrite}
           />
         ))}
       </ul>
