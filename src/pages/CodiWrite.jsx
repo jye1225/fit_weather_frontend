@@ -20,8 +20,7 @@ const CodiWrite = () => {
   const [minTemp, setMinTemp] = useState('');
   const [maxTemp, setMaxTemp] = useState('');
   const [sky, setSky] = useState('');
-
-
+  
   useEffect(() => {
     // 오늘 날짜 저장
     const currentDate = new Date();

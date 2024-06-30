@@ -1,7 +1,6 @@
 .hd {
   position: fixed;
   z-index: 99;
-  /* width 수정해주세요!! */
   width: 100%;
   top: 0;
   left: 0;
