@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import style from '../css/PostCategorySelect.module.css';
 import CoordiReviewOption from './CoordiReviewOption';
 import { useVerifyPost } from '../store/verifyPostContentStore';
+import { usePostData } from '../store/postDataStore';
 
 function PostCategorySelect() {
   const { selectPostCate, setSelectPostCate, setOnReview } = useVerifyPost();
+  const { postDetail } = usePostData();
   const [showCoordiReview, setShowCoordiReview] = useState(false);
 
   const selectTodayCoordi = (e) => {
@@ -18,6 +20,21 @@ function PostCategorySelect() {
       setOnReview('no');
     }
   };
+
+  useEffect(() => {
+    console.log(postDetail.category);
+    if (postDetail.category === 'weather') {
+      setSelectPostCate('weather');
+    } else if (postDetail.category === 'coordi') {
+      setSelectPostCate('coordi');
+      setShowCoordiReview(true);
+      if (postDetail.coordiReview) {
+        setOnReview('yes');
+      } else {
+        setOnReview('no');
+      }
+    }
+  }, []);
 
   return (
     <fieldset className={style.postCategorySelect}>

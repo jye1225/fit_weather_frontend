@@ -1,21 +1,62 @@
 import style from '../css/DetailCoordiReview.module.css';
 import { useState } from 'react';
 import { usePostData } from '../store/postDataStore';
+import { url } from '../store/ref';
+import { useParams } from 'react-router-dom';
 
-function DetailCoordiReview() {
-  const [onBtn, setOnBtn] = useState(null);
-  const { postDetail } = usePostData();
+function DetailCoordiReview({ fetchPostDetail }) {
+  const [onBtn, setOnBtn] = useState('');
+  const { postDetail, setPostsData, fetchPosts } = usePostData();
+  const { postId } = useParams();
 
-  const reviewBtnClick = (btnType) => {
+  const reviewBtnClick = async (btnType) => {
     setOnBtn(btnType);
+
+    if (onBtn === btnType) {
+      // 동일한 버튼 클릭 시 -1
+      setOnBtn(null);
+      await updateReviewCount(btnType, 'decrement');
+    } else {
+      if (onBtn) {
+        //다른 버튼 클릭 시 원래 버튼 -1
+        await updateReviewCount(onBtn, -'decrement');
+        setOnBtn(null);
+      }
+      //새 버튼 +1
+      await updateReviewCount(btnType, 'increment');
+      setOnBtn(btnType);
+    }
+    fetchPostDetail();
+    fetchPosts();
+  };
+
+  const updateReviewCount = async (btnType, count) => {
+    try {
+      const response = await fetch(`${url}/posts/updateReview/${postId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          btnType,
+          count,
+        }),
+      });
+      console.log(response);
+      const data = await response.json();
+      if (response.ok) {
+        console.log(data);
+        setPostsData(data);
+      }
+    } catch (error) {
+      console.error('코디 리뷰 에러', error);
+    }
   };
 
   return (
     <div className={style.coordiReview}>
       <p className="fontHead2">이 코디 어때요?</p>
       <button
-        className={`${style.goodBtn} ${onBtn === 'good' ? style.on : ''}`}
-        onClick={() => reviewBtnClick('good')}
+        className={`${style.goodBtn} ${onBtn === 'Good' ? style.on : ''}`}
+        onClick={() => reviewBtnClick('Good')}
       >
         <svg
           width="24"
@@ -33,8 +74,8 @@ function DetailCoordiReview() {
         <span className="fontBodyS">{postDetail.coordiGood}</span>
       </button>
       <button
-        className={`${style.sosoBtn} ${onBtn === 'soso' ? style.on : ''}`}
-        onClick={() => reviewBtnClick('soso')}
+        className={`${style.sosoBtn} ${onBtn === 'Soso' ? style.on : ''}`}
+        onClick={() => reviewBtnClick('Soso')}
       >
         <svg
           width="24"
@@ -52,8 +93,8 @@ function DetailCoordiReview() {
         <span className="fontBodyS">{postDetail.coordiSoso}</span>
       </button>
       <button
-        className={`${style.badBtn} ${onBtn === 'bad' ? style.on : ''}`}
-        onClick={() => reviewBtnClick('bad')}
+        className={`${style.badBtn} ${onBtn === 'Bad' ? style.on : ''}`}
+        onClick={() => reviewBtnClick('Bad')}
       >
         <svg
           width="24"

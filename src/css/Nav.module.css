@@ -110,7 +110,8 @@
 }
 
 .btnNav.disable:hover::after {
-    opacity: 1;
+  opacity: 1;
+
 }
 
 .btnNav.btnUser {

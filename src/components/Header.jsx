@@ -1,8 +1,8 @@
-import { useNavigate } from "react-router-dom";
-import style from "../css/Header.module.css";
-import { useEffect, useState } from "react";
-import useFetchStore from "../store/fetchStore";
-import Nav from "./Nav";
+import { useNavigate } from 'react-router-dom';
+import style from '../css/Header.module.css';
+import { useEffect, useState } from 'react';
+import useFetchStore from '../store/fetchStore';
+import Nav from './Nav';
 
 const Header = () => {
   const [navOpen, setNavOpen] = useState(window.innerWidth >= 909); //nav 여닫기

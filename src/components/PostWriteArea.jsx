@@ -2,7 +2,9 @@ import style from '../css/PostWriteArea.module.css';
 import PostImgFalse from './PostImgFalse';
 import PostImgTrue from './PostImgTrue';
 import { useVerifyPost } from '../store/verifyPostContentStore';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { usePostData } from '../store/postDataStore';
+import { url } from '../store/ref';
 
 function PostWriteArea() {
   const {
@@ -14,8 +16,25 @@ function PostWriteArea() {
     contentErrMsg,
     setFile,
   } = useVerifyPost();
+  const { postDetail, setOriginImgPath } = usePostData();
   const [imgPreviewUrl, setImgPreviewUrl] = useState(null);
   const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    if (postDetail.title || postDetail.content) {
+      setPostTitle(postDetail.title);
+      setPostContent(postDetail.content);
+    }
+
+    if (postDetail.image) {
+      setImgPreviewUrl(`${url}/${postDetail.image}`);
+      setOriginImgPath(postDetail.image);
+    }
+
+    console.log(postTitle);
+    console.log(postContent);
+    console.log('DB 이미지경로', postDetail.image);
+  }, [postDetail, setPostTitle, setPostContent, postDetail.image]);
 
   const writeTitle = (e) => {
     setPostTitle(e.target.value);
@@ -39,6 +58,8 @@ function PostWriteArea() {
       reader.readAsDataURL(file);
       setFile(file);
     }
+
+    console.log(file);
   };
 
   //선택한 사진 삭제

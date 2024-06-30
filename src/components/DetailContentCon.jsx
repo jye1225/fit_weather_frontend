@@ -13,22 +13,33 @@ function DetailContentCon() {
   // 로그인 가능하게되면
   // -> 유저아이디랑 작성자 아이디 비교해서 수정삭제메뉴 노출 유무
 
-  const { postDetail, setPostDetail } = usePostData();
+  const { postDetail, setPostDetail, setLikes, setOriginImgPath } =
+    usePostData();
   const { postId } = useParams();
 
-  useEffect(() => {
-    fetch(`${url}/posts/postDetail/${postId}`) //
-      .then((res) => res.json()) //
-      .then((data) => {
+  const fetchPostDetail = async () => {
+    try {
+      const response = await fetch(`${url}/posts/postDetail/${postId}`); //
+      const data = await response.json();
+      if (response.ok) {
         setPostDetail(data);
-      });
-    console.log(postDetail);
+        setLikes(data.likeCount);
+        setOriginImgPath(data.image);
+        console.log(postDetail);
+      }
+    } catch (error) {
+      console.error('상세페이지 오류', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPostDetail();
   }, [postId]);
 
   return (
     <section className={style.detailContent}>
-      <DetailTitleArea />
-      <DetailContentArea />
+      <DetailTitleArea fetchPostDetail={fetchPostDetail} />
+      <DetailContentArea fetchPostDetail={fetchPostDetail} />
     </section>
   );
 }

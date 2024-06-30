@@ -19,6 +19,11 @@
 .commentWrite textarea::placeholder {
   color: var(--grey-200);
 }
+
+.cmntErrMsg {
+  color: var(--accnet-color);
+  padding-inline: 0.5rem;
+}
 .commentWrite button {
   position: absolute;
   right: 1rem;

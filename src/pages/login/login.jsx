@@ -1,144 +1,122 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import KakaoLogin from "./KakaoLogin"; // 카카오 로그인 컴포넌트 import
-import axios from "axios";
-import "../../css/login.css"; // 경로 확인
+import style from "../../css/login.module.css"; // 경로 확인
+import { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { url } from "../../store/ref";
 
-export default function Login() {
-  const [id, setId] = useState("");
-  const [pw, setPw] = useState("");
-  const [autoLogin, setAutoLogin] = useState(false);
-  const [idError, setIdError] = useState("");
-  const [pwError, setPwError] = useState("");
-  const navigate = useNavigate();
+// 카카오 로그인 컴포넌트 import, 얘는 삭제하면 안됨
+import KakaoLogin from "./KakaoLogin";
+// import { useNavigate } from "react-router-dom"; //내 코드라 지워둠
 
-  useEffect(() => {
-    const savedId = localStorage.getItem("savedId");
-    if (savedId) {
-      setId(savedId);
-    }
-  }, []);
+const LoginPage = () => {
+  const [userid, setUserid] = useState("");
+  const [password, setPassword] = useState("");
+  const [message1, setMessage1] = useState("");
+  const [message2, setMessage2] = useState("");
+  const [redirect, setRedirect] = useState(false);
+  // const [autoLogin, setAutoLogin] = useState(false); //자동로그인
+  // const navigate = useNavigate(); //내 코드라 삭제함
 
-  const validateId = (value) => {
-    const idPattern = /^[a-zA-Z0-9]+$/; // 영문과 숫자만 허용
-    if (!idPattern.test(value)) {
-      setIdError("올바른 아이디를 입력해주세요.");
-    } else {
-      setIdError("");
-    }
-  };
-
-  const validatePw = (value) => {
-    const pwPattern =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-    if (!pwPattern.test(value)) {
-      setPwError("영문, 숫자, 특수문자 포함 8자 이상 입력해주세요.");
-    } else {
-      setPwError("");
-    }
-  };
-
-  const handleLogin = async (e) => {
+  const login = async (e) => {
     e.preventDefault();
-    validateId(id);
-    validatePw(pw);
-    if (idError || pwError) {
-      return;
+    // console.log(userid, password);
+
+    //백엔드로 POST 요청 및 응답
+    const response = await fetch(`${url}/login`, {
+      method: "POST",
+      body: JSON.stringify({ userid, password }),
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    });
+
+    const data = await response.json();
+    console.log(data);
+
+    if (data.id) {
+      console.log("로그인성공");
+      localStorage.setItem("token", data.token); // 토큰을 로컬 스토리지에 저장
+      window.location.href = "/";
+      setRedirect(true);
     }
-    try {
-      const response = await axios.post("/signin", { id, password: pw });
-      if (autoLogin) {
-        localStorage.setItem("savedId", id);
-      } else {
-        localStorage.removeItem("savedId");
-      }
-      console.log(response.data);
-      navigate("/"); // 로그인 성공 후 페이지 이동
-    } catch (err) {
-      console.error(err);
-      alert("로그인에 실패했습니다. 다시 시도해주세요.");
+    if (data.message === "nouser") {
+      console.log("사용자가 없습니다.");
+      setMessage1("회원이 아닙니다.");
+    }
+    if (data.message === "failed") {
+      console.log("비밀번호가 맞지 않습니다.");
+      setMessage2("비밀번호가 맞지 않습니다.");
     }
   };
 
-  const handleSignupRedirect = () => {
-    navigate("/signup");
-  };
-
-  const handleLogoClick = () => {
-    navigate("/"); // 로고 클릭 시 홈 페이지로 이동
-  };
+  // if (redirect) {
+  //   return <Navigate to="/" />;
+  // }
 
   return (
-    <div className="mw page">
-      <div
-        className="logo"
-        onClick={handleLogoClick}
-        style={{ cursor: "pointer" }}
-      >
+    <div className={`mw ${style.page}`}>
+      <div className={style.logo} style={{ cursor: "pointer" }}>
         <img src="/img/Fit Weather.png" alt="Fit Weather Logo" />
       </div>
-      <div className="titleWrap fontHead2">로그인</div>
+      <div className={`fontHead2 ${style.titleWrap}`}>로그인</div>
 
-      <div className="contentWrap">
-        <div className="inputTitle fontTitleXL">아이디</div>
-        <div className="inputWrap">
+      <form onSubmit={login}>
+        <div className={style.contentWrap}>
+          <div className={`fontTitleXL ${style.inputTitle}`}>아이디</div>
+          <div className={style.inputWrap}>
+            <input
+              className={style.input}
+              placeholder="아이디를 입력하세요."
+              value={userid}
+              onChange={(e) => {
+                setUserid(e.target.value);
+              }}
+            />
+          </div>
+          <span>{message1}</span>
+          <div
+            style={{ marginTop: "26px" }}
+            className={`fontTitleXL ${style.inputTitle}`}
+          >
+            비밀번호
+          </div>
+          <div className={style.inputWrap}>
+            <input
+              type="password"
+              className={style.input}
+              placeholder="비밀번호를 입력하세요."
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
+          </div>
+          <span>{message2}</span>
+        </div>
+        {/* <div className={`fontBodyM ${style.autologin}`}>
           <input
-            className="input"
-            placeholder="아이디를 입력하세요."
-            value={id}
-            onChange={(e) => {
-              setId(e.target.value);
-              validateId(e.target.value);
-            }}
+            type="checkbox"
+            checked={autoLogin}
+            onChange={(e) => setAutoLogin(e.target.checked)}
           />
+          자동 로그인
+        </div> 자동로그인 일단 후순위로 미뤄둠*/}
+        <div>
+          <button type="submit" className={`fontBodyM ${style.bottomButton}`}>
+            로그인
+          </button>
         </div>
-        {idError && <div className="errorMessageWrap">{idError}</div>}
-
-        <div style={{ marginTop: "26px" }} className="inputTitle fontTitleXL">
-          비밀번호
+        <div>
+          <KakaoLogin />
         </div>
-        <div className="inputWrap">
-          <input
-            type="password"
-            className="input"
-            placeholder="비밀번호를 입력하세요."
-            value={pw}
-            onChange={(e) => {
-              setPw(e.target.value);
-              validatePw(e.target.value);
-            }}
-          />
-        </div>
-        {pwError && <div className="errorMessageWrap">{pwError}</div>}
-      </div>
+      </form>
 
-      <div className="autologin fontBodyM">
-        <input
-          type="checkbox"
-          checked={autoLogin}
-          onChange={(e) => setAutoLogin(e.target.checked)}
-        />
-        자동 로그인
-      </div>
-
-      <div>
-        <button onClick={handleLogin} className="bottomButton fontBodyM">
-          로그인
-        </button>
-      </div>
-      <div>
-        <KakaoLogin />
-      </div>
-
-      <div className="signup fontBodyM">
+      <div className={`fontBodyM ${style.signup}`}>
         아직 웨더핏 회원이 아니시라면{" "}
-        <button
-          onClick={handleSignupRedirect}
-          className="signupButton fontBodyM"
-        >
-          회원가입
-        </button>
+        <p className={`fontBodyM ${style.signupButton}`}>
+          <Link to="/Signup">회원가입</Link>
+        </p>
       </div>
     </div>
   );
-}
+};
+
+export default LoginPage;
