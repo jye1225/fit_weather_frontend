@@ -2,7 +2,9 @@ import style from "../css/CodiTalk.module.css";
 import { useEffect, useState } from "react";
 import useFetchStore from "../store/fetchStore";
 import useClothesStore from "../store/clothesStore";
+import { url } from "../store/ref";
 
+// const CodiTalk = ({ setMatchingUrl }) => {
 const CodiTalk = () => {
   const {
     location,
@@ -17,10 +19,14 @@ const CodiTalk = () => {
     uv,
   } = useFetchStore();
 
-  const { tops, bottoms, outerwear, others } = useClothesStore();
+  const clothes = useClothesStore();
   const [chatData, setChatData] = useState("");
-  const [matchingClothes, setMatchingClothes] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
+  const [matchingWord, setMatchingWord] = useState({
+    tops: [],
+    bottoms: [],
+    outers: [],
+  });
 
   useEffect(() => {
     fetchLocation();
@@ -38,13 +44,9 @@ const CodiTalk = () => {
         minTemp !== "" &&
         rain !== "" &&
         dust !== "" &&
-        uv !== "" &&
-        tops &&
-        bottoms &&
-        outerwear &&
-        others
+        uv !== ""
       ) {
-        setDataLoaded(true); // 모든 데이터가 준비된 경우에만 true로 설정
+        setDataLoaded(true);
       }
     };
 
@@ -59,17 +61,13 @@ const CodiTalk = () => {
     rain,
     dust,
     uv,
-    tops,
-    bottoms,
-    outerwear,
-    others,
   ]);
 
   // useEffect(() => {
   //   const postClothesData = async () => {
   //     if (dataLoaded) {
   //       try {
-  //         const response = await fetch("http://localhost:8080/codiTalkBox", {
+  //         const response = await fetch(`${url}/codiTalkBox`, {
   //           method: "POST",
   //           headers: {
   //             "Content-Type": "application/json",
@@ -81,10 +79,6 @@ const CodiTalk = () => {
   //             rain: rain,
   //             dust: dust,
   //             uv: uv,
-  //             tops: tops,
-  //             bottoms: bottoms,
-  //             outerwear: outerwear,
-  //             others: others,
   //           }),
   //         });
 
@@ -98,42 +92,59 @@ const CodiTalk = () => {
   //   };
 
   //   postClothesData();
-  // }, [
-  //   dataLoaded,
-  //   temperature,
-  //   maxTemp,
-  //   minTemp,
-  //   rain,
-  //   dust,
-  //   uv,
-  //   tops,
-  //   bottoms,
-  //   outerwear,
-  //   others,
-  // ]);
+  // }, [dataLoaded, temperature, maxTemp, minTemp, rain, dust, uv]);
 
   // useEffect(() => {
   //   if (chatData) {
-  //     // 1. chatData를 단어 단위로 분리
-  //     const words = chatData
-  //       .split(/[\s,!.?]+/)
-  //       .map((word) => word.replace(/[^가-힣a-zA-Z]/g, ""));
+  //     const findMatching = (obj, str) => {
+  //       const keys = Object.keys(obj);
+  //       const result = [];
 
-  //     // 2. clothesStore.js의 배열 값을 하나의 배열로 합침
-  //     const allClothes = [...tops, ...bottoms, ...outerwear, ...others];
+  //       for (let key of keys) {
+  //         if (str.includes(key)) {
+  //           result.push(key);
+  //         }
+  //       }
 
-  //     // 3. 분리된 단어와 clothesStore.js의 배열 값 비교
-  //     const matches = words.filter((word) => allClothes.includes(word));
-  //     setMatchingClothes(matches);
-  //     console.log(words);
-  //     console.log(matches);
+  //       return result;
+  //     };
+
+  //     const topWords = findMatching(clothes.tops, chatData);
+  //     const bottomWords = findMatching(clothes.bottoms, chatData);
+  //     const outerWords = findMatching(clothes.outers, chatData);
+  //     setMatchingWord({
+  //       tops: topWords,
+  //       bottoms: bottomWords,
+  //       outers: outerWords,
+  //     });
   //   }
-  // }, [chatData, tops, bottoms, outerwear, others]);
+  // }, [chatData, clothes]);
+
+  // useEffect(() => {
+  //   if (
+  //     matchingWord.tops.length > 0 ||
+  //     matchingWord.bottoms.length > 0 ||
+  //     matchingWord.outers.length > 0
+  //   ) {
+  //     const topUrl = matchingWord.tops.map((word) => clothes.tops[word]);
+  //     const bottomUrl = matchingWord.bottoms.map(
+  //       (word) => clothes.bottoms[word]
+  //     );
+  //     const outerUrl = matchingWord.outers.map((word) => clothes.outers[word]);
+
+  //     setMatchingUrl({
+  //       tops: topUrl[0] || "",
+  //       bottoms: bottomUrl[0] || "",
+  //       outers: outerUrl[0] || "",
+  //     });
+  //     console.log(topUrl[0], bottomUrl[0], outerUrl[0]);
+  //   }
+  // }, [matchingWord, clothes, setMatchingUrl]);
 
   return (
     <section className={style.talkBox}>
       <p className={`fontHead3 ${style.title}`}>오늘 뭐 입지?</p>
-      {chatData && <p className={`fontDecorate ${style.talk}`}>{chatData}</p>}
+      {/* {chatData && <p className={`fontDecorate ${style.talk}`}>{chatData}</p>} */}
     </section>
   );
 };
