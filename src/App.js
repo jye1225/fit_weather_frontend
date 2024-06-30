@@ -23,9 +23,10 @@ import CodiEdit from "./pages/CodiEdit";
 import CodiMain from "./pages/CodiMain";
 import CodiCompleted from "./pages/CodiCompleted";
 
-import Login from "./pages/login/login";
-import Signup from "./pages/signup";
+import Login from "./pages/login/Login";
+import Signup from "./pages/Signup";
 import KakaoCallback from "./pages/login/KakaoCallback";
+import SignupComplete from "./pages/SignupComplete"; // 추가
 
 function App() {
   return (
@@ -41,7 +42,10 @@ function App() {
 
         <Route path="/detail/:postId" element={<DetailPage />} />
         <Route path="/postWrite" element={<PostWritePage />} />
-        <Route path="/postWriteCmplt/:postid" element={<PostWriteCmpltPage />} />
+        <Route
+          path="/postWriteCmplt/:postid"
+          element={<PostWriteCmpltPage />}
+        />
         <Route path="/postEdit/:postId" element={<PostEditPage />} />
         <Route path="/*" element={<div>없는 페이지 입니다.</div>} />
 

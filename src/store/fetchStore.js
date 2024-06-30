@@ -94,7 +94,7 @@ const useFetchStore = create((set, get) => ({
         if (data.response?.body?.items?.item) {
           const shortWeather = data.response.body.items.item;
 
-          // 로컬스토리지에 저장
+          //로컬스토리지에 저장
           localStorage.setItem(
             "maxTemp",
             shortWeather[157].fcstValue.substr(0, 2)
@@ -119,15 +119,6 @@ const useFetchStore = create((set, get) => ({
           // console.log(temp);
           // console.log(shortWeather);
 
-          //로컬스토리지에 저장 - 최고최저기온
-          localStorage.setItem(
-            "maxTemp",
-            shortWeather[157].fcstValue.substr(0, 2)
-          );
-          localStorage.setItem(
-            "minTemp",
-            shortWeather[48].fcstValue.substr(0, 2)
-          );
 
           const temp = shortWeather.filter((item) => item.category === "TMP");
           const sky = shortWeather.filter((item) => item.category === "SKY");
@@ -150,12 +141,15 @@ const useFetchStore = create((set, get) => ({
             "4_2": "흐리고 비/눈",
           };
           const weatherText = weatherObj[`${pmSKY}_${pmPTY}`] || "로딩중";
+          // 로컬 스토리지에 저장
+          localStorage.setItem("weatherText", weatherText);
 
           set({
             tempData: tempArry,
             skyData: skyArry,
             ptyData: ptyArry,
             popData: popArry,
+            weatherText, // 요거 추가하니 로컬에 저장됐어요!
           });
 
           return {
@@ -186,6 +180,8 @@ const useFetchStore = create((set, get) => ({
         pmPTY: "",
         weatherText: "",
       };
+
+
     };
 
     const fetchDust = async () => {
@@ -253,14 +249,14 @@ const useFetchStore = create((set, get) => ({
             maxUv >= 0 && maxUv <= 2
               ? "낮음"
               : maxUv >= 3 && maxUv <= 5
-              ? "보통"
-              : maxUv >= 6 && maxUv <= 7
-              ? "높음"
-              : maxUv >= 8 && maxUv <= 10
-              ? "매우높음"
-              : maxUv >= 11
-              ? "위험"
-              : "유효하지 않은 값";
+                ? "보통"
+                : maxUv >= 6 && maxUv <= 7
+                  ? "높음"
+                  : maxUv >= 8 && maxUv <= 10
+                    ? "매우높음"
+                    : maxUv >= 11
+                      ? "위험"
+                      : "유효하지 않은 값";
           return { uv: uvDegree };
         } else {
           console.error("Unexpected response structure:", data);
