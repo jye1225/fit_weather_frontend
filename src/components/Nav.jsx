@@ -4,10 +4,30 @@ import style from "../css/Nav.module.css";
 import { url } from "../store/ref";
 
 const Nav = ({ navOpen, setNavOpen }) => {
-  // console.log('>>>>>>', navOpen);
 
-  const [userLogin, setUserLogin] = useState("null"); //로그인 정보 여부
-  const [alert, setAlert] = useState(false);
+    function preventScroll(event) {    // 스크롤 막기 함수
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    useEffect(() => {
+        console.log('>>>>>>', navOpen);
+
+        if (navOpen == true) {        // 스크롤 막기 
+            window.addEventListener('scroll', preventScroll, { passive: false });
+            window.addEventListener('wheel', preventScroll, { passive: false });
+            window.addEventListener('touchmove', preventScroll, { passive: false });
+        }
+
+        return () => {  // clean-up 함수: 컴포넌트가 unmoun될 때 이벤트 리스너 제거   
+            window.removeEventListener('scroll', preventScroll, { passive: false });
+            window.removeEventListener('wheel', preventScroll, { passive: false });
+            window.removeEventListener('touchmove', preventScroll, { passive: false });
+        }
+    }, [navOpen, setNavOpen])
+
+    // const [userLogin, setUserLogin] = useState(null);   //로그인 정보 없음 테스트
+    const [userLogin, setUserLogin] = useState(true);   //로그인 정보 있음 테스트
 
   //로그아웃
   const logout = async () => {
