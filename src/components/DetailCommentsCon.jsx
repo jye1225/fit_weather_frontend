@@ -1,52 +1,52 @@
-import style from '../css/DetailCommentsCon.module.css';
-import { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import style from "../css/DetailCommentsCon.module.css";
+import { useCallback, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-import DetailComment from './DetailComment';
-import { url } from '../store/ref';
-import { usePostData } from '../store/postDataStore';
-import { useCmntOptnMenu } from '../store/onCmntOptnMenuStore';
+import DetailComment from "./DetailComment";
+import { url } from "../store/ref";
+import { usePostData } from "../store/postDataStore";
+import { useCmntOptnMenu } from "../store/OnCmntOptnMenuStore";
 
 function DetailCommentsCon() {
   const [onCmntRewrite, setOnCmntRewrite] = useState(false); // 수정하기 클릭 유무
   const { postDetail } = usePostData();
   const [editingCommentId, setEditingCommentId] = useState(null);
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
   const { cmntErrMsg, setCmntErrMsg, cmntData, setCmntData } =
     useCmntOptnMenu();
   const { postId } = useParams();
 
   const getComment = (e) => {
     setComment(e.target.value);
-    if (e.target.value !== '') {
-      setCmntErrMsg('');
+    if (e.target.value !== "") {
+      setCmntErrMsg("");
     }
   };
 
   //댓글 등록버튼 클릭시
   const commentSubmit = async () => {
-    if (comment === '') {
-      setCmntErrMsg('댓글 내용을 입력해주세요');
-      document.getElementById('cmntInput').focus();
+    if (comment === "") {
+      setCmntErrMsg("댓글 내용을 입력해주세요");
+      document.getElementById("cmntInput").focus();
       return;
     }
 
     //DB에 저장하는 로직
     try {
       const response = await fetch(`${url}/comments/cmntAdd`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           // userId, 로그인 구현되면 추가 or 백엔드에서
           postId,
           content: comment,
         }),
-        credentials: 'include',
+        credentials: "include",
       });
       const data = await response.json();
-      console.log('새로운 댓글', data);
+      console.log("새로운 댓글", data);
       // setCmntData(data);
-      setComment('');
+      setComment("");
       fetchCmnts();
     } catch (error) {
       console.log(error);
@@ -58,7 +58,7 @@ function DetailCommentsCon() {
     fetch(`${url}/comments/cmntList/${postId}`) //
       .then((res) => res.json()) //
       .then((data) => {
-        console.log('받아온 데이터', data);
+        console.log("받아온 데이터", data);
         setCmntData(data);
         // console.log('cmntData에 저장된', cmntData);
       });

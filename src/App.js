@@ -25,8 +25,11 @@ import CodiCompleted from "./pages/CodiCompleted";
 
 import Login from "./pages/login/Login";
 import Signup from "./pages/Signup";
-import KakaoCallback from "./pages/login/KakaoCallback";
-import SignupComplete from "./pages/SignupComplete"; // 추가
+// import KakaoCallback from "./pages/login/KakaoCallback";
+//--예은 추가--
+import KakaoLogin from "./pages/login/KakaoLogin";
+import Auth from "./pages/login/Auth";
+import SignupComplete from "./pages/SignupComplete";
 
 function App() {
   return (
@@ -59,10 +62,13 @@ function App() {
 
         <Route path="/codiCompleted" element={<CodiCompleted />} />
 
-        {/* 로그인, 회원가입, 바로 아래 코드는 제가 편하려고 넣었던 코드입니다. */}
+        {/* 로그인, 회원가입. */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/oauth" element={<KakaoCallback />} />
+        {/* <Route path="/oauth" element={<KakaoCallback />} /> */}
+        <Route path="/loginKakao" element={<KakaoLogin />} />
+        <Route path="/oauth/kakao" element={<Auth />} />
+        <Route path="/signupcomplete" element={<SignupComplete />} />
       </Routes>
     </div>
   );
