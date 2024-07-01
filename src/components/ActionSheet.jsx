@@ -1,13 +1,17 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import style from '../css/Codi.module.css'
+// import { codiEditStore } from '../store/codiStore';
+import { useNavigate } from 'react-router-dom';
+import { url } from "../store/ref";
 
+const ActionSheet = ({ actionSheetActive, setActionSheetActive, canEdit, codiLogId }) => {
+    const navigate = useNavigate();
+    const [modalActive, setModalActive] = useState(false);
 
-const ActionSheet = ({ actionSheetActive, setActionSheetActive, canEdit }) => {
-
-
+    // const { codiLogEdit } = codiEditStore();
     useEffect(() => {
 
-        // console.log(actionSheetActive, 'actionSheetActive');
+        console.log(codiLogId, '<<<codiLogId');
         const ActionSheet = document.querySelector(`.${style.ActionSheet}.${style.active}`)
         const ActionBox = document.querySelector(`.${style.ActionBox}.${style.active}`);
 
@@ -46,10 +50,19 @@ const ActionSheet = ({ actionSheetActive, setActionSheetActive, canEdit }) => {
 
     const editLog = () => {
         console.log('수정 클릭');
+        navigate(`/codiEdit`, { state: { codiLogId: codiLogId } });
         // 수정페이지로 이동하기
     }
-    const deleteLog = () => {
+    const deleteLog = async () => {
         console.log('삭제 클릭');
+        const response = await fetch(`${url}/codiDelete/${codiLogId}`, {
+            method: 'DELETE',
+        });
+        if (response.ok) {
+            console.log('삭제 완료');
+            navigate(-1);
+            window.location.reload(); // 페이지 새로고침
+        }
     }
 
     return (
@@ -58,8 +71,20 @@ const ActionSheet = ({ actionSheetActive, setActionSheetActive, canEdit }) => {
                 {canEdit ?
                     <button className='fontTitleM' onClick={editLog}>수정하기</button> : ''
                 }
-                <button className='fontTitleM' onClick={deleteLog}>삭제하기</button>
+                <button className='fontTitleM' onClick={() => setModalActive(true)}>삭제하기</button>
             </div>
+
+
+            {modalActive ? (<div className={style.modalCheck}>
+                <div className={style.modalBox}>
+                    <span className='fontHead3'>코디 기록을 삭제하시겠습니까?</span>
+                    <div className={style.btns}>
+                        <button className={`fontTitleM ${style.btnCancel}`} onClick={() => setModalActive(false)}>취소</button>
+                        <button className={`fontTitleM ${style.btnMethod}`} onClick={deleteLog} >삭제하기</button>
+                    </div>
+                </div>
+            </div>) : ''
+            }
         </section>
     )
 }

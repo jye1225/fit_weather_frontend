@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
+
 import style from '../css/Codi.module.css'
 
+import { url } from "../store/ref";
 import ActionSheet from '../components/ActionSheet'
 
 
@@ -15,7 +17,7 @@ const CodiLogBox = ({ setModalActive, modalActive }) => {
 
 
     useEffect(() => {
-        fetch(`https://localhost:8080/codiLogDetail/${modalActive}`)//get요청 보냄 
+        fetch(`${url}/codiLogDetail/${modalActive}`)//get요청 보냄 
             .then((res) => res.json())
             .then((data) => {
                 setCodiLog(data);
@@ -71,7 +73,7 @@ const CodiLogBox = ({ setModalActive, modalActive }) => {
                 {codiLog.memo}
             </p>
 
-            <ActionSheet setActionSheetActive={setActionSheetActive} actionSheetActive={actionSheetActive} canEdit={canEdit} />
+            <ActionSheet setActionSheetActive={setActionSheetActive} actionSheetActive={actionSheetActive} canEdit={canEdit} codiLogId={modalActive} />
 
         </div>
     )

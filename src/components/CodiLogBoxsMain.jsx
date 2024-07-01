@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import style from '../css/Codi.module.css'
 import ActionSheet from './ActionSheet';
+import { url } from "../store/ref";
 
 import { useLoginInfoStore } from '../store/loginInfoStore';  //유저정보 import
 
@@ -11,6 +12,7 @@ const CodiLogBoxsMain = () => {
     const [canEdit, setCanEdit] = useState(false);//수정 가능한지 아닌지
     const [actionSheetActive, setActionSheetActive] = useState(false);
     const [tags, setTags] = useState([]);
+    const [userid, setUserid] = useState('');
 
     // 로컬스토리지에서 받아올 오늘 날씨 정보
     const [minTemp, setMinTemp] = useState('');
@@ -18,10 +20,16 @@ const CodiLogBoxsMain = () => {
     const [sky, setSky] = useState('');
 
     const [logToday, setLogToday] = useState('');//받아온 오늘 기록
-
+    const [codiLogId, setCodiLogId] = useState('');//코디로그 고유 _id
     const { userInfo } = useLoginInfoStore();
-    useEffect(() => {
 
+    useEffect(() => {
+        if (userInfo) {
+            setUserid(userInfo.userid);
+        }
+    }, [userInfo]);
+
+    useEffect(() => {
         // 오늘 날짜 저장
         const currentDate = new Date();
         const options = {
@@ -33,43 +41,51 @@ const CodiLogBoxsMain = () => {
         console.log('today', today);
         setToday(today);
 
-
-        // minTemp와 maxTemp를 로컬스토리지에서 가져와서 설정
         const storedMinTemp = localStorage.getItem('minTemp');
         const storedMaxTemp = localStorage.getItem('maxTemp'); const storedSky = localStorage.getItem('weatherText');
 
-        if (storedMinTemp) setMinTemp(storedMinTemp);
-        if (storedMaxTemp) setMaxTemp(storedMaxTemp); if (storedSky) setSky(storedSky);
-
-
-        fetch(`https://localhost:8080/codiLogToday/${today}`)//get요청 보냄 
-            .then((res) => res.json())
-            .then((data) => {
-
-                setLogToday(data);
-                setTags(data.tag);
-
-                console.log('---선택 기록 setLogToday 전달 성공----', data);
-                //     // 오늘 날짜 저장
-                //     const today = new Date();
-                //     // codiDate 문자열을 Date 객체로 변환
-                //     const codiDate = new Date(data.codiDate);
-                //     const diff = (today - codiDate) / (1000 * 60 * 60 * 24); // 며칠 차이나는지 계산
-                //     if (diff < 3) {
-                //         setCanEdit(true);
-                //     } else {
-                //         setCanEdit(false);
-                //     }
-            });
+        if (storedMinTemp) { setMinTemp(storedMinTemp); }
+        if (storedMaxTemp) { setMaxTemp(storedMaxTemp); }
+        if (storedSky) {
+            setSky(storedSky);
+        }
 
     }, [])
 
+    // 오늘 날씨랑 비슷한 과거의 기록
     useEffect(() => {
-        if (sky && minTemp && maxTemp) {
-            fetch(`https://localhost:8080/codiLogSimilar/${maxTemp}/${minTemp}/${sky}`);
+        if (userid && sky && minTemp && maxTemp) {
+            fetch(`${url}/codiLogSimilar/${maxTemp}/${minTemp}/${sky}/${userid}`)//
+                .then(() => { console.log('codiLogSimilar요청보냄'); })
         }
-    }, [sky, minTemp, maxTemp]);
+    }, [userid, sky, minTemp, maxTemp])
 
+    // 오늘 기록 가져오기
+    useEffect(() => {
+        if (today && userid) {
+            fetch(`${url}/codiLogToday/${today}/${userid}`)//get요청 보냄 
+                .then((res) => res.json())
+                .then((data) => {
+
+                    setLogToday(data);
+                    setTags(data.tag);
+                    setCodiLogId(data._id)
+
+                    console.log('---선택 기록 setLogToday 전달 성공----', data);
+                    //     // 오늘 날짜 저장
+                    //     const today = new Date();
+                    //     // codiDate 문자열을 Date 객체로 변환
+                    //     const codiDate = new Date(data.codiDate);
+                    //     const diff = (today - codiDate) / (1000 * 60 * 60 * 24); // 며칠 차이나는지 계산
+                    //     if (diff < 3) {
+                    //         setCanEdit(true);
+                    //     } else {
+                    //         setCanEdit(false);
+                    //     }
+                });
+        }
+
+    }, [today, userid])
 
     return (
         <section className={style.CodiLogBoxsMain}>
@@ -94,7 +110,7 @@ const CodiLogBoxsMain = () => {
                     logToday.length !== 0 ? (
                         <>
                             <div className={style.imgBox}>
-                                <img src={`https://localhost:8080/${logToday.image}`} alt={logToday.image} />
+                                <img src={`${url}/${logToday.image}`} alt={logToday.image} />
                             </div>
                             <div className={style.tags}>
                                 {
@@ -106,36 +122,27 @@ const CodiLogBoxsMain = () => {
                                 }
                             </div>
                             <p className={`fontDecorate ${style.codiMemo}`}>{logToday.memo}</p>
-                        </>) : (<>
+                        </>) : (
+                        <>
                             <div className={style.noLogToday}>
                                 <img src="img/icons/common/alertG600.svg" alt="alert" />
-                                <span className='fontTitleM'>오늘 코디 기록을 안하셨어요 !</span>
+                                <span className="fontTitleM">오늘 코디 기록을 안하셨어요 !</span>
                             </div>
-                            <Link to={'/codiWrite'} className={`fontTitleM ${style.btnWide}`}>오늘 코디 기록하기</Link>
-                        </>)
+                            <Link to={"/codiWrite"} className={`fontTitleM ${style.btnWide}`}>
+                                오늘 코디 기록하기
+                            </Link>
+                        </>
+                    )
                 }
-            </div>
-            <p className={`fontDecorate ${style.codiMemo}`}>{logToday.memo}</p>
-          </>
-        ) : (
-          <>
-            <div className={style.noLogToday}>
-              <img src="img/icons/common/alertG600.svg" alt="alert" />
-              <span className="fontTitleM">오늘 코디 기록을 안하셨어요 !</span>
-            </div>
-            <Link to={"/codiWrite"} className={`fontTitleM ${style.btnWide}`}>
-              오늘 코디 기록하기
-            </Link>
-          </>
-        )}
-      </div>
-      <ActionSheet
-        setActionSheetActive={setActionSheetActive}
-        actionSheetActive={actionSheetActive}
-        canEdit={true}
-      />
-    </section>
-  );
+            </div >
+            <ActionSheet
+                setActionSheetActive={setActionSheetActive}
+                actionSheetActive={actionSheetActive}
+                canEdit={true}
+                codiLogId={codiLogId}
+            />
+        </section >
+    );
 };
 
 export default CodiLogBoxsMain;

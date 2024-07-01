@@ -9,6 +9,9 @@ import CodiLogBox from '../components/CodiLogBox';
 import { useFeltOptionsStore } from '../store/codiStore'; // 태그 종류 가져오기
 import { useLoginInfoStore } from '../store/loginInfoStore';  //유저정보 import
 
+import { url } from "../store/ref";
+
+
 const CodiLog = () => {
 
   // ** switchCodiView
@@ -37,18 +40,26 @@ const CodiLog = () => {
   const [codiLogList, setCodiLogList] = useState([]);//화면에 뿌릴 리스트
   const [ALLcodiLogList, setALLCodiLogList] = useState([]);//전체 리스트
 
+  // const [userid, setUserid] = useState('');
   const { userInfo } = useLoginInfoStore();
+
+
+
   useEffect(() => {
-    const userid = userInfo.userid;
-    fetch(`https://localhost:8080/codiLogList/${userid}`) //get요청 보냄
-      .then((res) => res.json()) //
-      .then((data) => {
-        setALLCodiLogList(data);
-        setCodiLogList(data);
-        // console.log(data); // 받아온 데이터를 출력-> 확인
-      });
-    // console.log(ALLcodiLogList, '<<<codiLogList'); // 받아온 전체 리스트를 출력-> 확인
-  }, []);
+    if (userInfo) {  // userInfo가 유효한지 확인
+      fetch(`${url}/codiLogList/${userInfo.userid}`) // get 요청 보냄
+        .then((res) => res.json())
+        .then((data) => {
+          setALLCodiLogList(data);
+          setCodiLogList(data);
+        })
+        .catch((error) => {
+          console.error('Error fetching codi log list:', error);
+        });
+    } else {
+      console.error('User info is not available');
+    }
+  }, [userInfo]);
 
 
   useEffect(() => {//선택한 태그를 포함하는 게시물 필터링
