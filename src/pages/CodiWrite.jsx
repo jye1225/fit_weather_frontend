@@ -5,7 +5,11 @@ import style from '../css/Codi.module.css';
 import { useFeltOptionsStore } from '../store/codiStore';
 import { useNavigate } from 'react-router-dom';
 
+import { useLoginInfoStore } from '../store/loginInfoStore';  //유저정보 import
+
 const CodiWrite = () => {
+  const { userInfo } = useLoginInfoStore();
+
   const imgCon = document.querySelector(`.${style.imgCon}`);
 
   const navigate = useNavigate();
@@ -121,6 +125,7 @@ const CodiWrite = () => {
       setFileMss('');
     }
 
+
     // FormData 객체 생성 및 데이터 추가
     const data = new FormData();
     data.append('file', file);
@@ -131,6 +136,7 @@ const CodiWrite = () => {
     data.append('maxTemp', maxTemp);
     data.append('sky', sky);
     data.append('codiDate', codiDate);
+    data.append('userid', userInfo.userid);
 
     // FormData 객체의 내용 확인 (디버깅용)
     for (let [key, value] of data.entries()) {
