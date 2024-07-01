@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 const useClothesStore = create(() => ({
   tops: {
-    "반팔 티셔츠": "반팔 티셔츠 이미지 링크",
+    "반팔 티셔츠": "img/clothes/short_sleeve_T.svg",
     티셔츠: "티셔츠 이미지 링크",
     민소매: "민소매 이미지 링크",
     맨투맨: "맨투맨 이미지 링크",
@@ -11,7 +11,7 @@ const useClothesStore = create(() => ({
     후드티: "후드티 이미지 링크",
     "반팔 셔츠": "반팔 셔츠 이미지 링크",
     셔츠: "셔츠 이미지 링크",
-    "반팔 블라우스": "반팔 블라우스 이미지 링크",
+    "반팔 블라우스": "img/clothes/short_sleeve_blouse.svg",
     블라우스: "블라우스 이미지 링크",
   },
   bottoms: {
@@ -19,14 +19,14 @@ const useClothesStore = create(() => ({
     청반바지: "청반바지 이미지 링크",
     슬랙스: "슬랙스 이미지 링크",
     "트레이닝 바지": "트레이닝 바지 이미지 링크",
-    반바지: "반바지 이미지 링크",
-    롱스커트: "롱스커트 이미지 링크",
-    미니스커트: "미니스커트 이미지 링크",
+    반바지: "img/clothes/short_pants.svg",
+    롱스커트: "img/clothes/long_skirt.svg",
+    미니스커트: "img/clothes/mini_skirt.svg",
   },
   outers: {
-    가디건: "가디건 이미지 링크",
-    카디건: "카디건 이미지 링크",
-    자켓: "자켓 이미지 링크",
+    가디건: "img/clothes/cardigan.svg",
+    카디건: "img/clothes/cardigan.svg",
+    자켓: "img/clothes/jacket.svg",
     코트: "코트 이미지 링크",
     집업: "집업 이미지 링크",
     롱패딩: "롱패딩 이미지 링크",
