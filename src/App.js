@@ -27,8 +27,21 @@ import Login from "./pages/login/Login";
 import Signup from "./pages/Signup";
 import KakaoCallback from "./pages/login/KakaoCallback";
 import SignupComplete from "./pages/Signupcomplete"; // 추가
+import { useEffect } from 'react';
+import { useLoginInfoStore } from './store/loginInfoStore';
+import { jwtDecode } from 'jwt-decode';
 
 function App() {
+  const { setUserInfo } = useLoginInfoStore();
+
+  useEffect(() => {
+    const loginTokenn = localStorage.getItem('token');
+    if (loginTokenn) {
+      const decodedToken = jwtDecode(loginTokenn);
+      setUserInfo(decodedToken)
+    }
+  }, []);
+
   return (
     <div className="App">
       <Routes>

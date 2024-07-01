@@ -9,6 +9,7 @@ import { useOpenMenuModal } from '../store/detailOpMenuModalStore';
 import { usePostData } from '../store/postDataStore';
 import { url } from '../store/ref';
 import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 function DetailPage() {
   const { opMenuClose } = useOpenMenuModal();
@@ -25,7 +26,7 @@ function DetailPage() {
   // _id와 일치하는 데이터 get요청 v
   // 받아온 데이터 바인딩 - 타이틀v , 내용v
   // 로그인 가능하게되면
-  // -> 유저아이디랑 작성자 아이디 비교해서 수정삭제메뉴 노출 유무
+  // -> 유저아이디랑 작성자 아이디 비교해서 수정삭제메뉴 노출 유무 v
   const fetchPostDetail = async () => {
     try {
       const response = await fetch(`${url}/posts/postDetail/${postId}`); //
@@ -40,6 +41,8 @@ function DetailPage() {
       console.error('상세페이지 오류', error);
     }
   };
+
+  useEffect(() => {}, []);
 
   return (
     <>

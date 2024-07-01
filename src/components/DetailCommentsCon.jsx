@@ -37,7 +37,6 @@ function DetailCommentsCon({ fetchPostDetail }) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          // userId, 로그인 구현되면 추가 or 백엔드에서
           postId,
           content: comment,
         }),

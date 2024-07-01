@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import CommentOptionMenu from './CommentOptionMenu';
 import { url } from '../store/ref';
 import { useParams } from 'react-router-dom';
+import { useLoginInfoStore } from '../store/loginInfoStore';
+import { usePostData } from '../store/postDataStore';
 
 function DetailComment({
   cmnt,
@@ -16,6 +18,8 @@ function DetailComment({
   const [isModalToggle, setIsModalToggle] = useState(false); // 삭제하기 클릭시 뜨는 모달
   const [cmntCreateAt, setCmntCreateAt] = useState();
   const [commentText, setCommentText] = useState(cmnt.content);
+  const { userInfo } = useLoginInfoStore();
+  const { postDetail } = usePostData();
   // const { postId } = useParams;
 
   // 댓글 수정,삭제 버튼 노출
@@ -157,13 +161,12 @@ function DetailComment({
         </>
       ) : (
         <>
-          {/* 수정삭제버튼은 
-          로그인한 사용자와 댓글 작성자가 일치할떄 
-          노출되게 설정 예정 */}
-          <i
-            className="fa-solid fa-ellipsis-vertical"
-            onClick={cmntOptnMenuToggle}
-          ></i>
+          {cmnt.userId === userInfo?.userid && (
+            <i
+              className="fa-solid fa-ellipsis-vertical"
+              onClick={cmntOptnMenuToggle}
+            ></i>
+          )}
           <p className="fontBodyM">{cmnt.content}</p>
           {toggleCmntOptMenu && editingCommentId === cmnt._id && (
             <CommentOptionMenu
