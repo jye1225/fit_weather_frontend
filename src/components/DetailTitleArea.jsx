@@ -3,15 +3,17 @@ import CommunityCategory from './CommunitySubCategory';
 import Region from './Region';
 import OptionMenu from './OptionMenu';
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useOpenMenuModal } from '../store/detailOpMenuModalStore';
 import { usePostData } from '../store/postDataStore';
 import { url } from '../store/ref';
+import { useLoginInfoStore } from '../store/loginInfoStore';
 
 function DetailTitleArea({ fetchPostDetail }) {
-  const { isLike, setLiketoggle, likes, setLikes, fetchPosts } = usePostData();
+  const { postDetail, isLike, setLiketoggle, likes, setLikes, fetchPosts } =
+    usePostData();
   const { isOpMenuOn, opMenuOpen, opMenuClose } = useOpenMenuModal();
-  const { postDetail } = usePostData();
+  const { userInfo } = useLoginInfoStore();
 
   // 수정해야 되는 사항
   // 좋아요 수 실시간 반영 구현하기 - 이상하게 작동돼서 수정필요
@@ -24,7 +26,7 @@ function DetailTitleArea({ fetchPostDetail }) {
         body: JSON.stringify({
           isLike: !isLike,
           postId: postDetail._id,
-          //userId: Math.random, //로그인 기능 생기면 변경
+          userId: userInfo?.userid,
         }),
         credentials: 'include',
       });
@@ -97,11 +99,15 @@ function DetailTitleArea({ fetchPostDetail }) {
           ></button>
         </div>
       </div>
-      {/* 로그인한 이용자와 글쓴이가 일치할때 노출 */}
-      <div className={style.option} ref={optionMenuRef}>
-        <i className="fa-solid fa-ellipsis-vertical" onClick={opMenuToggle}></i>
-        <OptionMenu />
-      </div>
+      {postDetail.userId === userInfo?.userid && (
+        <div className={style.option} ref={optionMenuRef}>
+          <i
+            className="fa-solid fa-ellipsis-vertical"
+            onClick={opMenuToggle}
+          ></i>
+          <OptionMenu />
+        </div>
+      )}
     </div>
   );
 }

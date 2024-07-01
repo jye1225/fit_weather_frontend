@@ -2,18 +2,25 @@ import style from '../css/DetailComment.module.css';
 import { useEffect, useState } from 'react';
 import CommentOptionMenu from './CommentOptionMenu';
 import { url } from '../store/ref';
+import { useParams } from 'react-router-dom';
+import { useLoginInfoStore } from '../store/loginInfoStore';
+import { usePostData } from '../store/postDataStore';
 
 function DetailComment({
   cmnt,
   fetchCmnts,
   editingCommentId, // 현재 조작 중인 구분용
   setEditingCommentId,
+  postId,
 }) {
   const [toggleCmntOptMenu, setToggleCmntOptMenu] = useState(false); // 댓글 수정,삭제버튼 노충 유무
   const [onCmntRewrite, setOnCmntRewrite] = useState(false); // 수정하기 클릭 유무
   const [isModalToggle, setIsModalToggle] = useState(false); // 삭제하기 클릭시 뜨는 모달
   const [cmntCreateAt, setCmntCreateAt] = useState();
   const [commentText, setCommentText] = useState(cmnt.content);
+  const { userInfo } = useLoginInfoStore();
+  const { postDetail } = usePostData();
+  // const { postId } = useParams;
 
   // 댓글 수정,삭제 버튼 노출
   const cmntOptnMenuToggle = (e) => {
@@ -75,9 +82,12 @@ function DetailComment({
   const handleCmntDelete = async () => {
     console.log('최종 삭제하기 버튼 클릭');
     try {
-      const response = await fetch(`${url}/comments/cmntDel/${cmnt._id}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `${url}/comments/cmntDel/${postId}/${cmnt._id}`,
+        {
+          method: 'DELETE',
+        }
+      );
       console.log(response);
       if (response.ok) {
         setIsModalToggle(false);
@@ -151,13 +161,12 @@ function DetailComment({
         </>
       ) : (
         <>
-          {/* 수정삭제버튼은 
-          로그인한 사용자와 댓글 작성자가 일치할떄 
-          노출되게 설정 예정 */}
-          <i
-            className="fa-solid fa-ellipsis-vertical"
-            onClick={cmntOptnMenuToggle}
-          ></i>
+          {cmnt.userId === userInfo?.userid && (
+            <i
+              className="fa-solid fa-ellipsis-vertical"
+              onClick={cmntOptnMenuToggle}
+            ></i>
+          )}
           <p className="fontBodyM">{cmnt.content}</p>
           {toggleCmntOptMenu && editingCommentId === cmnt._id && (
             <CommentOptionMenu

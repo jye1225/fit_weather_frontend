@@ -5,6 +5,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import IndexPage from "./pages/IndexPage";
 
@@ -23,12 +24,28 @@ import CodiEdit from "./pages/CodiEdit";
 import CodiMain from "./pages/CodiMain";
 import CodiCompleted from "./pages/CodiCompleted";
 
+//로그인, 회원가입
 import Login from "./pages/login/Login";
 import Signup from "./pages/Signup";
-import KakaoCallback from "./pages/login/KakaoCallback";
-import SignupComplete from "./pages/SignupComplete"; // 추가
+import KakaoLogin from "./pages/login/KakaoLogin";
+import Auth from "./pages/login/Auth";
+import SignupComplete from "./pages/Signupcomplete"; // 추가
+
+import { useEffect } from 'react';
+import { jwtDecode } from 'jwt-decode';// jwt로 토큰 해석하는 jwt-decode 라이브러리 설치했습니다! :npm install jwt-decode
+import { useLoginInfoStore } from './store/loginInfoStore';
 
 function App() {
+  const { setUserInfo } = useLoginInfoStore();
+
+  useEffect(() => {
+    const loginTokenn = localStorage.getItem('token');
+    if (loginTokenn) {
+      const decodedToken = jwtDecode(loginTokenn);
+      setUserInfo(decodedToken)
+    }
+  }, []);
+
   return (
     <div className="App">
       <Routes>
@@ -59,10 +76,13 @@ function App() {
 
         <Route path="/codiCompleted" element={<CodiCompleted />} />
 
-        {/* 로그인, 회원가입, 바로 아래 코드는 제가 편하려고 넣었던 코드입니다. */}
+        {/* 로그인, 회원가입. */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/oauth" element={<KakaoCallback />} />
+        {/* <Route path="/oauth" element={<KakaoCallback />} /> */}
+        <Route path="/loginKakao" element={<KakaoLogin />} />
+        <Route path="/oauth/kakao" element={<Auth />} />
+        <Route path="/signupcomplete" element={<SignupComplete />} />
       </Routes>
     </div>
   );

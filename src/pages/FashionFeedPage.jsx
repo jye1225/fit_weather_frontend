@@ -1,12 +1,32 @@
 import style from '../css/FashionFeedPage.module.css';
 import FashionFeedModal from '../components/FashionFeedModal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { url } from '../store/ref';
 
 function FashionFeedPage() {
-  const [onFshModal, setOnFshModal] = useState(false);
-  const clickOneFeed = () => {
-    setOnFshModal(true);
-  };
+  //  시도해보는 중
+  // const [onFshModal, setOnFshModal] = useState(false);
+  // const [feeds, setFeeds] = useState(true);
+  // const [error, serError] = useState(null);
+
+  // const fetchFeeds = async () => {
+  //   try {
+  //     const response = await fetch(`${url}/insta/getFeeds`);
+  //     const data = await response.json();
+  //     console.log(response);
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.error('인스타 피드 불러오기 에러', error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   fetchFeeds();
+  // }, []);
+
+  // const clickOneFeed = () => {
+  //   setOnFshModal(true);
+  // };
+
   return (
     <main className={`mw ${style.fashionFeedPage}`}>
       {/* <h3 className={`fontHead3 ${style.fshFeedTitle}`}>
