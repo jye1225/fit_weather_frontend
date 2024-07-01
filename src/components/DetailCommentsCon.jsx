@@ -7,7 +7,7 @@ import { url } from '../store/ref';
 import { usePostData } from '../store/postDataStore';
 import { useCmntOptnMenu } from '../store/onCmntOptnMenuStore';
 
-function DetailCommentsCon() {
+function DetailCommentsCon({ fetchPostDetail }) {
   const [onCmntRewrite, setOnCmntRewrite] = useState(false); // 수정하기 클릭 유무
   const { postDetail } = usePostData();
   const [editingCommentId, setEditingCommentId] = useState(null);
@@ -37,7 +37,6 @@ function DetailCommentsCon() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          // userId, 로그인 구현되면 추가 or 백엔드에서
           postId,
           content: comment,
         }),
@@ -60,6 +59,7 @@ function DetailCommentsCon() {
       .then((data) => {
         console.log('받아온 데이터', data);
         setCmntData(data);
+        fetchPostDetail();
         // console.log('cmntData에 저장된', cmntData);
       });
   }, [postId]);
@@ -97,6 +97,7 @@ function DetailCommentsCon() {
             setEditingCommentId={setEditingCommentId}
             onCmntRewrite={onCmntRewrite}
             setOnCmntRewrite={setOnCmntRewrite}
+            postId={postId}
           />
         ))}
       </ul>
