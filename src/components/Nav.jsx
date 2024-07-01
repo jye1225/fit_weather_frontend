@@ -14,7 +14,7 @@ const Nav = ({ navOpen, setNavOpen }) => {
   }
 
   useEffect(() => {
-    console.log('Nav.jsx>>>>>>유저정보, 햄open여부', userInfo, navOpen);
+//     console.log('Nav.jsx>>>>>>유저정보, 햄open여부', userInfo, navOpen);
 
     if (navOpen == true) {        // 스크롤 막기 
       window.addEventListener('scroll', preventScroll, { passive: false });
@@ -28,7 +28,6 @@ const Nav = ({ navOpen, setNavOpen }) => {
       window.removeEventListener('touchmove', preventScroll, { passive: false });
     }
   }, [navOpen, setNavOpen])
-
 
   //로그아웃
   const logout = async () => {
@@ -110,7 +109,6 @@ const Nav = ({ navOpen, setNavOpen }) => {
 
         {userInfo ? (
           <div className={`fontHead3 ${style.Logout}`}>
-
             <Link to={"#"} className={style.btnLogout} onClick={logout}>
               로그아웃
             </Link>

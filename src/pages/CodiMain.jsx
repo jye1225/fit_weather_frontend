@@ -1,24 +1,31 @@
 import { Link } from 'react-router-dom';
 import style from '../css/Codi.module.css';
 
+
 import Header from "../components/Header";
 import H2Codi from "../components/H2Codi";
 import CodyWeather from "../components/CodyWeather";
 import CodiTalk from "../components/CodiTalk";
+
+
+import Avatar from "../components/Avatar";
 import CodiLogBoxsMain from "../components/CodiLogBoxsMain";
+import useImageUrlStore from "../store/imageUrlStore";
 
 const CodiMain = () => {
-  // const [matchingUrl, setMatchingUrl] = useState({
-  //   tops: "",
-  //   bottoms: "",
-  //   outers: "",
-  // });
+  const matchingUrl = useImageUrlStore((state) => state.matchingUrl);
   return (
     <main className={`mw ${style.codiMain}`}>
       <Header />
       <H2Codi />
       <CodyWeather />
       <CodiTalk />
+      <Avatar
+        topUrl={matchingUrl.tops}
+        bottomUrl={matchingUrl.bottoms}
+        outerUrl={matchingUrl.outers}
+      />
+
 
       <CodiLogBoxsMain />
 

@@ -115,9 +115,27 @@ const CodiLogBoxsMain = () => {
                         </>)
                 }
             </div>
-            <ActionSheet setActionSheetActive={setActionSheetActive} actionSheetActive={actionSheetActive} canEdit={true} />
-        </section>
-    )
-}
+            <p className={`fontDecorate ${style.codiMemo}`}>{logToday.memo}</p>
+          </>
+        ) : (
+          <>
+            <div className={style.noLogToday}>
+              <img src="img/icons/common/alertG600.svg" alt="alert" />
+              <span className="fontTitleM">오늘 코디 기록을 안하셨어요 !</span>
+            </div>
+            <Link to={"/codiWrite"} className={`fontTitleM ${style.btnWide}`}>
+              오늘 코디 기록하기
+            </Link>
+          </>
+        )}
+      </div>
+      <ActionSheet
+        setActionSheetActive={setActionSheetActive}
+        actionSheetActive={actionSheetActive}
+        canEdit={true}
+      />
+    </section>
+  );
+};
 
-export default CodiLogBoxsMain
+export default CodiLogBoxsMain;

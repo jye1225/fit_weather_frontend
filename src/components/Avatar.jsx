@@ -1,24 +1,38 @@
+import { useState, useEffect } from "react";
 import style from "../css/Avatar.module.css";
 
-const Avatar = () => {
+const Avatar = ({ topUrl, bottomUrl, outerUrl }) => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    console.log("Avatar URLs:", { topUrl, bottomUrl, outerUrl });
+    if (topUrl && bottomUrl && outerUrl) {
+      setIsLoading(false);
+    }
+  }, [topUrl, bottomUrl, outerUrl]);
+
   return (
     <section className={style.avatar}>
-      <img className={style.person} src="img/clothes/woman.svg" alt="사람" />
-      <img
-        className={style.top}
-        src="img/clothes/short_sleeve_T.svg"
-        alt="상의"
-      />
-      <img
-        className={style.bottom}
-        src="img/clothes/long_skirt.svg"
-        alt="하의"
-      />
-      <img
-        className={style.outer}
-        src="img/clothes/cardigan.svg"
-        alt="아우터"
-      />
+      {isLoading ? (
+        <div className={`fontTitleM ${style.loadingText}`}>
+          불러오는 중이에요~
+        </div>
+      ) : (
+        <>
+          <img
+            className={style.person}
+            src="img/clothes/woman.svg"
+            alt="여자"
+          />
+          {topUrl && <img className={style.top} src={topUrl} alt="상의" />}
+          {bottomUrl && (
+            <img className={style.bottom} src={bottomUrl} alt="하의" />
+          )}
+          {outerUrl && (
+            <img className={style.outer} src={outerUrl} alt="아우터" />
+          )}
+        </>
+      )}
     </section>
   );
 };
