@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import style from '../css/Codi.module.css'
 import ActionSheet from './ActionSheet';
 
+import { useLoginInfoStore } from '../store/loginInfoStore';  //유저정보 import
 
 const CodiLogBoxsMain = () => {
     // useState for ActionSheet
@@ -18,7 +19,9 @@ const CodiLogBoxsMain = () => {
 
     const [logToday, setLogToday] = useState('');//받아온 오늘 기록
 
+    const { userInfo } = useLoginInfoStore();
     useEffect(() => {
+
         // 오늘 날짜 저장
         const currentDate = new Date();
         const options = {
@@ -95,8 +98,6 @@ const CodiLogBoxsMain = () => {
                             </div>
                             <div className={style.tags}>
                                 {
-                                    // <span className={`fontTitleXS ${style.miniTag}`}>ddd</span>
-
                                     tags.map((feltTag, index) => {
                                         return (
                                             <span className={`fontTitleXS ${style.miniTag}`} key={index}>{feltTag}</span>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import style from "../css/Nav.module.css";
 import { url } from "../store/ref";
-import { useLoginInfoStore } from '../store/loginInfoStore';  // 중괄호를 사용하여 import
+import { useLoginInfoStore } from '../store/loginInfoStore';  //유저정보 import
 
 
 const Nav = ({ navOpen, setNavOpen }) => {

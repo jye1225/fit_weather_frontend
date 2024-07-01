@@ -6,9 +6,11 @@ import CodiLogGallery from '../components/CodiLogGallery';
 import CodiLogCalendar from '../components/CodiLogCalendar';
 import CodiLogBox from '../components/CodiLogBox';
 // Zustand 스토어 가져오기
-import { useFeltOptionsStore } from '../store/codiStore'; // Zustand 스토어 가져오기
+import { useFeltOptionsStore } from '../store/codiStore'; // 태그 종류 가져오기
+import { useLoginInfoStore } from '../store/loginInfoStore';  //유저정보 import
 
 const CodiLog = () => {
+
   // ** switchCodiView
   const [codiView, setCodiView] = useState('calendar'); // 초기 상태 : 달력
 
@@ -35,8 +37,10 @@ const CodiLog = () => {
   const [codiLogList, setCodiLogList] = useState([]);//화면에 뿌릴 리스트
   const [ALLcodiLogList, setALLCodiLogList] = useState([]);//전체 리스트
 
+  const { userInfo } = useLoginInfoStore();
   useEffect(() => {
-    fetch('https://localhost:8080/codiLogList') //get요청 보냄
+    const userid = userInfo.userid;
+    fetch(`https://localhost:8080/codiLogList/${userid}`) //get요청 보냄
       .then((res) => res.json()) //
       .then((data) => {
         setALLCodiLogList(data);
