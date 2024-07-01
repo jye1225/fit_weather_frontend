@@ -5,6 +5,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import IndexPage from "./pages/IndexPage";
 
@@ -30,6 +31,10 @@ import SignupComplete from "./pages/Signupcomplete"; // 추가
 import { useEffect } from 'react';
 import { useLoginInfoStore } from './store/loginInfoStore';
 import { jwtDecode } from 'jwt-decode';
+
+
+import { jwtDecode } from 'jwt-decode';// jwt로 토큰 해석하는 jwt-decode 라이브러리 설치했습니다! :npm install jwt-decode
+import { useLoginInfoStore } from './store/loginInfoStore';
 
 function App() {
   const { setUserInfo } = useLoginInfoStore();

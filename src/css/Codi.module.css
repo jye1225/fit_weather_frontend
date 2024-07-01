@@ -686,6 +686,15 @@ button {
     background-color: var(--primary-color);
 }
 
+.logBox .codiMemo {
+    border: 1px solid red;
+    white-space: normal;
+    /* word-wrap: break-word; */
+    /* 단어를 끊지 않고 다음 줄로 넘기는 경우 */
+    word-break: break-word;
+    /* 단어를 끊어서라도 줄바꿈이 필요한 경우 */
+}
+
 @media screen and (min-width:736px) {
     .CodiViewFrame {
         margin: 0 0 1rem 0;
