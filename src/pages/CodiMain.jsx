@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import style from "../css/Codi.module.css";
+import { Link } from 'react-router-dom';
+import style from '../css/Codi.module.css';
 
 import Header from "../components/Header";
 import H2Codi from "../components/H2Codi";
@@ -23,7 +23,7 @@ const CodiMain = () => {
       <CodiLogBoxsMain />
 
       <div className={style.bigBtnCon}>
-        <Link to={"/codiLog"} className={`fontBodyM ${style.bigBtn}`}>
+        <Link to={'/codiLog'} className={`fontBodyM ${style.bigBtn}`}>
           <span>내 코디 기록</span>
           <img src="img/icons/common/calendar.svg" alt="" />
         </Link>

@@ -24,32 +24,27 @@ import CodiEdit from "./pages/CodiEdit";
 import CodiMain from "./pages/CodiMain";
 import CodiCompleted from "./pages/CodiCompleted";
 
+//로그인, 회원가입
 import Login from "./pages/login/Login";
 import Signup from "./pages/Signup";
-// import KakaoCallback from "./pages/login/KakaoCallback";
-//--예은 추가--
 import KakaoLogin from "./pages/login/KakaoLogin";
 import Auth from "./pages/login/Auth";
-import SignupComplete from "./pages/SignupComplete";
+import SignupComplete from "./pages/Signupcomplete"; // 추가
 
-
+import { useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';// jwt로 토큰 해석하는 jwt-decode 라이브러리 설치했습니다! :npm install jwt-decode
 import { useLoginInfoStore } from './store/loginInfoStore';
 
 function App() {
-
   const { setUserInfo } = useLoginInfoStore();
 
   useEffect(() => {
     const loginTokenn = localStorage.getItem('token');
-    // console.log('---------loginTokenn-----------', loginTokenn);
     if (loginTokenn) {
       const decodedToken = jwtDecode(loginTokenn);
-      // console.log('-----------decodedToken---------', decodedToken);
       setUserInfo(decodedToken)
     }
   }, []);
-
 
   return (
     <div className="App">
