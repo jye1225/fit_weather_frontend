@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import style from '../css/Codi.module.css';
 import { url } from '../store/ref';
 import ActionSheet from '../components/ActionSheet';
+
 const CodiLogBox = ({ setModalActive, modalActive }) => {
   console.log(modalActive);
   // ** ActionSheet
