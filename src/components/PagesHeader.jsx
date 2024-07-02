@@ -16,7 +16,9 @@ function PagesHeader({ title, clickBack }) {
       ></i>
       <div className={style.pagesHdRight}>
         <strong className="fontHead2">{title}</strong>
-        <Region color={`var(--white)`} border={`1px solid var(--white)`} />
+        {title !== '내 커뮤니티 활동' && (
+          <Region color={`var(--white)`} border={`1px solid var(--white)`} />
+        )}
       </div>
     </header>
   );
