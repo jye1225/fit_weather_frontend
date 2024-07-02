@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import style from "../css/Codi.module.css";
-// import CodiGuidelineBox from '../components/CodiGuidelineBox';
+import bgStyle from '../css/MainWeatherBG.module.css'
 
+import CodiGuidelineBox from '../components/CodiGuidelineBox';
+import MainweatherBG from "../components/MainWeatherBG";
 import Header from "../components/Header";
 import H2Codi from "../components/H2Codi";
 import CodyWeather from "../components/CodyWeather";
@@ -19,16 +21,23 @@ const CodiMain = () => {
 
   return (
     <main className={`mw ${style.codiMain}`}>
+
       <Header />
-      <H2Codi />
-      <CodyWeather />
-      <CodiTalk setMatchingUrl={setMatchingUrl} />
-      <Avatar
-        topUrl={matchingUrl.tops}
-        bottomUrl={matchingUrl.bottoms}
-        outerUrl={matchingUrl.outers}
-      />
+      <div className={bgStyle.MainweatherBGcon}>
+        <H2Codi />
+        <MainweatherBG />
+
+        <CodyWeather />
+        <CodiTalk setMatchingUrl={setMatchingUrl} />
+        <Avatar
+          topUrl={matchingUrl.tops}
+          bottomUrl={matchingUrl.bottoms}
+          outerUrl={matchingUrl.outers}
+        />
+      </div>
+
       <CodiLogBoxsMain />
+
       <div className={style.bigBtnCon}>
         <Link to={"/codiLog"} className={`fontBodyM ${style.bigBtn}`}>
           <span>내 코디 기록</span>

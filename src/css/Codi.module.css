@@ -568,6 +568,7 @@ button {
 
 .codiMain {
     padding-bottom: 2rem;
+    /* position: relative; */
 }
 
 .bigBtnCon {
@@ -576,8 +577,6 @@ button {
     display: flex;
     gap: 1rem;
 }
-
-
 
 .bigBtnCon .bigBtn {
     background-color: var(--white);
@@ -728,18 +727,26 @@ button {
     width: 100%;
 }
 
-
-
-
 /* CodiGuidelineBox.jsx 전체 기온별 코디 가이드 모달 박스 */
-.CodiGuidelineBox {
-    position: absolute;
+.CodiGuidelineBoxCon {
+    position: fixed;
     top: 0;
-    bottom: 0;
     left: 0;
-    right: 0;
+    width: 100%;
+    height: 100vh;
     background-color: rgba(0, 0, 0, 0.7);
     z-index: 99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.CodiGuidelineBoxCon .modalBox {
+    background-color: var(--white);
+    width: calc(100% - 4rem);
+    max-width: calc(720px - 2rem);
+    border-radius: 1rem;
+    padding: 1rem;
 }
 
 
