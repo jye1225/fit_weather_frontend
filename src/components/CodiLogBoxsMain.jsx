@@ -96,7 +96,6 @@ const CodiLogBoxsMain = () => {
                     setCodiLogId(data._id)
                     setTodayText(`${today.split('-')[0]}년  ${today.split('-')[1]}월 ${today.split('-')[2]}일`);
 
-
                     console.log('---선택 기록 setLogToday 전달 성공----', data);
                 });
         }
