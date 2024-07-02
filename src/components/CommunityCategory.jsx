@@ -1,18 +1,19 @@
 import style from '../css/CommunityCategory.module.css';
 
-import { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { buttonStore } from '../store/talkbuttonStore';
+import { useCategoryStore } from '../store/categoryStore';
 
 function CommunityCategory() {
-  const [onCate, setOnCate] = useState('talk');
+  const { onCommuCate, setOnCommuCate } = useCategoryStore();
+
   const { setOnBtn } = buttonStore();
   const talkOn = () => {
-    setOnCate('talk');
+    setOnCommuCate('talk');
   };
   const feedOn = () => {
     setOnBtn('all');
-    setOnCate('feed');
+    setOnCommuCate('feed');
   };
 
   return (
@@ -22,14 +23,14 @@ function CommunityCategory() {
         <div className={style.buttonCon}>
           <Link
             to="/community"
-            className={`fontBodyM ${onCate === 'talk' ? style.on : ''}`}
+            className={`fontBodyM ${onCommuCate === 'talk' ? style.on : ''}`}
             onClick={talkOn}
           >
             날씨패션 톡
           </Link>
           <Link
             to="/community/feed"
-            className={`fontBodyM ${onCate === 'feed' ? style.on : ''}`}
+            className={`fontBodyM ${onCommuCate === 'feed' ? style.on : ''}`}
             onClick={feedOn}
           >
             패션 인스타

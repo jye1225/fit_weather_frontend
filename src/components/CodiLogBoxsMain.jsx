@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import style from '../css/Codi.module.css'
-import ActionSheet from './ActionSheet';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import style from "../css/Codi.module.css";
+import ActionSheet from "./ActionSheet";
 import { url } from "../store/ref";
 
-import { useLoginInfoStore } from '../store/loginInfoStore';  //유저정보 import
+import { useLoginInfoStore } from "../store/loginInfoStore"; //유저정보 import
 
 const CodiLogBoxsMain = () => {
     // useState for ActionSheet

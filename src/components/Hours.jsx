@@ -139,16 +139,64 @@ const Hours = () => {
             weatherIcons[`${skyValue?.fcstValue}_${ptyValue?.fcstValue}`] ||
             "img/icons/weather/clear.svg"; // 기본 이미지 맑음으로 설정
 
+          // 활동 조건문 (자외선 지수 추가 예정)
           // 싸이클 조건문
           let cycleState = "";
           if (
-            tempValue?.fcstValue <= 25 &&
+            (tempValue?.fcstValue <= 30 || tempValue?.fcstValue >= 5) &&
             (dust === "좋음" || "보통") &&
             popValue?.fcstValue <= 50
           ) {
             cycleState = "좋음";
           } else {
             cycleState = "나쁨";
+          }
+
+          // 러닝 조건문
+          let runningState = "";
+          if (
+            (tempValue?.fcstValue <= 30 || tempValue?.fcstValue >= 5) &&
+            (dust === "좋음" || "보통") &&
+            popValue?.fcstValue <= 50
+          ) {
+            runningState = "좋음";
+          } else {
+            runningState = "나쁨";
+          }
+
+          // 등산 조건문
+          let hikingState = "";
+          if (
+            (tempValue?.fcstValue <= 30 || tempValue?.fcstValue >= 5) &&
+            (dust === "좋음" || "보통") &&
+            popValue?.fcstValue <= 50
+          ) {
+            hikingState = "좋음";
+          } else {
+            hikingState = "나쁨";
+          }
+
+          // 빨래 조건문
+          let washState = "";
+          if (
+            (tempValue?.fcstValue <= 30 || tempValue?.fcstValue >= 15) &&
+            popValue?.fcstValue <= 30
+          ) {
+            washState = "좋음";
+          } else {
+            washState = "나쁨";
+          }
+
+          // 반려동물 산책 조건문
+          let petState = "";
+          if (
+            (tempValue?.fcstValue <= 30 || tempValue?.fcstValue >= 5) &&
+            (dust === "좋음" || "보통") &&
+            popValue?.fcstValue <= 30
+          ) {
+            petState = "좋음";
+          } else {
+            petState = "나쁨";
           }
 
           return (

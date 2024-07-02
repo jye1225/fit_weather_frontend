@@ -2,8 +2,14 @@ import style from '../css/FashionFeedPage.module.css';
 import FashionFeedModal from '../components/FashionFeedModal';
 import { useEffect, useState } from 'react';
 import { url } from '../store/ref';
+import { useCategoryStore } from '../store/categoryStore';
 
 function FashionFeedPage() {
+  const { setOnCommuCate } = useCategoryStore();
+  useEffect(() => {
+    setOnCommuCate('feed');
+  }, []);
+
   //  시도해보는 중
   // const [onFshModal, setOnFshModal] = useState(false);
   // const [feeds, setFeeds] = useState(true);
