@@ -4,7 +4,7 @@ const useClothesStore = create(() => ({
   tops: {
     "반팔 티셔츠": "img/clothes/short_sleeve_T.svg",
     티셔츠: "티셔츠 이미지 링크",
-    민소매: "민소매 이미지 링크",
+    민소매: "img/clothes/short_sleeve_T.svg",
     맨투맨: "맨투맨 이미지 링크",
     니트: "니트 이미지 링크",
     "반팔 후드티": "후드티 이미지 링크",

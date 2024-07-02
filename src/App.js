@@ -1,7 +1,8 @@
 import "./css/common.css";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from "jwt-decode"; // jwt로 토큰 해석하는 jwt-decode 라이브러리 설치했습니다! :npm install jwt-decode
 
 import IndexPage from "./pages/IndexPage";
 import CommunityPage from "./pages/CommunityPage";
@@ -26,8 +27,9 @@ import KakaoLogin from "./pages/login/KakaoLogin";
 import Auth from "./pages/login/Auth";
 import KakaoOauth from "./pages/login/KakaoOauth";
 import CompleteProfile from "./pages/login/CompleteProfile";
-
-import { useLoginInfoStore } from "./store/loginInfoStore";
+// import SignupComplete from "./pages/SignupComplete"; // 추가
+import { useLoginInfoStore } from './store/loginInfoStore';
+import Footer from './components/Footer';
 
 function App() {
   const { setUserInfo } = useLoginInfoStore();
@@ -76,7 +78,10 @@ function App() {
         <Route path="/oauth" element={<KakaoOauth />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/complete-profile" element={<CompleteProfile />} />
+//         <Route path="/oauth/kakao" element={<Auth />} />
+        {/* <Route path="/signupcomplete" element={<SignupComplete />} /> */}
       </Routes>
+      <Footer />
     </div>
   );
 }

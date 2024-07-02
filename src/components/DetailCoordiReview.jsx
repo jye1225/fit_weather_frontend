@@ -1,14 +1,17 @@
 import style from '../css/DetailCoordiReview.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { usePostData } from '../store/postDataStore';
 import { url } from '../store/ref';
 import { useParams } from 'react-router-dom';
+import { useLoginInfoStore } from '../store/loginInfoStore';
 
 function DetailCoordiReview({ fetchPostDetail }) {
   const [onBtn, setOnBtn] = useState('');
   const { postDetail, setPostsData, fetchPosts } = usePostData();
   const { postId } = useParams();
+  const { userInfo } = useLoginInfoStore();
 
+  // 코디리뷰 카운트 변경사항 요청 함수로 전달
   const reviewBtnClick = async (btnType) => {
     setOnBtn(btnType);
 
@@ -30,6 +33,7 @@ function DetailCoordiReview({ fetchPostDetail }) {
     fetchPosts();
   };
 
+  // 코디리뷰 카운트 변경 요청
   const updateReviewCount = async (btnType, count) => {
     try {
       const response = await fetch(`${url}/posts/updateReview/${postId}`, {
@@ -43,7 +47,7 @@ function DetailCoordiReview({ fetchPostDetail }) {
       console.log(response);
       const data = await response.json();
       if (response.ok) {
-        console.log(data);
+        console.log('리뷰카운트 변경하고 받은 데이터', data);
         setPostsData(data);
       }
     } catch (error) {
@@ -51,12 +55,58 @@ function DetailCoordiReview({ fetchPostDetail }) {
     }
   };
 
+  // 유저 코디리뷰 상태 저장
+  const saveReviewState = async (btnType) => {
+    try {
+      if (onBtn === btnType) {
+        btnType = '';
+      }
+      console.log('유저가 누른 버튼', btnType, userInfo.userid, postId);
+      await fetch(`${url}/posts/saveCoordiRevw`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: userInfo.userid,
+          postId: postId,
+          btnType: btnType,
+        }),
+      });
+    } catch (error) {
+      console.log('유저 리뷰 상태 저장 에러', error);
+    }
+  };
+
+  // 유저 코디리뷰 상태 데이터 요청
+  const ReviewStateCheck = async () => {
+    try {
+      const response = await fetch(
+        `${url}/posts/reviewCheck/${postId}?userId=${userInfo.userid}`,
+        {
+          method: 'GET',
+        }
+      );
+      const data = await response.json();
+      const reviewType = data.btnType;
+      console.log('유저의 코디리뷰 타입', reviewType);
+      setOnBtn(reviewType);
+    } catch (error) {
+      console.error('유저 코디리뷰 상태 데이터 요청 에러', error);
+    }
+  };
+
+  useEffect(() => {
+    ReviewStateCheck();
+  }, []);
+
   return (
     <div className={style.coordiReview}>
       <p className="fontHead2">이 코디 어때요?</p>
       <button
         className={`${style.goodBtn} ${onBtn === 'Good' ? style.on : ''}`}
-        onClick={() => reviewBtnClick('Good')}
+        onClick={() => {
+          reviewBtnClick('Good');
+          saveReviewState('Good');
+        }}
       >
         <svg
           width="24"
@@ -75,7 +125,10 @@ function DetailCoordiReview({ fetchPostDetail }) {
       </button>
       <button
         className={`${style.sosoBtn} ${onBtn === 'Soso' ? style.on : ''}`}
-        onClick={() => reviewBtnClick('Soso')}
+        onClick={() => {
+          reviewBtnClick('Soso');
+          saveReviewState('Soso');
+        }}
       >
         <svg
           width="24"
@@ -94,7 +147,10 @@ function DetailCoordiReview({ fetchPostDetail }) {
       </button>
       <button
         className={`${style.badBtn} ${onBtn === 'Bad' ? style.on : ''}`}
-        onClick={() => reviewBtnClick('Bad')}
+        onClick={() => {
+          reviewBtnClick('Bad');
+          saveReviewState('Bad');
+        }}
       >
         <svg
           width="24"

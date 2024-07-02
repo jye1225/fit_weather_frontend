@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import style from "../css/Codi.module.css";
 import ActionSheet from "./ActionSheet";
+import { url } from "../store/ref";
 
 import { useLoginInfoStore } from "../store/loginInfoStore"; //유저정보 import
 
@@ -44,12 +45,11 @@ const CodiLogBoxsMain = () => {
     if (storedMaxTemp) setMaxTemp(storedMaxTemp);
     if (storedSky) setSky(storedSky);
 
-    fetch(`https://localhost:8080/codiLogToday/${today}`) //get요청 보냄
+    fetch(`${url}/codiLogToday/${today}`) //get요청 보냄
       .then((res) => res.json())
       .then((data) => {
         setLogToday(data);
         setTags(data.tag);
-
         console.log("---선택 기록 setLogToday 전달 성공----", data);
         //     // 오늘 날짜 저장
         //     const today = new Date();
@@ -66,9 +66,7 @@ const CodiLogBoxsMain = () => {
 
   useEffect(() => {
     if (sky && minTemp && maxTemp) {
-      fetch(
-        `https://localhost:8080/codiLogSimilar/${maxTemp}/${minTemp}/${sky}`
-      );
+      fetch(`${url}/codiLogSimilar/${maxTemp}/${minTemp}/${sky}`);
     }
   }, [sky, minTemp, maxTemp]);
 
@@ -103,10 +101,7 @@ const CodiLogBoxsMain = () => {
         {logToday.length !== 0 ? (
           <>
             <div className={style.imgBox}>
-              <img
-                src={`https://localhost:8080/${logToday.image}`}
-                alt={logToday.image}
-              />
+              <img src={`${url}/${logToday.image}`} alt={logToday.image} />
             </div>
             <div className={style.tags}>
               {tags.map((feltTag, index) => {
@@ -125,7 +120,7 @@ const CodiLogBoxsMain = () => {
               <img src="img/icons/common/alertG600.svg" alt="alert" />
               <span className="fontTitleM">오늘 코디 기록을 안하셨어요 !</span>
             </div>
-            <Link to={"/codiWrite"} className={`fontTitleM ${style.btnWide}`}>
+            <Link to={'/codiWrite'} className={`fontTitleM ${style.btnWide}`}>
               오늘 코디 기록하기
             </Link>
           </>

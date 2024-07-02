@@ -1,0 +1,13 @@
+.ft {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+.ft p {
+  width: calc(100% - 2rem);
+  padding-block: 3rem 1.5rem;
+  border-top: 1px solid var(--grey-200);
+  color: var(--grey-400);
+  text-align: center;
+  letter-spacing: 1.5px;
+}
