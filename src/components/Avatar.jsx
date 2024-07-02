@@ -6,7 +6,7 @@ const Avatar = ({ topUrl, bottomUrl, outerUrl }) => {
 
   useEffect(() => {
     console.log("Avatar URLs:", { topUrl, bottomUrl, outerUrl });
-    if (topUrl && bottomUrl && outerUrl) {
+    if (topUrl || bottomUrl || outerUrl) {
       setIsLoading(false);
     }
   }, [topUrl, bottomUrl, outerUrl]);

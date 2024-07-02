@@ -1,5 +1,3 @@
-
-// src/components/PresentWeather.jsx
 import style from "../css/PresentWeather.module.css";
 import { useEffect } from "react";
 import useFetchStore from "../store/fetchStore";
@@ -14,9 +12,9 @@ const PresentWeather = () => {
     temperature,
     maxTemp,
     minTemp,
-    rain,
     dust,
     uv,
+    popValue,
   } = useFetchStore();
 
   useEffect(() => {
@@ -37,7 +35,13 @@ const PresentWeather = () => {
         regionSecondName
       );
     }
-  }, [location, regionFirstName, regionSecondName, fetchWeatherData]);
+  }, [
+    location.latitude,
+    location.longitude,
+    regionFirstName,
+    regionSecondName,
+    fetchWeatherData,
+  ]);
 
   return (
     <section className={`mw ${style.present}`}>
@@ -54,7 +58,7 @@ const PresentWeather = () => {
       <div className={style.others}>
         <div className={style.con}>
           <span className="fontTitleS">강수확률</span>
-          <p className="fontTitleXL">{rain}%</p>
+          <p className="fontTitleXL">{popValue}%</p>
         </div>
         <div className={style.con}>
           <span className="fontTitleS">미세먼지</span>

@@ -10,13 +10,13 @@ const useFetchStore = create((set, get) => ({
   temperature: "",
   maxTemp: "",
   minTemp: "",
-  rain: "",
   dust: "",
   uv: "",
   regionFirstName: "",
   regionSecondName: "",
   tempData: [], // temp 데이터를 저장할 상태 추가
   skyData: [], // sky 데이터를 저장할 상태 추가
+  popValue: null, // popValue 상태 추가
 
   setLocation: (location) => set({ location }),
   setWeatherData: (data) => set(data),
@@ -24,6 +24,7 @@ const useFetchStore = create((set, get) => ({
   setRegionSecondName: (name) => set({ regionSecondName: name }),
   setTempData: (tempData) => set({ tempData }),
   setSkyData: (skyData) => set({ skyData }),
+  setPopValue: (popValue) => set({ popValue }),
 
   fetchLocation: () => {
     if (navigator.geolocation) {
@@ -41,7 +42,7 @@ const useFetchStore = create((set, get) => ({
   },
 
   fetchWeatherData: async () => {
-    const { location, regionFirstName, regionSecondName } = get();
+    const { location, regionFirstName, regionSecondName, setPopValue } = get();
 
     if (
       !location.latitude ||
@@ -119,10 +120,10 @@ const useFetchStore = create((set, get) => ({
           // console.log(temp);
           // console.log(shortWeather);
 
-
-          const temp = shortWeather.filter((item) => item.category === "TMP");
-          const sky = shortWeather.filter((item) => item.category === "SKY");
-          // console.log(temp);
+          // const temp = shortWeather.filter((item) => item.category === "TMP");
+          // const sky = shortWeather.filter((item) => item.category === "SKY");
+          // const pop = shortWeather.filter((item) => item.category === "POP");
+          // console.log(pop);
 
           const pmSKY = shortWeather[175].fcstValue;
           const pmPTY = shortWeather[176].fcstValue;
@@ -149,13 +150,27 @@ const useFetchStore = create((set, get) => ({
             skyData: skyArry,
             ptyData: ptyArry,
             popData: popArry,
-            weatherText, // 요거 추가하니 로컬에 저장됐어요!
+            weatherText, // 요거 추가하니 로컬에 저장됐어요! // 최고!
           });
+
+          // popValue를 계산
+          const date = new Date();
+          const hour = date.getHours();
+          const weatherHour = Array.from(
+            { length: 12 },
+            (_, i) => (hour + i) % 24
+          );
+          const newPopValue = weatherHour.map((h) => {
+            const popValue = popArry.find(
+              (item) => item.fcstTime === ("0" + h).slice(-2) + "00"
+            );
+            return popValue ? popValue.fcstValue : null;
+          });
+          setPopValue(newPopValue[0]); // 첫 번째 값만 설정
 
           return {
             maxTemp: shortWeather[157].fcstValue.substr(0, 2),
             minTemp: shortWeather[48].fcstValue.substr(0, 2),
-            rain: shortWeather[7].fcstValue,
 
             amSKY: shortWeather[66].fcstValue,
             amPTY: shortWeather[67].fcstValue,
@@ -173,15 +188,12 @@ const useFetchStore = create((set, get) => ({
       return {
         maxTemp: "",
         minTemp: "",
-        rain: "",
         amSKY: "",
         amPTY: "",
         pmSKY: "",
         pmPTY: "",
         weatherText: "",
       };
-
-
     };
 
     const fetchDust = async () => {
@@ -249,14 +261,14 @@ const useFetchStore = create((set, get) => ({
             maxUv >= 0 && maxUv <= 2
               ? "낮음"
               : maxUv >= 3 && maxUv <= 5
-                ? "보통"
-                : maxUv >= 6 && maxUv <= 7
-                  ? "높음"
-                  : maxUv >= 8 && maxUv <= 10
-                    ? "매우높음"
-                    : maxUv >= 11
-                      ? "위험"
-                      : "유효하지 않은 값";
+              ? "보통"
+              : maxUv >= 6 && maxUv <= 7
+              ? "높음"
+              : maxUv >= 8 && maxUv <= 10
+              ? "매우높음"
+              : maxUv >= 11
+              ? "위험"
+              : "유효하지 않은 값";
           return { uv: uvDegree };
         } else {
           console.error("Unexpected response structure:", data);
