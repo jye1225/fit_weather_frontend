@@ -34,7 +34,7 @@ function CommuCollCmnt() {
   return (
     <main className={`mw ${style.commuCollCmnt}`}>
       {commentData.length === 0 ? (
-        <p className={style.loadingMsg}>댓글을 불러오는 중입니다...</p>
+        <p className={style.loadingMsg}>작성댓글이 없습니다.</p>
       ) : (
         <ul className={style.cmntListCon}>
           {commentData.map((cmnt) => (

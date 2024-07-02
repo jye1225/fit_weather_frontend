@@ -1,10 +1,8 @@
 import style from '../css/CommuCollectionCon.module.css';
 
 import { useEffect, useState } from 'react';
-import { jwtDecode } from 'jwt-decode';
 
 import CommunityPost from './CommunityPost';
-import { useLoginInfoStore } from '../store/loginInfoStore';
 import { url } from '../store/ref';
 
 function CommuCollectionCon() {
@@ -32,7 +30,7 @@ function CommuCollectionCon() {
   return (
     <>
       {talkPostData.length === 0 ? (
-        <p className={style.loadingMsg}>리스트를 불러오는 중입니다...</p>
+        <p className={style.loadingMsg}>작성글이 없습니다.</p>
       ) : (
         <ul className={style.talkListCon}>
           {talkPostData &&

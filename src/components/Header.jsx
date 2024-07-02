@@ -93,7 +93,7 @@ const Header = () => {
           alt="새로고침"
         />
       </div>
-      {/* <Nav navOpen={navOpen} setNavOpen={setNavOpen} /> */}
+      <Nav navOpen={navOpen} setNavOpen={setNavOpen} />
     </header>
   );
 };

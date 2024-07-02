@@ -33,7 +33,7 @@ function CommuCollLike() {
   return (
     <main className={`mw ${style.commuCollLike}`}>
       {likeData.length === 0 ? (
-        <p className={style.loadingMsg}>좋아요한 글을 불러오는 중입니다...</p>
+        <p className={style.loadingMsg}>좋아요한 글이 없습니다.</p>
       ) : (
         <ul className={style.likeListCon}>
           {likeData.map((post) => (

@@ -3,10 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import style from '../css/Nav.module.css';
 import { url } from '../store/ref';
 import { useLoginInfoStore } from '../store/loginInfoStore'; //유저정보 import
+import { jwtDecode } from 'jwt-decode';
 
 const Nav = ({ navOpen, setNavOpen }) => {
+  // const { userInfo: storeUserInfo } = useLoginInfoStore();
   const { userInfo, setUserInfo } = useLoginInfoStore();
-  // const { userInfo, setUserInfo } = useLoginInfoStore();
 
   function preventScroll(event) {
     // 스크롤 막기 함수
@@ -22,17 +23,37 @@ const Nav = ({ navOpen, setNavOpen }) => {
 
   // 예은추가--------
   const getUserData = async (token) => {
-    // 2. Token을 이용하여 카카오 서버에서 인증을 거쳐 사용자 정보를 가져옴
-    const response = await fetch(`https://kapi.kakao.com/v2/user/me`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-      },
-    });
-    const user = await response.json();
-    // 3. 사용자 정보를 state에 저장
-    setUserInfo(user);
-    navigate('/');
+    try {
+      // JWT 토큰인지 확인
+      if (token.split('.').length === 3) {
+        // JWT 구조: header.payload.signature 이라서 . 으로 구분해서 3개로 나눠졌으면 jwt토큰으로 간주
+        try {
+          const decodedToken = jwtDecode(token);
+          console.log('JWT 사용자 정보:', decodedToken);
+          setUserInfo(decodedToken);
+        } catch (error) {
+          throw new Error('Invalid JWT token');
+        }
+      } else {
+        // 카카오 토큰으로 가정
+        // 2. Token을 이용하여 카카오 서버에서 인증을 거쳐 사용자 정보를 가져옴
+        const response = await fetch(`https://kapi.kakao.com/v2/user/me`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+          },
+        });
+        const user = await response.json();
+        console.log('카카오 사용자 정보', user);
+        // 3. 사용자 정보를 state에 저장
+        setUserInfo(user);
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      throw error;
+    }
+    // Nav가 헤더에 위치해 있다보니 헤더를 포함한 페이지에 접속할때마다 아래 useEffect가 실행되면서 메인으로 튕겨져나가는 현상이 발생해요
+    // navigate('/');
   };
 
   useEffect(() => {

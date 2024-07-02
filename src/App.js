@@ -48,19 +48,23 @@ function App() {
         try {
           const decodedToken = jwtDecode(loginToken);
           setUserInfo(decodedToken);
+
         } catch (error) {
           console.error("Token decoding failed:", error);
+          // 토큰이 유효하지 않은 경우 처리
           localStorage.removeItem("token");
+          setUserInfo(null);
         }
+      } else {
+        setUserInfo(null);
       }
-    };
-
-    fetchUserInfo();
+    }
+    fetchUserInfo()
   }, [setUserInfo]);
 
   useEffect(() => {
     console.log('로그인한 유저정보', userInfo);
-  }, [userInfo]);
+  }, [userInfo])
 
   return (
     <div className="App">
