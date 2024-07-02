@@ -23,6 +23,10 @@ const CodiLogBoxsMain = () => {
     const [codiLogId, setCodiLogId] = useState('');//코디로그 고유 _id
     const { userInfo } = useLoginInfoStore();
 
+    const [similarLog, setSimilarLog] = useState('');//비슷한 날씨의 과거 기록 data
+    const [similarLogDate, setSimilarLogDate] = useState('');//비슷한 날씨의 과거 기록- 날짜 화면 출력용
+    const [similarLogTags, setSimilarLogTags] = useState(['']);//비슷한 날씨의 과거 기록 -tags
+
     useEffect(() => {
         if (userInfo) {
             setUserid(userInfo.userid);
@@ -56,7 +60,13 @@ const CodiLogBoxsMain = () => {
     useEffect(() => {
         if (userid && sky && minTemp && maxTemp) {
             fetch(`${url}/codiLogSimilar/${maxTemp}/${minTemp}/${sky}/${userid}`)//
-                .then(() => { console.log('codiLogSimilar요청보냄'); })
+                .then((res) => res.json())//
+                .then((similarData) => {
+                    setSimilarLog(similarData);
+                    setSimilarLogDate(`${similarData.codiDate.split('-')[0]}년  ${similarData.codiDate.split('-')[1]}월 ${similarData.codiDate.split('-')[2]}일`);
+                    setSimilarLogTags(similarData.tag);
+                    console.log('=====codiLogSimilar====', similarData)
+                })
         }
     }, [userid, sky, minTemp, maxTemp])
 
@@ -89,6 +99,54 @@ const CodiLogBoxsMain = () => {
 
     return (
         <section className={style.CodiLogBoxsMain}>
+
+            <div className={`${style.logBox} ${style.similar}`}>
+                <div className={style.top}>
+                    <h3 className='fontHead3'>비슷한 날씨의 코디 기록</h3>
+                    <img src="img/icons/common/dot.svg" className={style.DotIcon} onClick={() => setActionSheetActive(true)} alt="dot" />
+                </div>
+
+                <div className={style.postInfo}>
+                    <span className={`fontTitleS ${style.date}`}>
+                        {similarLogDate}
+                    </span>
+                    <img src="img/icons/common/12devider.svg" alt="12devider" />
+                    <span className={`fontTitleS ${style.weather}`}> {similarLog.maxTemp}°/ {similarLog.minTemp}°</span>
+                    {/* <img src="img/icons/common/12devider.svg" alt="12devider" /> */}
+                    <span className={`fontTitleS ${style.sky}`}>{similarLog.sky}</span>
+                </div>
+                {
+                    logToday.length !== 0 ? (
+                        <>
+                            <div className={style.imgBox}>
+                                <img src={`${url}/${similarLog.image}`} alt={similarLog.image} />
+                            </div>
+                            <div className={style.tags}>
+                                {
+                                    similarLogTags.map((feltTag, index) => {
+                                        return (
+                                            <span className={`fontTitleXS ${style.miniTag}`} key={index}>{feltTag}</span>
+                                        );
+                                    })
+                                }
+                            </div>
+                            <p className={`fontDecorate ${style.codiMemo}`}>{similarLog.memo}</p>
+                        </>) : (
+                        <>
+                            <div className={style.noLogToday}>
+                                <img src="img/icons/common/alertG600.svg" alt="alert" />
+                                <span className="fontTitleM">오늘 코디 기록을 안하셨어요 !</span>
+                            </div>
+                            <Link to={"/codiWrite"} className={`fontTitleM ${style.btnWide}`}>
+                                오늘 코디 기록하기
+                            </Link>
+                        </>
+                    )
+                }
+            </div >
+
+
+
             <div className={`${style.logBox} ${style.today}`}>
                 <div className={style.top}>
                     <h3 className='fontHead3'>오늘의 코디 기록</h3>
@@ -105,7 +163,6 @@ const CodiLogBoxsMain = () => {
                     {/* <img src="img/icons/common/12devider.svg" alt="12devider" /> */}
                     <span className={`fontTitleS ${style.sky}`}>{sky}</span>
                 </div>
-
                 {
                     logToday.length !== 0 ? (
                         <>
@@ -135,6 +192,8 @@ const CodiLogBoxsMain = () => {
                     )
                 }
             </div >
+
+
             <ActionSheet
                 setActionSheetActive={setActionSheetActive}
                 actionSheetActive={actionSheetActive}

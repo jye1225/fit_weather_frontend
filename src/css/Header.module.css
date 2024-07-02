@@ -103,7 +103,7 @@ h1 {
   opacity: 1;
 }
 
-@media (max-width: 907px) {
+@media (max-width: 908px) {
   .ham {
     visibility: visible;
   }

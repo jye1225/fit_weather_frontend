@@ -14,9 +14,9 @@ const Nav = ({ navOpen, setNavOpen }) => {
   }
 
   useEffect(() => {
-//     console.log('Nav.jsx>>>>>>유저정보, 햄open여부', userInfo, navOpen);
+    //     console.log('Nav.jsx>>>>>>유저정보, 햄open여부', userInfo, navOpen);
 
-    if (navOpen == true) {        // 스크롤 막기 
+    if (navOpen == true && window.innerWidth <= 907) {        // 스크롤 막기 
       window.addEventListener('scroll', preventScroll, { passive: false });
       window.addEventListener('wheel', preventScroll, { passive: false });
       window.addEventListener('touchmove', preventScroll, { passive: false });
