@@ -2,9 +2,7 @@ import style from '../css/DetailComment.module.css';
 import { useEffect, useState } from 'react';
 import CommentOptionMenu from './CommentOptionMenu';
 import { url } from '../store/ref';
-import { useParams } from 'react-router-dom';
 import { useLoginInfoStore } from '../store/loginInfoStore';
-import { usePostData } from '../store/postDataStore';
 
 function DetailComment({
   cmnt,
@@ -19,8 +17,6 @@ function DetailComment({
   const [cmntCreateAt, setCmntCreateAt] = useState();
   const [commentText, setCommentText] = useState(cmnt.content);
   const { userInfo } = useLoginInfoStore();
-  const { postDetail } = usePostData();
-  // const { postId } = useParams;
 
   // 댓글 수정,삭제 버튼 노출
   const cmntOptnMenuToggle = (e) => {

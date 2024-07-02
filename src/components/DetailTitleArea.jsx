@@ -9,9 +9,9 @@ import { usePostData } from '../store/postDataStore';
 import { url } from '../store/ref';
 import { useLoginInfoStore } from '../store/loginInfoStore';
 
-function DetailTitleArea({ fetchPostDetail }) {
-  const { postDetail, isLike, setLiketoggle, likes, setLikes, fetchPosts } =
-    usePostData();
+function DetailTitleArea({ fetchPostDetail, postId }) {
+  const { postDetail, likes, setLikes, fetchPosts } = usePostData();
+  const [isLike, setLiketoggle] = useState(false);
   const { isOpMenuOn, opMenuOpen, opMenuClose } = useOpenMenuModal();
   const { userInfo } = useLoginInfoStore();
 
@@ -42,6 +42,37 @@ function DetailTitleArea({ fetchPostDetail }) {
       console.log(err);
     }
   };
+
+  const checkUserLikeList = async () => {
+    try {
+      const response = await fetch(
+        `${url}/posts/likeCheck/${postId}?userId=${userInfo.userid}`,
+        {
+          method: 'GET',
+        }
+      );
+      const data = await response.json();
+      // console.log('좋아요리스트', data);
+      // console.log('포스트아이디들', data.postId);
+
+      // 현재 게시물의 postId가 data의 postId 배열에 존재하는지 확인
+      // 모든 요소와 postId를 문자열로 변환하여 비교
+      console.log('포함??', data.postId.map(String).includes(String(postId)));
+
+      if (data.postId && data.postId.map(String).includes(String(postId))) {
+        setLiketoggle(true);
+      } else {
+        setLiketoggle(false);
+      }
+    } catch (error) {
+      console.error('좋아요 리스트 체크 에러', error);
+    }
+  };
+
+  useEffect(() => {
+    console.log(postId);
+    checkUserLikeList();
+  }, []);
 
   const opMenuToggle = (e) => {
     e.stopPropagation();

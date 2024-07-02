@@ -50,7 +50,6 @@ const CodiLogBoxsMain = () => {
       .then((data) => {
         setLogToday(data);
         setTags(data.tag);
-
         console.log("---선택 기록 setLogToday 전달 성공----", data);
         //     // 오늘 날짜 저장
         //     const today = new Date();
@@ -121,7 +120,7 @@ const CodiLogBoxsMain = () => {
               <img src="img/icons/common/alertG600.svg" alt="alert" />
               <span className="fontTitleM">오늘 코디 기록을 안하셨어요 !</span>
             </div>
-            <Link to={"/codiWrite"} className={`fontTitleM ${style.btnWide}`}>
+            <Link to={'/codiWrite'} className={`fontTitleM ${style.btnWide}`}>
               오늘 코디 기록하기
             </Link>
           </>
