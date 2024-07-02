@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
-import style from "../css/Codi.module.css";
-import { url } from "../store/ref";
-import ActionSheet from "../components/ActionSheet";
+import { useEffect, useState } from 'react';
+import style from '../css/Codi.module.css';
+import { url } from '../store/ref';
+import ActionSheet from '../components/ActionSheet';
+
 const CodiLogBox = ({ setModalActive, modalActive }) => {
   console.log(modalActive);
   // ** ActionSheet
@@ -9,7 +10,7 @@ const CodiLogBox = ({ setModalActive, modalActive }) => {
   const [canEdit, setCanEdit] = useState(false); //수정 가능한지 아닌지
   const [codiLog, setCodiLog] = useState([]);
   const [tags, setTags] = useState([]);
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState('');
   useEffect(() => {
     fetch(`${url}/codiLogDetail/${modalActive}`) //get요청 보냄
       .then((res) => res.json())
@@ -17,7 +18,7 @@ const CodiLogBox = ({ setModalActive, modalActive }) => {
         setCodiLog(data);
         setTags(data.tag);
         setDate(data.codiDate);
-        console.log("---선택 기록 data 전달 성공----", data);
+        console.log('---선택 기록 data 전달 성공----', data);
         // 오늘 날짜 저장
         const today = new Date();
         // codiDate 문자열을 Date 객체로 변환
@@ -50,11 +51,11 @@ const CodiLogBox = ({ setModalActive, modalActive }) => {
       <div className={style.postInfo}>
         <span className={`fontTitleS ${style.date}`}>
           {/* {codiLog.codiDate} */}
-          {date.split("-")[0]}년 {date.split("-")[1]}월 {date.split("-")[2]}일
+          {date.split('-')[0]}년 {date.split('-')[1]}월 {date.split('-')[2]}일
         </span>
         <img src="img/icons/common/12devider.svg" alt="12devider" />
         <span className={`fontTitleS ${style.weather}`}>
-          {" "}
+          {' '}
           {codiLog.maxTemp}°/ {codiLog.minTemp}°
         </span>
         {/* <img src=“img/icons/common/12devider.svg” alt=“12devider” /> */}
