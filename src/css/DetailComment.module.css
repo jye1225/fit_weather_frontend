@@ -8,6 +8,9 @@
 
   position: relative;
 }
+.comment:last-of-type {
+  border: none;
+}
 
 .userImg {
   width: 3.5rem;

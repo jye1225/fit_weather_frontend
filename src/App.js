@@ -5,7 +5,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import IndexPage from "./pages/IndexPage";
 
@@ -29,11 +29,10 @@ import Login from "./pages/login/Login";
 import Signup from "./pages/Signup";
 import KakaoLogin from "./pages/login/KakaoLogin";
 import Auth from "./pages/login/Auth";
-import SignupComplete from "./pages/Signupcomplete"; // 추가
 
-import { useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';// jwt로 토큰 해석하는 jwt-decode 라이브러리 설치했습니다! :npm install jwt-decode
 import { useLoginInfoStore } from './store/loginInfoStore';
+import Footer from './components/Footer';
 
 function App() {
   const { setUserInfo } = useLoginInfoStore();
@@ -82,8 +81,9 @@ function App() {
         {/* <Route path="/oauth" element={<KakaoCallback />} /> */}
         <Route path="/loginKakao" element={<KakaoLogin />} />
         <Route path="/oauth/kakao" element={<Auth />} />
-        <Route path="/signupcomplete" element={<SignupComplete />} />
+        {/* <Route path="/signupcomplete" element={<SignupComplete />} /> */}
       </Routes>
+      <Footer />
     </div>
   );
 }

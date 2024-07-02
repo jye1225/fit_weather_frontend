@@ -42,7 +42,9 @@ function DetailPage() {
     }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    fetchPostDetail();
+  }, []);
 
   return (
     <>
