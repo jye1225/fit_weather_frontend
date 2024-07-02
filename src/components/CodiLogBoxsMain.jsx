@@ -9,6 +9,7 @@ import { useLoginInfoStore } from '../store/loginInfoStore';  //유저정보 imp
 const CodiLogBoxsMain = () => {
     // useState for ActionSheet
     const [today, setToday] = useState('');//오늘날짜
+    const [todayText, setTodayText] = useState('');// 오늘날짜 화면출력용
     const [canEdit, setCanEdit] = useState(false);//수정 가능한지 아닌지
     const [actionSheetActive, setActionSheetActive] = useState(false);
     const [tags, setTags] = useState([]);
@@ -93,6 +94,8 @@ const CodiLogBoxsMain = () => {
                     setLogToday(data);
                     setTags(data.tag);
                     setCodiLogId(data._id)
+                    setTodayText(`${today.split('-')[0]}년  ${today.split('-')[1]}월 ${today.split('-')[2]}일`);
+
 
                     console.log('---선택 기록 setLogToday 전달 성공----', data);
                 });
@@ -161,8 +164,7 @@ const CodiLogBoxsMain = () => {
 
                 <div className={style.postInfo}>
                     <span className={`fontTitleS ${style.date}`}>
-                        {/* {codiLog.codiDate} */}
-                        {today.split('-')[0]}년  {today.split('-')[1]}월 {today.split('-')[2]}일
+                        {todayText}
                     </span>
                     <img src="img/icons/common/12devider.svg" alt="12devider" />
                     <span className={`fontTitleS ${style.weather}`}> {maxTemp}°/ {minTemp}°</span>

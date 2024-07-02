@@ -568,6 +568,7 @@ button {
 
 .codiMain {
     padding-bottom: 2rem;
+    position: relative;
 }
 
 .bigBtnCon {
@@ -727,9 +728,6 @@ button {
     gap: 1rem;
     width: 100%;
 }
-
-
-
 
 /* CodiGuidelineBox.jsx 전체 기온별 코디 가이드 모달 박스 */
 .CodiGuidelineBox {
