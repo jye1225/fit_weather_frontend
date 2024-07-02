@@ -46,7 +46,6 @@ function Auth() {
           localStorage.setItem("token", JSON.stringify(res.access_token));
           // 4. 메인 페이지로 이동
           navigate("/");
-          // 5. 토큰을 이용하여 사용자 정보를 받아올 수 있음 Header or Nav에 사용자 정보 표시
         }
       } catch (err) {
         console.log(err);
