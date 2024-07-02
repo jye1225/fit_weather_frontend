@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import DetailComment from "./DetailComment";
 import { url } from "../store/ref";
 import { usePostData } from "../store/postDataStore";
-import { useCmntOptnMenu } from "../store/OnCmntOptnMenuStore";
+import { useCmntOptnMenu } from "../store/onCmntOptnMenuStore";
 
 function DetailCommentsCon({ fetchPostDetail }) {
   const [onCmntRewrite, setOnCmntRewrite] = useState(false); // 수정하기 클릭 유무

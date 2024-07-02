@@ -1,14 +1,9 @@
 import "./css/common.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
-import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
 
 import IndexPage from "./pages/IndexPage";
-
 import CommunityPage from "./pages/CommunityPage";
 import DetailPage from "./pages/DetailPage";
 import PostWritePage from "./pages/PostWritePage";
@@ -17,34 +12,33 @@ import FashionFeedPage from "./pages/FashionFeedPage";
 import PostEditPage from "./pages/PostEditPage";
 import TalkPage from "./pages/TalkPage";
 
-//pages
+// pages
 import CodiLog from "../src/pages/CodiLog";
 import CodiWrite from "./pages/CodiWrite";
 import CodiEdit from "./pages/CodiEdit";
 import CodiMain from "./pages/CodiMain";
 import CodiCompleted from "./pages/CodiCompleted";
 
-//로그인, 회원가입
+// 로그인, 회원가입
 import Login from "./pages/login/Login";
 import Signup from "./pages/Signup";
 import KakaoLogin from "./pages/login/KakaoLogin";
 import Auth from "./pages/login/Auth";
-import SignupComplete from "./pages/Signupcomplete"; // 추가
+import KakaoOauth from "./pages/login/KakaoOauth";
+import CompleteProfile from "./pages/login/CompleteProfile";
 
-import { useEffect } from 'react';
-import { jwtDecode } from 'jwt-decode';// jwt로 토큰 해석하는 jwt-decode 라이브러리 설치했습니다! :npm install jwt-decode
-import { useLoginInfoStore } from './store/loginInfoStore';
+import { useLoginInfoStore } from "./store/loginInfoStore";
 
 function App() {
   const { setUserInfo } = useLoginInfoStore();
 
   useEffect(() => {
-    const loginTokenn = localStorage.getItem('token');
+    const loginTokenn = localStorage.getItem("token");
     if (loginTokenn) {
       const decodedToken = jwtDecode(loginTokenn);
-      setUserInfo(decodedToken)
+      setUserInfo(decodedToken);
     }
-  }, []);
+  }, [setUserInfo]);
 
   return (
     <div className="App">
@@ -73,16 +67,15 @@ function App() {
         <Route path="/codiLog" element={<CodiLog />} />
         <Route path="/codiWrite" element={<CodiWrite />} />
         <Route path="/codiEdit" element={<CodiEdit />} />
-
         <Route path="/codiCompleted" element={<CodiCompleted />} />
 
-        {/* 로그인, 회원가입. */}
+        {/* 로그인, 회원가입 */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        {/* <Route path="/oauth" element={<KakaoCallback />} /> */}
         <Route path="/loginKakao" element={<KakaoLogin />} />
-        <Route path="/oauth/kakao" element={<Auth />} />
-        <Route path="/signupcomplete" element={<SignupComplete />} />
+        <Route path="/oauth" element={<KakaoOauth />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/complete-profile" element={<CompleteProfile />} />
       </Routes>
     </div>
   );

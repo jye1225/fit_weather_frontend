@@ -17,11 +17,11 @@ const Signup = () => {
   const [message2, setMessage2] = useState("");
   const [message3, setMessage3] = useState("");
   const [message4, setMessage4] = useState("");
+  const [showTerms, setShowTerms] = useState(false); // 상태 추가
 
   // 회원가입 기능 함수
   const register = async (e) => {
     e.preventDefault();
-    // console.log(userid, username, password);
 
     if (!/^[a-zA-Z][a-zA-Z0-9]{3,}$/.test(userid)) {
       setMessage1("아이디는 4자 이상이어야 하며 영어로 시작해야 합니다.");
@@ -48,22 +48,24 @@ const Signup = () => {
       setMessage4("");
     }
 
+    // 회원가입 요청은 잠시 주석 처리합니다.
     // 백엔드로 POST 요청 및 응답
-    const response = await fetch(`${url}/register`, {
-      method: "POST",
-      body: JSON.stringify({ userid, username, password, gender }),
-      headers: { "Content-Type": "application/json" },
-    });
-    if (response.status === 200) {
-      window.location.href = "/";
-    } else {
-      alert("존재하는 아이디 입니다.");
-    }
+    // const response = await fetch(`${url}/register`, {
+    //   method: "POST",
+    //   body: JSON.stringify({ userid, username, password, gender }),
+    //   headers: { "Content-Type": "application/json" },
+    // });
+    // if (response.status === 200) {
+    //   setShowTerms(true); // 회원가입 성공 시 약관 모달을 보여줌
+    // } else {
+    //   alert("존재하는 아이디 입니다.");
+    // }
+
+    setShowTerms(true); // 모달 창 표시
   };
 
   return (
     <>
-      {" "}
       <HeaderSignup />
       <div className={`mw ${style.page_s}`}>
         <div className={`fontHead2 ${style.titleWrap_s}`}></div>
@@ -82,13 +84,6 @@ const Signup = () => {
               />
             </div>
             <span>{message1}</span> {/*아이디 문구*/}
-            {/* <button
-              type="button"
-              className={style.checkButton}
-              onClick={handleIdCheck}
-            >
-              중복확인
-            </button> */}
           </div>
           <div className={`fontTitleXL ${style.inputTitle}`}>닉네임</div>
           <div className={style.inputGroup}>
@@ -103,13 +98,6 @@ const Signup = () => {
                 }}
               />
             </div>
-            {/* <button
-              type="button"
-              className={style.checkButton}
-              onClick={handleNameCheck}
-            >
-              중복확인
-            </button> */}
           </div>
           <div className={`fontTitleXL ${style.inputTitle}`}>비밀번호</div>
           <div className={style.inputWrap}>
@@ -163,7 +151,8 @@ const Signup = () => {
             다음으로
           </button>
         </form>
-      </div>{" "}
+        {showTerms && <TermsModal />}
+      </div>
     </>
   );
 };
