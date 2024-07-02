@@ -1,30 +1,47 @@
-import { useEffect } from 'react';
 import style from '../css/CommuCollectionCon.module.css';
+
+import { useEffect, useState } from 'react';
+import { jwtDecode } from 'jwt-decode';
+
 import CommunityPost from './CommunityPost';
 import { useLoginInfoStore } from '../store/loginInfoStore';
 import { url } from '../store/ref';
 
 function CommuCollectionCon() {
-  const { userInfo } = useLoginInfoStore();
-  // const userId = userInfo.userid;
+  const [talkPostData, setTalkPostData] = useState([]);
 
-  // const fecthTalkData = async () => {
-  //   const response = await fetch(`${url}/mypage/talk?userId=${userId}`);
-  //   const data = await response.json();
-  //   console.log(data);
-  // };
+  const fecthTalkData = async () => {
+    try {
+      const response = await fetch(`${url}/mypage/talk`, {
+        credentials: 'include',
+      });
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        setTalkPostData(data);
+      }
+    } catch (error) {
+      console.error('작성글 get요청 오류', error);
+    }
+  };
 
   useEffect(() => {
-    console.log(userInfo);
-    // fecthTalkData();
+    fecthTalkData();
   }, []);
 
   return (
-    <ul className={style.talkListCon}>
-      <li>리스트1</li>
-      {/* <CommunityPost />
-      <CommunityPost /> */}
-    </ul>
+    <>
+      {talkPostData.length === 0 ? (
+        <p className={style.loadingMsg}>리스트를 불러오는 중입니다...</p>
+      ) : (
+        <ul className={style.talkListCon}>
+          {talkPostData &&
+            talkPostData.map((post) => (
+              <CommunityPost key={post._id} post={post} />
+            ))}
+        </ul>
+      )}
+    </>
   );
 }
 

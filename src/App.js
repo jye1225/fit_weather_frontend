@@ -42,16 +42,25 @@ function App() {
   const { userInfo, setUserInfo } = useLoginInfoStore();
 
   useEffect(() => {
-    const loginTokenn = localStorage.getItem("token");
-    if (loginTokenn) {
-      const decodedToken = jwtDecode(loginTokenn);
-      setUserInfo(decodedToken);
-    }
+    const fetchUserInfo = async () => {
+      const loginToken = localStorage.getItem("token");
+      if (loginToken) {
+        try {
+          const decodedToken = jwtDecode(loginToken);
+          setUserInfo(decodedToken);
+        } catch (error) {
+          console.error("Token decoding failed:", error);
+          localStorage.removeItem("token");
+        }
+      }
+    };
+
+    fetchUserInfo();
   }, [setUserInfo]);
 
   useEffect(() => {
-    console.log(userInfo);
-  }, [])
+    console.log('로그인한 유저정보', userInfo);
+  }, [userInfo]);
 
   return (
     <div className="App">

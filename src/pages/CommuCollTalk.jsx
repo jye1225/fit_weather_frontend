@@ -1,6 +1,6 @@
 import style from '../css/CommuCollTalk.module.css';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useCategoryStore } from '../store/categoryStore';
 import CommunityPostCon from '../components/CommunityPostCon';
 import CommuCollectionCon from '../components/CommuCollectionCon';
