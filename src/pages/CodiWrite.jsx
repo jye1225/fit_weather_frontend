@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { url } from "../store/ref";
 
 import H2CodiWrite from "../components/H2CodiWrite";
 import style from '../css/Codi.module.css';
@@ -102,7 +103,6 @@ const CodiWrite = () => {
       reader.readAsDataURL(file);  // 파일을 Data URL로 읽기
 
       setFileMss('');
-      // document.querySelector(`.${style.imgCon}`).style.border = '1px solid var(--grey-200)';
       imgCon.style.border = '1px solid var(--grey-200)';
 
 
@@ -118,7 +118,6 @@ const CodiWrite = () => {
     e.preventDefault();  // 기본 제출 동작 막기
     if (filePreview === '') {
       setFileMss('* 사진을 첨부해주세요.');
-      // document.querySelector(`.${style.imgCon}`).style.border = '1px solid var(--accnet-color)';
       imgCon.style.border = '1px solid var(--accnet-color)';
       return;
     } else {
@@ -144,11 +143,9 @@ const CodiWrite = () => {
     }
 
     try {
-      const response = await fetch(`https://localhost:8080/codiWrite`, {
+      const response = await fetch(`${url}/codiWrite`, {
         method: "POST",
-
         body: data,
-        credentials: 'include',  // 쿠키 주고받기 위한 설정
       });
 
       if (response) {
