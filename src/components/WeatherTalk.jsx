@@ -8,12 +8,12 @@ const WeatherTalk = ({ setMatchingUrl }) => {
     temperature,
     maxTemp,
     minTemp,
-    rain,
     dust,
     uv,
     dataLoaded,
     matchingWord,
     clothes,
+    popValue,
     chatData,
     setChatData,
   } = useMatchingData();
@@ -33,7 +33,7 @@ const WeatherTalk = ({ setMatchingUrl }) => {
               temperature: temperature,
               maxTemp: maxTemp,
               minTemp: minTemp,
-              rain: rain,
+              popValue: popValue,
               dust: dust,
               uv: uv,
             }),
@@ -49,7 +49,7 @@ const WeatherTalk = ({ setMatchingUrl }) => {
     };
 
     postWeatherData();
-  }, [dataLoaded, temperature, maxTemp, minTemp, rain, dust, uv]);
+  }, [dataLoaded, temperature, maxTemp, minTemp, popValue, dust, uv]);
 
   useEffect(() => {
     if (
@@ -69,7 +69,6 @@ const WeatherTalk = ({ setMatchingUrl }) => {
         outers: outerUrl[0] || "",
       };
       setMatchingUrl(newMatchingUrl);
-      console.log(topUrl[0], bottomUrl[0], outerUrl[0]);
     }
   }, [matchingWord, clothes, setMatchingUrl]);
 

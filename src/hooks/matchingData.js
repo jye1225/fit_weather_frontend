@@ -12,7 +12,7 @@ const useMatchingData = () => {
     temperature,
     maxTemp,
     minTemp,
-    rain,
+    popValue,
     dust,
     uv,
   } = useFetchStore();
@@ -40,7 +40,7 @@ const useMatchingData = () => {
         temperature !== "" &&
         maxTemp !== "" &&
         minTemp !== "" &&
-        rain !== "" &&
+        popValue !== "" &&
         dust !== "" &&
         uv !== ""
       ) {
@@ -56,7 +56,7 @@ const useMatchingData = () => {
     temperature,
     maxTemp,
     minTemp,
-    rain,
+    popValue,
     dust,
     uv,
   ]);
@@ -74,7 +74,7 @@ const useMatchingData = () => {
               temperature: temperature,
               maxTemp: maxTemp,
               minTemp: minTemp,
-              rain: rain,
+              popValue: popValue,
               dust: dust,
               uv: uv,
             }),
@@ -90,7 +90,7 @@ const useMatchingData = () => {
     };
 
     postClothesData();
-  }, [dataLoaded, temperature, maxTemp, minTemp, rain, dust, uv]);
+  }, [dataLoaded, temperature, maxTemp, minTemp, popValue, dust, uv]);
 
   useEffect(() => {
     if (chatData) {
@@ -125,7 +125,7 @@ const useMatchingData = () => {
     temperature,
     maxTemp,
     minTemp,
-    rain,
+    popValue,
     dust,
     uv,
     dataLoaded,
@@ -133,7 +133,7 @@ const useMatchingData = () => {
     chatData,
     setMatchingWord,
     setChatData,
-    clothes, // clothes 변수를 반환합니다.
+    clothes,
   };
 };
 

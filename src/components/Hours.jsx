@@ -117,6 +117,7 @@ const Hours = () => {
           const popValue = popData?.find(
             (item) => item.fcstTime === ("0" + h).slice(-2) + "00"
           );
+          // console.log(popValue);
 
           // 날씨 아이콘 객체
           const weatherIcons = {
