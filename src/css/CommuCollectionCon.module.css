@@ -1,0 +1,5 @@
+.talkListCon {
+  display: flex;
+  flex-direction: column;
+  padding-block: 1rem;
+}

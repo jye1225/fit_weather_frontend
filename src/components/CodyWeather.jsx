@@ -13,7 +13,7 @@ const CodyWeather = () => {
     temperature,
     maxTemp,
     minTemp,
-    rain,
+    popValue,
     dust,
     uv,
   } = useFetchStore();
@@ -52,7 +52,7 @@ const CodyWeather = () => {
       <div className={style.others}>
         <div className={style.con}>
           <span className="fontTitleS">강수확률</span>
-          <p className="fontTitleXL">{rain}%</p>
+          <p className="fontTitleXL">{popValue}%</p>
         </div>
         <div className={style.con}>
           <span className="fontTitleS">미세먼지</span>

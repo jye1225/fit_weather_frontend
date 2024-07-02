@@ -31,8 +31,15 @@ import CompleteProfile from "./pages/login/CompleteProfile";
 import { useLoginInfoStore } from "./store/loginInfoStore";
 import Footer from "./components/Footer";
 
+// 마이페이지 - 커뮤니티 활동
+import CommuCollectionPage from './pages/CommuCollectionPage';
+import CommuCollTalk from './pages/CommuCollTalk';
+import CommuCollCmnt from './pages/CommuCollCmnt';
+import CommuCollLike from './pages/CommuCollLike';
+
+
 function App() {
-  const { setUserInfo } = useLoginInfoStore();
+  const { userInfo, setUserInfo } = useLoginInfoStore();
 
   useEffect(() => {
     const loginTokenn = localStorage.getItem("token");
@@ -41,6 +48,10 @@ function App() {
       setUserInfo(decodedToken);
     }
   }, [setUserInfo]);
+
+  useEffect(() => {
+    console.log(userInfo);
+  }, [])
 
   return (
     <div className="App">
@@ -76,6 +87,13 @@ function App() {
         <Route path="/complete-profile" element={<CompleteProfile />} />
         <Route path="/oauth/kakao" element={<Auth />} />
         {/* <Route path="/signupcomplete" element={<SignupComplete />} /> */}
+
+        {/* 마이페이지 - 커뮤니티 활동 */}
+        <Route path='/comuCollect' element={<CommuCollectionPage />} >
+          <Route path='' element={<CommuCollTalk />} />
+          <Route path='comment' element={<CommuCollCmnt />} />
+          <Route path='like' element={<CommuCollLike />} />
+        </Route>
       </Routes>
       <Footer />
     </div>

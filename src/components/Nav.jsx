@@ -6,6 +6,7 @@ import { useLoginInfoStore } from "../store/loginInfoStore"; //유저정보 impo
 
 const Nav = ({ navOpen, setNavOpen }) => {
   const { userInfo: storeUserInfo } = useLoginInfoStore();
+//   const { userInfo, setUserInfo } = useLoginInfoStore();
 
   function preventScroll(event) {
     // 스크롤 막기 함수
@@ -82,8 +83,8 @@ const Nav = ({ navOpen, setNavOpen }) => {
 
     if (response.ok) {
       localStorage.removeItem("token");
-      setUserInfo(null); // 사용자 정보를 초기화합니다.
-      navigate("/"); // 메인 페이지로 이동합니다.
+      setUserInfo(null); // 사용자 정보 초기화
+      navigate("/");
     } else {
       console.error("Failed to logout");
     }

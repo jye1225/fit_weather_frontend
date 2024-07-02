@@ -7,6 +7,9 @@ import Avatar from "../components/Avatar";
 import Hours from "../components/Hours";
 import Weekly from "../components/Weekly";
 
+import bgStyle from '../css/MainWeatherBG.module.css'
+import MainWeatherBG from "../components/MainWeatherBG";
+
 const IndexPage = () => {
   const [matchingUrl, setMatchingUrl] = useState({
     tops: "",
@@ -17,14 +20,19 @@ const IndexPage = () => {
   return (
     <>
       <Header />
-      <main className="mw">
-        <PresentWeather />
-        <WeatherTalk setMatchingUrl={setMatchingUrl} />
-        <Avatar
-          topUrl={matchingUrl.tops}
-          bottomUrl={matchingUrl.bottoms}
-          outerUrl={matchingUrl.outers}
-        />
+      <main className='mw'>
+        <div className={bgStyle.MainweatherBGcon}>
+          <MainWeatherBG />
+
+          <PresentWeather />
+          <WeatherTalk setMatchingUrl={setMatchingUrl} />
+          <Avatar
+            topUrl={matchingUrl.tops}
+            bottomUrl={matchingUrl.bottoms}
+            outerUrl={matchingUrl.outers}
+          />
+
+        </div>
         <Hours />
         <Weekly />
       </main>
