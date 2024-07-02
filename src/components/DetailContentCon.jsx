@@ -14,7 +14,7 @@ function DetailContentCon({ fetchPostDetail }) {
 
   return (
     <section className={style.detailContent}>
-      <DetailTitleArea fetchPostDetail={fetchPostDetail} />
+      <DetailTitleArea fetchPostDetail={fetchPostDetail} postId={postId} />
       <DetailContentArea fetchPostDetail={fetchPostDetail} />
     </section>
   );

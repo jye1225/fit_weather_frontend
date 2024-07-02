@@ -1,96 +1,85 @@
-// 말풍선 테스트 해보고 싶으시면, 주석처리 싹 다 해제하면 돼요!
 import style from "../css/WeatherTalk.module.css";
 import { useEffect, useState } from "react";
-import useFetchStore from "../store/fetchStore";
+import useMatchingData from "../hooks/matchingData";
+import { url } from "../store/ref";
 
-const WeatherTalk = () => {
+const WeatherTalk = ({ setMatchingUrl }) => {
   const {
-    location,
-    fetchLocation,
-    regionFirstName,
-    regionSecondName,
     temperature,
     maxTemp,
     minTemp,
-    rain,
     dust,
     uv,
-  } = useFetchStore();
+    dataLoaded,
+    matchingWord,
+    clothes,
+    popValue,
+    chatData,
+    setChatData,
+  } = useMatchingData();
 
-  // const [chatData, setChatData] = useState("");
-  // const [dataLoaded, setDataLoaded] = useState(false);
+  const [weatherChat, setWeatherChat] = useState("");
 
   useEffect(() => {
-    fetchLocation();
-  }, [fetchLocation]);
+    const postWeatherData = async () => {
+      if (dataLoaded) {
+        try {
+          const response = await fetch(`${url}/talkBox`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              temperature: temperature,
+              maxTemp: maxTemp,
+              minTemp: minTemp,
+              popValue: popValue,
+              dust: dust,
+              uv: uv,
+            }),
+          });
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     if (
-  //       location.latitude &&
-  //       location.longitude &&
-  //       regionFirstName &&
-  //       regionSecondName &&
-  //       temperature !== "" &&
-  //       maxTemp !== "" &&
-  //       minTemp !== "" &&
-  //       rain !== "" &&
-  //       dust !== "" &&
-  //       uv !== ""
-  //     ) {
-  //       setDataLoaded(true); // 모든 데이터가 준비된 경우에만 true로 설정
-  //     }
-  //   };
+          const data = await response.json();
+          setWeatherChat(data.response.content);
+        } catch (error) {
+          console.error("Failed to fetch:", error);
+          setWeatherChat("Failed to fetch data");
+        }
+      }
+    };
 
-  //   fetchData();
-  // }, [
-  //   location,
-  //   regionFirstName,
-  //   regionSecondName,
-  //   temperature,
-  //   maxTemp,
-  //   minTemp,
-  //   rain,
-  //   dust,
-  //   uv,
-  // ]);
+    postWeatherData();
+  }, [dataLoaded, temperature, maxTemp, minTemp, popValue, dust, uv]);
 
-  // useEffect(() => {
-  //   const postWeatherData = async () => {
-  //     if (dataLoaded) {
-  //       try {
-  //         const response = await fetch("http://localhost:8080/talkBox", {
-  //           method: "POST",
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //           body: JSON.stringify({
-  //             temperature: temperature,
-  //             maxTemp: maxTemp,
-  //             minTemp: minTemp,
-  //             rain: rain,
-  //             dust: dust,
-  //             uv: uv,
-  //           }),
-  //         });
+  useEffect(() => {
+    if (
+      matchingWord.tops.length > 0 ||
+      matchingWord.bottoms.length > 0 ||
+      matchingWord.outers.length > 0
+    ) {
+      const topUrl = matchingWord.tops.map((word) => clothes.tops[word]);
+      const bottomUrl = matchingWord.bottoms.map(
+        (word) => clothes.bottoms[word]
+      );
+      const outerUrl = matchingWord.outers.map((word) => clothes.outers[word]);
 
-  //         const data = await response.json();
-  //         // console.log(data);
-  //         setChatData(data.response.content);
-  //       } catch (error) {
-  //         console.error("Failed to fetch:", error);
-  //         setChatData("Failed to fetch data");
-  //       }
-  //     }
-  //   };
-
-  //   postWeatherData();
-  // }, [dataLoaded, temperature, maxTemp, minTemp, rain, dust, uv]);
+      const newMatchingUrl = {
+        tops: topUrl[0] || "",
+        bottoms: bottomUrl[0] || "",
+        outers: outerUrl[0] || "",
+      };
+      setMatchingUrl(newMatchingUrl);
+    }
+  }, [matchingWord, clothes, setMatchingUrl]);
 
   return (
     <section className={style.talkBox}>
       <p className={`fontHead3 ${style.title}`}>오늘 날씨는?</p>
-      {/* {chatData && <p className={`fontDecorate ${style.talk}`}>{chatData}</p>} */}
+      {weatherChat ? (
+        <p className={`fontDecorate ${style.talk}`}>{weatherChat}</p>
+      ) : (
+        <p className={`fontDecorate ${style.talk}`}>불러오는 중이에요~</p>
+      )}
     </section>
   );
 };

@@ -7,7 +7,7 @@
 // }))
 // =======
 
-import create from 'zustand';
+import { create } from "zustand";
 
 const useLoginInfoStore = create((set) => ({
   userInfo: null,
@@ -15,4 +15,3 @@ const useLoginInfoStore = create((set) => ({
 }));
 
 export { useLoginInfoStore };
-
