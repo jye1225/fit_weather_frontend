@@ -28,8 +28,8 @@ import Auth from "./pages/login/Auth";
 import KakaoOauth from "./pages/login/KakaoOauth";
 import CompleteProfile from "./pages/login/CompleteProfile";
 // import SignupComplete from "./pages/SignupComplete"; // 추가
-import { useLoginInfoStore } from './store/loginInfoStore';
-import Footer from './components/Footer';
+import { useLoginInfoStore } from "./store/loginInfoStore";
+import Footer from "./components/Footer";
 
 function App() {
   const { setUserInfo } = useLoginInfoStore();
@@ -52,7 +52,6 @@ function App() {
           <Route path="" element={<TalkPage />} />
           <Route path="feed" element={<FashionFeedPage />} />
         </Route>
-
         <Route path="/detail/:postId" element={<DetailPage />} />
         <Route path="/postWrite" element={<PostWritePage />} />
         <Route
@@ -61,24 +60,21 @@ function App() {
         />
         <Route path="/postEdit/:postId" element={<PostEditPage />} />
         <Route path="/*" element={<div>없는 페이지 입니다.</div>} />
-
         {/* 코디 main */}
         <Route path="/codiMain" element={<CodiMain />} />
-
         {/* 여기부턴 mypage - 코디기록 */}
         <Route path="/codiLog" element={<CodiLog />} />
         <Route path="/codiWrite" element={<CodiWrite />} />
         <Route path="/codiEdit" element={<CodiEdit />} />
         <Route path="/codiCompleted" element={<CodiCompleted />} />
-
         {/* 로그인, 회원가입 */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/loginKakao" element={<KakaoLogin />} />
-        <Route path="/oauth" element={<KakaoOauth />} />
-        <Route path="/auth" element={<Auth />} />
+        {/* <Route path="/oauth" element={<KakaoOauth />} /> */}
+        <Route path="/oauth" element={<Auth />} />
         <Route path="/complete-profile" element={<CompleteProfile />} />
-//         <Route path="/oauth/kakao" element={<Auth />} />
+        <Route path="/oauth/kakao" element={<Auth />} />
         {/* <Route path="/signupcomplete" element={<SignupComplete />} /> */}
       </Routes>
       <Footer />
