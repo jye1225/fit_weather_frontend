@@ -56,6 +56,17 @@ const CodiLogBoxsMain = () => {
 
     }, [])
 
+    const checkCanEdit = (logDate) => {
+        const day = new Date(today);  // today 문자열을 Date 객체로 변환
+        const logDay = new Date(logDate);  // today 문자열을 Date 객체로 변환
+        const diff = (day - logDay) / (1000 * 60 * 60 * 24); // 며칠 차이나는지 계산
+        if (diff < 3) {
+            setCanEdit(true);
+        } else {
+            setCanEdit(false);
+        }
+    }
+
     // 오늘 날씨랑 비슷한 과거의 기록
     useEffect(() => {
         if (userid && sky && minTemp && maxTemp) {
@@ -66,6 +77,8 @@ const CodiLogBoxsMain = () => {
                     setSimilarLogDate(`${similarData.codiDate.split('-')[0]}년  ${similarData.codiDate.split('-')[1]}월 ${similarData.codiDate.split('-')[2]}일`);
                     setSimilarLogTags(similarData.tag);
                     console.log('=====codiLogSimilar====', similarData)
+
+
                 })
         }
     }, [userid, sky, minTemp, maxTemp])
@@ -82,16 +95,6 @@ const CodiLogBoxsMain = () => {
                     setCodiLogId(data._id)
 
                     console.log('---선택 기록 setLogToday 전달 성공----', data);
-                    //     // 오늘 날짜 저장
-                    //     const today = new Date();
-                    //     // codiDate 문자열을 Date 객체로 변환
-                    //     const codiDate = new Date(data.codiDate);
-                    //     const diff = (today - codiDate) / (1000 * 60 * 60 * 24); // 며칠 차이나는지 계산
-                    //     if (diff < 3) {
-                    //         setCanEdit(true);
-                    //     } else {
-                    //         setCanEdit(false);
-                    //     }
                 });
         }
 
@@ -103,7 +106,10 @@ const CodiLogBoxsMain = () => {
             <div className={`${style.logBox} ${style.similar}`}>
                 <div className={style.top}>
                     <h3 className='fontHead3'>비슷한 날씨의 코디 기록</h3>
-                    <img src="img/icons/common/dot.svg" className={style.DotIcon} onClick={() => setActionSheetActive(true)} alt="dot" />
+                    <img src="img/icons/common/dot.svg" className={style.DotIcon} onClick={() => {
+                        setActionSheetActive(similarLog._id)
+                        checkCanEdit(similarLog.codiDate);
+                    }} alt="dot" />
                 </div>
 
                 <div className={style.postInfo}>
@@ -150,7 +156,7 @@ const CodiLogBoxsMain = () => {
             <div className={`${style.logBox} ${style.today}`}>
                 <div className={style.top}>
                     <h3 className='fontHead3'>오늘의 코디 기록</h3>
-                    <img src="img/icons/common/dot.svg" className={style.DotIcon} onClick={() => setActionSheetActive(true)} alt="dot" />
+                    <img src="img/icons/common/dot.svg" className={style.DotIcon} onClick={() => { setActionSheetActive(codiLogId); setCanEdit(true); }} alt="dot" />
                 </div>
 
                 <div className={style.postInfo}>
@@ -197,8 +203,8 @@ const CodiLogBoxsMain = () => {
             <ActionSheet
                 setActionSheetActive={setActionSheetActive}
                 actionSheetActive={actionSheetActive}
-                canEdit={true}
-                codiLogId={codiLogId}
+                canEdit={canEdit}
+                codiLogId={actionSheetActive}
             />
         </section >
     );
