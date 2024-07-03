@@ -108,9 +108,13 @@ function PostEditPage() {
     }
   };
 
+  const clickBack = () => {
+    navigate('/community');
+  };
+
   return (
     <>
-      <PagesHeader title={'글수정'} />
+      <PagesHeader title={'글수정'} clickBack={clickBack} />
       <main className={`mw ${style.postWritePage}`}>
         <form onSubmit={postSubmit} className={style.postWriteForm}>
           <PostCategorySelect />

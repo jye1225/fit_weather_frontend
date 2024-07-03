@@ -10,6 +10,7 @@ function DetailComment({
   editingCommentId, // 현재 조작 중인 구분용
   setEditingCommentId,
   postId,
+  fromCol,
 }) {
   const [toggleCmntOptMenu, setToggleCmntOptMenu] = useState(false); // 댓글 수정,삭제버튼 노충 유무
   const [onCmntRewrite, setOnCmntRewrite] = useState(false); // 수정하기 클릭 유무
@@ -157,11 +158,22 @@ function DetailComment({
         </>
       ) : (
         <>
-          {cmnt.userId === userInfo?.userid && (
-            <i
-              className="fa-solid fa-ellipsis-vertical"
-              onClick={cmntOptnMenuToggle}
-            ></i>
+          {fromCol === 'fromCol' ? (
+            <>
+              <button className={`fontBodyM ${style.mypgCmntDelBtn}`}>
+                삭제
+              </button>
+              <p className="fontBodyS">{cmnt.postId}에 해당하는 글 제목</p>
+            </>
+          ) : (
+            <>
+              {cmnt.userId === userInfo?.userid && (
+                <i
+                  className="fa-solid fa-ellipsis-vertical"
+                  onClick={cmntOptnMenuToggle}
+                ></i>
+              )}
+            </>
           )}
           <p className="fontBodyM">{cmnt.content}</p>
           {toggleCmntOptMenu && editingCommentId === cmnt._id && (

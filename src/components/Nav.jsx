@@ -8,7 +8,7 @@ import { jwtDecode } from 'jwt-decode';
 const Nav = ({ navOpen, setNavOpen }) => {
   const navigate = useNavigate();
   const { userInfo, setUserInfoAll } = useLoginInfoStore();
-  const [token, setToken] = useState(localStorage.getItem("token"));//해석 안된 토큰
+  const [token, setToken] = useState(localStorage.getItem('token')); //해석 안된 토큰
   const [loginRoute, setLoginRoute] = useState(''); //로그인방식 저장 <- 카카오:kakao /일반:ourweb /로그인 전: ''
 
   useEffect(() => {
@@ -16,23 +16,26 @@ const Nav = ({ navOpen, setNavOpen }) => {
   }, [navOpen]);
 
   const checkLoginRoute = (token) => {
-    if (token) {//로그인 상태가 맞고,
-      if (token.includes(".")) {// 일반 로그인일때
-        setLoginRoute('ourweb')
+    if (token) {
+      //로그인 상태가 맞고,
+      if (token.includes('.')) {
+        // 일반 로그인일때
+        setLoginRoute('ourweb');
       } else {
-        setLoginRoute('kakao') //카카오 로그인일때
+        setLoginRoute('kakao'); //카카오 로그인일때
       }
+    } else {
+      return;
     }
-    else { return; }
-  }
+  };
 
   useEffect(() => {
     checkLoginRoute(token);
-  }, [token])
+  }, [token]);
 
   useEffect(() => {
     console.log('----loginRoute---', loginRoute);
-  }, [loginRoute])
+  }, [loginRoute]);
 
   // 로그아웃
   const logout = async () => {
@@ -43,11 +46,12 @@ const Nav = ({ navOpen, setNavOpen }) => {
     });
 
     if (response.ok) {
-      document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";//쿠키 만료 시점을 과거로 설정하여 덮어쓰는 방식으로 삭제
-      localStorage.removeItem("token");
+      document.cookie =
+        'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; //쿠키 만료 시점을 과거로 설정하여 덮어쓰는 방식으로 삭제
+      localStorage.removeItem('token');
       setUserInfoAll(null, null, null); // 사용자 정보 초기화
       // navigate("/");
-      window.location.href = "/";
+      window.location.href = '/';
     } else {
       console.error('Failed to logout');
     }
@@ -62,12 +66,13 @@ const Nav = ({ navOpen, setNavOpen }) => {
     });
 
     if (response.ok) {
-      document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";//쿠키 만료 시점을 과거로 설정하여 덮어쓰는 방식으로 삭제
-      localStorage.removeItem("token"); // token을 삭제합니다.
+      document.cookie =
+        'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; //쿠키 만료 시점을 과거로 설정하여 덮어쓰는 방식으로 삭제
+      localStorage.removeItem('token'); // token을 삭제합니다.
       setUserInfoAll(null, null, null); // 사용자 정보를 초기화합니다.
       setToken(null); // token 상태를 초기화합니다.
       // navigate("/"); // 메인 페이지로 이동합니다.
-      window.location.href = "/";
+      window.location.href = '/';
     } else {
       console.error('Failed to logout from Kakao');
     }
@@ -79,16 +84,16 @@ const Nav = ({ navOpen, setNavOpen }) => {
     // console.log('Nav.jsx>>>>>>유저정보, 햄open여부', userInfo, navOpen);
     if (navOpen === true && window.innerWidth <= 907) {
       // 스크롤 막기
-      window.addEventListener("scroll", preventScroll, { passive: false });
-      window.addEventListener("wheel", preventScroll, { passive: false });
-      window.addEventListener("touchmove", preventScroll, { passive: false });
+      window.addEventListener('scroll', preventScroll, { passive: false });
+      window.addEventListener('wheel', preventScroll, { passive: false });
+      window.addEventListener('touchmove', preventScroll, { passive: false });
     }
 
     return () => {
       // clean-up 함수: 컴포넌트가 unmoun될 때 이벤트 리스너 제거
-      window.removeEventListener("scroll", preventScroll, { passive: false });
-      window.removeEventListener("wheel", preventScroll, { passive: false });
-      window.removeEventListener("touchmove", preventScroll, {
+      window.removeEventListener('scroll', preventScroll, { passive: false });
+      window.removeEventListener('wheel', preventScroll, { passive: false });
+      window.removeEventListener('touchmove', preventScroll, {
         passive: false,
       });
     };
@@ -102,7 +107,8 @@ const Nav = ({ navOpen, setNavOpen }) => {
     }
   };
 
-  function preventScroll(event) {  // 스크롤 막기 함수
+  function preventScroll(event) {
+    // 스크롤 막기 함수
 
     event.preventDefault();
     event.stopPropagation();
@@ -114,16 +120,19 @@ const Nav = ({ navOpen, setNavOpen }) => {
       <div className={`${style.sideCon} ${navOpen ? '' : style.hidden}`}>
         <img className={style.logo} src="img/logo/LogoR90.svg" alt="logo" />
         {loginRoute ? (
-          <Link to={"#"} className={`${style.btnUser} ${style.btnNav}`}>
+          <Link to={'/mypage'} className={`${style.btnUser} ${style.btnNav}`}>
             <div className={style.profileImg}>
               {userInfo.userprofile ? (
-                <img className={style.MyProfileImg} src={userInfo.userprofile} alt="userprofile" />
+                <img
+                  className={style.MyProfileImg}
+                  src={userInfo.userprofile}
+                  alt="userprofile"
+                />
               ) : (
-                <img src="img/icons/common/noProfile.svg" alt="icon" />)}
+                <img src="img/icons/common/noProfile.svg" alt="icon" />
+              )}
             </div>
-            <span className="fontTitleS">
-              {userInfo.username}
-            </span>
+            <span className="fontTitleS">{userInfo.username}</span>
           </Link>
         ) : (
           <div className={style.accountBtns}>

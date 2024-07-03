@@ -3,7 +3,7 @@ import { buttonStore } from '../store/talkbuttonStore';
 
 function TodayCoordiButton({ onClick }) {
   const { onBtn } = buttonStore();
-  const buttonId = 'todayCoordi';
+  const buttonId = 'coordi';
   const isOn = onBtn === buttonId;
 
   return (
@@ -11,7 +11,7 @@ function TodayCoordiButton({ onClick }) {
       id="todayC"
       className={`fontBodyM ${style.todayC} ${isOn ? style.on : ''}`}
       onClick={onClick}
-      data-cate={'todayCoordi'}
+      data-cate={'coordi'}
     >
       오늘코디
     </button>
