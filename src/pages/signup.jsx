@@ -127,18 +127,16 @@ const Signup = () => {
           <div className={style.gender_select}>
             <button
               type="button"
-              className={`fontBodyM ${style.gender_button} ${
-                gender === "male" ? style.selected : ""
-              }`}
+              className={`fontBodyM ${style.gender_button} ${gender === "male" ? style.selected : ""
+                }`}
               onClick={() => setGender("male")}
             >
               남성
             </button>
             <button
               type="button"
-              className={`fontBodyM ${style.gender_button} ${
-                gender === "female" ? style.selected : ""
-              }`}
+              className={`fontBodyM ${style.gender_button} ${gender === "female" ? style.selected : ""
+                }`}
               onClick={() => setGender("female")}
             >
               여성
