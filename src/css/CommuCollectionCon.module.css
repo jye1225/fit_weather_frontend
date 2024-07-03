@@ -3,3 +3,9 @@
   flex-direction: column;
   padding-block: 1rem;
 }
+
+.loadingMsg {
+  text-align: center;
+  padding: 10rem 5rem;
+  font-size: 0.8rem;
+}
