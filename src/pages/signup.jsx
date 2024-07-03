@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import style from "../css/signup.module.css";
 import { url } from "../store/ref";
 
-//건들면 안됨
-import TermsModal from "../components/TermsModal";
-import HeaderSignup from "../components/HeaderSignup";
-//-----------
+import TermsModal from "../components/TermsModal"; //이용약관 모듈창
+import HeaderSignup from "../components/HeaderSignup"; //회원가입 헤더
 
 const Signup = () => {
   const [userid, setUserid] = useState(""); //아이디
@@ -48,20 +46,19 @@ const Signup = () => {
       setMessage4("");
     }
 
-    // 회원가입 요청은 잠시 주석 처리합니다.
     // 백엔드로 POST 요청 및 응답
-    // const response = await fetch(`${url}/register`, {
-    //   method: "POST",
-    //   body: JSON.stringify({ userid, username, password, gender }),
-    //   headers: { "Content-Type": "application/json" },
-    // });
-    // if (response.status === 200) {
-    //   setShowTerms(true); // 회원가입 성공 시 약관 모달을 보여줌
-    // } else {
-    //   alert("존재하는 아이디 입니다.");
-    // }
+    const response = await fetch(`${url}/register`, {
+      method: "POST",
+      body: JSON.stringify({ userid, username, password, gender }),
+      headers: { "Content-Type": "application/json" },
+    });
+    if (response.status === 200) {
+      setShowTerms(true); // 회원가입 성공 시 약관 모달을 호출
+    } else {
+      alert("존재하는 아이디 입니다.");
+    }
 
-    setShowTerms(true); // 모달 창 표시
+    setShowTerms(true);
   };
 
   return (
@@ -147,6 +144,7 @@ const Signup = () => {
               여성
             </button>
           </div>
+          <span>{message4}</span> {/*성별 체크 문구 */}
           <button type="submit" className={`fontBodyM ${style.bottomButton}`}>
             다음으로
           </button>
