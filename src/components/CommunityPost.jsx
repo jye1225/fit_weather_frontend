@@ -2,8 +2,9 @@ import style from '../css/CommunityPost.module.css';
 import CommunityCategory from './CommunitySubCategory';
 import { useNavigate } from 'react-router-dom';
 import { url } from '../store/ref';
+import React from 'react';
 
-function CommunityPost({ post }) {
+const CommunityPost = React.forwardRef(({ post }, ref) => {
   const navigate = useNavigate();
   const goDetail = () => {
     navigate(`/detail/${post._id}`);
@@ -17,7 +18,7 @@ function CommunityPost({ post }) {
   });
 
   return (
-    <li className={style.comuList} onClick={goDetail}>
+    <li className={style.comuList} onClick={goDetail} ref={ref}>
       <CommunityCategory category={post.category} />
       <strong className="fontTitleS">{post.title}</strong>
       <div className={`fontTitleXS ${style.postInfo}`}>
@@ -38,6 +39,6 @@ function CommunityPost({ post }) {
       </div>
     </li>
   );
-}
+});
 
 export default CommunityPost;

@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 
 function TalkPage() {
   const { setOnBtn } = buttonStore();
+
   const goPostWrite = () => {
     window.location = '/postWrite';
   };

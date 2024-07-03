@@ -1,0 +1,16 @@
+.commuCollCmnt {
+  background-color: var(--white);
+  padding-top: 7.5rem;
+  /* min-height: 100vh; */
+  display: flex;
+  justify-content: center;
+}
+.cmntListCon {
+  width: calc(100% - 2rem);
+}
+
+.loadingMsg {
+  text-align: center;
+  padding: 10rem 5rem;
+  font-size: 0.8rem;
+}

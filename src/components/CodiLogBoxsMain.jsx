@@ -68,6 +68,83 @@ const CodiLogBoxsMain = () => {
             setCanEdit(false);
         }
     }
+  }, [userInfo]);
+
+  useEffect(() => {
+    // 오늘 날짜 저장
+    const currentDate = new Date();
+    const options = {
+      year: "numeric",
+      month: "2-digit", //2자리 맞추도록
+      day: "2-digit",
+    };
+    const today = currentDate
+      .toLocaleString("ko-KR", options)
+      .replace(/\./g, "")
+      .replace(/\ /g, "-"); //0000-00-00
+    console.log("today", today);
+    setToday(today);
+
+    const storedMinTemp = localStorage.getItem("minTemp");
+    const storedMaxTemp = localStorage.getItem("maxTemp");
+    const storedSky = localStorage.getItem("weatherText");
+
+    if (storedMinTemp) {
+      setMinTemp(storedMinTemp);
+    }
+    if (storedMaxTemp) {
+      setMaxTemp(storedMaxTemp);
+    }
+    if (storedSky) {
+      setSky(storedSky);
+    }
+  }, []);
+
+  const checkCanEdit = (logDate) => {
+    const day = new Date(today); // today 문자열을 Date 객체로 변환
+    const logDay = new Date(logDate); // today 문자열을 Date 객체로 변환
+    const diff = (day - logDay) / (1000 * 60 * 60 * 24); // 며칠 차이나는지 계산
+    if (diff < 3) {
+      setCanEdit(true);
+    } else {
+      setCanEdit(false);
+    }
+  };
+
+  // 오늘 날씨랑 비슷한 과거의 기록
+  // useEffect(() => {
+  //     if (userid && sky && minTemp && maxTemp) {
+  //         fetch(`${url}/codiLogSimilar/${maxTemp}/${minTemp}/${sky}/${userid}`)//
+  //             .then((res) => res.json())//
+  //             .then((similarData) => {
+  //                 setSimilarLog(similarData);
+  //                 setSimilarLogDate(`${similarData.codiDate.split('-')[0]}년  ${similarData.codiDate.split('-')[1]}월 ${similarData.codiDate.split('-')[2]}일`);
+  //                 setSimilarLogTags(similarData.tag);
+  //                 console.log('=====codiLogSimilar====', similarData)
+
+  //             })
+  //     }
+  // }, [userid, sky, minTemp, maxTemp])
+
+  // 오늘 기록 가져오기
+  useEffect(() => {
+    if (today && userid) {
+      fetch(`${url}/codiLogToday/${today}/${userid}`) //get요청 보냄
+        .then((res) => res.json())
+        .then((data) => {
+          setLogToday(data);
+          setTags(data.tag);
+          setCodiLogId(data._id);
+          setTodayText(
+            `${today.split("-")[0]}년  ${today.split("-")[1]}월 ${
+              today.split("-")[2]
+            }일`
+          );
+
+          console.log("---선택 기록 setLogToday 전달 성공----", data);
+        });
+    }
+  }, [today, userid]);
 
     // 오늘 날씨랑 비슷한 과거의 기록
     useEffect(() => {
@@ -115,7 +192,6 @@ const CodiLogBoxsMain = () => {
             <div className={`${style.logBox} ${style.similar}`}>
                 <div className={style.top}>
                     <h3 className='fontHead3'>비슷한 날씨의 코디 기록</h3>
-
                     {similarLog ? (
                         <img src="img/icons/common/dot.svg" className={style.DotIcon} onClick={() => {
                             setActionSheetActive(similarLog._id)

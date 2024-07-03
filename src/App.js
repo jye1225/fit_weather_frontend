@@ -25,18 +25,16 @@ import Login from "./pages/login/Login";
 import Signup from "./pages/Signup";
 import KakaoLogin from "./pages/login/KakaoLogin";
 import Auth from "./pages/login/Auth";
-import KakaoOauth from "./pages/login/KakaoOauth";
-import CompleteProfile from "./pages/login/CompleteProfile";
-// import SignupComplete from "./pages/SignupComplete"; // 추가
+// import KakaoOauth from "./pages/login/KakaoOauth";
+import SignupComplete from "./pages/SignupComplete";
 import { useLoginInfoStore } from "./store/loginInfoStore";
 import Footer from "./components/Footer";
 
 // 마이페이지 - 커뮤니티 활동
-import CommuCollectionPage from './pages/CommuCollectionPage';
-import CommuCollTalk from './pages/CommuCollTalk';
-import CommuCollCmnt from './pages/CommuCollCmnt';
-import CommuCollLike from './pages/CommuCollLike';
-
+import CommuCollectionPage from "./pages/CommuCollectionPage";
+import CommuCollTalk from "./pages/CommuCollTalk";
+import CommuCollCmnt from "./pages/CommuCollCmnt";
+import CommuCollLike from "./pages/CommuCollLike";
 
 function App() {
   const navigate = useNavigate();
@@ -134,17 +132,14 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/loginKakao" element={<KakaoLogin />} />
-        {/* <Route path="/oauth" element={<KakaoOauth />} /> */}
-        <Route path="/oauth" element={<Auth />} />
-        <Route path="/complete-profile" element={<CompleteProfile />} />
+        <Route path="/oauth" element={<Auth />} />ㄴ
         <Route path="/oauth/kakao" element={<Auth />} />
-        {/* <Route path="/signupcomplete" element={<SignupComplete />} /> */}
-
+        <Route path="/signupcomplete" element={<SignupComplete />} />
         {/* 마이페이지 - 커뮤니티 활동 */}
-        <Route path='/comuCollect' element={<CommuCollectionPage />} >
-          <Route path='' element={<CommuCollTalk />} />
-          <Route path='comment' element={<CommuCollCmnt />} />
-          <Route path='like' element={<CommuCollLike />} />
+        <Route path="/comuCollect" element={<CommuCollectionPage />}>
+          <Route path="" element={<CommuCollTalk />} />
+          <Route path="comment" element={<CommuCollCmnt />} />
+          <Route path="like" element={<CommuCollLike />} />
         </Route>
       </Routes>
       <Footer />
