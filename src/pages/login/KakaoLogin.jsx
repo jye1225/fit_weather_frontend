@@ -18,16 +18,13 @@ export const KakaoLogin = () => {
   };
 
   return (
-    <div style={{ width: "80%", margin: "auto" }}>
-      <h1>SNS 로그인</h1>
-      <div style={{ textAlign: "center" }}>
-        <button
-          onClick={kakaoLoginHandler}
-          className={`fontBodyM ${style.socialButton}`}
-        >
-          카카오 로그인
-        </button>
-      </div>
+    <div>
+      <button
+        onClick={kakaoLoginHandler}
+        className={`fontBodyM ${style.socialButton}`}
+      >
+        카카오 로그인
+      </button>
     </div>
   );
 };

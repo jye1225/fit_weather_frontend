@@ -79,7 +79,7 @@
   background-color: #376dd2;
   border-radius: 64px;
   color: white;
-  margin-bottom: 16px;
+  margin: 40px 0 16px 0;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -103,6 +103,7 @@
 }
 
 .signup {
+  margin: 15px 0 30px 0;
   text-align: center;
 }
 
@@ -112,7 +113,5 @@
   background-color: transparent;
   border: none;
   font-weight: bold;
-  margin-top: 27px;
+  margin-left: 15px;
 }
-
-/* 이 아래 회원가입 추가 예정 */

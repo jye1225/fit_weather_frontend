@@ -5,8 +5,8 @@ import { url } from "../store/ref";
 import { useLoginInfoStore } from "../store/loginInfoStore"; //유저정보 import
 
 const Nav = ({ navOpen, setNavOpen }) => {
-  const { userInfo: storeUserInfo } = useLoginInfoStore();
-//   const { userInfo, setUserInfo } = useLoginInfoStore();
+  // const { userInfo: storeUserInfo } = useLoginInfoStore();
+  const { userInfo, setUserInfo } = useLoginInfoStore();
 
   function preventScroll(event) {
     // 스크롤 막기 함수
@@ -15,7 +15,7 @@ const Nav = ({ navOpen, setNavOpen }) => {
   }
 
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState(null); // 초기 상태를 null로 설정합니다.
+  // const [userInfo, setUserInfo] = useState(null); // 초기 상태를 null로 설정합니다.
   const [token, setToken] = useState(localStorage.getItem("token")); // token 상태를 추가합니다.
   const { nickname = "", profile_image = "" } = userInfo?.properties || {}; // 사용자 정보를 가져옵니다.
   console.log(userInfo);
@@ -121,7 +121,7 @@ const Nav = ({ navOpen, setNavOpen }) => {
       <div className={style.navBg} onClick={() => setNavOpen(false)}></div>
       <div className={`${style.sideCon} ${navOpen ? "" : style.hidden}`}>
         <img className={style.logo} src="img/logo/LogoR90.svg" alt="logo" />
-        {userInfo?.properties ? (
+        {userInfo || userInfo?.properties ? (
           <Link to={"#"} className={`${style.btnUser} ${style.btnNav}`}>
             <div className={style.profileImg}>
               <img src="img/icons/common/noProfile.svg" alt="icon" />
@@ -147,7 +147,7 @@ const Nav = ({ navOpen, setNavOpen }) => {
             <span className="fontTitleS">홈</span>
           </Link>
 
-          {userInfo?.properties ? (
+          {userInfo || userInfo?.properties ? (
             <>
               <Link to={"/codiMain"} className={style.btnNav}>
                 <img src="img/icons/common/codi02.svg" alt="icon" />
@@ -178,7 +178,7 @@ const Nav = ({ navOpen, setNavOpen }) => {
           )}
         </div>
 
-        {userInfo?.properties ? (
+        {userInfo || userInfo?.properties ? (
           <div className={`fontHead3 ${style.Logout}`}>
             <Link to={"#"} className={style.btnLogout} onClick={handleLogout}>
               로그아웃
