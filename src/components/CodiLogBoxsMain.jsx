@@ -44,11 +44,13 @@ const CodiLogBoxsMain = () => {
             day: '2-digit',
         };
         const today = currentDate.toLocaleString('ko-KR', options).replace(/\./g, '').replace(/\ /g, '-');//0000-00-00
-        console.log('today', today);
+        // console.log('today', today);
         setToday(today);
+        setTodayText(`${today.split('-')[0]}년  ${today.split('-')[1]}월 ${today.split('-')[2]}일`);
 
         const storedMinTemp = localStorage.getItem('minTemp');
-        const storedMaxTemp = localStorage.getItem('maxTemp'); const storedSky = localStorage.getItem('weatherText');
+        const storedMaxTemp = localStorage.getItem('maxTemp');
+        const storedSky = localStorage.getItem('weatherText');
 
         if (storedMinTemp) { setMinTemp(storedMinTemp); }
         if (storedMaxTemp) { setMaxTemp(storedMaxTemp); }
@@ -98,7 +100,6 @@ const CodiLogBoxsMain = () => {
                         setLogToday(data);
                         setTags(data.tag);
                         setCodiLogId(data._id)
-                        setTodayText(`${today.split('-')[0]}년  ${today.split('-')[1]}월 ${today.split('-')[2]}일`);
                         console.log('---선택 기록 setLogToday 전달 성공----', data);
                     } else {
                         setLogToday('');
