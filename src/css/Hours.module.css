@@ -93,6 +93,11 @@ input:checked + .slider:before {
   text-align: center;
   align-content: center;
   cursor: pointer;
+  transition: 0.3s;
+}
+.filter:hover {
+  background-color: var(--primary-color);
+  color: var(--white);
 }
 .filter.active {
   background-color: var(--primary-variant-color);
@@ -122,7 +127,6 @@ input:checked + .slider:before {
 }
 .weatherItem,
 .exItem {
-  /* border: 1px solid red; */
   text-align: center;
 }
 .weatherItem {
@@ -138,4 +142,11 @@ input:checked + .slider:before {
 .exItem {
   color: var(--primary-variant-color);
   border-top: 1px solid var(--grey-200);
+}
+
+.activityGood p {
+  color: var(--primary-variant-color);
+}
+.activityBad p {
+  color: var(--grey-600);
 }

@@ -16,6 +16,7 @@ const Nav = ({ navOpen, setNavOpen }) => {
   }
 
   const navigate = useNavigate();
+  
   // const [userInfo, setUserInfo] = useState(null); // 초기 상태를 null로 설정합니다.
   const [token, setToken] = useState(localStorage.getItem('token')); // token 상태를 추가합니다.
   const { nickname = '', profile_image = '' } = userInfo?.properties || {}; // 사용자 정보를 가져옵니다.
