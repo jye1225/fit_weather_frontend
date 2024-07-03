@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import style from "../css/Codi.module.css";
-import bgStyle from '../css/MainWeatherBG.module.css'
+import bgStyle from "../css/MainWeatherBG.module.css";
 
-import CodiGuidelineBox from '../components/CodiGuidelineBox';
+import CodiGuidelineBox from "../components/CodiGuidelineBox";
 import MainweatherBG from "../components/MainWeatherBG";
 import Header from "../components/Header";
 import H2Codi from "../components/H2Codi";
@@ -21,7 +21,6 @@ const CodiMain = () => {
 
   return (
     <main className={`mw ${style.codiMain}`}>
-
       <Header />
       <div className={bgStyle.MainweatherBGcon}>
         <H2Codi />

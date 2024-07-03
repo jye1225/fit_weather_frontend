@@ -6,7 +6,7 @@ import { useLoginInfoStore } from "../store/loginInfoStore"; //유저정보 impo
 
 const Nav = ({ navOpen, setNavOpen }) => {
   const { userInfo: storeUserInfo } = useLoginInfoStore();
-//   const { userInfo, setUserInfo } = useLoginInfoStore();
+  //   const { userInfo, setUserInfo } = useLoginInfoStore();
 
   function preventScroll(event) {
     // 스크롤 막기 함수
@@ -18,7 +18,7 @@ const Nav = ({ navOpen, setNavOpen }) => {
   const [userInfo, setUserInfo] = useState(null); // 초기 상태를 null로 설정합니다.
   const [token, setToken] = useState(localStorage.getItem("token")); // token 상태를 추가합니다.
   const { nickname = "", profile_image = "" } = userInfo?.properties || {}; // 사용자 정보를 가져옵니다.
-  console.log(userInfo);
+  // console.log(userInfo);
 
   // 예은추가--------
   const getUserData = async (token) => {
