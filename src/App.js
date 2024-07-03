@@ -1,6 +1,6 @@
 import "./css/common.css";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import { jwtDecode } from "jwt-decode"; // jwt로 토큰 해석하는 jwt-decode 라이브러리 설치했습니다! :npm install jwt-decode
 
@@ -48,7 +48,6 @@ function App() {
         try {
           const decodedToken = jwtDecode(loginToken);
           setUserInfo(decodedToken);
-
         } catch (error) {
           console.error("Token decoding failed:", error);
           // 토큰이 유효하지 않은 경우 처리
