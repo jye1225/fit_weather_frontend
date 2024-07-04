@@ -1,5 +1,4 @@
 import "./css/common.css";
-import { url } from "./store/ref";
 
 import {
   BrowserRouter as Router,
@@ -43,7 +42,6 @@ import CommuCollTalk from "./pages/CommuCollTalk";
 import CommuCollCmnt from "./pages/CommuCollCmnt";
 import CommuCollLike from "./pages/CommuCollLike";
 import MypageMain from './pages/MypageMain';
-import { url } from './store/ref';
 
 
 function App() {
@@ -112,7 +110,7 @@ function App() {
       user.properties.nickname,
       user.properties.profile_image
     );
-     console.log('카카오로그인 정보 확인 ', user);//0703 ok
+    console.log('카카오로그인 정보 확인 ', user);//0703 ok
     // -------
 
   };
@@ -144,35 +142,10 @@ function App() {
     }
   };
 
-  const registerKakaoUser = async (userid, username, profile_image) => {
-    try {
-      const response = await fetch(`${url}/kakao-register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userid,
-          username,
-          profile_image,
-          // password: "",
-          // gender: "",
-        }),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to register Kakao user");
-      }
-      console.log(userid, username, profile_image);
-      setUserid(userid);
-      setUsername(username);
-      setUserprofile(profile_image);
-    } catch (error) {
-      console.error("Error registering Kakao user", error);
-    }
-  };
+  // useEffect(() => {
+  //   console.log('---userInfo---', userInfo);
+  // }, [userInfo]);
 
-  useEffect(() => {
-    console.log('---userInfo---', userInfo);
-  }, [userInfo]);
-  
   return (
     <div className="App">
       <Routes>
