@@ -8,15 +8,12 @@
 .logo {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
-  /* 상단 여백 추가 */
+  margin: 70px 0 60px 0;
 }
 
 .logo img {
   width: 40%;
-  /* 원하는 크기로 설정 */
   height: auto;
-  /* 비율을 유지하여 높이를 자동으로 조정 */
 }
 
 .titleWrap {

@@ -1,5 +1,4 @@
 import "./css/common.css";
-import { url } from "./store/ref";
 
 import {
   BrowserRouter as Router,
@@ -9,7 +8,6 @@ import {
 } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode"; // jwt로 토큰 해석하는 jwt-decode 라이브러리 설치했습니다! :npm install jwt-decode
-import { url } from "./store/ref";
 
 import IndexPage from "./pages/IndexPage";
 import CommunityPage from "./pages/CommunityPage";
@@ -33,7 +31,8 @@ import Signup from "./pages/Signup";
 import KakaoLogin from "./pages/login/KakaoLogin";
 import Auth from "./pages/login/Auth";
 // import KakaoOauth from "./pages/login/KakaoOauth";
-import SignupComplete from "./pages/Signupcomplete";
+import SignupComplete from "./pages/SignupComplete";
+import MyStyle from "./pages/MyStyle"; // 취향조사 페이지
 import { useLoginInfoStore } from "./store/loginInfoStore";
 import Footer from "./components/Footer";
 
@@ -42,9 +41,8 @@ import CommuCollectionPage from "./pages/CommuCollectionPage";
 import CommuCollTalk from "./pages/CommuCollTalk";
 import CommuCollCmnt from "./pages/CommuCollCmnt";
 import CommuCollLike from "./pages/CommuCollLike";
-import MypageMain from './pages/MypageMain';
-import { url } from './store/ref';
-
+import MypageMain from "./pages/MypageMain";
+import { url } from "./store/ref";
 
 function App() {
   const navigate = useNavigate();
@@ -112,36 +110,8 @@ function App() {
       user.properties.nickname,
       user.properties.profile_image
     );
-     console.log('카카오로그인 정보 확인 ', user);//0703 ok
+    console.log("카카오로그인 정보 확인 ", user); //0703 ok
     // -------
-
-  };
-
-  const registerKakaoUser = async (userid, username, profile_image) => {
-    try {
-      const response = await fetch(`${url}/kakao-register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userid,
-          username,
-          profile_image,
-          // password: "",
-          // gender: "",
-        }),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to register Kakao user");
-      }
-
-      console.log(userid, username, profile_image);
-
-      setUserid(userid);
-      setUsername(username);
-      setUserprofile(profile_image);
-    } catch (error) {
-      console.error("Error registering Kakao user", error);
-    }
   };
 
   const registerKakaoUser = async (userid, username, profile_image) => {
@@ -170,9 +140,9 @@ function App() {
   };
 
   useEffect(() => {
-    console.log('---userInfo---', userInfo);
+    console.log("---userInfo---", userInfo);
   }, [userInfo]);
-  
+
   return (
     <div className="App">
       <Routes>
@@ -205,8 +175,9 @@ function App() {
         <Route path="/oauth" element={<Auth />} />ㄴ
         <Route path="/oauth/kakao" element={<Auth />} />
         <Route path="/signupcomplete" element={<SignupComplete />} />
+        <Route path="/mystyle" element={<MyStyle />} />
         {/* 마이페이지 */}
-        <Route path='/mypage' element={<MypageMain />} />
+        <Route path="/mypage" element={<MypageMain />} />
         {/* 마이페이지 - 커뮤니티 활동 */}
         <Route path="/comuCollect" element={<CommuCollectionPage />}>
           <Route path="" element={<CommuCollTalk />} />
