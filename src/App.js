@@ -117,8 +117,6 @@ function App() {
 
   };
 
-
-  // ------
   const registerKakaoUser = async (userid, username, profile_image) => {
     try {
       const response = await fetch(`${url}/kakao-register`, {
@@ -135,7 +133,9 @@ function App() {
       if (!response.ok) {
         throw new Error("Failed to register Kakao user");
       }
+
       console.log(userid, username, profile_image);
+
       setUserid(userid);
       setUsername(username);
       setUserprofile(profile_image);
