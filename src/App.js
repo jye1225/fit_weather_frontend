@@ -1,8 +1,14 @@
 import "./css/common.css";
 
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode"; // jwt로 토큰 해석하는 jwt-decode 라이브러리 설치했습니다! :npm install jwt-decode
+import { url } from "./store/ref";
 
 import IndexPage from "./pages/IndexPage";
 import CommunityPage from "./pages/CommunityPage";
