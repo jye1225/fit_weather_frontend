@@ -37,7 +37,7 @@ const CodiWrite = () => {
 
     const today = currentDate.toLocaleString('ko-KR', options).replace(/\./g, '').replace(/\ /g, '-');//0000-00-00
 
-    console.log('today', today);
+    console.log('today,userInfo', today, userInfo);
     setCodiDate(today);
   }, []);
 
