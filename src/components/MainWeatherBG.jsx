@@ -34,7 +34,7 @@ const MainWeatherBG = () => {
     return (
         <div className={bgStyle.MainweatherBG}>
             <img className={bgStyle.skyWeather} src={`img/weatherBG/sky/${SKY}.png`} alt="SKY" />
-            <img className={bgStyle.bg} src={`img/weatherBG/bg/${bgImg}.png`} alt="bgImg" />
+            <img className={bgStyle.bg} src={`img/weatherBG/bg/${bgImg || `loading`}.png`} alt="bgImg" />
         </div>
     )
 }

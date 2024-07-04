@@ -568,11 +568,15 @@ button {
 
 .codiMain {
     padding-bottom: 2rem;
-    /* position: relative; */
+    /* background-color: var(--grey-100);
+    position: relative; */
+    /* z-index: 2; */
 }
 
 .bigBtnCon {
     /* border: 1px solid red; */
+    position: relative;
+
     padding: 0 1rem;
     display: flex;
     gap: 1rem;
@@ -615,6 +619,8 @@ button {
 }
 
 .CodiLogBoxsMain {
+
+    position: relative;
     padding: 1rem;
     display: flex;
     flex-direction: column;

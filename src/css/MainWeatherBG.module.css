@@ -59,5 +59,8 @@
 .MainweatherBG img.skyWeather {
     object-fit: cover;
     object-position: top;
+    position: fixed;
+    max-width: 720px;
+
     top: 0;
 }
