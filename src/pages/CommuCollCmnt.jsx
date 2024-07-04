@@ -38,7 +38,7 @@ function CommuCollCmnt() {
       ) : (
         <ul className={style.cmntListCon}>
           {commentData.map((cmnt) => (
-            <DetailComment key={cmnt._id} cmnt={cmnt} />
+            <DetailComment key={cmnt._id} cmnt={cmnt} fromCol={'fromCol'} />
           ))}
         </ul>
       )}

@@ -44,7 +44,7 @@ function DetailPage() {
 
   return (
     <>
-      <PagesHeader title={'날씨패션톡'} clickBack={clickBack} />
+      <PagesHeader title={'날씨패션톡'} />
       <main className={`mw ${style.detailPage}`}>
         <DetailContentCon fetchPostDetail={fetchPostDetail} />
         <DetailCommentsCon fetchPostDetail={fetchPostDetail} />
