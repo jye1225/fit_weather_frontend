@@ -1,6 +1,7 @@
 .talkBox {
+  max-width: 450px;
   width: calc(100% - 2rem);
-  margin: 16px auto;
+  margin: 0 auto 16px auto;
   background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 15%);
   border-radius: 16px;
@@ -16,14 +17,37 @@
   left: 50%;
   transform: translateX(-50%);
 }
+.filter {
+  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
 .title {
   color: var(--grey-600);
-  margin-bottom: 8px;
+  flex: 1;
+}
+.temp,
+.mode {
+  /* border: 1px solid blue; */
+  border-radius: 16px;
+  background-color: var(--grey-100);
+  color: var(--grey-600);
+}
+.temp span,
+.mode span {
+  /* border: 1px solid blue; */
+  border-radius: 16px;
+  display: inline-block;
+  padding: 4px 8px;
+  transition: 0.3s;
 }
 .talk {
   color: var(--primary-variant-color);
 }
-.avatar {
-  border: 1px solid red;
-  height: 385px;
+
+.selected {
+  background-color: var(--primary-color);
+  color: white;
 }

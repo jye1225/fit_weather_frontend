@@ -7,7 +7,7 @@ import { useLoginInfoStore } from '../store/loginInfoStore';
 
 function DetailCoordiReview({ fetchPostDetail }) {
   const [onBtn, setOnBtn] = useState('');
-  const { postDetail, setPostsData, fetchPosts } = usePostData();
+  const { postDetail, setPostsData, fetchPosts, currentFilter } = usePostData();
   const { postId } = useParams();
   const { userInfo } = useLoginInfoStore();
 
@@ -30,7 +30,6 @@ function DetailCoordiReview({ fetchPostDetail }) {
       setOnBtn(btnType);
     }
     fetchPostDetail();
-    fetchPosts();
   };
 
   // 코디리뷰 카운트 변경 요청

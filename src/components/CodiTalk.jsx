@@ -1,9 +1,11 @@
+import React, { useState, useEffect } from "react";
 import style from "../css/CodiTalk.module.css";
-import { useEffect } from "react";
 import useMatchingData from "../hooks/matchingData";
 
 const CodiTalk = ({ setMatchingUrl }) => {
   const { matchingWord, chatData, clothes } = useMatchingData();
+  const [selectedTemp, setSelectedTemp] = useState("적당"); // 상태 추가
+  const [selectedMode, setSelectedMode] = useState("기본"); // 새로운 상태 추가
 
   useEffect(() => {
     if (
@@ -27,9 +29,41 @@ const CodiTalk = ({ setMatchingUrl }) => {
     }
   }, [matchingWord, clothes, setMatchingUrl]);
 
+  const handleTempClick = (temp) => {
+    setSelectedTemp(temp);
+  };
+
+  const handleModeClick = (mode) => {
+    setSelectedMode(mode);
+  };
+
   return (
     <section className={style.talkBox}>
-      <p className={`fontHead3 ${style.title}`}>오늘 뭐 입지?</p>
+      <div className={style.filter}>
+        <p className={`fontHead3 ${style.title}`}>오늘 뭐 입지?</p>
+        <div className={`fontBodyS ${style.temp}`}>
+          {["시원", "적당", "따뜻"].map((temp) => (
+            <span
+              key={temp}
+              onClick={() => handleTempClick(temp)}
+              className={selectedTemp === temp ? style.selected : ""}
+            >
+              {temp}
+            </span>
+          ))}
+        </div>
+        <div className={`fontBodyS ${style.mode}`}>
+          {["기본", "취향"].map((mode) => (
+            <span
+              key={mode}
+              onClick={() => handleModeClick(mode)}
+              className={selectedMode === mode ? style.selected : ""}
+            >
+              {mode}
+            </span>
+          ))}
+        </div>
+      </div>
       {chatData ? (
         <p className={`fontDecorate ${style.talk}`}>{chatData}</p>
       ) : (

@@ -14,9 +14,23 @@ const Avatar = ({ topUrl, bottomUrl, outerUrl }) => {
   return (
     <section className={style.avatar}>
       {isLoading ? (
-        <div className={`fontTitleM ${style.loadingText}`}>
-          불러오는 중이에요~
-        </div>
+        <>
+          <img
+            className={style.person}
+            src="img/clothes/woman.svg"
+            alt="여자"
+          />
+          <img
+            className={style.top}
+            src="img/clothes/short_sleeve_T.svg"
+            alt="상의"
+          />
+          <img
+            className={style.bottom}
+            src="img/clothes/short_pants.svg"
+            alt="하의"
+          />
+        </>
       ) : (
         <>
           <img

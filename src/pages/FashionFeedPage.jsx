@@ -58,13 +58,13 @@ function FashionFeedPage() {
       {/* <h3 className={`fontHead3 ${style.fshFeedTitle}`}>
         패션 인플루언서의 코디
       </h3> */}
-      {/* <div>
+      <div>
         <iframe
-          src="https://www.musinsa.com/snap/main/recommend?isApp=false&viewport=desktop&feed-tab=NEW"
+          src="https://www.musinsa.com/app/stylecontents/lists?sortType=RECENT"
           className={style.embedded}
           title="External Website"
         />
-      </div> */}
+      </div>
       {/* <ul className={style.fshFeedCon}>
         <li onClick={clickOneFeed}>피드</li>
         <li>피드</li>

@@ -1,4 +1,5 @@
 import "./css/common.css";
+import { url } from "./store/ref";
 
 import {
   BrowserRouter as Router,
@@ -32,7 +33,7 @@ import Signup from "./pages/Signup";
 import KakaoLogin from "./pages/login/KakaoLogin";
 import Auth from "./pages/login/Auth";
 // import KakaoOauth from "./pages/login/KakaoOauth";
-import SignupComplete from "./pages/SignupComplete";
+import SignupComplete from "./pages/Signupcomplete";
 import { useLoginInfoStore } from "./store/loginInfoStore";
 import Footer from "./components/Footer";
 
@@ -41,6 +42,9 @@ import CommuCollectionPage from "./pages/CommuCollectionPage";
 import CommuCollTalk from "./pages/CommuCollTalk";
 import CommuCollCmnt from "./pages/CommuCollCmnt";
 import CommuCollLike from "./pages/CommuCollLike";
+import MypageMain from './pages/MypageMain';
+import { url } from './store/ref';
+
 
 function App() {
   const navigate = useNavigate();
@@ -101,15 +105,16 @@ function App() {
     setUsername(user.properties.nickname);
     setUserprofile(user.properties.profile_image);
 
+    // -------
     await registerKakaoUser(
       //카카오로그인 함수
       user.id,
       user.properties.nickname,
       user.properties.profile_image
     );
-    console.log("카카오로그인 정보 확인 ", user);
+     console.log('카카오로그인 정보 확인 ', user);//0703 ok
+    // -------
 
-    // navigate("/");//없어야 다른 카테고리도 이동됨.. => 갇혔던 이유 ㅠㅠ
   };
 
   const registerKakaoUser = async (userid, username, profile_image) => {
@@ -121,11 +126,16 @@ function App() {
           userid,
           username,
           profile_image,
+          // password: "",
+          // gender: "",
         }),
       });
       if (!response.ok) {
         throw new Error("Failed to register Kakao user");
       }
+
+      console.log(userid, username, profile_image);
+
       setUserid(userid);
       setUsername(username);
       setUserprofile(profile_image);
@@ -134,10 +144,35 @@ function App() {
     }
   };
 
-  // useEffect(() => {
-  //   console.log('---userInfo---', userInfo); // 이렇게 해도 {msg: 'too long for access token.', code: -2} 오류 떠
-  // }, [userInfo]);
+  const registerKakaoUser = async (userid, username, profile_image) => {
+    try {
+      const response = await fetch(`${url}/kakao-register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userid,
+          username,
+          profile_image,
+          // password: "",
+          // gender: "",
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to register Kakao user");
+      }
+      console.log(userid, username, profile_image);
+      setUserid(userid);
+      setUsername(username);
+      setUserprofile(profile_image);
+    } catch (error) {
+      console.error("Error registering Kakao user", error);
+    }
+  };
 
+  useEffect(() => {
+    console.log('---userInfo---', userInfo);
+  }, [userInfo]);
+  
   return (
     <div className="App">
       <Routes>
@@ -170,6 +205,8 @@ function App() {
         <Route path="/oauth" element={<Auth />} />ㄴ
         <Route path="/oauth/kakao" element={<Auth />} />
         <Route path="/signupcomplete" element={<SignupComplete />} />
+        {/* 마이페이지 */}
+        <Route path='/mypage' element={<MypageMain />} />
         {/* 마이페이지 - 커뮤니티 활동 */}
         <Route path="/comuCollect" element={<CommuCollectionPage />}>
           <Route path="" element={<CommuCollTalk />} />

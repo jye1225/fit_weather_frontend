@@ -10,7 +10,7 @@ import { url } from '../store/ref';
 import { useLoginInfoStore } from '../store/loginInfoStore';
 
 function DetailTitleArea({ fetchPostDetail, postId }) {
-  const { postDetail, likes, setLikes, fetchPosts } = usePostData();
+  const { postDetail, likes, setLikes } = usePostData();
   const [isLike, setLiketoggle] = useState(false);
   const { isOpMenuOn, opMenuOpen, opMenuClose } = useOpenMenuModal();
   const { userInfo } = useLoginInfoStore();
@@ -36,7 +36,6 @@ function DetailTitleArea({ fetchPostDetail, postId }) {
         setLiketoggle(!isLike);
         setLikes(data.likes);
         fetchPostDetail();
-        fetchPosts();
       }
     } catch (err) {
       console.log(err);

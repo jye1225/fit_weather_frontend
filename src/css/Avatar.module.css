@@ -1,22 +1,21 @@
 .avatar {
-  border: 1px solid red;
   max-width: 450px;
   width: calc(100% - 2rem);
-  margin: 32px auto 48px auto;
+  margin: 16px auto;
   position: relative;
 }
 .loadingText {
   text-align: center;
 }
 .person {
-  width: 36%;
+  width: 30%;
   position: relative;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
 }
 .top {
-  width: 30%;
+  width: 24%;
   position: absolute;
   top: 30%;
   left: 50%;
@@ -24,7 +23,7 @@
   z-index: 1;
 }
 .outer {
-  width: 38%;
+  width: 32%;
   position: absolute;
   top: 30%;
   left: 51%;
@@ -32,15 +31,24 @@
   z-index: 2;
 }
 .bottom {
-  width: 26%;
+  width: 21%;
   position: absolute;
   top: 52%;
   left: 51%;
   transform: translateX(-49%);
 }
 
-@media (max-width: 500px) {
-  .avatar {
-    width: 360px;
+@media (max-width: 420px) {
+  .person {
+    width: 36%;
+  }
+  .top {
+    width: 30%;
+  }
+  .outer {
+    width: 38%;
+  }
+  .bottom {
+    width: 26%;
   }
 }

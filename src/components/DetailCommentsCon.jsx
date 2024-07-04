@@ -64,6 +64,7 @@ function DetailCommentsCon({ fetchPostDetail }) {
       });
   }, [postId]);
   useEffect(() => {
+    setCmntErrMsg();
     fetchCmnts();
   }, [fetchCmnts]);
 
