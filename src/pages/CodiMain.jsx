@@ -19,14 +19,16 @@ const CodiMain = () => {
     outers: "",
   });
 
+  const [selectDate, setSelectDate] = useState("오늘");
+
   return (
     <main className={`mw ${style.codiMain}`}>
       <Header />
       <div className={bgStyle.MainweatherBGcon}>
-        <H2Codi />
+        <H2Codi setSelectDate={setSelectDate} />
         <MainweatherBG />
 
-        <CodyWeather />
+        <CodyWeather selectDate={selectDate} />
         <CodiTalk setMatchingUrl={setMatchingUrl} />
         <Avatar
           topUrl={matchingUrl.tops}

@@ -44,7 +44,7 @@ const PresentWeather = () => {
   ]);
 
   return (
-    <section className={`mw ${style.present}`}>
+    <section className={style.present}>
       <div className={style.temperature}>
         <p>{temperature}°C</p>
         <div className={style.minmax}>

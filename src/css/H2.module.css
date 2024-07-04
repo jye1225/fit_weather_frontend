@@ -1,17 +1,18 @@
 .header2Main {
   background-color: var(--primary-color);
   padding-top: 3rem;
-  height: 6rem;
-  position: relative;
+  /* height: 6rem; */
+  /* position: relative; */
   border-radius: 0 0 1rem 1rem;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .header2Main .h2Con {
   height: 48px;
   width: 100%;
   /* border: 1px solid darkcyan; */
-  position: absolute;
+  position: relative;
+  /* position: absolute; */
   bottom: 0;
   display: flex;
   align-items: center;

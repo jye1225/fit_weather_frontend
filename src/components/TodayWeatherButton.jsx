@@ -3,7 +3,7 @@ import { buttonStore } from '../store/talkbuttonStore';
 
 function TodayWeatherButton({ onClick }) {
   const { onBtn } = buttonStore();
-  const buttonId = 'todayWeather';
+  const buttonId = 'weather';
   const isOn = onBtn === buttonId;
 
   return (
@@ -11,7 +11,7 @@ function TodayWeatherButton({ onClick }) {
       id="todayW"
       className={`fontBodyM ${style.todayW} ${isOn ? style.on : ''}`}
       onClick={onClick}
-      data-cate={'todayWeader'}
+      data-cate={'weather'}
     >
       오늘날씨
     </button>

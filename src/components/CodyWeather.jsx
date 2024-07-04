@@ -1,4 +1,3 @@
-// src/components/CodyWeather.jsx
 import style from "../css/CodyWeather.module.css";
 import { useEffect } from "react";
 import useFetchStore from "../store/fetchStore";
@@ -39,7 +38,7 @@ const CodyWeather = () => {
   }, [location, regionFirstName, regionSecondName, fetchWeatherData]);
 
   return (
-    <section className={`mw ${style.present}`}>
+    <section className={style.present}>
       <div className={style.temperature}>
         <span>{temperature}°C</span>
         <div className={style.minmax}>

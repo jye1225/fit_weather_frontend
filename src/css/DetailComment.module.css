@@ -5,9 +5,9 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 0.5rem;
-
   position: relative;
 }
+
 .comment:last-of-type {
   border: none;
 }
@@ -81,7 +81,6 @@
   resize: none;
 }
 
-/* ----임시---- */
 .cmntOptionMenu {
   /* border: 1px solid; */
   margin-left: auto;
@@ -99,4 +98,18 @@
 .cmntOptionMenu button:hover {
   border: 1px solid var(--primary-color);
   color: var(--primary-color);
+}
+
+/* 마이페이지 작성댓글 삭제 버튼 */
+.mypgCmntDelBtn {
+  cursor: pointer;
+  padding: 0.3rem 0.5rem;
+  border-radius: 5rem;
+  background-color: var(--grey-100);
+  margin-left: auto;
+  margin-right: 1rem;
+  transition: 0.3s;
+}
+.mypgCmntDelBtn:hover {
+  background-color: var(--grey-200);
 }
