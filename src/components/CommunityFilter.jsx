@@ -5,30 +5,17 @@ import { buttonStore } from '../store/talkbuttonStore';
 import { usePostData } from '../store/postDataStore';
 
 function CommunityFilter() {
-  const { setPostsData, originalData } = usePostData();
+  const { resetPosts, applyFilter, fetchPosts, setPostsData, originalData } =
+    usePostData();
   const { onBtn, setOnBtn } = buttonStore();
   const buttonId = 'all';
   const isOn = onBtn === buttonId;
 
-  const allBtnClick = () => {
-    setOnBtn('all');
-    setPostsData(originalData);
-  };
-
-  const getCatePost = async (category) => {
-    // console.log('오리지널', originalData);
-    const filtered = originalData.filter((post) => post.category === category);
-    setPostsData(filtered);
-  };
-
-  const todayWeatherBtn = async () => {
-    setOnBtn('todayWeather');
-    getCatePost('weather');
-  };
-
-  const todayCoordiBtn = () => {
-    setOnBtn('todayCoordi');
-    getCatePost('coordi');
+  const handleFilter = (filter) => {
+    setOnBtn(filter);
+    resetPosts();
+    applyFilter(filter);
+    fetchPosts(filter);
   };
 
   return (
@@ -37,12 +24,22 @@ function CommunityFilter() {
       <div className={style.commuCateBtnCon}>
         <button
           className={`fontBodyM ${style.all} ${isOn ? style.on : ''} `}
-          onClick={allBtnClick}
+          onClick={() => {
+            handleFilter('all');
+          }}
         >
           전체
         </button>
-        <TodayWeatherButton onClick={todayWeatherBtn} />
-        <TodayCoordiButton onClick={todayCoordiBtn} />
+        <TodayWeatherButton
+          onClick={() => {
+            handleFilter('weather');
+          }}
+        />
+        <TodayCoordiButton
+          onClick={() => {
+            handleFilter('coordi');
+          }}
+        />
       </div>
     </div>
   );
