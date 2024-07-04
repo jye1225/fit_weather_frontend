@@ -13,6 +13,7 @@ import { url } from "../store/ref";
 
 
 const CodiLog = () => {
+
   const { feltOptions } = useFeltOptionsStore();
   const { userInfo } = useLoginInfoStore();
 
@@ -42,17 +43,20 @@ const CodiLog = () => {
     }
   };
 
-  const fetchLog = (page) => {
+  const fetchLog = (page, reset = false) => {
     if (!userInfo) { return };
 
     try {
-      // fetch(`${url}/codiLogList/${userInfo.userid}?page=${page}&limit=16`) // get 요청 보냄
       fetch(`${url}/codiLogList/${userInfo.userid}?page=${page}&limit=${limit}`)
         .then((res) => res.json())//
         .then((data) => {
-          // 가져온 데이터를 기존 데이터에 추가
-          setALLCodiLogList(prev => [...prev, ...data]);
-          setCodiLogList(prev => [...prev, ...data]);
+          if (reset) { // reset 파라미터가 true이면 데이터 초기화
+            setALLCodiLogList(data);
+            setCodiLogList(data);
+          } else {
+            setALLCodiLogList(prev => [...prev, ...data]);
+            setCodiLogList(prev => [...prev, ...data]);
+          }
         })
 
     } catch (error) {
@@ -62,19 +66,21 @@ const CodiLog = () => {
 
   useEffect(() => {
     if (userInfo) {  // userInfo가 유효한지 확인
-      fetchLog(page);// 초기 데이터 가져오기
+      setPage(0); // 페이지 번호 초기화
+      fetchLog(0, true); // 초기 데이터 가져오기, reset 파라미터를 true로 설정
     } else {
       console.error('User info is not available');
     }
-  }, [userInfo]);
+  }, [userInfo, codiView]);
+
 
   useEffect(() => {
     if (page > 0) {
       fetchLog(page); // 페이지가 변경될 때마다 데이터 가져오기
     }
-    console.log("****전체:", ALLcodiLogList);
-    console.log("****뿌릴:", codiLogList);
-  }, [page,]);
+    // console.log("****전체:", ALLcodiLogList);
+    // console.log("****뿌릴:", codiLogList);
+  }, [page]);
 
   useEffect(() => {//선택한 태그를 포함하는 게시물 필터링
     if (feltWeather.length) {//필터링 선택한게 있다면..
@@ -90,15 +96,51 @@ const CodiLog = () => {
   }, [feltWeather]);
 
 
+
+
+  useEffect(() => {
+    getCurrentDate()
+  }, [codiView]);
+
+  const [TheYear, setTheYear] = useState('');//해당 년
+  const [TheMonth, setTheMonth] = useState('');;//해당 월
+
+  // 현재 날짜 상태
+  const [currentYear, setCurrentYear] = useState('');//현재 몇년
+  const [currentMonth, setCurrentMonth] = useState('');;//현재 몇월
+
+
+
+
+  function getCurrentDate() {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear()
+    const month = currentDate.getMonth() + 1
+    setCurrentYear(year);
+    setCurrentMonth(month);
+
+    //해당 년/월을 현재 날짜로 세팅
+    //  이 함수는 마운트 때 한 번만 실행될 것 같아서 일단 여기서 세팅...
+    setTheYear(currentDate.getFullYear());
+    setTheMonth(currentDate.getMonth() + 1);
+
+  };
+
+
   //****  마지막 요소에 대한 ref 설정 및 Intersection Observer 콜백 함수
   const lastElementRef = useCallback(node => {
     if (observer.current) observer.current.disconnect(); // 기존 observer 해제
     observer.current = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting) { // 마지막 요소가 뷰포트에 들어오면
         setPage(prevPage => prevPage + 1); // 페이지 증가
+        setTheMonth(prevMonth => prevMonth > 1 ? prevMonth - 1 : 12); // TheMonth 값을 하나 줄이고, 1 이하가 되면 12로 되돌림
+        if (TheMonth === 1) { // 1월에서 12월로 넘어갈 때 TheYear를 하나 줄임
+          setTheYear(prevYear => prevYear - 1);
+        }
       }
     });
     if (node) observer.current.observe(node); // 새로운 요소 관찰 시작
+    // console.log(page);
   }, []);
 
 
@@ -134,6 +176,8 @@ const CodiLog = () => {
           />
         ) : (
           <CodiLogCalendar
+            TheMonth={TheMonth}
+            TheYear={TheYear}
             feltWeather={feltWeather}
             setModalActive={setModalActive}
             codiLogList={codiLogList}

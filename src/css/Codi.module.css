@@ -240,7 +240,9 @@ button {
 
 .calendarWrap {
     /* border: 1px solid hotpink; */
-    padding: 0 1rem
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .calendarWrap .month {

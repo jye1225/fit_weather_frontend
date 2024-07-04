@@ -4,7 +4,6 @@ import style from '../css/Codi.module.css'
 const CodiLogGallery = ({ feltWeather, setModalActive, codiLogList, lastElementRef }) => {
     console.log('필터 종류, 리스트 - 갤러리', feltWeather, codiLogList);
 
-
     return (
 
         <ul className={style.galleryWrap}>
