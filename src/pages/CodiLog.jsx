@@ -134,15 +134,19 @@ const CodiLog = () => {
       if (entries[0].isIntersecting) { // 마지막 요소가 뷰포트에 들어오면
         setPage(prevPage => prevPage + 1); // 페이지 증가
         setTheMonth(prevMonth => prevMonth > 1 ? prevMonth - 1 : 12); // TheMonth 값을 하나 줄이고, 1 이하가 되면 12로 되돌림
-        if (TheMonth === 1) { // 1월에서 12월로 넘어갈 때 TheYear를 하나 줄임
-          setTheYear(prevYear => prevYear - 1);
-        }
       }
     });
     if (node) observer.current.observe(node); // 새로운 요소 관찰 시작
-    // console.log(page);
+    console.log(page);
   }, []);
 
+  // 페이지,TheMonth 변경될 때  TheYear 업데이트
+  useEffect(() => {
+    if (page > 0 && TheMonth === 1) {
+      // setTheMonth(12); // 1월에서 12월로 설정
+      setTheYear(prevYear => prevYear - 1); // TheYear 감소
+    }
+  }, [page, TheMonth]);
 
   return (
     <main className={`mw ${style.codiLog}`}>

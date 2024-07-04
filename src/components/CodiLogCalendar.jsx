@@ -18,7 +18,7 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, codiLogList, lastElement
     useEffect(() => {//변동감지용
         console.log('----- TheYear TheMonth 변동 : ', TheYear, TheMonth);
         getFirstLastDate(TheYear, TheMonth);
-    }, [TheYear, TheMonth])
+    }, [TheMonth])
 
     useEffect(() => {//변동감지용
         console.log('-----FirstDay LastDate 변동 : ', TheMonth, '월:', FirstDay, '요일부터/', LastDate, '일까지');
@@ -32,8 +32,10 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, codiLogList, lastElement
     function getFirstLastDate(Year, Month) {
         const lastDay = new Date(Year, Month, 0).getDate(); // 이번 달의 마지막 일자
         const firstDayOfWeek = new Date(Year, Month - 1, 1).getDay();//(0: 일요일, 1: 월요일, ..., 6: 토요일)
-        // console.log('getFirstLastDate', firstDayOfWeek);
-        if (lastDay && firstDayOfWeek) {
+        console.log('getFirstLastDate', firstDayOfWeek);
+        // if (lastDay && firstDayOfWeek) {
+        if (lastDay !== undefined && firstDayOfWeek !== undefined) {
+
             setLastDate(lastDay);
             setFirstDay(firstDayOfWeek);
         }
@@ -70,9 +72,10 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, codiLogList, lastElement
     }
 
     function renderTheMonthBox(TheYear, TheMonth, FirstDay, LastDate) {
+        console.log('renderTheMonthBox', TheYear, TheMonth);
         return (
             <div ref={lastElementRef} className={style.month} key={`${TheYear}-${TheMonth}`}>
-                <strong className='fontTitleM'>{TheYear}년 {TheMonth}월</strong>
+                <strong className='fontTitleM'>{TheMonth !== 1 ? TheYear : TheYear + 1}년 {TheMonth}월</strong>
                 <ul className={`fontBodyL ${style.dayName}`}>
                     <li><span>일</span></li>
                     <li><span>월</span></li>
