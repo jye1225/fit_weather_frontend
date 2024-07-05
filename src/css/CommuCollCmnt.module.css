@@ -1,12 +1,10 @@
 .commuCollCmnt {
   background-color: var(--white);
   padding-top: 7.5rem;
-  /* min-height: 100vh; */
-  display: flex;
-  justify-content: center;
 }
 .cmntListCon {
   width: calc(100% - 2rem);
+  margin: auto;
 }
 
 .loadingMsg {
