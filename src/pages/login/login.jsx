@@ -48,7 +48,7 @@ const LoginPage = () => {
   return (
     <div className={`mw ${style.page}`}>
       <div className={style.logo} style={{ cursor: "pointer" }}>
-        <img src="/img/Fit Weather.png" alt="Fit Weather Logo" />
+        <img src="/img/logo/LogoL.svg" alt="Fit Weather Logo" />
       </div>
       <div className={`fontHead2 ${style.titleWrap}`}>로그인</div>
 
