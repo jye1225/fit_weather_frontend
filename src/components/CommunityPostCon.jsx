@@ -75,13 +75,13 @@ function CommunityPostCon() {
       {(hasMore || isLoading) && (
         <li ref={observerRef} className={style.loadingContainer}>
           <div ref={loadingRef} className={style.loadingIndicator}>
-            패션날씨 톡 게시글 불러오는 중..
+            패션날씨 톡 게시글 불러오는 중☁️☁️
           </div>
         </li>
       )}
       {!hasMore && (
         <li className={`fontBodyM ${style.endMessage}`}>
-          모든 게시물을 불러왔습니다.
+          ☁️ 모든 게시물을 불러왔습니다 ☁️
         </li>
       )}
     </ul>

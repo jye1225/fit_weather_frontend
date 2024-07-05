@@ -1,7 +1,6 @@
 import "./css/common.css";
 
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
   useNavigate,
@@ -32,7 +31,6 @@ import KakaoLogin from "./pages/login/KakaoLogin";
 import Auth from "./pages/login/Auth";
 // import KakaoOauth from "./pages/login/KakaoOauth";
 import SignupComplete from "./pages/SignupComplete";
-import MyStyle from "./pages/MyStyle"; // 취향조사 페이지
 import { useLoginInfoStore } from "./store/loginInfoStore";
 import Footer from "./components/Footer";
 
@@ -44,8 +42,8 @@ import CommuCollectionPage from "./pages/CommuCollectionPage";
 import CommuCollTalk from "./pages/CommuCollTalk";
 import CommuCollCmnt from "./pages/CommuCollCmnt";
 import CommuCollLike from "./pages/CommuCollLike";
-import MypageMain from "./pages/MypageMain";
-import { url } from "./store/ref";
+import MypageMain from './pages/MypageMain';
+import MyStyle from "./pages/MyStyle";
 
 function App() {
   const navigate = useNavigate();
@@ -175,19 +173,21 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/loginKakao" element={<KakaoLogin />} />
-        <Route path="/oauth" element={<Auth />} />ㄴ
+        <Route path="/oauth" element={<Auth />} />
         <Route path="/oauth/kakao" element={<Auth />} />
         <Route path="/signupcomplete" element={<SignupComplete />} />
         <Route path="/mystyle" element={<MyStyle />} />
         {/* 마이페이지 */}
         <Route path="/mypage" element={<MypageMain />} />
         <Route path="/myinfomanage" element={<MyInfoManage />} />
+
         {/* 마이페이지 - 커뮤니티 활동 */}
         <Route path="/comuCollect" element={<CommuCollectionPage />}>
           <Route path="" element={<CommuCollTalk />} />
           <Route path="comment" element={<CommuCollCmnt />} />
           <Route path="like" element={<CommuCollLike />} />
         </Route>
+        <Route path="/myStyle" element={<MyStyle />} />
       </Routes>
       <Footer />
     </div>

@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import style from "../css/CodiTalk.module.css";
 import useMatchingData from "../hooks/matchingData";
 
 const CodiTalk = ({ setMatchingUrl }) => {
-  const { matchingWord, chatData, clothes } = useMatchingData();
-  const [selectedTemp, setSelectedTemp] = useState("적당"); // 상태 추가
-  const [selectedMode, setSelectedMode] = useState("기본"); // 새로운 상태 추가
+  const [selectedTemp, setSelectedTemp] = useState("적당");
+  const [selectedMode, setSelectedMode] = useState("기본");
+  const { matchingWord, chatData, clothes } = useMatchingData(
+    selectedTemp,
+    selectedMode
+  ); // useMatchingData에서 {}값을 가져오고, ()값을 보냄
 
   useEffect(() => {
     if (
@@ -25,17 +28,19 @@ const CodiTalk = ({ setMatchingUrl }) => {
         outers: outerUrl[0] || "",
       };
       setMatchingUrl(newMatchingUrl);
-      console.log(topUrl[0], bottomUrl[0], outerUrl[0]);
+      // console.log(topUrl[0], bottomUrl[0], outerUrl[0]);
     }
   }, [matchingWord, clothes, setMatchingUrl]);
 
-  const handleTempClick = (temp) => {
+  const tempClick = (temp) => {
     setSelectedTemp(temp);
   };
 
-  const handleModeClick = (mode) => {
+  const modeClick = (mode) => {
     setSelectedMode(mode);
   };
+  // console.log(selectedTemp);
+  // console.log(selectedMode);
 
   return (
     <section className={style.talkBox}>
@@ -45,7 +50,7 @@ const CodiTalk = ({ setMatchingUrl }) => {
           {["시원", "적당", "따뜻"].map((temp) => (
             <span
               key={temp}
-              onClick={() => handleTempClick(temp)}
+              onClick={() => tempClick(temp)}
               className={selectedTemp === temp ? style.selected : ""}
             >
               {temp}
@@ -56,7 +61,7 @@ const CodiTalk = ({ setMatchingUrl }) => {
           {["기본", "취향"].map((mode) => (
             <span
               key={mode}
-              onClick={() => handleModeClick(mode)}
+              onClick={() => modeClick(mode)}
               className={selectedMode === mode ? style.selected : ""}
             >
               {mode}
