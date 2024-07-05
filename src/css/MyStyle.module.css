@@ -33,7 +33,7 @@
   align-items: center;
 }
 
-button {
+.page button {
   flex: 1;
   margin: 5px;
   padding: 8px 18px;
@@ -47,7 +47,7 @@ button {
   transition: background-color 0.3s, border-color 0.3s;
 }
 
-button.selected {
+.page button.selected {
   background-color: #376dd2;
   color: #fff;
   border-color: #376dd2;

@@ -1,7 +1,10 @@
 .talkListCon {
   display: flex;
   flex-direction: column;
-  padding-block: 1rem;
+}
+
+.myTotal {
+  padding: 1rem 1rem 0;
 }
 
 .loadingMsg {

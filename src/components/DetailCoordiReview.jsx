@@ -85,9 +85,11 @@ function DetailCoordiReview({ fetchPostDetail }) {
         }
       );
       const data = await response.json();
-      const reviewType = data.btnType;
-      console.log('유저의 코디리뷰 타입', reviewType);
-      setOnBtn(reviewType);
+      if (response.ok) {
+        const reviewType = data.btnType;
+        console.log('유저의 코디리뷰 타입', reviewType);
+        setOnBtn(reviewType);
+      }
     } catch (error) {
       console.error('유저 코디리뷰 상태 데이터 요청 에러', error);
     }
