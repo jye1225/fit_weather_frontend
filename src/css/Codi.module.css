@@ -248,7 +248,7 @@ button {
 
 .calendarWrap .month {
     /* border: 2px solid teal; */
-    padding: 1rem 0;
+    padding: 1rem;
     border-bottom: 1px solid var(--grey-200);
     display: flex;
     flex-direction: column;
@@ -665,6 +665,7 @@ button {
 .bigBtnCon {
     /* border: 1px solid red; */
     position: relative;
+    background-color: var(--grey-100);
 
     padding: 0 1rem;
     display: flex;
@@ -708,6 +709,7 @@ button {
 }
 
 .CodiLogBoxsMain {
+    background-color: var(--grey-100);
 
     position: relative;
     padding: 1rem;

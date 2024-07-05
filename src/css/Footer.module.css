@@ -1,8 +1,11 @@
 .ft {
+  background-color: var(--grey-100);
+  position: relative;
   margin-top: 1.5rem;
   display: flex;
   justify-content: center;
 }
+
 .ft p {
   width: calc(100% - 2rem);
   padding-block: 3rem 1.5rem;
