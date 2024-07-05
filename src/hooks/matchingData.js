@@ -3,7 +3,7 @@ import useFetchStore from "../store/fetchStore";
 import useClothesStore from "../store/clothesStore";
 import { url } from "../store/ref";
 
-const useMatchingData = () => {
+const useMatchingData = (selectedTemp, selectedMode) => {
   const {
     location,
     fetchLocation,
@@ -17,7 +17,8 @@ const useMatchingData = () => {
     uv,
   } = useFetchStore();
 
-  const clothes = useClothesStore();
+  const baseClothes = useClothesStore();
+  const [clothes, setClothes] = useState(baseClothes);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [chatData, setChatData] = useState("");
   const [matchingWord, setMatchingWord] = useState({
@@ -62,8 +63,13 @@ const useMatchingData = () => {
   ]);
 
   useEffect(() => {
-    const postClothesData = async () => {
-      if (dataLoaded) {
+    if (dataLoaded) {
+      const localValue = localStorage.getItem("selectedButtons"); // 로컬 스토리지 값 읽기
+      const selectedClothes =
+        selectedMode === "취향" ? JSON.parse(localValue) : baseClothes;
+      setClothes(selectedClothes); // clothes 상태 업데이트
+
+      const postClothesData = async () => {
         try {
           const response = await fetch(`${url}/codiTalkBox`, {
             method: "POST",
@@ -77,20 +83,33 @@ const useMatchingData = () => {
               popValue: popValue,
               dust: dust,
               uv: uv,
+              clothes: selectedClothes,
+              selectedTemp: selectedTemp,
+              selectedMode: selectedMode,
             }),
           });
 
           const data = await response.json();
           setChatData(data.response.content);
+          // console.log(chatData);
         } catch (error) {
           console.error("Failed to fetch:", error);
           setChatData("Failed to fetch data");
         }
-      }
-    };
-
-    postClothesData();
-  }, [dataLoaded, temperature, maxTemp, minTemp, popValue, dust, uv]);
+      };
+      postClothesData();
+    }
+  }, [
+    dataLoaded,
+    temperature,
+    maxTemp,
+    minTemp,
+    popValue,
+    dust,
+    uv,
+    selectedTemp,
+    selectedMode,
+  ]);
 
   useEffect(() => {
     if (chatData) {
