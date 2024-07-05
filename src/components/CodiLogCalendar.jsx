@@ -104,7 +104,7 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, codiLogList, lastElement
         // monthBoxes 배열에서 key 값이 newMonthBox.key와 같은 요소를 제외 => 맨 처음에 이상한 7월 Box 생성되는거 없애서 해결
         setMonthBoxes(prevBoxes => prevBoxes.filter(box => box.key !== newMonthBox.key));
 
-        setMonthBoxes(prevBoxes => [...prevBoxes, newMonthBox]); // 새로운 박스를 뒤에 추가
+        setMonthBoxes(prevBoxes => [...prevBoxes, newMonthBox,]); // 새로운 박스를 뒤에 추가
     }
     useEffect(() => {
         console.log('>>>>>monthBoxes', monthBoxes);
