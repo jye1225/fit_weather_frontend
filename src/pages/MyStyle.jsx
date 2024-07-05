@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import style from "../css/MyStyle.module.css";
-import HeaderMyStyle from "../components/HeaderMyStyle.jsx"; //취향조사 헤더
+import HeaderMyStyle from "../components/HeaderMyStyle.jsx"; //헤더
+import { Link, Navigate } from "react-router-dom";
 
 function MyStyle() {
   const [selectedButtons, setSelectedButtons] = useState({
@@ -114,7 +115,7 @@ function MyStyle() {
           className={`fontBodyM ${style.bottomButton}`}
           onClick={handleSave}
         >
-          저장하기
+          <Link to="/codimain">저장하기</Link>
         </button>
       </div>
     </>

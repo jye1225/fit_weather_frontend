@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 const HeaderSignup = () => {
   const navigate = useNavigate();
   const goBack = () => {
-    navigate("/CodiMain"); // 메인 페이지로 이동
+    navigate("/login"); // 이전 페이지로 이동
   };
 
   return (
@@ -16,7 +16,7 @@ const HeaderSignup = () => {
         className={signupStyle.btnGoBack}
         alt="goBack"
       />
-      <h2 className="fontHead2">내 코디 취향</h2>
+      <h2 className="fontHead2">회원가입</h2>
     </header>
   );
 };

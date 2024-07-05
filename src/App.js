@@ -36,6 +36,9 @@ import MyStyle from "./pages/MyStyle"; // 취향조사 페이지
 import { useLoginInfoStore } from "./store/loginInfoStore";
 import Footer from "./components/Footer";
 
+// 마이페이지 - 메인
+import MyInfoManage from "./pages/MyInfoManage";
+
 // 마이페이지 - 커뮤니티 활동
 import CommuCollectionPage from "./pages/CommuCollectionPage";
 import CommuCollTalk from "./pages/CommuCollTalk";
@@ -178,6 +181,7 @@ function App() {
         <Route path="/mystyle" element={<MyStyle />} />
         {/* 마이페이지 */}
         <Route path="/mypage" element={<MypageMain />} />
+        <Route path="/myinfomanage" element={<MyInfoManage />} />
         {/* 마이페이지 - 커뮤니티 활동 */}
         <Route path="/comuCollect" element={<CommuCollectionPage />}>
           <Route path="" element={<CommuCollTalk />} />
