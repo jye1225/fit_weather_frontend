@@ -8,11 +8,12 @@ function CancelBtn({ clickCancel }) {
     // 취소버튼 클릭시 페이지를 벗어나서 목록으로 이동
     // document.querySelector('form').reset(); //폼 초기화하는 코드
   };
+
   return (
     <button
       type="button"
       className={`fontTitleM ${style.writeCancelBtn}`}
-      onClick={clickCancelBtn}
+      onClick={clickCancel}
     >
       취소
     </button>

@@ -104,7 +104,7 @@ function PostEditPage() {
       const data = await response.json();
       console.log(data);
       setFile(null);
-      navigate(`/detail/${postId}`);
+      navigate(`/detail/${postId}?referrer=edit`);
     }
   };
 

@@ -8,8 +8,7 @@
 .logo {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
-  /* 상단 여백 추가 */
+  margin: 70px 0 60px 0;
 }
 
 .logo img {
@@ -62,7 +61,7 @@
 
 .input::placeholder {
   color: #dadada;
-  font-family: "S-CoreDream-3Light";
+  font-family: 'S-CoreDream-3Light';
 }
 
 .errorMessageWrap {

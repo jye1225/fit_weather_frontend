@@ -263,14 +263,14 @@ const useFetchStore = create((set, get) => ({
             maxUv >= 0 && maxUv <= 2
               ? "낮음"
               : maxUv >= 3 && maxUv <= 5
-                ? "보통"
-                : maxUv >= 6 && maxUv <= 7
-                  ? "높음"
-                  : maxUv >= 8 && maxUv <= 10
-                    ? "매우높음"
-                    : maxUv >= 11
-                      ? "위험"
-                      : "유효하지 않은 값";
+              ? "보통"
+              : maxUv >= 6 && maxUv <= 7
+              ? "높음"
+              : maxUv >= 8 && maxUv <= 10
+              ? "매우높음"
+              : maxUv >= 11
+              ? "위험"
+              : "유효하지 않은 값";
           return { uv: uvDegree };
         } else {
           console.error("Unexpected response structure:", data);
