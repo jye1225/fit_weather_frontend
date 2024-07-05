@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import CommentOptionMenu from './CommentOptionMenu';
 import { url } from '../store/ref';
 import { useLoginInfoStore } from '../store/loginInfoStore';
-import ConfirmModal from './ConfirmModal';
 import { useOpenMenuModal } from '../store/detailOpMenuModalStore';
 
 function DetailComment({
@@ -21,7 +20,7 @@ function DetailComment({
   const [cmntCreateAt, setCmntCreateAt] = useState();
   const [commentText, setCommentText] = useState(cmnt.content);
   const { userInfo } = useLoginInfoStore();
-  const { isModalOpen, modalClose, modalOpen } = useOpenMenuModal();
+  const { modalClose } = useOpenMenuModal();
 
   // 댓글 수정,삭제 버튼 노출
   const cmntOptnMenuToggle = (e) => {
@@ -123,12 +122,6 @@ function DetailComment({
     }
   };
 
-  //마이페이지 댓글 삭제 확인 모달에서
-  const clickCancel = () => {
-    modalClose();
-  };
-  const clickDelAndSubmt = () => {};
-
   useEffect(() => {
     formatDate();
   }, []);
@@ -139,7 +132,7 @@ function DetailComment({
         {/* 유저이미지는 유저정보 생기면 수정예정 */}
         <img src="/img/img2.jpg" alt={cmnt.userId} />
       </div>
-      <span className={`fontTitleS ${style.userName}`}>{cmnt.userId} </span>
+      <span className={`fontTitleS ${style.userName}`}>{cmnt.username} </span>
       <span className={`fontBodyS ${style.commentDate}`}>{cmntCreateAt}</span>
       {editingCommentId === cmnt._id && onCmntRewrite ? (
         <>

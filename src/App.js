@@ -1,7 +1,6 @@
 import "./css/common.css";
 
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
   useNavigate,
