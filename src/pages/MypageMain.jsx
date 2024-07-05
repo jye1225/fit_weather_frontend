@@ -1,7 +1,7 @@
-import style from '../css/MypageMain.module.css';
-import Header from '../components/Header';
-import MypageProfileArea from '../components/MypageProfileArea';
-import MypageArchive from '../components/MypageArchive';
+import style from "../css/MypageMain.module.css";
+import Header from "../components/Header";
+import MypageProfileArea from "../components/MypageProfileArea";
+import MypageArchive from "../components/MypageArchive";
 
 function MypageMain() {
   return (

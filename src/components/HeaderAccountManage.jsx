@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import signupStyle from "../css/HeaderSignup.module.css";
+import signupStyle from "../css/HeaderAccount.module.css";
 import { useEffect, useState } from "react";
 
 const HeaderSignup = () => {
   const navigate = useNavigate();
   const goBack = () => {
-    navigate("/login"); // 이전 페이지로 이동
+    navigate("/MyPageMain"); // 메인 페이지로 이동
   };
 
   return (
@@ -16,7 +16,7 @@ const HeaderSignup = () => {
         className={signupStyle.btnGoBack}
         alt="goBack"
       />
-      <h2 className="fontHead2">회원가입</h2>
+      <h2 className="fontHead2">개인정보 관리</h2>
     </header>
   );
 };

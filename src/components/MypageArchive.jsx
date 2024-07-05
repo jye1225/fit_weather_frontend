@@ -1,10 +1,10 @@
-import style from '../css/MypageArchive.module.css';
-import { Link } from 'react-router-dom';
+import style from "../css/MypageArchive.module.css";
+import { Link } from "react-router-dom";
 
 function MypageArchive() {
   return (
     <div className={style.archive}>
-      <Link to="#">
+      <Link to="/mystyle">
         <span className="fontBodyM">내 옷 취향</span>
       </Link>
       <Link to="/codiLog">

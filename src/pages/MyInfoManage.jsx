@@ -1,17 +1,15 @@
+//개인정보 수정 페이지
 import React, { useState } from "react";
-import style from "../css/signup.module.css";
+import style from "../css/MyInfoManage.module.css";
 import { url } from "../store/ref";
 
-import TermsModal from "../components/TermsModal"; //이용약관 모듈창
-import HeaderAccount from "../components/HeaderAccount"; //헤더
+import ManageModal from "../components/ManageModal.jsx"; //이용약관 모듈창
+import HeaderAccountManage from "../components/HeaderAccountManage.jsx"; //헤더
 
-const Signup = () => {
-  const [userid, setUserid] = useState(""); //아이디
-  const [username, setUsername] = useState(""); //닉네임
+const Modify = () => {
   const [password, setPassword] = useState(""); //비밀번호
   const [pdcon, setPdcon] = useState(""); //비밀번호 확인
   const [gender, setGender] = useState(""); //성별
-  const [message1, setMessage1] = useState("");
   const [message2, setMessage2] = useState("");
   const [message3, setMessage3] = useState("");
   const [message4, setMessage4] = useState("");
@@ -20,13 +18,6 @@ const Signup = () => {
   // 회원가입 기능 함수
   const register = async (e) => {
     e.preventDefault();
-
-    if (!/^[a-zA-Z][a-zA-Z0-9]{3,}$/.test(userid)) {
-      setMessage1("아이디는 4자 이상이어야 하며 영어로 시작해야 합니다.");
-      return;
-    } else {
-      setMessage1("");
-    }
     if (password.length < 4) {
       setMessage2("4자 이상이어야 합니다.");
       return;
@@ -49,7 +40,7 @@ const Signup = () => {
     // 백엔드로 POST 요청 및 응답
     const response = await fetch(`${url}/register`, {
       method: "POST",
-      body: JSON.stringify({ userid, username, password, gender }),
+      body: JSON.stringify({ password, gender }),
       headers: { "Content-Type": "application/json" },
     });
     if (response.status === 200) {
@@ -63,38 +54,13 @@ const Signup = () => {
 
   return (
     <>
-      <HeaderAccount />
+      <HeaderAccountManage />
       <div className={`mw ${style.page_s}`}>
         <div className={`fontHead2 ${style.titleWrap_s}`}></div>
         <form onSubmit={register}>
           <div className={`fontTitleXL ${style.inputTitle}`}>아이디</div>
           <div className={style.inputGroup}>
-            <div className={style.inputWrap}>
-              <input
-                className={style.input}
-                type="text"
-                placeholder="사용할 아이디를 입력하세요."
-                value={userid}
-                onChange={(e) => {
-                  setUserid(e.target.value);
-                }}
-              />
-            </div>
-            <span>{message1}</span> {/*아이디 문구*/}
-          </div>
-          <div className={`fontTitleXL ${style.inputTitle}`}>닉네임</div>
-          <div className={style.inputGroup}>
-            <div className={style.inputWrap}>
-              <input
-                className={style.input}
-                type="text"
-                placeholder="사용할 닉네임을 입력하세요."
-                value={username}
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                }}
-              />
-            </div>
+            <div className={style.inputWrap}>아이디 불러와져잇어야함</div>
           </div>
           <div className={`fontTitleXL ${style.inputTitle}`}>비밀번호</div>
           <div className={style.inputWrap}>
@@ -149,10 +115,10 @@ const Signup = () => {
             다음으로
           </button>
         </form>
-        {showTerms && <TermsModal />}
+        {showTerms && <ManageModal />}
       </div>
     </>
   );
 };
 
-export default Signup;
+export default Modify;
