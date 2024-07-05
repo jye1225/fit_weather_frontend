@@ -1,11 +1,20 @@
 import style from '../css/PagesHeader.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Region from './Region';
 
 function PagesHeader({ title, clickBack }) {
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const queryParams = new URLSearchParams(location.search);
+  const referre = queryParams.get('referrer');
+
   const goBack = () => {
-    navigate(-1); // 이전 페이지로 이동
+    if (referre === 'edit') {
+      navigate('/community');
+    } else {
+      navigate(-1);
+    }
   };
 
   return (
