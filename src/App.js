@@ -41,7 +41,6 @@ import CommuCollTalk from "./pages/CommuCollTalk";
 import CommuCollCmnt from "./pages/CommuCollCmnt";
 import CommuCollLike from "./pages/CommuCollLike";
 import MypageMain from './pages/MypageMain';
-
 import MyStyle from "./pages/MyStyle";
 
 function App() {
