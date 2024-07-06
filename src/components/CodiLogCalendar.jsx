@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import style from '../css/Codi.module.css'
 import { url } from '../store/ref'
-const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogList, lastElementRef, TheMonth, TheYear, setNoTodayLogModal }) => {
+const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogList, lastElementRef, TheMonth, TheYear, setCodiView }) => {
 
     console.log('필터 종류 - 달력/codiLogList', feltWeather,);
     console.log('codiLogList- 달력/', codiLogList);
@@ -10,7 +10,6 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
     const hasLogsRef = useRef([]); // useRef를 사용하여 hasLogsRef 생성 -> 기록이 있는 day
 
     const [today, setToday] = useState('');
-
 
     // 해당 달에 대한 상태
     const [LastDate, setLastDate] = useState('');//해당 달 며칠까지 있는지
@@ -138,7 +137,7 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
                     const foundLog = ALLcodiLogList.find(obj => obj.codiDate === targetDate);
                     if (foundLog !== undefined) {
                         dayBox.classList.add(style.hasLog);
-                        dayBox.addEventListener('click', () => { setModalActive(foundLog._id) });
+                        dayBox.addEventListener('click', () => setModalActive(foundLog._id));
                         const img = document.createElement('img');
                         img.src = `${url}/${foundLog.image}`;
                         img.alt = `${foundLog.image}`;
@@ -151,11 +150,6 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
                     }
                     if (targetDate === today) {
                         dayBox.classList.add(style.activeToday);
-                        if (foundLog === undefined) {
-                            // dayBox.addEventListener('click', () => setNoTodayLogModal(true));
-                        } else if (foundLog !== undefined) {
-                            // dayBox.addEventListener('click', () => { setModalActive(foundLog._id) });
-                        }
                     }
                 }
             }

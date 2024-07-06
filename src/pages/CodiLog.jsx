@@ -24,7 +24,6 @@ const CodiLog = () => {
   const [feltWeather, setFeltWeather] = useState([]); // 선택한 옵션 배열 . 초기 상태 : 빈 배열
   //  codi Modal 
   const [modalActive, setModalActive] = useState(null); //코디기록 데이터 _id OR null
-  const [noTodayLogModal, setNoTodayLogModal] = useState(null); //코디기록 데이터 _id OR null
 
   //  codiLog list 받아오기
   const [codiLogList, setCodiLogList] = useState([]);//화면에 뿌릴 리스트
@@ -277,8 +276,7 @@ const CodiLog = () => {
             codiLogList={codiLogList}
             ALLcodiLogList={ALLcodiLogList}
             lastElementRef={lastElementRef} // 마지막 요소 ref 전달
-            // setCodiView={setCodiView}
-            setNoTodayLogModal={setNoTodayLogModal}
+            setCodiView={setCodiView}
           />
         )}
       </section>
@@ -295,19 +293,6 @@ const CodiLog = () => {
       ) : (
         ''
       )}
-
-      {noTodayLogModal ? (
-        <section className={style.CodiLogModal}>
-          <CodiLogBox
-            setNoTodayLogModal={noTodayLogModal}
-            noTodayLogModal={noTodayLogModal}
-          />
-          {/* <CodiLogBox */}
-          {/* setNoTodayLogModal={true} */}
-          {/* modalActive={modalActive} */}
-          {/* /> */}
-        </section>
-      ) : ('')}
 
     </main>
   );
