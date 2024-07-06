@@ -100,6 +100,8 @@ function MyStyle() {
               "롱패딩",
               "숏패딩",
               "조끼",
+              "롱스커트",
+              "미니스커트",
             ])}
           </div>
         </div>
@@ -107,7 +109,7 @@ function MyStyle() {
         <div className={style.mystyleWrap}>
           <h2 className="fontTitleL">기타(선택)</h2>
           <div className={`fontBodyM ${style.button}`}>
-            {renderButtons("others", ["롱스커트", "미니스커트", "원피스"])}
+            {renderButtons("others", ["원피스"])}
           </div>
         </div>
 

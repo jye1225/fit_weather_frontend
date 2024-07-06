@@ -1,4 +1,4 @@
-.page_s {
+.page {
   position: absolute;
   padding: 0 20px 15px 20px;
   background-color: white;
@@ -10,7 +10,7 @@
   flex-direction: column;
 }
 
-.titleWrap_s {
+.titleWrap {
   text-align: center;
   margin-top: 10px;
   color: #262626;
@@ -95,24 +95,18 @@
   border-color: #376dd2;
 }
 
-/*중복확인*/
-.inputGroup {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  justify-content: space-between;
+.delete {
+  margin: 15px 0 30px 0;
+  text-align: center;
+  color: #666666;
 }
 
-.checkButton {
-  padding: 10px;
-  background-color: #376dd2;
-  color: white;
-  border: none;
-  border-radius: 30px;
+.deleteButton {
+  display: inline-block;
   cursor: pointer;
-  flex-shrink: 0;
-}
-
-.checkButton:disabled {
-  background-color: #dadada;
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+  margin-left: 15px;
+  color: #666666;
 }
