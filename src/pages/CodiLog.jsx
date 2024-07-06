@@ -1,5 +1,9 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import style from '../css/Codi.module.css';
+import styleBtn from '../css/TalkPage.module.css'
+
 // conponents
 import Footer from '../components/Footer';
 import H2CodiLog from '../components/H2CodiLog';
@@ -14,6 +18,7 @@ import { url } from "../store/ref";
 
 
 const CodiLog = () => {
+  const navigate = useNavigate();
 
   const { feltOptions } = useFeltOptionsStore();
   const { userInfo } = useLoginInfoStore();
@@ -237,6 +242,14 @@ const CodiLog = () => {
   }, [isMouseDownHorz, startX, scrollLeft]);
 
 
+  function goLogWrite() {
+    console.log('수정 클릭');
+    navigate(`/codiWrite`
+      // , { state: { codiLogId: codiLogId } }
+    );
+    // 기록페이지로 이동하기
+  }
+
   return (
     <main className={`mw ${style.codiLog}`}>
       <H2CodiLog codiView={codiView} setCodiView={setCodiView} />
@@ -282,6 +295,14 @@ const CodiLog = () => {
       </section>
 
       <Footer />
+
+      <button
+        className={styleBtn.writeBtn}
+        onClick={goLogWrite}
+      >
+        기록하기
+      </button>
+
 
       {modalActive ? (
         <section className={style.CodiLogModal}>

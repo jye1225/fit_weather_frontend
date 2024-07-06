@@ -31,7 +31,7 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
 
     useEffect(() => {
         updateDayBoxesClass();// 순회하며 코디 기록이 있는 날짜에 class, img 부여
-    }, [monthBoxes, ALLcodiLogList]);
+    }, [ALLcodiLogList]);
 
     useEffect(() => {
         updateBoxesHasTag();
@@ -138,11 +138,15 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
                     if (foundLog !== undefined) {
                         dayBox.classList.add(style.hasLog);
                         dayBox.addEventListener('click', () => setModalActive(foundLog._id));
-                        const img = document.createElement('img');
-                        img.src = `${url}/${foundLog.image}`;
-                        img.alt = `${foundLog.image}`;
-                        // img.onload = () => console.log(`Image loaded: ${targetDate}`);
-                        dayBox.querySelector(`.${style.imgCon}`).appendChild(img);
+                        // 이미지가 이미 있는지 확인
+                        const imgContainer = dayBox.querySelector(`.${style.imgCon}`);
+                        if (!imgContainer.querySelector('img')) {
+                            const img = document.createElement('img');
+                            img.src = `${url}/${foundLog.image}`;
+                            img.alt = `${foundLog.image}`;
+                            // img.onload = () => console.log(`Image loaded: ${targetDate}`);
+                            imgContainer.appendChild(img);
+                        }
 
                         dayBox.setAttribute('data-tag', foundLog.tag); // foundLog가 있을 경우 data-tag 속성 설정
                         hasLogsRef.current.push(dayBox); // foundLog가 있는 경우 dayBox의 ref를 hasLogsRef에 추가
