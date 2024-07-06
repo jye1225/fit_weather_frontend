@@ -24,7 +24,7 @@ function MypageProfileArea() {
       {!onEditProfile ? (
         <div className={style.myPofile}>
           <div className={style.pofileImg}>
-            <img src="/img/img2.jpg" alt="유저아이디" />
+            <img src="/img/default/man_photo.svg" alt="유저아이디" />
           </div>
           <span className="fontTitleXL ">유저네임</span>
           <p className="fontBodyM">
