@@ -29,7 +29,6 @@ import Auth from "./pages/login/Auth";
 // import KakaoOauth from "./pages/login/KakaoOauth";
 import SignupComplete from "./pages/SignupComplete";
 import { useLoginInfoStore } from "./store/loginInfoStore";
-import Footer from "./components/Footer";
 
 // 마이페이지 - 메인
 import MyInfoManage from "./pages/MyInfoManage";

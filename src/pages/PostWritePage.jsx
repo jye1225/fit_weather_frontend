@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { useVerifyPost } from '../store/verifyPostContentStore';
 import { usePostData } from '../store/postDataStore';
 import { url } from '../store/ref';
+import React from 'react';
+import { useLoginInfoStore } from '../store/loginInfoStore';
 
 function PostWritePage() {
   const navigate = useNavigate();
@@ -22,7 +24,11 @@ function PostWritePage() {
     selectPostCate,
   } = useVerifyPost();
   const { setNewPostId } = usePostData();
+  const { userInfo } = useLoginInfoStore();
   const RegionFirstName = localStorage.getItem('regionFirstName').slice(0, 2);
+  const userId = userInfo.userid;
+  const username = userInfo.username;
+  console.log('현재 유저아이디', userId);
 
   const postSubmit = async (e) => {
     e.preventDefault();
@@ -47,7 +53,6 @@ function PostWritePage() {
     const data = new FormData();
     data.set('postCate', selectPostCate);
     data.set('onReview', onReview);
-    // data.set('like', isLike)
     data.set('title', postTitle);
     data.set('content', postContent);
     data.set('region', RegionFirstName);
@@ -63,11 +68,14 @@ function PostWritePage() {
     console.log('지역', data.get('region'));
 
     // 백엔드로 데이터를 전송하는 부분
-    const response = await fetch(`${url}/posts/writePost`, {
-      method: 'POST',
-      body: data,
-      credentials: 'include',
-    });
+    const response = await fetch(
+      `${url}/posts/writePost?userId=${userId}&username=${username}`,
+      {
+        method: 'POST',
+        body: data,
+        credentials: 'include',
+      }
+    );
     if (response.ok) {
       const data = await response.json();
       const newPostId = data._id;

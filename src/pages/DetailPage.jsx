@@ -3,25 +3,17 @@ import style from '../css/DetailPage.module.css';
 import DetailCommentsCon from '../components/DetailCommentsCon';
 import DetailContentCon from '../components/DetailContentCon';
 import PagesHeader from '../components/PagesHeader';
-import { useNavigate } from 'react-router-dom';
 
-import { useOpenMenuModal } from '../store/detailOpMenuModalStore';
 import { usePostData } from '../store/postDataStore';
 import { url } from '../store/ref';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import Footer from '../components/Footer';
 
 function DetailPage() {
-  const { opMenuClose } = useOpenMenuModal();
-  const navigate = useNavigate();
   const { postDetail, setPostDetail, setLikes, setOriginImgPath } =
     usePostData();
   const { postId } = useParams();
-
-  const clickBack = () => {
-    navigate('/community');
-    opMenuClose();
-  };
 
   const fetchPostDetail = async () => {
     try {
@@ -49,6 +41,7 @@ function DetailPage() {
         <DetailContentCon fetchPostDetail={fetchPostDetail} />
         <DetailCommentsCon fetchPostDetail={fetchPostDetail} />
       </main>
+      <Footer />
     </>
   );
 }

@@ -8,7 +8,7 @@ function PostWriteCmpltPage() {
   const { newPostId, clearNewPostId } = usePostData();
 
   const goDetail = () => {
-    navigate(`/detail/${newPostId}`);
+    navigate(`/detail/${newPostId}?referrer=cmplt`);
     clearNewPostId();
   };
 

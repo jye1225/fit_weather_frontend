@@ -9,11 +9,13 @@ import { url } from '../store/ref';
 import DetailComment from '../components/DetailComment';
 import Pagination from '../components/Pagination';
 import ConfirmModal from '../components/ConfirmModal';
+import { useLoginInfoStore } from '../store/loginInfoStore';
 
 function CommuCollCmnt() {
   const {
     talkPostData,
     setTalkPostData,
+    totalResults,
     setTotalResults,
     currentPage,
     setCurrentPage,
@@ -31,10 +33,12 @@ function CommuCollCmnt() {
     modalClose();
   };
 
+  const { userInfo } = useLoginInfoStore();
+  const userId = userInfo.userid;
   const fetchCmntData = async () => {
     try {
       const response = await fetch(
-        `${url}/mypage/comments?page=${currentPage}`,
+        `${url}/mypage/comments/${userId}?page=${currentPage}`,
         {
           credentials: 'include',
         }
@@ -100,6 +104,7 @@ function CommuCollCmnt() {
         <p className={style.loadingMsg}>작성댓글이 없습니다.</p>
       ) : (
         <>
+          <p className={`fontBodyM ${style.myTotal}`}>총 {totalResults} 개</p>
           <ul className={style.cmntListCon}>
             {talkPostData.map((cmnt) => (
               <DetailComment

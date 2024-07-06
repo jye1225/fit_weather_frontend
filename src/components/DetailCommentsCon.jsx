@@ -6,15 +6,19 @@ import DetailComment from './DetailComment';
 import { url } from '../store/ref';
 import { usePostData } from '../store/postDataStore';
 import { useCmntOptnMenu } from '../store/onCmntOptnMenuStore';
+import { useLoginInfoStore } from '../store/loginInfoStore';
 
 function DetailCommentsCon({ fetchPostDetail }) {
   const [onCmntRewrite, setOnCmntRewrite] = useState(false); // 수정하기 클릭 유무
-  const { postDetail } = usePostData();
   const [editingCommentId, setEditingCommentId] = useState(null);
+  const { postDetail } = usePostData();
   const [comment, setComment] = useState('');
   const { cmntErrMsg, setCmntErrMsg, cmntData, setCmntData } =
     useCmntOptnMenu();
   const { postId } = useParams();
+  const { userInfo } = useLoginInfoStore();
+  const userId = userInfo.userid;
+  const username = userInfo.username;
 
   const getComment = (e) => {
     setComment(e.target.value);
@@ -39,6 +43,8 @@ function DetailCommentsCon({ fetchPostDetail }) {
         body: JSON.stringify({
           postId,
           content: comment,
+          userId,
+          username,
         }),
         credentials: 'include',
       });
@@ -58,7 +64,8 @@ function DetailCommentsCon({ fetchPostDetail }) {
       .then((res) => res.json()) //
       .then((data) => {
         console.log('받아온 데이터', data);
-        setCmntData(data);
+
+        setCmntData(data.cmntList);
         fetchPostDetail();
         // console.log('cmntData에 저장된', cmntData);
       });
@@ -89,18 +96,20 @@ function DetailCommentsCon({ fetchPostDetail }) {
         </button>
       </div>
       <ul className={style.commentsList}>
-        {cmntData.map((cmnt) => (
-          <DetailComment
-            key={cmnt._id}
-            cmnt={cmnt}
-            fetchCmnts={fetchCmnts}
-            editingCommentId={editingCommentId}
-            setEditingCommentId={setEditingCommentId}
-            onCmntRewrite={onCmntRewrite}
-            setOnCmntRewrite={setOnCmntRewrite}
-            postId={postId}
-          />
-        ))}
+        {cmntData &&
+          cmntData.map((cmnt) => (
+            <DetailComment
+              key={cmnt._id}
+              cmnt={cmnt}
+              fetchCmnts={fetchCmnts}
+              editingCommentId={editingCommentId}
+              setEditingCommentId={setEditingCommentId}
+              onCmntRewrite={onCmntRewrite}
+              setOnCmntRewrite={setOnCmntRewrite}
+              postId={postId}
+              userProfileImg={cmnt.userProfileImg}
+            />
+          ))}
       </ul>
     </div>
   );

@@ -10,14 +10,12 @@ function CommunityPostCon() {
   console.log('불러온 글', allPostsData);
   console.log('필터 카테고리', currentFilter);
   const [isLoading, setIsLoading] = useState(false);
-  // 관찰 대상 요소를 참조하기 위한 ref
   const observerRef = useRef(null);
   const loadingRef = useRef(null);
 
   const handleObserver = useCallback(
     (entries) => {
       const target = entries[0];
-      // 관찰 대상이 뷰포트에 들어오고, 로딩 중이 아니며, 더 불러올 데이터가 있을 때 페이지 증가
       if (target.isIntersecting && !isLoading && hasMore) {
         fetchPosts(currentFilter);
       }
@@ -26,11 +24,9 @@ function CommunityPostCon() {
   );
 
   useEffect(() => {
-    // IntersectionObserver 설정
     const observer = new IntersectionObserver(handleObserver, {
-      threshold: 1, // 중요: 관찰 요소가 다 보여야 콜백 실행
+      threshold: 0.5,
     });
-    // 최하단 요소를 관찰 대상으로 지정함
     if (observerRef.current) {
       observer.observe(observerRef.current);
     }
@@ -52,7 +48,13 @@ function CommunityPostCon() {
     loadInitialData();
   }, [resetPosts, fetchPosts, currentFilter]);
 
-  // allPostsData가 배열이 아니면 에러 메시지를 표시하거나 데이터를 다시 불러옵니다.
+  useEffect(() => {
+    return () => {
+      console.log('컴포넌트 언마운트. fetchPosts 실행');
+      fetchPosts();
+    };
+  }, []);
+
   if (!Array.isArray(allPostsData)) {
     console.error('allPostsData is not an array:', allPostsData);
     return (
@@ -65,16 +67,15 @@ function CommunityPostCon() {
   return (
     <ul className={style.commuListCon}>
       {allPostsData &&
-        allPostsData.map((post, index) => (
-          <CommunityPost
-            key={post._id}
-            post={post}
-            // ref={index === allPostsData.length - 1 ? observerRef : null}
-          />
+        allPostsData.map((post) => (
+          <CommunityPost key={post._id} post={post} />
         ))}
       {(hasMore || isLoading) && (
         <li ref={observerRef} className={style.loadingContainer}>
-          <div ref={loadingRef} className={style.loadingIndicator}>
+          <div
+            ref={loadingRef}
+            className={`fontBodyM ${style.loadingIndicator}`}
+          >
             패션날씨 톡 게시글 불러오는 중☁️☁️
           </div>
         </li>

@@ -1,16 +1,18 @@
 import style from '../css/CommuCollectionCon.module.css';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import CommunityPost from './CommunityPost';
 import { url } from '../store/ref';
 import Pagination from './Pagination';
 import { usePagination } from '../store/paginationStore';
+import { useLoginInfoStore } from '../store/loginInfoStore';
 
 function CommuCollectionCon() {
   const {
     talkPostData,
     setTalkPostData,
+    totalResults,
     setTotalResults,
     currentPage,
     setCurrentPage,
@@ -18,14 +20,24 @@ function CommuCollectionCon() {
   } = usePagination();
 
   useEffect(() => {
+    return () => {
+      setCurrentPage(1);
+    };
+  }, []);
+  useEffect(() => {
     fecthTalkData();
   }, [currentPage]);
 
+  const { userInfo } = useLoginInfoStore();
+  const userId = userInfo.userid;
   const fecthTalkData = async () => {
     try {
-      const response = await fetch(`${url}/mypage/talk?page=${currentPage}`, {
-        credentials: 'include',
-      });
+      const response = await fetch(
+        `${url}/mypage/talk/${userId}?page=${currentPage}`,
+        {
+          credentials: 'include',
+        }
+      );
       const data = await response.json();
       const talkPostList = data.talkPostList;
       console.log('받아온 데이터', data);
@@ -51,6 +63,7 @@ function CommuCollectionCon() {
         <p className={style.loadingMsg}>작성글이 없습니다.</p>
       ) : (
         <>
+          <p className={`fontBodyM ${style.myTotal}`}>총 {totalResults} 개</p>
           <ul className={style.talkListCon}>
             {talkPostData &&
               talkPostData.map((post) => (

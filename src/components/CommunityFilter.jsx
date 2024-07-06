@@ -8,8 +8,6 @@ function CommunityFilter() {
   const { resetPosts, applyFilter, fetchPosts, setPostsData, originalData } =
     usePostData();
   const { onBtn, setOnBtn } = buttonStore();
-  const buttonId = 'all';
-  const isOn = onBtn === buttonId;
 
   const handleFilter = (filter) => {
     setOnBtn(filter);
@@ -23,7 +21,9 @@ function CommunityFilter() {
       <h3 className="fontHead3">날씨패션 톡</h3>
       <div className={style.commuCateBtnCon}>
         <button
-          className={`fontBodyM ${style.all} ${isOn ? style.on : ''} `}
+          className={`fontBodyM ${style.all} ${
+            onBtn === 'all' ? style.on : ''
+          } `}
           onClick={() => {
             handleFilter('all');
           }}

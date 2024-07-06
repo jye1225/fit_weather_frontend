@@ -15,9 +15,6 @@ function DetailTitleArea({ fetchPostDetail, postId }) {
   const { isOpMenuOn, opMenuOpen, opMenuClose } = useOpenMenuModal();
   const { userInfo } = useLoginInfoStore();
 
-  // 수정해야 되는 사항
-  // 좋아요 수 실시간 반영 구현하기 - 이상하게 작동돼서 수정필요
-  // 이용자가 좋아요 눌렀던 상태일때 하트 채워져 있는 기능 구현하기
   const toggleLike = async () => {
     try {
       const response = await fetch(`${url}/posts/like`, {
@@ -69,7 +66,7 @@ function DetailTitleArea({ fetchPostDetail, postId }) {
   };
 
   useEffect(() => {
-    console.log(postId);
+    console.log('현재 포스트 아이디', postId);
     checkUserLikeList();
   }, []);
 
