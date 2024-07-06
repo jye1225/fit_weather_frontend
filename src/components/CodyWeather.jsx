@@ -2,7 +2,7 @@ import style from "../css/CodyWeather.module.css";
 import { useEffect } from "react";
 import useFetchStore from "../store/fetchStore";
 
-const CodyWeather = () => {
+const CodyWeather = ({ selectDate, setSelectDate }) => {
   const {
     location,
     fetchLocation,

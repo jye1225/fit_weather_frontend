@@ -105,165 +105,159 @@ const Hours = () => {
   };
 
   return (
-    <section className={`mw ${style.hours}`}>
-      <div className={style.top}>
-        <h2 className="fontHead3">시간별 날씨!</h2>
-        <span className="fontTitleS">활동</span>
-        <label className={style.switch}>
-          <input type="checkbox" onChange={btnToggle} />
-          <span className={`fontBodyS ${style.slider}`}></span>
-        </label>
-      </div>
-
-      <ul
-        className={`${style.filterCon} ${
-          checked ? style.visible : style.hidden
-        }`}
-      >
-        <li
-          className={`fontBodyM ${style.filter} ${
-            activeFilter === "cycle" ? style.active : ""
+    <section className={`mw ${style.wrap}`}>
+      <div className={style.hours}>
+        <div className={style.top}>
+          <h2 className="fontHead3">시간별 날씨!</h2>
+          <span className="fontTitleS">활동</span>
+          <label className={style.switch}>
+            <input type="checkbox" onChange={btnToggle} />
+            <span className={`fontBodyS ${style.slider}`}></span>
+          </label>
+        </div>
+        <ul
+          className={`${style.filterCon} ${
+            checked ? style.visible : style.hidden
           }`}
-          onClick={() => activityClick("cycle")}
         >
-          싸이클
-        </li>
-        <li
-          className={`fontBodyM ${style.filter} ${
-            activeFilter === "running" ? style.active : ""
-          }`}
-          onClick={() => activityClick("running")}
+          <li
+            className={`fontBodyM ${style.filter} ${
+              activeFilter === "cycle" ? style.active : ""
+            }`}
+            onClick={() => activityClick("cycle")}
+          >
+            싸이클
+          </li>
+          <li
+            className={`fontBodyM ${style.filter} ${
+              activeFilter === "running" ? style.active : ""
+            }`}
+            onClick={() => activityClick("running")}
+          >
+            러닝
+          </li>
+          <li
+            className={`fontBodyM ${style.filter} ${
+              activeFilter === "hikng" ? style.active : ""
+            }`}
+            onClick={() => activityClick("hikng")}
+          >
+            등산
+          </li>
+          <li
+            className={`fontBodyM ${style.filter} ${
+              activeFilter === "laundry" ? style.active : ""
+            }`}
+            onClick={() => activityClick("laundry")}
+          >
+            빨래
+          </li>
+          <li
+            className={`fontBodyM ${style.filter} ${
+              activeFilter === "walk" ? style.active : ""
+            }`}
+            onClick={() => activityClick("walk")}
+          >
+            반려동물 산책
+          </li>
+        </ul>
+        <Swiper
+          slidesPerView={6}
+          spaceBetween={30}
+          className={`mySwiper ${style.weatherCon}`}
         >
-          러닝
-        </li>
-        <li
-          className={`fontBodyM ${style.filter} ${
-            activeFilter === "hikng" ? style.active : ""
-          }`}
-          onClick={() => activityClick("hikng")}
-        >
-          등산
-        </li>
-        <li
-          className={`fontBodyM ${style.filter} ${
-            activeFilter === "laundry" ? style.active : ""
-          }`}
-          onClick={() => activityClick("laundry")}
-        >
-          빨래
-        </li>
-        <li
-          className={`fontBodyM ${style.filter} ${
-            activeFilter === "walk" ? style.active : ""
-          }`}
-          onClick={() => activityClick("walk")}
-        >
-          반려동물 산책
-        </li>
-      </ul>
-
-      <Swiper
-        slidesPerView={6}
-        spaceBetween={30}
-        className={`mySwiper ${style.weatherCon}`}
-      >
-        {weatherHour.map((h, index) => {
-          const skyValue = skyData?.find(
-            (item) => item.fcstTime === ("0" + h).slice(-2) + "00"
-          );
-          const ptyValue = ptyData?.find(
-            (item) => item.fcstTime === ("0" + h).slice(-2) + "00"
-          );
-          const tempValue = tempData?.find(
-            (item) => item.fcstTime === ("0" + h).slice(-2) + "00"
-          );
-          const popValue = popData?.find(
-            (item) => item.fcstTime === ("0" + h).slice(-2) + "00"
-          );
-
-          const weatherIcons = {
-            "1_0": "img/icons/weather/clear.svg", // 맑음
-            "4_0": "img/icons/weather/overcast.svg", // 흐림
-            "3_0": "img/icons/weather/cloudy.svg", // 구름많음
-            "3_1": "img/icons/weather/cloudyNrain.svg", // 구름많고 비
-            "4_1": "img/icons/weather/overcastNrain.svg", // 흐리고 비
-            "3_4": "img/icons/weather/cloudyNshower.svg", // 구름많고 소나기
-            "4_4": "img/icons/weather/overcastNshower.svg", // 흐리고 소나기
-            "4_3": "img/icons/weather/overcastNsnow.svg", // 흐리고 눈
-            "3_3": "img/icons/weather/cloudyNsnow.svg", // 구름많고 눈
-            "3_2": "img/icons/weather/cloudyNsleet.svg", // 구름많고 비/눈
-            "4_2": "img/icons/weather/overcastNsleet.svg", // 흐리고 비/눈
-          };
-
-          const imgSrc =
-            weatherIcons[`${skyValue?.fcstValue}_${ptyValue?.fcstValue}`] ||
-            "img/icons/weather/clear.svg"; // 기본 이미지 맑음으로 설정
-
-          const activityStates = {
-            cycle:
-              (tempValue?.fcstValue <= 30 || tempValue?.fcstValue >= 5) &&
-              (dust === "좋음" || "보통") &&
-              popValue?.fcstValue <= 50
-                ? "좋음"
-                : "나쁨",
-            running:
-              (tempValue?.fcstValue <= 30 || tempValue?.fcstValue >= 5) &&
-              (dust === "좋음" || "보통") &&
-              popValue?.fcstValue <= 50
-                ? "좋음"
-                : "나쁨",
-            hikng:
-              (tempValue?.fcstValue <= 30 || tempValue?.fcstValue >= 5) &&
-              (dust === "좋음" || "보통") &&
-              popValue?.fcstValue <= 50
-                ? "좋음"
-                : "나쁨",
-            laundry:
-              (tempValue?.fcstValue <= 30 || tempValue?.fcstValue >= 15) &&
-              popValue?.fcstValue <= 30
-                ? "좋음"
-                : "나쁨",
-            walk:
-              (tempValue?.fcstValue <= 30 || tempValue?.fcstValue >= 5) &&
-              (dust === "좋음" || "보통") &&
-              popValue?.fcstValue <= 30
-                ? "좋음"
-                : "나쁨",
-          };
-
-          const activityClass =
-            activityStates[selected] === "좋음"
-              ? style.activityGood
-              : style.activityBad;
-
-          const iconUrl =
-            activityStates[selected] === "좋음"
-              ? activityIcons[selected].good
-              : activityIcons[selected].bad;
-
-          return (
-            <SwiperSlide key={index}>
-              <div className={style.weatherItem}>
-                <p className="fontTitleS">{h}시</p>
-                <div id="imgCon">
-                  <img src={imgSrc} alt="날씨 이미지" />
+          {weatherHour.map((h, index) => {
+            const skyValue = skyData?.find(
+              (item) => item.fcstTime === ("0" + h).slice(-2) + "00"
+            );
+            const ptyValue = ptyData?.find(
+              (item) => item.fcstTime === ("0" + h).slice(-2) + "00"
+            );
+            const tempValue = tempData?.find(
+              (item) => item.fcstTime === ("0" + h).slice(-2) + "00"
+            );
+            const popValue = popData?.find(
+              (item) => item.fcstTime === ("0" + h).slice(-2) + "00"
+            );
+            const weatherIcons = {
+              "1_0": "img/icons/weather/clear.svg", // 맑음
+              "4_0": "img/icons/weather/overcast.svg", // 흐림
+              "3_0": "img/icons/weather/cloudy.svg", // 구름많음
+              "3_1": "img/icons/weather/cloudyNrain.svg", // 구름많고 비
+              "4_1": "img/icons/weather/overcastNrain.svg", // 흐리고 비
+              "3_4": "img/icons/weather/cloudyNshower.svg", // 구름많고 소나기
+              "4_4": "img/icons/weather/overcastNshower.svg", // 흐리고 소나기
+              "4_3": "img/icons/weather/overcastNsnow.svg", // 흐리고 눈
+              "3_3": "img/icons/weather/cloudyNsnow.svg", // 구름많고 눈
+              "3_2": "img/icons/weather/cloudyNsleet.svg", // 구름많고 비/눈
+              "4_2": "img/icons/weather/overcastNsleet.svg", // 흐리고 비/눈
+            };
+            const imgSrc =
+              weatherIcons[`${skyValue?.fcstValue}_${ptyValue?.fcstValue}`] ||
+              "img/icons/weather/clear.svg"; // 기본 이미지 맑음으로 설정
+            const activityStates = {
+              cycle:
+                (tempValue?.fcstValue <= 30 || tempValue?.fcstValue >= 5) &&
+                (dust === "좋음" || "보통") &&
+                popValue?.fcstValue <= 50
+                  ? "좋음"
+                  : "나쁨",
+              running:
+                (tempValue?.fcstValue <= 30 || tempValue?.fcstValue >= 5) &&
+                (dust === "좋음" || "보통") &&
+                popValue?.fcstValue <= 50
+                  ? "좋음"
+                  : "나쁨",
+              hikng:
+                (tempValue?.fcstValue <= 30 || tempValue?.fcstValue >= 5) &&
+                (dust === "좋음" || "보통") &&
+                popValue?.fcstValue <= 50
+                  ? "좋음"
+                  : "나쁨",
+              laundry:
+                (tempValue?.fcstValue <= 30 || tempValue?.fcstValue >= 15) &&
+                popValue?.fcstValue <= 30
+                  ? "좋음"
+                  : "나쁨",
+              walk:
+                (tempValue?.fcstValue <= 30 || tempValue?.fcstValue >= 5) &&
+                (dust === "좋음" || "보통") &&
+                popValue?.fcstValue <= 30
+                  ? "좋음"
+                  : "나쁨",
+            };
+            const activityClass =
+              activityStates[selected] === "좋음"
+                ? style.activityGood
+                : style.activityBad;
+            const iconUrl =
+              activityStates[selected] === "좋음"
+                ? activityIcons[selected].good
+                : activityIcons[selected].bad;
+            return (
+              <SwiperSlide key={index}>
+                <div className={style.weatherItem}>
+                  <p className="fontTitleS">{h}시</p>
+                  <div id="imgCon">
+                    <img src={imgSrc} alt="날씨 이미지" />
+                  </div>
+                  <p className="fontTitleM">
+                    {tempValue ? `${tempValue.fcstValue}°C` : "-°C"}
+                  </p>
                 </div>
-                <p className="fontTitleM">
-                  {tempValue ? `${tempValue.fcstValue}°C` : "-°C"}
-                </p>
-              </div>
-              <div
-                className={`${style.exItem} ${
-                  style.activity
-                } ${activityClass} ${checked ? style.visible : style.hidden}`}
-              >
-                <img src={iconUrl} alt={selected} />
-                <p className="fontTitleS">{activityStates[selected]}</p>
-              </div>
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
+                <div
+                  className={`${style.exItem} ${
+                    style.activity
+                  } ${activityClass} ${checked ? style.visible : style.hidden}`}
+                >
+                  <img src={iconUrl} alt={selected} />
+                  <p className="fontTitleS">{activityStates[selected]}</p>
+                </div>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      </div>
     </section>
   );
 };

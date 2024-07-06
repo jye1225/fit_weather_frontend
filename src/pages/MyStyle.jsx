@@ -8,7 +8,7 @@ function MyStyle() {
     tops: [],
     bottoms: [],
     outers: [],
-    others: [],
+    dresses: [],
   });
 
   const handleButtonClick = (category, value) => {
@@ -30,10 +30,10 @@ function MyStyle() {
         item //map 함수로 버튼 생성 : 중복 위해
       ) => (
         <button
-          key={item} //item이 티셔츠라면 key는 티셔츠가 됨
+          key={item} // item이 티셔츠라면 key는 티셔츠가 됨
           className={`fontBodyM ${
             selectedButtons[category].includes(item) ? style.selected : ""
-          }`} //category에 item이 포함되어 있는지 확인, 포함되어있으면 style.selected 클래스에 추가, 아니면 빈문자열 추가
+          }`} // category에 item이 포함되어 있는지 확인, 포함되어있으면 style.selected 클래스에 추가, 아니면 빈문자열 추가
           onClick={() => handleButtonClick(category, item)}
         >
           {item}
@@ -59,7 +59,7 @@ function MyStyle() {
           <p className={`fontTitleL ${style.mystyleBody}`}>
             선택한 취향에 따라 옷이 추천됩니다!
             <span className={style.mystyleBody_span}>
-              선택하지 않아도 가입은 완료됩니다.
+              선택하지 않아도 서비스를 이용할 수 있습니다.
             </span>
           </p>
         </div>
@@ -85,6 +85,8 @@ function MyStyle() {
               "슬랙스",
               "트레이닝 바지",
               "면바지",
+              "롱스커트",
+              "미니스커트",
             ])}
           </div>
         </div>
@@ -107,7 +109,7 @@ function MyStyle() {
         <div className={style.mystyleWrap}>
           <h2 className="fontTitleL">기타(선택)</h2>
           <div className={`fontBodyM ${style.button}`}>
-            {renderButtons("others", ["롱스커트", "미니스커트", "원피스"])}
+            {renderButtons("dresses", ["원피스"])}
           </div>
         </div>
 
