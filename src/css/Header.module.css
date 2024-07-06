@@ -29,9 +29,26 @@ h1 {
   color: var(--white);
   font-weight: bold;
 }
-
+.refreshBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+}
+.refreshBtn:hover {
+  animation: spin 1.3s ease-in-out infinite;
+}
 .refresh {
   cursor: pointer;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
 }
 
 /* 햄버거 메뉴 */

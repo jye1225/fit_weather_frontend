@@ -41,7 +41,7 @@ const Header = () => {
     fetchLocation();
   }, [fetchLocation]);
 
-  useEffect(() => {
+  const regionName = () => {
     if (location.latitude && location.longitude) {
       const { kakao } = window;
       const geocoder = new kakao.maps.services.Geocoder();
@@ -73,7 +73,18 @@ const Header = () => {
         }
       );
     }
+  };
+
+  useEffect(() => {
+    regionName();
   }, [location, setRegionFirstName, setRegionSecondName]);
+
+  const refresh = () => {
+    console.log('새로고침 클릭');
+    fetchLocation();
+    regionName();
+    console.log('지역', regionFirstName, regionSecondName, regionthirdName);
+  };
 
   return (
     <header className={style.hd}>
@@ -87,11 +98,18 @@ const Header = () => {
         <h1 id="myAddr">
           {regionFirstName} {regionSecondName} {regionthirdName}
         </h1>
-        <img
-          className={style.refresh}
-          src="img/icons/common/refresh.svg"
-          alt="새로고침"
-        />
+        <button
+          className={style.refreshBtn}
+          onClick={() => {
+            refresh();
+          }}
+        >
+          <img
+            className={style.refresh}
+            src="img/icons/common/refresh.svg"
+            alt="새로고침"
+          />
+        </button>
       </div>
       <Nav navOpen={navOpen} setNavOpen={setNavOpen} />
     </header>
