@@ -33,7 +33,7 @@
   align-items: center;
 }
 
-button {
+.page button {
   flex: 1;
   margin: 5px;
   padding: 8px 18px;
@@ -47,13 +47,13 @@ button {
   transition: background-color 0.3s, border-color 0.3s;
 }
 
-button.selected {
+.page button.selected {
   background-color: #376dd2;
   color: #fff;
   border-color: #376dd2;
 }
 
-.bottomButton {
+.page .bottomButton {
   width: 100%;
   border: none;
   font-weight: 700;
@@ -65,7 +65,7 @@ button.selected {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.bottomButton:disabled {
+.page .bottomButton:disabled {
   background-color: #dadada;
   color: white;
 }

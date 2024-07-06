@@ -1,38 +1,59 @@
 import { useEffect, useState, useRef } from 'react';
 import style from '../css/Codi.module.css'
 import { url } from '../store/ref'
-const CodiLogCalendar = ({ feltWeather, setModalActive, codiLogList, lastElementRef, TheMonth, TheYear }) => {
-    // console.log('필터 종류 - 달력/codiLogList', feltWeather, );
+const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogList, lastElementRef, TheMonth, TheYear, setNoTodayLogModal }) => {
+
+    console.log('필터 종류 - 달력/codiLogList', feltWeather,);
     console.log('codiLogList- 달력/', codiLogList);
     const [monthBoxes, setMonthBoxes] = useState([]); // 렌더링할 달력 박스들
+    const dayBoxesRef = useRef([]); // useRef를 사용하여 dayBoxesRef 생성 -> 모든 day
+    const hasLogsRef = useRef([]); // useRef를 사용하여 hasLogsRef 생성 -> 기록이 있는 day
+
+    const [today, setToday] = useState('');
+
 
     // 해당 달에 대한 상태
     const [LastDate, setLastDate] = useState('');//해당 달 며칠까지 있는지
     const [FirstDay, setFirstDay] = useState('');//해당 달 첫날 요일
 
-
-    // useEffect(() => {
-    //     console.log('!!!!!!!전달된 날짜', TheMonth, TheYear);
-    // }, [])
-
     useEffect(() => {//변동감지용
-        console.log('----- TheYear TheMonth 변동 : ', TheYear, TheMonth);
+        // console.log('----- TheYear TheMonth 변동 : ', TheYear, TheMonth);
         getFirstLastDate(TheYear, TheMonth);
-    }, [TheMonth])
+        getToday();
+    }, [TheYear, TheMonth])
 
     useEffect(() => {//변동감지용
-        console.log('-----FirstDay LastDate 변동 : ', TheMonth, '월:', FirstDay, '요일부터/', LastDate, '일까지');
-
+        // console.log('-----FirstDay LastDate 변동 : ', TheMonth, '월:', FirstDay, '요일부터/', LastDate, '일까지');
         if (FirstDay !== '' && LastDate !== '') {
             addMonthBox(TheYear, TheMonth, FirstDay, LastDate); // FirstDay와 LastDate가 모두 설정된 후에만 호출
         }
-    }, [FirstDay, LastDate])
+    }, [FirstDay, LastDate, codiLogList])
 
+
+    useEffect(() => {
+        updateDayBoxesClass();// 순회하며 코디 기록이 있는 날짜에 class, img 부여
+    }, [monthBoxes, ALLcodiLogList]);
+
+    useEffect(() => {
+        updateBoxesHasTag();
+    }, [feltWeather, codiLogList]);
+
+
+    function getToday() {
+        // 오늘 날짜를 생성하여 'YYYYMMDD' 형식의 문자열로 변환
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // 월을 2자리로 변환
+        const day = String(today.getDate()).padStart(2, '0'); // 일을 2자리로 변환
+        const todayString = `${year}-${month}-${day}`;
+
+        return setToday(todayString);
+    }
 
     function getFirstLastDate(Year, Month) {
         const lastDay = new Date(Year, Month, 0).getDate(); // 이번 달의 마지막 일자
         const firstDayOfWeek = new Date(Year, Month - 1, 1).getDay();//(0: 일요일, 1: 월요일, ..., 6: 토요일)
-        console.log('getFirstLastDate', firstDayOfWeek);
+        // console.log('getFirstLastDate', firstDayOfWeek);
         // if (lastDay && firstDayOfWeek) {
         if (lastDay !== undefined && firstDayOfWeek !== undefined) {
 
@@ -40,7 +61,6 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, codiLogList, lastElement
             setFirstDay(firstDayOfWeek);
         }
     };
-
 
     function renderEmptyDayBoxs(FirstDay) {
         const emptyDayBoxs = [];
@@ -56,23 +76,25 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, codiLogList, lastElement
 
         for (let i = 1; i < LastDay + 1; i++) {
             let dayNum = i.toString().padStart(2, '0');
-
+            const targetDate = `${Year}-${monthNum}-${dayNum}`;
             dayBoxs.push(
                 <li
+                    ref={(el) => dayBoxesRef.current.push(el)} // 각 li 요소에 ref를 설정하여 dayBoxesRef에 저장
                     className={style.day}
-                    key={`${Year}-${monthNum}-${dayNum}`}>
-                    {/* li의 키값: 날짜 ex 2024-07-04 */}
-                    <div className={style.imgCon}>
-                        {/* <img src={`${url}/uploads/codiLog/1719853930121.jpeg`} alt="" /> */}
-                    </div>
-                    <span>{i}</span>
-                </li>);
+                    key={targetDate}
+                    data-targetdate={targetDate} // targetDate를 data-targetdate 속성으로 추가
+                >
+                    < div className={style.imgCon} >
+                        {/* 기록 있으면 여기 사진들어갈 것임 */}
+                    </ div >
+                    <span >{i}</span>
+                </li >);
         }
         return dayBoxs;
     }
 
     function renderTheMonthBox(TheYear, TheMonth, FirstDay, LastDate) {
-        console.log('renderTheMonthBox', TheYear, TheMonth);
+        // console.log('renderTheMonthBox', TheYear, TheMonth);
         return (
             <div ref={lastElementRef} className={style.month} key={`${TheYear}-${TheMonth}`}>
                 <strong className='fontTitleM'>{TheMonth !== 1 ? TheYear : TheYear + 1}년 {TheMonth}월</strong>
@@ -106,9 +128,56 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, codiLogList, lastElement
 
         setMonthBoxes(prevBoxes => [...prevBoxes, newMonthBox,]); // 새로운 박스를 뒤에 추가
     }
-    useEffect(() => {
-        console.log('>>>>>monthBoxes', monthBoxes);
-    }, [monthBoxes])
+
+    function updateDayBoxesClass() {
+        dayBoxesRef.current.forEach((dayBox) => {
+            if (dayBox) {
+                const targetDate = dayBox.getAttribute('data-targetdate'); // 요소가 존재할 때만 처리
+
+                if (targetDate) {
+                    const foundLog = ALLcodiLogList.find(obj => obj.codiDate === targetDate);
+                    if (foundLog !== undefined) {
+                        dayBox.classList.add(style.hasLog);
+                        dayBox.addEventListener('click', () => { setModalActive(foundLog._id) });
+                        const img = document.createElement('img');
+                        img.src = `${url}/${foundLog.image}`;
+                        img.alt = `${foundLog.image}`;
+                        // img.onload = () => console.log(`Image loaded: ${targetDate}`);
+                        dayBox.querySelector(`.${style.imgCon}`).appendChild(img);
+
+                        dayBox.setAttribute('data-tag', foundLog.tag); // foundLog가 있을 경우 data-tag 속성 설정
+                        hasLogsRef.current.push(dayBox); // foundLog가 있는 경우 dayBox의 ref를 hasLogsRef에 추가
+
+                    }
+                    if (targetDate === today) {
+                        dayBox.classList.add(style.activeToday);
+                        if (foundLog === undefined) {
+                            // dayBox.addEventListener('click', () => setNoTodayLogModal(true));
+                        } else if (foundLog !== undefined) {
+                            // dayBox.addEventListener('click', () => { setModalActive(foundLog._id) });
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+
+    function updateBoxesHasTag() {
+        hasLogsRef.current.forEach((dayBox) => {
+            dayBox.classList.remove(style.activeTag);
+
+            if (dayBox) {
+                const targetTag = dayBox.getAttribute('data-tag');// 요소가 존재할 때만 처리
+                const tagArray = targetTag.split(','); //기록 li들이 갖고 있는 tag 배열화
+
+                // console.log('-------', tagArray);
+                if (feltWeather.length && feltWeather.every((activeTag) => tagArray.includes(activeTag))) {
+                    dayBox.classList.add(style.activeTag);
+                }
+            }
+        });
+    }
 
     return (
         <div className={style.calendarWrap} >
@@ -123,18 +192,7 @@ export default CodiLogCalendar
 
 
 {/*----------- li samples -----------*/ }
-{/* <li className={style.day}>
-    <div className={style.imgCon}>
-        <img src={`${url}/uploads/codiLog/1719853930121.jpeg`} alt="" />
-    </div>
-    <span>1</span>
-</li> */}
-{/* <li className={`${style.day} ${style.activeTag}`}>
-    <div className={style.imgCon}>
-        <img src={`${url}/uploads/codiLog/1719855085236.jpeg`} alt="" />
-    </div>
-    <span>2</span>
-</li> */}
+
 {/* <li className={`${style.day} ${style.activeToday}`}>
     <div className={style.imgCon}>
         <img src={`${url}/uploads/codiLog/1719854442475.jpeg`} alt="" />

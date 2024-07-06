@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import style from '../css/Codi.module.css';
 // conponents
+import Footer from '../components/Footer';
 import H2CodiLog from '../components/H2CodiLog';
 import CodiLogGallery from '../components/CodiLogGallery';
 import CodiLogCalendar from '../components/CodiLogCalendar';
@@ -18,10 +19,12 @@ const CodiLog = () => {
   const { userInfo } = useLoginInfoStore();
 
   const [codiView, setCodiView] = useState('calendar'); // 초기 상태 : 달력
+
   //  선택한 codilog 체감날씨 filter
   const [feltWeather, setFeltWeather] = useState([]); // 선택한 옵션 배열 . 초기 상태 : 빈 배열
   //  codi Modal 
   const [modalActive, setModalActive] = useState(null); //코디기록 데이터 _id OR null
+  const [noTodayLogModal, setNoTodayLogModal] = useState(null); //코디기록 데이터 _id OR null
 
   //  codiLog list 받아오기
   const [codiLogList, setCodiLogList] = useState([]);//화면에 뿌릴 리스트
@@ -30,7 +33,7 @@ const CodiLog = () => {
 
   /////*** 페이지 번호를 추적하기 위한 state
   const [page, setPage] = useState(0);
-  const limit = 16;
+  const limit = 32;
   const observer = useRef();// IntersectionObserver 참조
 
 
@@ -64,6 +67,7 @@ const CodiLog = () => {
     }
   }
 
+
   useEffect(() => {
     if (userInfo) {  // userInfo가 유효한지 확인
       setPage(0); // 페이지 번호 초기화
@@ -71,7 +75,7 @@ const CodiLog = () => {
     } else {
       console.error('User info is not available');
     }
-  }, [userInfo, codiView]);
+  }, [codiView]);
 
 
   useEffect(() => {
@@ -94,9 +98,6 @@ const CodiLog = () => {
       setCodiLogList(ALLcodiLogList);
     }
   }, [feltWeather]);
-
-
-
 
   useEffect(() => {
     getCurrentDate()
@@ -148,13 +149,102 @@ const CodiLog = () => {
     }
   }, [page, TheMonth]);
 
+  //마우스 클릭-스크롤 관련 
+  const verticalScrollRef = useRef(null); // 상하 스크롤 컨테이너
+  const horizontalScrollRef = useRef(null); // 좌우 스크롤 컨테이너
+
+  // 상하 스크롤 관련 상태
+  const [isMouseDownVert, setIsMouseDownVert] = useState(false);
+  const [startY, setStartY] = useState(0);
+  const [scrollTop, setScrollTop] = useState(0);
+
+  // 좌우 스크롤 관련 상태
+  const [isMouseDownHorz, setIsMouseDownHorz] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  // 상하 스크롤 이벤트 핸들러
+  useEffect(() => {
+    const verticalScrollContainer = verticalScrollRef.current;
+
+    const handleMouseDownVert = (e) => {
+      setIsMouseDownVert(true);
+      setStartY(e.pageY - verticalScrollContainer.offsetTop);
+      setScrollTop(verticalScrollContainer.scrollTop);
+      verticalScrollContainer.style.cursor = 'grabbing';
+      e.preventDefault();
+    };
+
+    const handleMouseUpVert = () => {
+      setIsMouseDownVert(false);
+      if (verticalScrollContainer) {
+        verticalScrollContainer.style.cursor = 'grab';
+      }
+    };
+
+    const handleMouseMoveVert = (e) => {
+      if (!isMouseDownVert) return;
+      const y = e.pageY - verticalScrollContainer.offsetTop;
+      const walkY = y - startY;
+      verticalScrollContainer.scrollTop = scrollTop - walkY;
+    };
+
+    verticalScrollContainer.addEventListener('mousedown', handleMouseDownVert);
+    document.addEventListener('mouseup', handleMouseUpVert);
+    document.addEventListener('mousemove', handleMouseMoveVert);
+
+    return () => {
+      verticalScrollContainer.removeEventListener('mousedown', handleMouseDownVert);
+      document.removeEventListener('mouseup', handleMouseUpVert);
+      document.removeEventListener('mousemove', handleMouseMoveVert);
+    };
+  }, [isMouseDownVert, startY, scrollTop]);
+
+  // 좌우 스크롤 이벤트 핸들러
+  useEffect(() => {
+    const horizontalScrollContainer = horizontalScrollRef.current;
+
+    const handleMouseDownHorz = (e) => {
+      setIsMouseDownHorz(true);
+      setStartX(e.pageX - horizontalScrollContainer.offsetLeft);
+      setScrollLeft(horizontalScrollContainer.scrollLeft);
+      horizontalScrollContainer.style.cursor = 'grabbing';
+      e.preventDefault();
+    };
+
+    const handleMouseUpHorz = () => {
+      setIsMouseDownHorz(false);
+      if (horizontalScrollContainer) {
+        horizontalScrollContainer.style.cursor = 'grab';
+      }
+    };
+
+    const handleMouseMoveHorz = (e) => {
+      if (!isMouseDownHorz) return;
+      const x = e.pageX - horizontalScrollContainer.offsetLeft;
+      const walkX = x - startX;
+      horizontalScrollContainer.scrollLeft = scrollLeft - walkX;
+    };
+
+    horizontalScrollContainer.addEventListener('mousedown', handleMouseDownHorz);
+    document.addEventListener('mouseup', handleMouseUpHorz);
+    document.addEventListener('mousemove', handleMouseMoveHorz);
+
+    return () => {
+      horizontalScrollContainer.removeEventListener('mousedown', handleMouseDownHorz);
+      document.removeEventListener('mouseup', handleMouseUpHorz);
+      document.removeEventListener('mousemove', handleMouseMoveHorz);
+    };
+  }, [isMouseDownHorz, startX, scrollLeft]);
+
+
   return (
     <main className={`mw ${style.codiLog}`}>
       <H2CodiLog codiView={codiView} setCodiView={setCodiView} />
 
       <div className={style.topArea}>
         <h3 className="fontHead3">체감날씨</h3>
-        <div className={style.toggleContainer}>
+        <div className={style.toggleContainer} ref={horizontalScrollRef} >
           <div className={style.toggleWrapper}>
             {feltOptions.map((Option, index) => (
               <button
@@ -169,7 +259,7 @@ const CodiLog = () => {
           </div>
         </div>
       </div>
-      <section className={style.CodiViewFrame}>
+      <section className={style.CodiViewFrame} ref={verticalScrollRef} >
         {codiView === 'gallery' ? (
           <CodiLogGallery
             feltWeather={feltWeather}
@@ -185,10 +275,16 @@ const CodiLog = () => {
             feltWeather={feltWeather}
             setModalActive={setModalActive}
             codiLogList={codiLogList}
+            ALLcodiLogList={ALLcodiLogList}
             lastElementRef={lastElementRef} // 마지막 요소 ref 전달
+            // setCodiView={setCodiView}
+            setNoTodayLogModal={setNoTodayLogModal}
           />
         )}
       </section>
+
+      <Footer />
+
       {modalActive ? (
         <section className={style.CodiLogModal}>
           <CodiLogBox
@@ -199,6 +295,20 @@ const CodiLog = () => {
       ) : (
         ''
       )}
+
+      {noTodayLogModal ? (
+        <section className={style.CodiLogModal}>
+          <CodiLogBox
+            setNoTodayLogModal={noTodayLogModal}
+            noTodayLogModal={noTodayLogModal}
+          />
+          {/* <CodiLogBox */}
+          {/* setNoTodayLogModal={true} */}
+          {/* modalActive={modalActive} */}
+          {/* /> */}
+        </section>
+      ) : ('')}
+
     </main>
   );
 };

@@ -7,12 +7,13 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  /* padding-top: 100px; */
+  justify-content: space-between;
   padding-bottom: 4%;
   z-index: 0;
 }
 
-.MainweatherBGcon > * {
+.MainweatherBGcon>* {
   position: relative;
   z-index: 1;
   /* border: 2px solid red; */
@@ -38,33 +39,31 @@
   bottom: 0;
   left: 0;
   background: var(--grey-100);
-  background: linear-gradient(
-    0deg,
-    rgba(238, 238, 238, 1) 0%,
-    rgba(238, 238, 238, 0) 100%
-  );
+  background: linear-gradient(0deg,
+      rgba(238, 238, 238, 1) 0%,
+      rgba(238, 238, 238, 0) 100%);
 }
 
 .MainweatherBG img {
-    width: 100%;
-    height: 100%;
-    object-position: center;
-    opacity: 0.8;
-    position: absolute;
-    /* top: 0; */
+  width: 100%;
+  height: 100%;
+  object-position: center;
+  opacity: 0.8;
+  position: absolute;
+  /* top: 0; */
 }
 
 .MainweatherBG img.bg {
-    height: auto;
-    bottom: 0;
+  height: auto;
+  bottom: 0;
 }
 
 .MainweatherBG img.skyWeather {
-    object-fit: cover;
-    object-position: top;
-    position: fixed;
-    max-width: 720px;
-    top: 0;
+  object-fit: cover;
+  object-position: top;
+  position: fixed;
+  max-width: 720px;
+  top: 0;
 }
 
 /*   width: 100%;
@@ -72,4 +71,3 @@
   object-fit: cover;
   opacity: 0.8; 
 } */
-

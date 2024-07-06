@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import style from "../css/Codi.module.css";
 import bgStyle from "../css/MainWeatherBG.module.css";
+import Footer from "../components/Footer";
 
 import CodiGuidelineBox from "../components/CodiGuidelineBox";
 import MainweatherBG from "../components/MainWeatherBG";
@@ -49,7 +50,10 @@ const CodiMain = () => {
           <img src="img/icons/common/alertSquare.svg" alt="" />
         </button>
       </div>
+
+      <Footer />
       {/* <CodiGuidelineBox /> */}
+
     </main>
   );
 };
