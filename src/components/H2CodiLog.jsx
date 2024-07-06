@@ -28,6 +28,7 @@ const H2CodiLog = ({ codiView, setCodiView }) => {
     }
   }, [codiView]);
 
+
   return (
     <section className={style.header2}>
       <img

@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import style from '../css/MypageProfileArea.module.css';
+import { useState } from "react";
+import style from "../css/MypageProfileArea.module.css";
+import { Link } from "react-router-dom";
 
 function MypageProfileArea() {
   const [onEditProfile, setOnEditProfile] = useState(false);
@@ -24,7 +25,7 @@ function MypageProfileArea() {
       {!onEditProfile ? (
         <div className={style.myPofile}>
           <div className={style.pofileImg}>
-            <img src="/img/img2.jpg" alt="유저아이디" />
+            <img src="/img/default/man_photo.svg" alt="유저아이디" />
           </div>
           <span className="fontTitleXL ">유저네임</span>
           <p className="fontBodyM">
@@ -34,7 +35,9 @@ function MypageProfileArea() {
             <button className="fontTitleM" onClick={profileEdit}>
               프로필 관리
             </button>
-            <button className="fontTitleM">개인정보 관리</button>
+            <button className="fontTitleM">
+              <Link to="/myinfomanage">개인정보 관리</Link>
+            </button>
           </div>
         </div>
       ) : (

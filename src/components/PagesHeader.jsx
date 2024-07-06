@@ -10,8 +10,10 @@ function PagesHeader({ title, clickBack }) {
   const referre = queryParams.get('referrer');
 
   const goBack = () => {
-    if (referre === 'edit') {
+    if (referre === 'edit' || referre === 'cmplt') {
       navigate('/community');
+    } else if (referre === 'clctn') {
+      navigate('/mypage');
     } else {
       navigate(-1);
     }

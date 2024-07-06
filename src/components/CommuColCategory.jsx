@@ -10,7 +10,7 @@ function CommuColCategory() {
       <div className={style.commuCollCateHd}>
         <div className={style.buttonCon}>
           <Link
-            to="/comuCollect"
+            to="/comuCollect?referrer=clctn"
             className={`fontBodyM ${onMyPageCate === 'talk' ? style.on : ''}`}
             onClick={() => {
               setOnMyPageCate('talk');
@@ -19,7 +19,7 @@ function CommuColCategory() {
             작성글
           </Link>
           <Link
-            to="/comuCollect/comment"
+            to="/comuCollect/comment?referrer=clctn"
             className={`fontBodyM ${
               onMyPageCate === 'comment' ? style.on : ''
             }`}
@@ -30,7 +30,7 @@ function CommuColCategory() {
             작성댓글
           </Link>
           <Link
-            to="/comuCollect/like"
+            to="/comuCollect/like?referrer=clctn"
             className={`fontBodyM ${onMyPageCate === 'like' ? style.on : ''}`}
             onClick={() => {
               setOnMyPageCate('like');

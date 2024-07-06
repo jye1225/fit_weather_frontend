@@ -6,6 +6,7 @@ import WeatherTalk from "../components/WeatherTalk";
 import Avatar from "../components/Avatar";
 import Hours from "../components/Hours";
 import Weekly from "../components/Weekly";
+import Footer from "../components/Footer";
 
 import bgStyle from "../css/MainWeatherBG.module.css";
 import MainWeatherBG from "../components/MainWeatherBG";
@@ -34,6 +35,7 @@ const IndexPage = () => {
         </div>
         <Hours />
         <Weekly />
+        <Footer />
       </main>
     </>
   );
