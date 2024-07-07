@@ -77,12 +77,13 @@
 }
 
 .MainweatherBG img.skySun {
+  /* border: 1px solid red; */
   object-fit: contain;
   object-position: top;
   position: fixed;
   max-width: 720px;
   top: 0;
-  /* top: 8%; */
+  transform: translateX(-55%);
 }
 
 .MainweatherBG img.skyCloud {

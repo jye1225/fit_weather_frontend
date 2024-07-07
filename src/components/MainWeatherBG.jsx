@@ -20,7 +20,7 @@ const MainWeatherBG = () => {
         const storedPty = localStorage.getItem('pmPTY');
         if (storedSky && storedPty) {
             setSKY(storedSky);
-            setSKY(4);///임시고정
+            // setSKY(4);///임시고정
             setPTY(storedPty);
             // setPTY(1);
         }
