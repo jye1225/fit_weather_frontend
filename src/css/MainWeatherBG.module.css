@@ -68,6 +68,14 @@
   top: 0;
 }
 
+.MainweatherBG img.rain {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* object-fit: contain; */
+  /* object-position: center; */
+}
+
 .MainweatherBG img.skySun {
   object-fit: contain;
   object-position: top;
