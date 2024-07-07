@@ -371,6 +371,22 @@ button {
     justify-content: center;
 }
 
+.CodiLogBox.alreadyLog {
+    padding-bottom: 3rem;
+    max-width: 400px;
+}
+
+.CodiLogBox.alreadyLog h3 {
+
+    text-align: center;
+    line-height: 150%;
+}
+
+.CodiLogBox.alreadyLog>img {
+    width: 2rem;
+    margin: auto;
+}
+
 /* =========CodiLogBox========= */
 .CodiLogBox {
     background-color: var(--white);
@@ -669,6 +685,9 @@ button {
     height: 40px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 15%);
     transition: 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .CodiCompleted .btnMethodWide:last-of-type {
@@ -713,6 +732,7 @@ button {
     gap: 1rem;
     cursor: pointer;
     transition: 0.15s;
+
 }
 
 .bigBtnCon .bigBtn:hover {
@@ -846,7 +866,7 @@ button {
 }
 
 .modalCheck .modalBox .btns {
-    border: 1px solid red;
+    /* border: 1px solid red; */
     display: flex;
     gap: 1rem;
     width: 100%;
@@ -867,13 +887,82 @@ button {
 }
 
 .CodiGuidelineBoxCon .modalBox {
-    background-color: var(--white);
+    background-color: var(--grey-100);
     width: calc(100% - 4rem);
-    max-width: calc(720px - 2rem);
+    max-width: 400px;
     border-radius: 1rem;
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+
 }
 
+.CodiGuidelineBoxCon .modalBox .top {
+    justify-content: flex-end;
+}
+
+.CodiGuidelineBoxCon .modalBox h3 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--grey-600);
+}
+
+.CodiGuidelineBoxCon .modalBox .contents {
+    /* border: 1px solid red; */
+    display: flex;
+    gap: 8px;
+}
+
+.CodiGuidelineBoxCon .modalBox .tempBar {
+    color: var(--white);
+    background: rgb(98, 153, 255);
+    background: linear-gradient(0deg, rgba(98, 153, 255, 1) 5%, rgba(110, 236, 255, 1) 24%, rgba(153, 235, 166, 1) 42%, rgba(255, 218, 86, 1) 61%, rgba(255, 150, 65, 1) 80%, rgba(252, 113, 103, 1) 100%);
+    padding: 1.2rem 0.5rem;
+    border-radius: 999px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.CodiGuidelineBoxCon .modalBox .tempBar span {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 15%);
+}
+
+.CodiGuidelineBoxCon .modalBox .GuideCon {
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+    flex: 1;
+}
+
+.CodiGuidelineBoxCon .modalBox .GuideCon .guideBox {
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: 8px;
+    gap: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 15%);
+
+    align-items: center;
+    word-break: keep-all;
+    /* 단어 단위로 줄바꿈 설정 */
+    white-space: normal;
+    /* 기본 줄바꿈 동작 유지 */
+}
+
+.CodiGuidelineBoxCon .modalBox .GuideCon .guideBox img {
+    height: 24px;
+    max-width: 33%;
+}
 
 @media screen and (min-width:736px) {
     .CodiViewFrame {
@@ -890,5 +979,27 @@ button {
 
     .CodiCompleted .bottomWideBtns {
         padding: 1rem 0;
+    }
+}
+
+@media screen and (max-width:390px) {
+    .CodiGuidelineBoxCon .modalBox .GuideCon .guideBox {
+        position: relative;
+        height: 40px;
+        align-items: flex-start;
+    }
+
+    .CodiGuidelineBoxCon .modalBox .GuideCon .guideBox span {
+        /* border: 1px solid red; */
+        width: 90%;
+    }
+
+    .CodiGuidelineBoxCon .modalBox .GuideCon .guideBox img {
+        position: absolute;
+        right: 8px;
+        bottom: 4px;
+        height: 36%;
+        max-width: unset;
+
     }
 }

@@ -19,8 +19,8 @@ const MainWeatherBG = () => {
         const storedSky = localStorage.getItem('pmSKY');
         const storedPty = localStorage.getItem('pmPTY');
         if (storedSky && storedPty) {
-            // setSKY(storedSky);
-            setSKY(1);//임시고정
+            setSKY(storedSky);
+            // setSKY(4);//임시고정
             setPTY(storedPty);
         }
 
@@ -33,7 +33,12 @@ const MainWeatherBG = () => {
 
     return (
         <div className={bgStyle.MainweatherBG}>
-            <img className={bgStyle.skyWeather} src={`img/weatherBG/sky/${SKY}.png`} alt="SKY" />
+            <img className={bgStyle.skyWeather} src={`img/weatherBG/sky/0${SKY}-3.png`} alt="SKY" />
+            <img className={bgStyle.skySun} src={`img/weatherBG/sky/0${SKY}-2.png`} alt="SKY" />
+            <img className={bgStyle.skyCloud} src={`img/weatherBG/sky/0${SKY}-1.png`} alt="SKY" />
+            {/* <img className={bgStyle.skyCloud} src={`img/weatherBG/sky/0${SKY}.png`} alt="SKY" /> */}
+
+            {/* <img className={bgStyle.skyWeather} src={`img/weatherBG/sky/${SKY}.png`} alt="SKY" /> */}
             <img className={bgStyle.bg} src={`img/weatherBG/bg/${bgImg || `loading`}.png`} alt="bgImg" />
         </div>
     )
