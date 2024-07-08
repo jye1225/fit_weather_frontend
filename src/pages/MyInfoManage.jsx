@@ -3,9 +3,10 @@ import style from "../css/MyInfoManage.module.css";
 import { Link } from "react-router-dom";
 import { url } from "../store/ref";
 
-import Footer from "../components/Footer.jsx";
 import ManageModal from "../components/ManageModal.jsx"; // 이용약관 모듈창
+import CancelAccount from "../components/CancelAccount.jsx"; // 탈퇴 모달창
 import HeaderAccountManage from "../components/HeaderAccountManage.jsx"; // 헤더
+import CancleAccount from "../components/CancelAccount.jsx";
 
 const Modify = () => {
   const [userid, setUserid] = useState(""); // 사용자 ID
@@ -70,18 +71,28 @@ const Modify = () => {
       setMessage4("");
     }
 
+    setShowTerms(true); // 성공 시 수정하시겠습니까 라는 모달창 호출
+  };
+
+  const confirmUpdateUserInfo = async () => {
     const token = localStorage.getItem("token"); // 로컬 스토리지에서 토큰을 가져옴
-    const response = await fetch(`${url}/updateUserInfo?token=${token}`, {
-      method: "POST",
-      body: JSON.stringify({ password, gender }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.ok) {
-      setShowTerms(true); // 성공 시 수정하시겠습니까 라는 모달창 호출
-    } else {
-      alert("개인정보 수정에 실패하였습니다.");
+    try {
+      const response = await fetch(`${url}/updateUserInfo?token=${token}`, {
+        method: "POST",
+        body: JSON.stringify({ password, gender }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        alert("개인정보 수정이 완료되었습니다.");
+        setShowTerms(false); // 모달창 닫기
+      } else {
+        alert("개인정보 수정에 실패하였습니다.");
+      }
+    } catch (error) {
+      console.error("Error updating user info:", error);
+      alert("서버 오류가 발생하였습니다. 다시 시도해주세요.");
     }
   };
 
@@ -153,16 +164,22 @@ const Modify = () => {
             다음으로
           </button>
         </form>
-        {showTerms && <ManageModal />}
+        {showTerms && (
+          <ManageModal
+            onClose={() => setShowTerms(false)}
+            onConfirm={confirmUpdateUserInfo}
+          />
+        )}
 
         <div className={style.delete}>
           <div className={`fontBodyM ${style.deleteMemo}`}>
-            회원정보를 삭제하사갰어요?{" "}
+            회원정보를 삭제하시겠어요?{" "}
             <button className={`fontBodyM ${style.deleteButton}`}>
               {/* 아직 기능 구현 전 */}
               탈퇴하기
             </button>
           </div>
+          {showTerms && <CancleAccount />}
         </div>
       </div>
     </>
