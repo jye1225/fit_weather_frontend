@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import style from '../css/MypageProfileArea.module.css';
-import { Link } from 'react-router-dom';
-import { useLoginInfoStore } from '../store/loginInfoStore';
+import { useState } from "react";
+import style from "../css/MypageProfileArea.module.css";
+import { Link } from "react-router-dom";
+import { useLoginInfoStore } from "../store/loginInfoStore";
 
 function MypageProfileArea() {
   const { userInfo } = useLoginInfoStore();
@@ -40,9 +40,9 @@ function MypageProfileArea() {
             <button className="fontTitleM" onClick={profileEdit}>
               프로필 관리
             </button>
-            <button className="fontTitleM">
-              <Link to="/myinfomanage">개인정보 관리</Link>
-            </button>
+            <Link to="/myinfomanage">
+              <button className="fontTitleM">개인정보 관리</button>
+            </Link>
           </div>
         </div>
       ) : (
