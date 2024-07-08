@@ -37,6 +37,13 @@
   fill: var(--grey-200);
   transition: 0.3s;
 }
+.coordiReview .topCount {
+  border-color: var(--primary-variant-color);
+  color: var(--primary-variant-color);
+}
+.coordiReview .topCount svg path {
+  fill: var(--primary-color);
+}
 
 .goodBtn:hover,
 .goodBtn.on {

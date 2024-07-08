@@ -1,8 +1,10 @@
-import { useState } from "react";
-import style from "../css/MypageProfileArea.module.css";
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import style from '../css/MypageProfileArea.module.css';
+import { Link } from 'react-router-dom';
+import { useLoginInfoStore } from '../store/loginInfoStore';
 
 function MypageProfileArea() {
+  const { userInfo } = useLoginInfoStore();
   const [onEditProfile, setOnEditProfile] = useState(false);
 
   // '프로필 관리' 버튼 눌렀을 때 실행되는 함수
@@ -14,7 +16,7 @@ function MypageProfileArea() {
   };
 
   //'프로필 수정 완료' 버튼 눌렀을 때 실행되는 함수
-  const profileEditCopl = () => {
+  const profileEditCopl = async () => {
     setOnEditProfile(false);
 
     // 변경된 프로필 내용 서버로 전송후 DB저장 로직 추가해주세요.
@@ -25,9 +27,12 @@ function MypageProfileArea() {
       {!onEditProfile ? (
         <div className={style.myPofile}>
           <div className={style.pofileImg}>
-            <img src="/img/default/man_photo.svg" alt="유저아이디" />
+            <img
+              src="/img/default/man_photo.svg"
+              alt={`${userInfo.userid} profileImg`}
+            />
           </div>
-          <span className="fontTitleXL ">유저네임</span>
+          <span className="fontTitleXL">{userInfo.username}</span>
           <p className="fontBodyM">
             안녕하세요! <br /> 만나서 반갑습니다~
           </p>
@@ -44,7 +49,8 @@ function MypageProfileArea() {
         <div className={style.pofileEdit}>
           {/* 사진 선택을 위해 input요소로 변경해야 됨 */}
           <div className={style.pofileImg}>
-            <img src="/img/img2.jpg" alt="유저아이디" />
+            <img src="/img/img2.jpg" alt={`${userInfo.userid} profileImg`} />
+            <input type="file" accept="image/*" id="profileImg" />
           </div>
           <label htmlFor="userName">
             <span className="fontHead3">닉네임</span>
@@ -53,6 +59,7 @@ function MypageProfileArea() {
               id="userName"
               maxLength="10"
               className="fontBodyM"
+              value={userInfo.username}
             />
             <button className="fontTitleM">중복확인</button>
           </label>

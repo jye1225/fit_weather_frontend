@@ -48,6 +48,10 @@ function DetailTitleArea({ fetchPostDetail, postId }) {
         }
       );
       const data = await response.json();
+      if (data === null) {
+        console.log('좋아요 리스트 없음');
+        return;
+      }
       // console.log('좋아요리스트', data);
       // console.log('포스트아이디들', data.postId);
 
@@ -126,7 +130,7 @@ function DetailTitleArea({ fetchPostDetail, postId }) {
           ></button>
         </div>
       </div>
-      {postDetail.userId === userInfo?.userid && (
+      {postDetail.userId == userInfo?.userid && (
         <div className={style.option} ref={optionMenuRef}>
           <i
             className="fa-solid fa-ellipsis-vertical"

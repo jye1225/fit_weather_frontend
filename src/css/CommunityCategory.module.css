@@ -28,17 +28,23 @@
 .communityHd a {
   width: 100%;
   border: 1px solid var(--white);
-  padding: 0.8rem 1rem;
+  padding: 0.5rem 1rem;
   background-color: var(--primary-color);
   color: var(--white);
   border-radius: 999px;
   cursor: pointer;
   transition: 0.3s;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .communityHd a.on,
 .communityHd a:hover {
   background-color: var(--white);
   color: var(--primary-variant-color);
   font-weight: bold;
+}
+.communityHd a > p {
+  font-size: 0.5rem;
 }
