@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import style from '../css/Codi.module.css'
 import { url } from '../store/ref'
-const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogList, lastElementRef, TheMonth, TheYear, setCodiView }) => {
+const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogList, lastElementRef, TheMonth, TheYear, today }) => {
 
     console.log('필터 종류 - 달력/codiLogList', feltWeather,);
     console.log('codiLogList- 달력/', codiLogList);
@@ -9,7 +9,7 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
     const dayBoxesRef = useRef([]); // useRef를 사용하여 dayBoxesRef 생성 -> 모든 day
     const hasLogsRef = useRef([]); // useRef를 사용하여 hasLogsRef 생성 -> 기록이 있는 day
 
-    const [today, setToday] = useState('');
+    // const [today, setToday] = useState('');
 
     // 해당 달에 대한 상태
     const [LastDate, setLastDate] = useState('');//해당 달 며칠까지 있는지
@@ -18,7 +18,7 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
     useEffect(() => {//변동감지용
         // console.log('----- TheYear TheMonth 변동 : ', TheYear, TheMonth);
         getFirstLastDate(TheYear, TheMonth);
-        getToday();
+        // getToday();
     }, [TheYear, TheMonth])
 
     useEffect(() => {//변동감지용
@@ -31,23 +31,23 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
 
     useEffect(() => {
         updateDayBoxesClass();// 순회하며 코디 기록이 있는 날짜에 class, img 부여
-    }, [monthBoxes, ALLcodiLogList]);
+    }, [ALLcodiLogList]);
 
     useEffect(() => {
         updateBoxesHasTag();
     }, [feltWeather, codiLogList]);
 
 
-    function getToday() {
-        // 오늘 날짜를 생성하여 'YYYYMMDD' 형식의 문자열로 변환
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0'); // 월을 2자리로 변환
-        const day = String(today.getDate()).padStart(2, '0'); // 일을 2자리로 변환
-        const todayString = `${year}-${month}-${day}`;
+    // function getToday() {
+    //     // 오늘 날짜를 생성하여 'YYYY-MM-DD' 형식의 문자열로 변환
+    //     const today = new Date();
+    //     const year = today.getFullYear();
+    //     const month = String(today.getMonth() + 1).padStart(2, '0'); // 월을 2자리로 변환
+    //     const day = String(today.getDate()).padStart(2, '0'); // 일을 2자리로 변환
+    //     const todayString = `${year}-${month}-${day}`;
 
-        return setToday(todayString);
-    }
+    //     return setToday(todayString);
+    // }
 
     function getFirstLastDate(Year, Month) {
         const lastDay = new Date(Year, Month, 0).getDate(); // 이번 달의 마지막 일자
@@ -138,11 +138,15 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
                     if (foundLog !== undefined) {
                         dayBox.classList.add(style.hasLog);
                         dayBox.addEventListener('click', () => setModalActive(foundLog._id));
-                        const img = document.createElement('img');
-                        img.src = `${url}/${foundLog.image}`;
-                        img.alt = `${foundLog.image}`;
-                        // img.onload = () => console.log(`Image loaded: ${targetDate}`);
-                        dayBox.querySelector(`.${style.imgCon}`).appendChild(img);
+                        // 이미지가 이미 있는지 확인
+                        const imgContainer = dayBox.querySelector(`.${style.imgCon}`);
+                        if (!imgContainer.querySelector('img')) {
+                            const img = document.createElement('img');
+                            img.src = `${url}/${foundLog.image}`;
+                            img.alt = `${foundLog.image}`;
+                            // img.onload = () => console.log(`Image loaded: ${targetDate}`);
+                            imgContainer.appendChild(img);
+                        }
 
                         dayBox.setAttribute('data-tag', foundLog.tag); // foundLog가 있을 경우 data-tag 속성 설정
                         hasLogsRef.current.push(dayBox); // foundLog가 있는 경우 dayBox의 ref를 hasLogsRef에 추가

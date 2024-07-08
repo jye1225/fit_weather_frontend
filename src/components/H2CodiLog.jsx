@@ -1,15 +1,19 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useGoBackStore } from '../store/goBackStore';
+
 import style from "../css/H2.module.css";
 
 const H2CodiLog = ({ codiView, setCodiView }) => {
-  // ** btnGoBack
+  const location = useLocation();
   const navigate = useNavigate();
-  const goBack = () => {
-    navigate(-1); // 이전 페이지로 이동
+  const goBack = useGoBackStore((state) => state.goBack);
+
+
+  const handleGoBack = () => {
+    goBack(location, navigate);
   };
 
-  // ** switch
   useEffect(() => {
     const switchBG = document.querySelector(`.${style.switchBG}`);
     // console.log(`zzz ${codiView} ${switchBG}`);
@@ -33,7 +37,7 @@ const H2CodiLog = ({ codiView, setCodiView }) => {
     <section className={style.header2}>
       <img
         src="img/icons/common/goBack.svg"
-        onClick={goBack}
+        onClick={handleGoBack}
         className={style.btnGoBack}
         alt="goBack"
       />

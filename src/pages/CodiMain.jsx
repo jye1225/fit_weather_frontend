@@ -21,6 +21,7 @@ const CodiMain = () => {
   });
 
   const [selectDate, setSelectDate] = useState("오늘");
+  const [codiGuidelineBox, setCodiGuidelineBox] = useState(false);
 
   return (
     <main className={`mw ${style.codiMain}`}>
@@ -45,14 +46,18 @@ const CodiMain = () => {
           <span>내 코디 기록</span>
           <img src="img/icons/common/calendar.svg" alt="" />
         </Link>
-        <button className={`fontBodyM ${style.bigBtn}`}>
+        <button className={`fontBodyM ${style.bigBtn}`} onClick={() => setCodiGuidelineBox(true)}>
           <span>기온별 추천 의류 전체보기</span>
           <img src="img/icons/common/alertSquare.svg" alt="" />
         </button>
       </div>
 
       <Footer />
-      {/* <CodiGuidelineBox /> */}
+
+      {codiGuidelineBox === true ?
+        <CodiGuidelineBox codiGuidelineBox={codiGuidelineBox} setCodiGuidelineBox={setCodiGuidelineBox} />
+        : ''
+      }
 
     </main>
   );
