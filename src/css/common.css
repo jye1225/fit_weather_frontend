@@ -71,7 +71,7 @@
   --modal-bg: rgba(0, 0, 0, 0.7);
 
   /* 폰트 기본값 */
-  font-family: "S-CoreDream-3Light";
+  font-family: 'S-CoreDream-3Light';
   font-size: 16px;
   /*1rem =16px */
   color: var(--black);
@@ -79,14 +79,14 @@
 
 /* font 클래스 */
 .fontHead2 {
-  font-family: "GmarketSansBold";
+  font-family: 'GmarketSansBold';
   font-size: 1.25rem;
   line-height: 100%;
   letter-spacing: 0;
 }
 
 .fontHead3 {
-  font-family: "GmarketSansBold";
+  font-family: 'GmarketSansBold';
   font-size: 0.75rem;
   line-height: 100%;
   letter-spacing: 0;
@@ -101,35 +101,35 @@
 }
 
 .fontTitleXL {
-  font-family: "S-CoreDream-5Medium";
+  font-family: 'S-CoreDream-5Medium';
   font-size: 1rem;
   line-height: 120%;
   letter-spacing: 0;
 }
 
 .fontTitleL {
-  font-family: "S-CoreDream-5Medium";
+  font-family: 'S-CoreDream-5Medium';
   font-size: 0.875rem;
   line-height: 120%;
   letter-spacing: 0;
 }
 
 .fontTitleM {
-  font-family: "S-CoreDream-5Medium";
+  font-family: 'S-CoreDream-5Medium';
   font-size: 0.75rem;
   line-height: 120%;
   letter-spacing: -4%;
 }
 
 .fontTitleS {
-  font-family: "S-CoreDream-5Medium";
+  font-family: 'S-CoreDream-5Medium';
   font-size: 0.625rem;
   line-height: 120%;
   letter-spacing: 0;
 }
 
 .fontTitleXS {
-  font-family: "S-CoreDream-5Medium";
+  font-family: 'S-CoreDream-5Medium';
   font-size: 0.5rem;
   line-height: 120%;
   letter-spacing: -4%;
@@ -143,14 +143,14 @@
 }
 
 .fontBodyM {
-  font-family: "S-CoreDream-3Light";
+  font-family: 'S-CoreDream-3Light';
   font-size: 0.75rem;
   line-height: 120%;
   letter-spacing: -4%;
 }
 
 .fontBodyS {
-  font-family: "S-CoreDream-3Light";
+  font-family: 'S-CoreDream-3Light';
   font-size: 0.625rem;
   line-height: 120%;
   letter-spacing: -4%;

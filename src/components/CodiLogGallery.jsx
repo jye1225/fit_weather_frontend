@@ -42,4 +42,4 @@ const CodiLogGallery = ({ feltWeather, setModalActive, codiLogList, lastElementR
     )
 }
 
-export default CodiLogGallery
+export default CodiLogGallery;
