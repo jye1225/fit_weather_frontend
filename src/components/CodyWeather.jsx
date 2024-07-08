@@ -11,11 +11,16 @@ const CodyWeather = ({ selectDate, setSelectDate }) => {
     fetchWeatherData,
     temperature,
     maxTemp,
+    secTMX,
+    thiTMX,
     minTemp,
+    secTMN,
+    thiTMN,
     popValue,
     dust,
     uv,
   } = useFetchStore();
+  // console.log(popValue);
 
   useEffect(() => {
     fetchLocation();
@@ -37,15 +42,26 @@ const CodyWeather = ({ selectDate, setSelectDate }) => {
     }
   }, [location, regionFirstName, regionSecondName, fetchWeatherData]);
 
+  const getTempRange = () => {
+    switch (selectDate) {
+      case 0:
+        return `${maxTemp}°C/${minTemp}°C`;
+      case 1:
+        return `${secTMX}°C/${secTMN}°C`;
+      case 2:
+        return `${thiTMX}°C/${thiTMN}°C`;
+      default:
+        return `${maxTemp}°C/${minTemp}°C`;
+    }
+  };
+
   return (
     <section className={style.present}>
       <div className={style.temperature}>
         <span>{temperature}°C</span>
         <div className={style.minmax}>
           <p className="fontTitleS">최고/최저</p>
-          <p className="fontTitleXL">
-            {maxTemp}°C/{minTemp}°C
-          </p>
+          <p className="fontTitleXL">{getTempRange()}</p>
         </div>
       </div>
       <div className={style.others}>
