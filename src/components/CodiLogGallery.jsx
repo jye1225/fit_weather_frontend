@@ -1,5 +1,5 @@
 import style from '../css/Codi.module.css'
-
+import { url } from '../store/ref';
 
 const CodiLogGallery = ({ feltWeather, setModalActive, codiLogList, lastElementRef }) => {
     console.log('필터 종류, 리스트 - 갤러리', feltWeather, codiLogList);
@@ -19,7 +19,7 @@ const CodiLogGallery = ({ feltWeather, setModalActive, codiLogList, lastElementR
                                     {codiLog.codiDate.slice(5, 6) === '0' ? codiLog.codiDate.slice(6, 7) : codiLog.codiDate.slice(5, 7)}월
                                 </span>
                             </div>
-                            <img src={`https://localhost:8080/${codiLog.image}`} alt="" />
+                            <img src={`${url}/${codiLog.image}`} alt="" />
                         </li>
                     );
                 } else {
@@ -33,7 +33,7 @@ const CodiLogGallery = ({ feltWeather, setModalActive, codiLogList, lastElementR
                                     {codiLog.codiDate.slice(5, 6) === '0' ? codiLog.codiDate.slice(6, 7) : codiLog.codiDate.slice(5, 7)}월
                                 </span>
                             </div>
-                            <img src={`https://localhost:8080/${codiLog.image}`} alt="" />
+                            <img src={`${url}/${codiLog.image}`} alt="" />
                         </li>
                     );
                 }
@@ -42,4 +42,4 @@ const CodiLogGallery = ({ feltWeather, setModalActive, codiLogList, lastElementR
     )
 }
 
-export default CodiLogGallery
+export default CodiLogGallery;

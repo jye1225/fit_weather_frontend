@@ -33,7 +33,8 @@ function CommunityCategory() {
             className={`fontBodyM ${onCommuCate === 'feed' ? style.on : ''}`}
             onClick={feedOn}
           >
-            패션 인스타
+            스타일 모아보기
+            <p className="fontBodyS">from musinsa</p>
           </Link>
         </div>
       </div>

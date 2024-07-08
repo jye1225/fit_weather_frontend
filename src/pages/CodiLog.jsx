@@ -1,5 +1,9 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import style from '../css/Codi.module.css';
+import styleBtn from '../css/TalkPage.module.css'
+
 // conponents
 import Footer from '../components/Footer';
 import H2CodiLog from '../components/H2CodiLog';
@@ -14,6 +18,7 @@ import { url } from "../store/ref";
 
 
 const CodiLog = () => {
+  const navigate = useNavigate();
 
   const { feltOptions } = useFeltOptionsStore();
   const { userInfo } = useLoginInfoStore();
@@ -28,6 +33,17 @@ const CodiLog = () => {
   //  codiLog list 받아오기
   const [codiLogList, setCodiLogList] = useState([]);//화면에 뿌릴 리스트
   const [ALLcodiLogList, setALLCodiLogList] = useState([]);//전체 리스트
+
+  const [TheYear, setTheYear] = useState('');//해당 년
+  const [TheMonth, setTheMonth] = useState('');;//해당 월
+
+  // 현재 날짜 상태
+  const [currentYear, setCurrentYear] = useState('');//현재 몇년
+  const [currentMonth, setCurrentMonth] = useState('');;//현재 몇월
+
+  const [today, setToday] = useState('');
+  const [alreadyLog, setAlreadyLog] = useState(false);
+
 
 
   /////*** 페이지 번호를 추적하기 위한 state
@@ -74,6 +90,9 @@ const CodiLog = () => {
     } else {
       console.error('User info is not available');
     }
+
+    getToday();
+
   }, [codiView]);
 
 
@@ -101,15 +120,6 @@ const CodiLog = () => {
   useEffect(() => {
     getCurrentDate()
   }, [codiView]);
-
-  const [TheYear, setTheYear] = useState('');//해당 년
-  const [TheMonth, setTheMonth] = useState('');;//해당 월
-
-  // 현재 날짜 상태
-  const [currentYear, setCurrentYear] = useState('');//현재 몇년
-  const [currentMonth, setCurrentMonth] = useState('');;//현재 몇월
-
-
 
 
   function getCurrentDate() {
@@ -236,6 +246,29 @@ const CodiLog = () => {
     };
   }, [isMouseDownHorz, startX, scrollLeft]);
 
+  function getToday() {
+    // 오늘 날짜를 생성하여 'YYYY-MM-DD' 형식의 문자열로 변환
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // 월을 2자리로 변환
+    const day = String(today.getDate()).padStart(2, '0'); // 일을 2자리로 변환
+    const todayString = `${year}-${month}-${day}`;
+
+    return setToday(todayString);
+  }
+
+
+  function goLogWrite() {
+    console.log('수정 클릭');
+    if (codiLogList[0].codiDate === today) {
+      console.log('=======오늘기록있음=======');
+      setAlreadyLog(true);
+    } else {
+      setAlreadyLog(false);
+      navigate(`/codiWrite`)
+      // 기록페이지로 이동하기
+    }
+  }
 
   return (
     <main className={`mw ${style.codiLog}`}>
@@ -265,7 +298,6 @@ const CodiLog = () => {
             setModalActive={setModalActive}
             codiLogList={codiLogList}
             lastElementRef={lastElementRef} // 마지막 요소 ref 전달
-
           />
         ) : (
           <CodiLogCalendar
@@ -276,12 +308,19 @@ const CodiLog = () => {
             codiLogList={codiLogList}
             ALLcodiLogList={ALLcodiLogList}
             lastElementRef={lastElementRef} // 마지막 요소 ref 전달
-            setCodiView={setCodiView}
+            today={today}
           />
         )}
       </section>
 
       <Footer />
+
+      <button
+        className={styleBtn.writeBtn}
+        onClick={goLogWrite}
+      >
+        기록하기
+      </button>
 
       {modalActive ? (
         <section className={style.CodiLogModal}>
@@ -294,7 +333,22 @@ const CodiLog = () => {
         ''
       )}
 
-    </main>
+      {alreadyLog ? (
+        <section className={style.CodiLogModal}>
+
+          <div className={`${style.CodiLogBox} ${style.alreadyLog}`}>
+            <div className={style.top}>
+              <img src="img/icons/common/x.svg" className={style.XIcon} onClick={() => setAlreadyLog(false)} alt="x" />
+            </div>
+            <img src="img/icons/common/alert.svg" alt="alert" />
+            <h3 className='fontHead3'>이미 코디 기록을<br />하셨어요!</h3>
+          </div>
+        </section>
+      ) : ''
+      }
+
+
+    </main >
   );
 };
 

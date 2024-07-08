@@ -20,14 +20,20 @@ function DetailComment({
   const [cmntCreateAt, setCmntCreateAt] = useState();
   const [commentText, setCommentText] = useState(cmnt.content);
   const { userInfo } = useLoginInfoStore();
+  const userId =
+    typeof userInfo.userid === 'number'
+      ? String(userInfo.userid)
+      : userInfo.userid;
 
   // 댓글 수정,삭제 버튼 노출
   const cmntOptnMenuToggle = (e) => {
+    e.stopPropagation();
     console.log('댓글편집버튼클릭');
+    console.log(cmnt.userId, '----', '문자열로변환', userId);
+    console.log(typeof cmnt.userId, '----', typeof userId);
 
     const editCmntId = e.target.closest('li').dataset.id;
-    console.log('클릭한 li', editCmntId);
-    console.log('현재 li', cmnt._id);
+    console.log('클릭한 li', editCmntId, '/', '현재 li', cmnt._id);
     if (editingCommentId !== editCmntId) {
       setToggleCmntOptMenu(false);
       setEditingCommentId(null);
@@ -72,7 +78,8 @@ function DetailComment({
     }
   };
 
-  const deleteComment = () => {
+  const deleteComment = (e) => {
+    e.stopPropagation();
     console.log('삭제하기 버튼');
     setIsModalToggle(true);
   };
@@ -124,6 +131,11 @@ function DetailComment({
   useEffect(() => {
     formatDate();
   }, []);
+
+  window.addEventListener('click', () => {
+    setToggleCmntOptMenu(false);
+    setIsModalToggle(false);
+  });
 
   return (
     <li className={`post ${style.comment}`} data-id={cmnt._id}>
@@ -180,7 +192,7 @@ function DetailComment({
             </>
           ) : (
             <>
-              {cmnt.userId === userInfo?.userid && (
+              {cmnt.userId == String(userInfo?.userid) && (
                 <i
                   className="fa-solid fa-ellipsis-vertical"
                   onClick={cmntOptnMenuToggle}
@@ -188,6 +200,7 @@ function DetailComment({
               )}
             </>
           )}
+
           <p className="fontBodyM">{cmnt.content}</p>
           {toggleCmntOptMenu && editingCommentId === cmnt._id && (
             <CommentOptionMenu

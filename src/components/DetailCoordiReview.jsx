@@ -1,5 +1,5 @@
 import style from '../css/DetailCoordiReview.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { usePostData } from '../store/postDataStore';
 import { url } from '../store/ref';
 import { useParams } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { useLoginInfoStore } from '../store/loginInfoStore';
 
 function DetailCoordiReview({ fetchPostDetail }) {
   const [onBtn, setOnBtn] = useState('');
-  const { postDetail, setPostsData, fetchPosts, currentFilter } = usePostData();
+  const { postDetail, setPostsData } = usePostData();
   const { postId } = useParams();
   const { userInfo } = useLoginInfoStore();
 
@@ -86,7 +86,7 @@ function DetailCoordiReview({ fetchPostDetail }) {
       );
       const data = await response.json();
       if (response.ok) {
-        const reviewType = data.btnType;
+        const reviewType = data?.btnType;
         console.log('유저의 코디리뷰 타입', reviewType);
         setOnBtn(reviewType);
       }
@@ -99,11 +99,33 @@ function DetailCoordiReview({ fetchPostDetail }) {
     ReviewStateCheck();
   }, []);
 
+  const reviewMaxCount = useMemo(() => {
+    return Math.max(
+      postDetail.coordiGood,
+      postDetail.coordiSoso,
+      postDetail.coordiBad
+    );
+  }, [postDetail.coordiGood, postDetail.coordiSoso, postDetail.coordiBad]);
+
+  console.log(
+    reviewMaxCount,
+    postDetail.coordiGood,
+    postDetail.coordiSoso,
+    postDetail.coordiBad
+  );
+  console.log(userInfo.userid, '/', postDetail.userId);
+
   return (
     <div className={style.coordiReview}>
       <p className="fontHead2">이 코디 어때요?</p>
       <button
-        className={`${style.goodBtn} ${onBtn === 'Good' ? style.on : ''}`}
+        className={`${style.goodBtn} ${onBtn === 'Good' ? style.on : ''} ${
+          userInfo.userid == postDetail.userId &&
+          postDetail.coordiGood === reviewMaxCount &&
+          postDetail.coordiGood > 0
+            ? style.topCount
+            : ''
+        }`}
         onClick={() => {
           reviewBtnClick('Good');
           saveReviewState('Good');
@@ -122,10 +144,16 @@ function DetailCoordiReview({ fetchPostDetail }) {
           />
         </svg>
         <span className="fontTitleXS">좋아요</span>
-        <span className="fontBodyS">{postDetail.coordiGood}</span>
+        <span className="fontBodyM">{postDetail.coordiGood}</span>
       </button>
       <button
-        className={`${style.sosoBtn} ${onBtn === 'Soso' ? style.on : ''}`}
+        className={`${style.sosoBtn} ${onBtn === 'Soso' ? style.on : ''} ${
+          userInfo.userid == postDetail.userId &&
+          postDetail.coordiSoso === reviewMaxCount &&
+          postDetail.coordiSoso > 0
+            ? style.topCount
+            : ''
+        }`}
         onClick={() => {
           reviewBtnClick('Soso');
           saveReviewState('Soso');
@@ -144,10 +172,16 @@ function DetailCoordiReview({ fetchPostDetail }) {
           />
         </svg>
         <span className="fontTitleXS">무난해요</span>
-        <span className="fontBodyS">{postDetail.coordiSoso}</span>
+        <span className="fontBodyM">{postDetail.coordiSoso}</span>
       </button>
       <button
-        className={`${style.badBtn} ${onBtn === 'Bad' ? style.on : ''}`}
+        className={`${style.badBtn} ${onBtn === 'Bad' ? style.on : ''} ${
+          userInfo.userid == postDetail.userId &&
+          postDetail.coordiBad === reviewMaxCount &&
+          postDetail.coordiBad > 0
+            ? style.topCount
+            : ''
+        }`}
         onClick={() => {
           reviewBtnClick('Bad');
           saveReviewState('Bad');
@@ -165,8 +199,9 @@ function DetailCoordiReview({ fetchPostDetail }) {
             fill="black"
           />
         </svg>
+
         <span className="fontTitleXS">별로예요</span>
-        <span className="fontBodyS">{postDetail.coordiBad}</span>
+        <span className="fontBodyM">{postDetail.coordiBad}</span>
       </button>
     </div>
   );
