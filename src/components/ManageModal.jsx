@@ -1,5 +1,6 @@
-import React from 'react';
-import style from '../css/ManageModal.module.css';
+import React from "react";
+import style from "../css/ManageModal.module.css";
+
 const ManageModal = ({ onClose, onConfirm }) => {
   return (
     <div className={style.modalBackdrop}>
@@ -26,3 +27,4 @@ const ManageModal = ({ onClose, onConfirm }) => {
   );
 };
 export default ManageModal;
+

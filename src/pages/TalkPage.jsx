@@ -1,5 +1,4 @@
 import style from '../css/TalkPage.module.css';
-
 import CommunityFilter from '../components/CommunityFilter';
 import CommunityPostCon from '../components/CommunityPostCon';
 
