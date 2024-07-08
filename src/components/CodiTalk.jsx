@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import style from "../css/CodiTalk.module.css";
 import useMatchingData from "../hooks/matchingData";
 
 const CodiTalk = ({ setMatchingUrl }) => {
   const [selectedTemp, setSelectedTemp] = useState("적당");
   const [selectedMode, setSelectedMode] = useState("기본");
+  const [localItem, setLocalItem] = useState(
+    localStorage.getItem("selectedButtons")
+  );
   const { matchingWord, chatData, clothes } = useMatchingData(
     selectedTemp,
     selectedMode
@@ -39,8 +43,12 @@ const CodiTalk = ({ setMatchingUrl }) => {
   const modeClick = (mode) => {
     setSelectedMode(mode);
   };
-  // console.log(selectedTemp);
-  // console.log(selectedMode);
+
+  useEffect(() => {
+    setLocalItem(localStorage.getItem("selectedButtons"));
+  }, [selectedMode]);
+
+  // console.log("취향조사---", localItem);
 
   return (
     <section className={style.talkBox}>
@@ -69,10 +77,20 @@ const CodiTalk = ({ setMatchingUrl }) => {
           ))}
         </div>
       </div>
-      {chatData ? (
-        <p className={`fontDecorate ${style.talk}`}>{chatData}</p>
+      {selectedMode === "기본" ? (
+        <p className={`fontDecorate ${style.talk}`}>
+          {chatData ? chatData : "불러오는 중이에요~"}
+        </p>
+      ) : localItem === null ? (
+        <p className={`fontDecorate ${style.talk}`}>
+          아직 취향조사를 안 하셨군요? 취향조사를 하시면 맞춤형 코디를
+          추천해드려요~!
+          <br /> <Link to="/myStyle">취향조사 바로가기</Link>
+        </p>
       ) : (
-        <p className={`fontDecorate ${style.talk}`}>불러오는 중이에요~</p>
+        <p className={`fontDecorate ${style.talk}`}>
+          {chatData ? chatData : "불러오는 중이에요~"}
+        </p>
       )}
     </section>
   );

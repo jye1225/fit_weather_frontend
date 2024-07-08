@@ -8,7 +8,7 @@ import Hours from "../components/Hours";
 import Weekly from "../components/Weekly";
 import Footer from "../components/Footer";
 
-import bgStyle from '../css/MainWeatherBG.module.css'
+import bgStyle from "../css/MainWeatherBG.module.css";
 import MainWeatherBG from "../components/MainWeatherBG";
 
 const IndexPage = () => {
@@ -21,7 +21,7 @@ const IndexPage = () => {
   return (
     <>
       <Header />
-      <main className='mw'>
+      <main className="mw">
         <div className={bgStyle.MainweatherBGcon}>
           <MainWeatherBG />
 
@@ -32,7 +32,6 @@ const IndexPage = () => {
             bottomUrl={matchingUrl.bottoms}
             outerUrl={matchingUrl.outers}
           />
-
         </div>
         <Hours />
         <Weekly />

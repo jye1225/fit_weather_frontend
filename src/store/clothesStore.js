@@ -12,11 +12,11 @@ const useClothesStore = create(() => ({
     "반팔 셔츠": "반팔 셔츠 이미지 링크",
     셔츠: "셔츠 이미지 링크",
     "반팔 블라우스": "img/clothes/short_sleeve_blouse.svg",
-    블라우스: "블라우스 이미지 링크",
+    블라우스: "img/clothes/short_sleeve_blouse.svg",
   },
   bottoms: {
     청바지: "청바지 이미지 링크",
-    청반바지: "청반바지 이미지 링크",
+    청반바지: "img/clothes/short_jean.svg",
     슬랙스: "슬랙스 이미지 링크",
     "트레이닝 바지": "트레이닝 바지 이미지 링크",
     반바지: "img/clothes/short_pants.svg",

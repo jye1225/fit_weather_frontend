@@ -64,10 +64,54 @@ const useMatchingData = (selectedTemp, selectedMode) => {
 
   useEffect(() => {
     if (dataLoaded) {
-      const localValue = localStorage.getItem("selectedButtons"); // 로컬 스토리지 값 읽기
-      const selectedClothes =
-        selectedMode === "취향" ? JSON.parse(localValue) : baseClothes;
-      setClothes(selectedClothes); // clothes 상태 업데이트
+      // const localValue = JSON.parse(
+      //   localStorage.getItem("selectedButtons") || "{}"
+      // ); // 로컬 스토리지 값을 JSON 객체로 변환
+
+      // if (Object.keys(localValue).length === 0) {
+      //   console.warn("No selected buttons found in localStorage.");
+      //   return;
+      // }
+
+      // const findCommonItems = (baseClothes, localValue) => {
+      //   const commonItems = {
+      //     tops: {},
+      //     bottoms: {},
+      //     outers: {},
+      //     dresses: {},
+      //     others: {},
+      //   };
+
+      //   Object.keys(localValue).forEach((category) => {
+      //     if (baseClothes[category]) {
+      //       localValue[category].forEach((item) => {
+      //         if (baseClothes[category].hasOwnProperty(item)) {
+      //           commonItems[category][item] = baseClothes[category][item];
+      //         }
+      //       });
+      //     }
+      //   });
+
+      //   // 롱스커트와 미니스커트가 others에 있을 경우 bottoms로 이동
+      //   if (commonItems.others["롱스커트"]) {
+      //     commonItems.bottoms["롱스커트"] = commonItems.others["롱스커트"];
+      //     delete commonItems.others["롱스커트"];
+      //   }
+
+      //   if (commonItems.others["미니스커트"]) {
+      //     commonItems.bottoms["미니스커트"] = commonItems.others["미니스커트"];
+      //     delete commonItems.others["미니스커트"];
+      //   }
+
+      //   return commonItems;
+      // };
+
+      // const commonItems = findCommonItems(baseClothes, localValue);
+      // console.log("공통아이템---", commonItems);
+      // // const selectedClothes =
+      // //   selectedMode === "취향" ? JSON.parse(localValue) : baseClothes;
+      // // setClothes(selectedClothes); // clothes 상태 업데이트
+      // console.log("로컬---", localValue);
 
       const postClothesData = async () => {
         try {
@@ -83,7 +127,7 @@ const useMatchingData = (selectedTemp, selectedMode) => {
               popValue: popValue,
               dust: dust,
               uv: uv,
-              clothes: selectedClothes,
+              clothes: baseClothes,
               selectedTemp: selectedTemp,
               selectedMode: selectedMode,
             }),

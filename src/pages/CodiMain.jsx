@@ -14,6 +14,15 @@ import Avatar from "../components/Avatar";
 import CodiLogBoxsMain from "../components/CodiLogBoxsMain";
 
 const CodiMain = () => {
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}${month}${day}`;
+  };
+  const today = new Date();
+  const [selectDate, setSelectDate] = useState(formatDate(today));
+
   const [matchingUrl, setMatchingUrl] = useState({
     tops: "",
     bottoms: "",
@@ -30,7 +39,7 @@ const CodiMain = () => {
         <H2Codi setSelectDate={setSelectDate} />
         <MainweatherBG />
 
-        <CodyWeather selectDate={selectDate} />
+        <CodyWeather selectDate={selectDate} setSelectDate={setSelectDate} />
         <CodiTalk setMatchingUrl={setMatchingUrl} />
         <Avatar
           topUrl={matchingUrl.tops}
