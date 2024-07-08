@@ -1,12 +1,13 @@
 import React from "react";
 import style from "../css/ManageModal.module.css";
 
-const ManageModal = ({ onClose, onConfirm }) => {
+const CancleAccount = ({ onClose, onConfirm }) => {
   return (
     <div className={style.modalBackdrop}>
       <div className={style.modalContainer}>
         <div className={`fontHead3 ${style.modalBody}`}>
-          <p>개인정보 수정을 완료하시겠습니까?</p>
+          <p>정말 탈퇴하시겠습니까?</p>
+          <p>탈퇴하기를 누르시면 계정이 삭제됩니다...</p>
         </div>
         <div className={style.modalFooter}>
           <button
@@ -19,7 +20,7 @@ const ManageModal = ({ onClose, onConfirm }) => {
             className={`fontTitleM ${style.confirmButton}`}
             onClick={onConfirm}
           >
-            수정하기
+            탈퇴하기
           </button>
         </div>
       </div>
@@ -27,4 +28,4 @@ const ManageModal = ({ onClose, onConfirm }) => {
   );
 };
 
-export default ManageModal;
+export default CancleAccount;
