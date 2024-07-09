@@ -1,16 +1,17 @@
 import style from '../css/PostWritePage.module.css';
 
-import PostCategorySelect from '../components/PostCategorySelect';
-import PostWriteArea from '../components/PostWriteArea';
-import CancelBtn from '../components/CancelBtn';
-import SubmitBtn from '../components/SubmitBtn';
-import PagesHeader from '../components/PagesHeader';
-import { useNavigate } from 'react-router-dom';
-import { useVerifyPost } from '../store/verifyPostContentStore';
-import { usePostData } from '../store/postDataStore';
-import { url } from '../store/ref';
-import React from 'react';
-import { useLoginInfoStore } from '../store/loginInfoStore';
+import PostCategorySelect from "../components/PostCategorySelect";
+import PostWriteArea from "../components/PostWriteArea";
+import CancelBtn from "../components/CancelBtn";
+import SubmitBtn from "../components/SubmitBtn";
+import PagesHeader from "../components/PagesHeader";
+import { useNavigate } from "react-router-dom";
+import { useVerifyPost } from "../store/verifyPostContentStore";
+import { usePostData } from "../store/postDataStore";
+import { url } from "../store/ref";
+import React from "react";
+import { useLoginInfoStore } from "../store/loginInfoStore";
+
 
 function PostWritePage() {
   const navigate = useNavigate();

@@ -2,11 +2,11 @@ import style from '../css/DetailCommentsCon.module.css';
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import DetailComment from './DetailComment';
-import { url } from '../store/ref';
-import { usePostData } from '../store/postDataStore';
-import { useCmntOptnMenu } from '../store/onCmntOptnMenuStore';
-import { useLoginInfoStore } from '../store/loginInfoStore';
+import DetailComment from "./DetailComment";
+import { url } from "../store/ref";
+import { usePostData } from "../store/postDataStore";
+import { useCmntOptnMenu } from "../store/onCmntOptnMenuStore";
+import { useLoginInfoStore } from "../store/loginInfoStore";
 
 function DetailCommentsCon({ fetchPostDetail }) {
   const [onCmntRewrite, setOnCmntRewrite] = useState(false); // 수정하기 클릭 유무
