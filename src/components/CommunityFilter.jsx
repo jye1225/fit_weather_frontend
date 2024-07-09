@@ -1,7 +1,7 @@
 import style from "../css/CommunityFilter.module.css";
 import TodayCoordiButton from "./TodayCoordiButton";
 import TodayWeatherButton from "./TodayWeatherButton";
-import { buttonStore } from "../store/TalkbuttonStore";
+import { buttonStore } from "../store/talkbuttonStore";
 import { usePostData } from "../store/postDataStore";
 
 function CommunityFilter() {
@@ -21,9 +21,8 @@ function CommunityFilter() {
       <h3 className="fontHead3">날씨패션 톡</h3>
       <div className={style.commuCateBtnCon}>
         <button
-          className={`fontBodyM ${style.all} ${
-            onBtn === "all" ? style.on : ""
-          } `}
+          className={`fontBodyM ${style.all} ${onBtn === "all" ? style.on : ""
+            } `}
           onClick={() => {
             handleFilter("all");
           }}
