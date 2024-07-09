@@ -61,7 +61,7 @@ function App() {
             const decodedToken = jwtDecode(token);
             setUserid(decodedToken.userid);
             setUsername(decodedToken.username);
-            // setUserprofile(나중에처리..)
+            setUserprofile(decodedToken.userprofile);
             console.log(decodedToken); // 여기선 잘뜸.
           } catch (error) {
             console.error("Invalid token", error);

@@ -5,34 +5,47 @@ const useLoginInfoStore = create((set) => ({
     userid: null,
     username: null,
     userprofile: null,
+    shortBio: null,
   },
 
-  setUserInfoAll: (id, name, profile) => set((state) => ({
-    userInfo: {
-      ...state.userInfo,
-      userid: id,
-      username: name,
-      userprofile: profile
-    }
-  })),
-  setUserid: (info) => set((state) => ({
-    userInfo: {
-      ...state.userInfo,
-      userid: info
-    }
-  })),
-  setUsername: (info) => set((state) => ({
-    userInfo: {
-      ...state.userInfo,
-      username: info
-    }
-  })),
-  setUserprofile: (info) => set((state) => ({
-    userInfo: {
-      ...state.userInfo,
-      userprofile: info
-    }
-  })),
+  setUserInfoAll: (id, name, profile, bio) =>
+    set((state) => ({
+      userInfo: {
+        ...state.userInfo,
+        userid: id,
+        username: name,
+        userprofile: profile,
+        shortBio: bio,
+      },
+    })),
+  setUserid: (info) =>
+    set((state) => ({
+      userInfo: {
+        ...state.userInfo,
+        userid: info,
+      },
+    })),
+  setUsername: (info) =>
+    set((state) => ({
+      userInfo: {
+        ...state.userInfo,
+        username: info,
+      },
+    })),
+  setUserprofile: (info) =>
+    set((state) => ({
+      userInfo: {
+        ...state.userInfo,
+        userprofile: info,
+      },
+    })),
+  setUShortBio: (info) =>
+    set((state) => ({
+      userInfo: {
+        ...state.userInfo,
+        shortBio: info,
+      },
+    })),
 }));
 
 export { useLoginInfoStore };
