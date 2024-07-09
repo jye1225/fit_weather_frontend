@@ -39,7 +39,7 @@ const useLoginInfoStore = create((set) => ({
         userprofile: info,
       },
     })),
-  setUShortBio: (info) =>
+  setShortBio: (info) =>
     set((state) => ({
       userInfo: {
         ...state.userInfo,

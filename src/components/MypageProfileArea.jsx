@@ -7,49 +7,68 @@ import { url } from "../store/ref";
 function MypageProfileArea() {
   const { userInfo, setUserInfoAll } = useLoginInfoStore();
   const [onEditProfile, setOnEditProfile] = useState(false);
+  const defaultProfileImage = "/img/default/man_photo.svg";
+  const defaultShortBio = "안녕하세요! 만나서 반갑습니다~";
+
+  // 상태 초기화
   const [username, setUsername] = useState(userInfo.username || "");
-  const [shortBio, setShortBio] = useState(userInfo.shortBio || "");
-  const [userprofile, setUserProfile] = useState(null);
+  const [shortBio, setShortBio] = useState(
+    userInfo.shortBio || defaultShortBio
+  );
+  const [userprofile, setUserProfile] = useState(
+    userInfo.userprofile || defaultProfileImage
+  );
+  const [fileName, setFileName] = useState("파일 선택");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchUserInfo = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await fetch(`${url}/getUserInfo?token=${token}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        if (data) {
-          setUsername(data.username || "");
-          setShortBio(data.shortBio || "안녕하세요! 만나서 반갑습니다~");
-          setUserProfile(data.userprofile || "/img/default/man_photo.svg");
-          console.log("Fetched user info:", data);
-        }
-      } catch (error) {
-        console.error("Error fetching user info:", error);
+  // 컴포넌트 마운트 시  사용자 정보 가져옴
+  const fetchUserInfo = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(`${url}/getUserInfo?token=${token}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    };
+      const data = await response.json();
+      if (data) {
+        // 사용자 정보 설정
+        setUsername(data.username || "");
+        setShortBio(data.shortBio || defaultShortBio);
+        setUserProfile(data.userprofile || defaultProfileImage);
+        console.log("Fetched user info:", data);
+      }
+    } catch (error) {
+      console.error("Error fetching user info:", error);
+    }
+  };
 
+  useEffect(() => {
+    fetchUserInfo(); // 컴포넌트가 마운트될 때 사용자 정보 가져오기
+  }, []); // 빈 배열을 두어 컴포넌트가 마운트될 때만 실행되도록 함
+
+  useEffect(() => {
     if (onEditProfile) {
-      fetchUserInfo();
+      fetchUserInfo(); // 프로필 수정 모드일 때 사용자 정보 가져오기
     }
   }, [onEditProfile]);
 
+  // 프로필 수정 모드로 전환하는 함수
   const profileEdit = () => {
     setOnEditProfile(true);
   };
 
+  // 프로필 이미지 변경 처리 함수
   const handleProfileImageChange = (e) => {
     setUserProfile(e.target.files[0]);
+    setFileName(e.target.files[0].name);
   };
 
+  // 프로필 수정 완료 처리 함수
   const profileEditCopl = async () => {
     setOnEditProfile(false);
 
@@ -58,7 +77,7 @@ function MypageProfileArea() {
       const formData = new FormData();
       formData.append("username", username);
       formData.append("shortBio", shortBio);
-      if (userprofile) {
+      if (userprofile instanceof File) {
         formData.append("userprofile", userprofile);
       }
 
@@ -74,8 +93,8 @@ function MypageProfileArea() {
         setUserInfoAll(
           data.userid,
           data.username,
-          data.userprofile || "/img/default/man_photo.svg",
-          data.shortBio || "안녕하세요! 만나서 반갑습니다~"
+          data.userprofile || defaultProfileImage,
+          data.shortBio || defaultShortBio
         ); // 사용자 정보 업데이트
         console.log("Updated user info:", data);
       } else {
@@ -87,27 +106,26 @@ function MypageProfileArea() {
     }
   };
 
+  // 프로필 이미지 URL을 반환하는 함수
   const getUserProfileImage = () => {
     if (userprofile instanceof File) {
       return URL.createObjectURL(userprofile);
     }
-    return userprofile || "/img/default/man_photo.svg";
+    return userprofile;
   };
 
   return (
     <div className={style.profileArea}>
       {!onEditProfile ? (
-        <div className={style.mypofile}>
+        <div className={style.myPofile}>
           <div className={style.pofileImg}>
             <img
-              src={userInfo.userprofile || "/img/default/man_photo.svg"}
+              src={getUserProfileImage()}
               alt={`${userInfo.userid} userprofile`}
             />
           </div>
-          <span className="fontTitleXL">{userInfo.username}</span>
-          <p className="fontBodyM">
-            {userInfo.shortBio || "안녕하세요! 만나서 반갑습니다~"}
-          </p>
+          <span className="fontTitleXL">{username}</span>
+          <p className="fontBodyM">{shortBio}</p>
           <div className={`${style.btnCon}`}>
             <button className="fontTitleM" onClick={profileEdit}>
               프로필 관리
@@ -131,8 +149,15 @@ function MypageProfileArea() {
               type="file"
               accept="image/*"
               id="userprofile"
+              className={style.hiddenFileInput}
               onChange={handleProfileImageChange}
             />
+            <button
+              className={`fontTitleM ${style.fileInputLabel}`}
+              onClick={() => document.getElementById("userprofile").click()}
+            >
+              {fileName}
+            </button>
           </div>
           <label htmlFor="userName">
             <span className="fontHead3">닉네임</span>
