@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import DetailComment from "./DetailComment";
 import { url } from "../store/ref";
 import { usePostData } from "../store/postDataStore";
-import { useCmntOptnMenu } from "../store/OnCmntOptnMenuStore";
+import { useCmntOptnMenu } from "../store/onCmntOptnMenuStore";
 import { useLoginInfoStore } from "../store/loginInfoStore";
 
 function DetailCommentsCon({ fetchPostDetail }) {
