@@ -1,19 +1,19 @@
-import style from '../css/CommunityCategory.module.css';
+import style from "../css/CommunityCategory.module.css";
 
-import { Link, Outlet } from 'react-router-dom';
-import { buttonStore } from '../store/talkbuttonStore';
-import { useCategoryStore } from '../store/categoryStore';
+import { Link, Outlet } from "react-router-dom";
+import { buttonStore } from "../store/TalkbuttonStore";
+import { useCategoryStore } from "../store/categoryStore";
 
 function CommunityCategory() {
   const { onCommuCate, setOnCommuCate } = useCategoryStore();
 
   const { setOnBtn } = buttonStore();
   const talkOn = () => {
-    setOnCommuCate('talk');
+    setOnCommuCate("talk");
   };
   const feedOn = () => {
-    setOnBtn('all');
-    setOnCommuCate('feed');
+    setOnBtn("all");
+    setOnCommuCate("feed");
   };
 
   return (
@@ -23,14 +23,14 @@ function CommunityCategory() {
         <div className={style.buttonCon}>
           <Link
             to="/community"
-            className={`fontBodyM ${onCommuCate === 'talk' ? style.on : ''}`}
+            className={`fontBodyM ${onCommuCate === "talk" ? style.on : ""}`}
             onClick={talkOn}
           >
             날씨패션 톡
           </Link>
           <Link
             to="/community/feed"
-            className={`fontBodyM ${onCommuCate === 'feed' ? style.on : ''}`}
+            className={`fontBodyM ${onCommuCate === "feed" ? style.on : ""}`}
             onClick={feedOn}
           >
             스타일 모아보기

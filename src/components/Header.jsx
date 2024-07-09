@@ -1,32 +1,10 @@
-import { useNavigate } from 'react-router-dom';
 import style from '../css/Header.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import useFetchStore from '../store/fetchStore';
 import Nav from './Nav';
 
 const Header = () => {
-  const [navOpen, setNavOpen] = useState(window.innerWidth >= 909); //nav 여닫기
-  // navOpen 상태 변화 확인용 콘솔 로그
-  useEffect(() => {
-    // console.log('navOpen 상태:', navOpen);
-  }, [navOpen]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 909) {
-        setNavOpen(true);
-      } else {
-        setNavOpen(false);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    // 컴포넌트 언마운트 시 이벤트 리스너 제거
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
+  const [navOpen, setNavOpen] = useState(window.innerWidth >= 909);
   const {
     location,
     fetchLocation,
@@ -36,54 +14,90 @@ const Header = () => {
     setRegionSecondName,
   } = useFetchStore();
   const [regionthirdName, setRegionthirdName] = useState('');
+  const [kakaoLoaded, setKakaoLoaded] = useState(false);
 
   useEffect(() => {
-    fetchLocation();
-  }, [fetchLocation]);
+    const handleResize = () => setNavOpen(window.innerWidth >= 909);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
-  const regionName = () => {
-    if (location.latitude && location.longitude) {
-      const { kakao } = window;
-      const geocoder = new kakao.maps.services.Geocoder();
-      const coords = new kakao.maps.LatLng(
-        location.latitude,
-        location.longitude
-      );
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAO_APP_JS_KEY}&libraries=services&autoload=false`;
+    script.async = true;
+    script.onload = () => {
+      window.kakao.maps.load(() => {
+        console.log('Kakao Maps API loaded successfully');
+        setKakaoLoaded(true);
+      });
+    };
+    document.head.appendChild(script);
+    return () => document.head.removeChild(script);
+  }, []);
 
-      geocoder.coord2RegionCode(
-        coords.getLng(),
-        coords.getLat(),
-        (result, status) => {
-          if (status === kakao.maps.services.Status.OK) {
-            const region = result.find((item) => item.region_type === 'H');
-            if (region) {
-              setRegionFirstName(region.region_1depth_name);
-              setRegionSecondName(region.region_2depth_name);
-              setRegionthirdName(region.region_3depth_name);
-            } else {
-              setRegionFirstName(result[0].region_1depth_name);
-              setRegionSecondName(result[0].region_2depth_name);
-              setRegionthirdName(result[0].region_3depth_name);
-            }
-            // 로컬스토리지에 저장
-            localStorage.setItem('regionSecondName', region.region_2depth_name);
-            localStorage.setItem('regionthirdName', region.region_3depth_name);
-            localStorage.setItem('regionFirstName', region.region_1depth_name);
-          }
-        }
+  const regionName = useCallback(() => {
+    if (
+      !window.kakao ||
+      !window.kakao.maps ||
+      !location.latitude ||
+      !location.longitude
+    ) {
+      console.error(
+        'Kakao Maps API is not loaded or location is not available'
       );
+      return;
     }
-  };
 
-  useEffect(() => {
-    regionName();
+    const geocoder = new window.kakao.maps.services.Geocoder();
+    const coords = new window.kakao.maps.LatLng(
+      location.latitude,
+      location.longitude
+    );
+
+    geocoder.coord2RegionCode(
+      coords.getLng(),
+      coords.getLat(),
+      (result, status) => {
+        if (status === window.kakao.maps.services.Status.OK) {
+          const region =
+            result.find((item) => item.region_type === 'H') || result[0];
+          setRegionFirstName(region.region_1depth_name);
+          setRegionSecondName(region.region_2depth_name);
+          setRegionthirdName(region.region_3depth_name);
+
+          localStorage.setItem('regionFirstName', region.region_1depth_name);
+          localStorage.setItem('regionSecondName', region.region_2depth_name);
+          localStorage.setItem('regionthirdName', region.region_3depth_name);
+
+          console.log(
+            'Region information retrieved:',
+            region.region_1depth_name,
+            region.region_2depth_name,
+            region.region_3depth_name
+          );
+        } else {
+          console.error('Failed to retrieve region information', status);
+        }
+      }
+    );
   }, [location, setRegionFirstName, setRegionSecondName]);
 
+  useEffect(() => {
+    if (kakaoLoaded) {
+      fetchLocation();
+    }
+  }, [kakaoLoaded, fetchLocation]);
+
+  useEffect(() => {
+    if (kakaoLoaded && location.latitude && location.longitude) {
+      regionName();
+    }
+  }, [kakaoLoaded, location, regionName]);
+
   const refresh = () => {
-    console.log('새로고침 클릭');
+    console.log('Refreshing location and region information');
     fetchLocation();
-    regionName();
-    console.log('지역', regionFirstName, regionSecondName, regionthirdName);
   };
 
   return (
@@ -98,12 +112,7 @@ const Header = () => {
         <h1 id="myAddr">
           {regionFirstName} {regionSecondName} {regionthirdName}
         </h1>
-        <button
-          className={style.refreshBtn}
-          onClick={() => {
-            refresh();
-          }}
-        >
+        <button className={style.refreshBtn} onClick={refresh}>
           <img
             className={style.refresh}
             src="img/icons/common/refresh.svg"
