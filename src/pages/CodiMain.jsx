@@ -21,14 +21,14 @@ const CodiMain = () => {
     return `${year}${month}${day}`;
   };
   const today = new Date();
-  const [selectDate, setSelectDate] = useState(formatDate(today));
+  const [selectDate, setSelectDate] = useState(0);
 
   const [matchingUrl, setMatchingUrl] = useState({
     tops: '',
     bottoms: '',
     outers: '',
   });
-
+  
   const [codiGuidelineBox, setCodiGuidelineBox] = useState(false);
 
   return (
@@ -38,13 +38,17 @@ const CodiMain = () => {
         <H2Codi setSelectDate={setSelectDate} />
         <MainweatherBG />
 
-        <CodyWeather selectDate={selectDate} setSelectDate={setSelectDate} />
-        <CodiTalk setMatchingUrl={setMatchingUrl} />
-        <Avatar
-          topUrl={matchingUrl.tops}
-          bottomUrl={matchingUrl.bottoms}
-          outerUrl={matchingUrl.outers}
-        />
+        <div className={bgStyle.WeatherCon}>
+          <CodyWeather selectDate={selectDate} setSelectDate={setSelectDate} />
+        </div>
+        <div className={bgStyle.MainAvatar}>
+          <CodiTalk setMatchingUrl={setMatchingUrl} />
+          <Avatar
+            topUrl={matchingUrl.tops}
+            bottomUrl={matchingUrl.bottoms}
+            outerUrl={matchingUrl.outers}
+          />
+        </div>
       </div>
 
       <CodiLogBoxsMain />
