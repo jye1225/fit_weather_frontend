@@ -21,9 +21,8 @@ function CommunityFilter() {
       <h3 className="fontHead3">날씨패션 톡</h3>
       <div className={style.commuCateBtnCon}>
         <button
-          className={`fontBodyM ${style.all} ${
-            onBtn === "all" ? style.on : ""
-          } `}
+          className={`fontBodyM ${style.all} ${onBtn === "all" ? style.on : ""
+            } `}
           onClick={() => {
             handleFilter("all");
           }}

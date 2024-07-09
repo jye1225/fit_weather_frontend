@@ -7,9 +7,8 @@ function TodayWeatherButton({ onClick }) {
   return (
     <button
       id="todayW"
-      className={`fontBodyM ${style.todayW} ${
-        onBtn === "weather" ? style.on : ""
-      }`}
+      className={`fontBodyM ${style.todayW} ${onBtn === "weather" ? style.on : ""
+        }`}
       onClick={onClick}
     >
       오늘날씨

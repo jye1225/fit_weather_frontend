@@ -7,9 +7,8 @@ function TodayCoordiButton({ onClick }) {
   return (
     <button
       id="todayC"
-      className={`fontBodyM ${style.todayC} ${
-        onBtn === "coordi" ? style.on : ""
-      }`}
+      className={`fontBodyM ${style.todayC} ${onBtn === "coordi" ? style.on : ""
+        }`}
       onClick={onClick}
     >
       오늘코디
