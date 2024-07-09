@@ -1,7 +1,7 @@
-import style from "../css/DetailTitleArea.module.css";
-import CommunityCategory from "./CommunitySubCategory";
-import Region from "./Region";
-import OptionMenu from "./OptionMenu";
+import style from '../css/DetailTitleArea.module.css';
+import CommunityCategory from './CommunitySubCategory';
+import Region from './Region';
+import OptionMenu from './OptionMenu';
 
 import { useRef, useEffect, useState } from "react";
 import { useOpenMenuModal } from "../store/detailOpMenuModalStore";
@@ -18,18 +18,18 @@ function DetailTitleArea({ fetchPostDetail, postId }) {
   const toggleLike = async () => {
     try {
       const response = await fetch(`${url}/posts/like`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           isLike: !isLike,
           postId: postDetail._id,
           userId: userInfo?.userid,
         }),
-        credentials: "include",
+        credentials: 'include',
       });
       const data = await response.json();
       if (data.success === true) {
-        console.log("좋아요 토글");
+        console.log('좋아요 토글');
         setLiketoggle(!isLike);
         setLikes(data.likes);
         fetchPostDetail();
@@ -44,12 +44,12 @@ function DetailTitleArea({ fetchPostDetail, postId }) {
       const response = await fetch(
         `${url}/posts/likeCheck/${postId}?userId=${userInfo.userid}`,
         {
-          method: "GET",
+          method: 'GET',
         }
       );
       const data = await response.json();
       if (data === null) {
-        console.log("좋아요 리스트 없음");
+        console.log('좋아요 리스트 없음');
         return;
       }
       // console.log('좋아요리스트', data);
@@ -57,7 +57,7 @@ function DetailTitleArea({ fetchPostDetail, postId }) {
 
       // 현재 게시물의 postId가 data의 postId 배열에 존재하는지 확인
       // 모든 요소와 postId를 문자열로 변환하여 비교
-      console.log("포함??", data.postId.map(String).includes(String(postId)));
+      console.log('포함??', data.postId.map(String).includes(String(postId)));
 
       if (data.postId && data.postId.map(String).includes(String(postId))) {
         setLiketoggle(true);
@@ -65,12 +65,12 @@ function DetailTitleArea({ fetchPostDetail, postId }) {
         setLiketoggle(false);
       }
     } catch (error) {
-      console.error("좋아요 리스트 체크 에러", error);
+      console.error('좋아요 리스트 체크 에러', error);
     }
   };
 
   useEffect(() => {
-    console.log("현재 포스트 아이디", postId);
+    console.log('현재 포스트 아이디', postId);
     checkUserLikeList();
   }, []);
 
@@ -95,17 +95,17 @@ function DetailTitleArea({ fetchPostDetail, postId }) {
   };
 
   useEffect(() => {
-    document.addEventListener("mousedown", clickOutside);
+    document.addEventListener('mousedown', clickOutside);
     return () => {
-      document.removeEventListener("mousedown", clickOutside);
+      document.removeEventListener('mousedown', clickOutside);
     };
   }, [isOpMenuOn]);
 
   const date = new Date(postDetail.createdAt);
-  const formatDate = date.toLocaleDateString("ko-KR", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+  const formatDate = date.toLocaleDateString('ko-KR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
   });
 
   return (
@@ -125,7 +125,7 @@ function DetailTitleArea({ fetchPostDetail, postId }) {
         <div className={`fontTitleS ${style.like}`}>
           <span>{likes}</span>
           <button
-            className={`${style.likeBtn} ${isLike ? style.on : ""}`}
+            className={`${style.likeBtn} ${isLike ? style.on : ''}`}
             onClick={toggleLike}
           ></button>
         </div>

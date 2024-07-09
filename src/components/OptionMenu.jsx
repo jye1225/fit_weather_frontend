@@ -1,10 +1,11 @@
-import style from "../css/OptionMenu.module.css";
-import { useNavigate, useParams } from "react-router-dom";
+import style from '../css/OptionMenu.module.css';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import ConfirmModal from "./ConfirmModal";
 import { useOpenMenuModal } from "../store/detailOpMenuModalStore";
 import { usePostData } from "../store/postDataStore";
 import { url } from "../store/ref";
+
 
 function OptionMenu() {
   const { modalClose, opMenuClose, isModalOpen, modalOpen, isOpMenuOn } =
@@ -24,7 +25,7 @@ function OptionMenu() {
       setPostDetail(data);
       navigate(`/postEdit/${postId}`);
     } catch (error) {
-      console.error("수정버튼 요청 에러");
+      console.error('수정버튼 요청 에러');
     }
   };
 
@@ -38,16 +39,16 @@ function OptionMenu() {
     opMenuClose();
     try {
       const response = await fetch(`${url}/posts/delPost/${postId}`, {
-        method: "DELETE",
+        method: 'DELETE',
       });
       const data = await response.json();
-      if (data.msg === "ok") {
+      if (data.msg === 'ok') {
         // 변환된 데이터에서 msg 확인
         console.log(`포스트 삭제 성공`);
-        navigate("/community");
+        navigate('/community');
       }
     } catch (error) {
-      console.error("삭제 실패", error);
+      console.error('삭제 실패', error);
     }
   };
 
@@ -55,7 +56,7 @@ function OptionMenu() {
     <>
       <div
         id="optionMenu"
-        className={`mw ${style.optionMenu} ${isOpMenuOn ? style.on : ""}`}
+        className={`mw ${style.optionMenu} ${isOpMenuOn ? style.on : ''}`}
       >
         <button
           className={`fontTitleM ${style.postEditBtn}`}
