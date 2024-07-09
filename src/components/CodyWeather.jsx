@@ -17,6 +17,8 @@ const CodyWeather = ({ selectDate, setSelectDate }) => {
     secTMN,
     thiTMN,
     popValue,
+    secPOP,
+    thiPOP,
     dust,
     uv,
   } = useFetchStore();
@@ -55,6 +57,19 @@ const CodyWeather = ({ selectDate, setSelectDate }) => {
     }
   };
 
+  const getPOPRange = () => {
+    switch (selectDate) {
+      case 0:
+        return `${popValue}%`;
+      case 1:
+        return `${secPOP}%`;
+      case 2:
+        return `${thiPOP}%`;
+      default:
+        return `${popValue}%`;
+    }
+  };
+
   return (
     <section className={style.present}>
       <div className={style.temperature}>
@@ -67,7 +82,7 @@ const CodyWeather = ({ selectDate, setSelectDate }) => {
       <div className={style.others}>
         <div className={style.con}>
           <span className="fontTitleS">강수확률</span>
-          <p className="fontTitleXL">{popValue}%</p>
+          <p className="fontTitleXL">{getPOPRange()}</p>
         </div>
         <div className={style.con}>
           <span className="fontTitleS">미세먼지</span>

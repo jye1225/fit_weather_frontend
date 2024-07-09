@@ -118,7 +118,7 @@ const useFetchStore = create((set, get) => ({
             (item) => item.category === "POP"
           );
           // console.log(temp);
-          console.log(shortWeather);
+          // console.log(shortWeather);
           // console.log(popArry);
 
           const pmSKY = shortWeather[175].fcstValue;
