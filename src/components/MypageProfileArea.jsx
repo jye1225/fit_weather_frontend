@@ -10,7 +10,6 @@ function MypageProfileArea() {
   const defaultProfileImage = "/img/default/man_photo.svg";
   const defaultShortBio = "안녕하세요! 만나서 반갑습니다~";
 
-  // 상태 초기화
   const [username, setUsername] = useState(userInfo.username || "");
   const [shortBio, setShortBio] = useState(
     userInfo.shortBio || defaultShortBio
@@ -21,10 +20,18 @@ function MypageProfileArea() {
   const [fileName, setFileName] = useState("파일 선택");
   const navigate = useNavigate();
 
-  // 컴포넌트 마운트 시  사용자 정보 가져옴
+  const getToken = () => {
+    const token = localStorage.getItem("token");
+    console.log("토큰:", token); // 디버깅 로그 추가
+    return token;
+  };
+
   const fetchUserInfo = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token = getToken();
+      if (!token) {
+        throw new Error("No token found");
+      }
       const response = await fetch(`${url}/getUserInfo?token=${token}`, {
         method: "GET",
         headers: {
@@ -36,7 +43,6 @@ function MypageProfileArea() {
       }
       const data = await response.json();
       if (data) {
-        // 사용자 정보 설정
         setUsername(data.username || "");
         setShortBio(data.shortBio || defaultShortBio);
         setUserProfile(data.userprofile || defaultProfileImage);
@@ -44,47 +50,55 @@ function MypageProfileArea() {
       }
     } catch (error) {
       console.error("Error fetching user info:", error);
+      if (error.message === "No token found") {
+        navigate("/login");
+      }
     }
   };
 
   useEffect(() => {
-    fetchUserInfo(); // 컴포넌트가 마운트될 때 사용자 정보 가져오기
-  }, []); // 빈 배열을 두어 컴포넌트가 마운트될 때만 실행되도록 함
+    fetchUserInfo();
+  }, []);
 
   useEffect(() => {
     if (onEditProfile) {
-      fetchUserInfo(); // 프로필 수정 모드일 때 사용자 정보 가져오기
+      fetchUserInfo();
     }
   }, [onEditProfile]);
 
-  // 프로필 수정 모드로 전환하는 함수
   const profileEdit = () => {
     setOnEditProfile(true);
   };
 
-  // 프로필 이미지 변경 처리 함수
   const handleProfileImageChange = (e) => {
     setUserProfile(e.target.files[0]);
     setFileName(e.target.files[0].name);
   };
 
-  // 프로필 수정 완료 처리 함수
   const profileEditCopl = async () => {
     setOnEditProfile(false);
 
     try {
-      const token = localStorage.getItem("token");
+      const token = getToken();
+      if (!token) {
+        throw new Error("No token found");
+      }
       const formData = new FormData();
       formData.append("username", username);
       formData.append("shortBio", shortBio);
       if (userprofile instanceof File) {
         formData.append("userprofile", userprofile);
       }
+      console.log("보낼 FormData:", ...formData.entries());
 
       const response = await fetch(`${url}/updateUserProfile?token=${token}`, {
         method: "POST",
         body: formData,
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       const data = await response.json();
 
@@ -95,23 +109,22 @@ function MypageProfileArea() {
           data.username,
           data.userprofile || defaultProfileImage,
           data.shortBio || defaultShortBio
-        ); // 사용자 정보 업데이트
-        console.log("Updated user info:", data);
+        );
+        console.log("업데이트된 사용자 정보:", data);
       } else {
         alert("프로필 수정에 실패하였습니다.");
       }
     } catch (error) {
-      console.error("Error updating user profile:", error);
+      console.error("프로필 업데이트 중 오류 발생:", error);
       alert("서버 오류가 발생하였습니다. 다시 시도해주세요.");
     }
   };
 
-  // 프로필 이미지 URL을 반환하는 함수
   const getUserProfileImage = () => {
     if (userprofile instanceof File) {
       return URL.createObjectURL(userprofile);
     }
-    return userprofile;
+    return `${url}${userprofile}`;
   };
 
   return (
