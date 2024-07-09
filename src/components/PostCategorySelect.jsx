@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import style from "../css/PostCategorySelect.module.css";
 import CoordiReviewOption from "./CoordiReviewOption";
-import { useVerifyPost } from "../store/VerifyPostContentStore";
+import { useVerifyPost } from "../store/verifyPostContentStore";
 import { usePostData } from "../store/postDataStore";
 
 function PostCategorySelect() {
