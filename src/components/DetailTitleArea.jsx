@@ -4,7 +4,7 @@ import Region from "./Region";
 import OptionMenu from "./OptionMenu";
 
 import { useRef, useEffect, useState } from "react";
-import { useOpenMenuModal } from "../store/DetailOpMenuModalStore";
+import { useOpenMenuModal } from "../store/detailOpMenuModalStore";
 import { usePostData } from "../store/postDataStore";
 import { url } from "../store/ref";
 import { useLoginInfoStore } from "../store/loginInfoStore";
