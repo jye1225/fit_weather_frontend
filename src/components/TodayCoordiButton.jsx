@@ -1,5 +1,5 @@
-import style from "../css/TodayCoordiButton.module.css";
-import { buttonStore } from "../store/TalkbuttonStore";
+import style from '../css/TodayCoordiButton.module.css';
+import { buttonStore } from '../store/talkbuttonStore';
 
 function TodayCoordiButton({ onClick }) {
   const { onBtn } = buttonStore();
@@ -8,7 +8,7 @@ function TodayCoordiButton({ onClick }) {
     <button
       id="todayC"
       className={`fontBodyM ${style.todayC} ${
-        onBtn === "coordi" ? style.on : ""
+        onBtn === 'coordi' ? style.on : ''
       }`}
       onClick={onClick}
     >

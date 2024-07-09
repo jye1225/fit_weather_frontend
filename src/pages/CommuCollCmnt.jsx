@@ -1,7 +1,7 @@
 import style from '../css/CommuCollCmnt.module.css';
 
 import { useEffect, useState } from 'react';
-import { useOpenMenuModal } from '../store/DetailOpMenuModalStore';
+import { useOpenMenuModal } from '../store/detailOpMenuModalStore';
 import { useCategoryStore } from '../store/categoryStore';
 import { usePagination } from '../store/paginationStore';
 import { url } from '../store/ref';

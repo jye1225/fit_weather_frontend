@@ -1,10 +1,10 @@
-import style from "../css/PostWriteArea.module.css";
-import PostImgFalse from "./PostImgFalse";
-import PostImgTrue from "./PostImgTrue";
-import { useVerifyPost } from "../store/VerifyPostContentStore";
-import { useEffect, useRef, useState } from "react";
-import { usePostData } from "../store/postDataStore";
-import { url } from "../store/ref";
+import style from '../css/PostWriteArea.module.css';
+import PostImgFalse from './PostImgFalse';
+import PostImgTrue from './PostImgTrue';
+import { useVerifyPost } from '../store/verifyPostContentStore';
+import { useEffect, useRef, useState } from 'react';
+import { usePostData } from '../store/postDataStore';
+import { url } from '../store/ref';
 
 function PostWriteArea() {
   const {
@@ -33,7 +33,7 @@ function PostWriteArea() {
 
     console.log(postTitle);
     console.log(postContent);
-    console.log("DB 이미지경로", postDetail.image);
+    console.log('DB 이미지경로', postDetail.image);
   }, [postDetail, setPostTitle, setPostContent, postDetail.image]);
 
   const writeTitle = (e) => {
