@@ -4,7 +4,7 @@ import { Link, Navigate } from "react-router-dom";
 import { url } from "../../store/ref";
 import KakaoLogin from "./KakaoLogin";
 
-const LoginPage = ({ setGender }) => {
+const LoginPage = () => {
   const [userid, setUserid] = useState("");
   const [password, setPassword] = useState("");
   const [message1, setMessage1] = useState("");
@@ -24,7 +24,6 @@ const LoginPage = ({ setGender }) => {
 
     const data = await response.json();
     console.log("성별정보", data.gender);
-    setGender(data.gender);
 
     if (data.id) {
       console.log("로그인성공");

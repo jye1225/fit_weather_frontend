@@ -121,6 +121,7 @@ const useMatchingData = (selectedTemp, selectedMode) => {
           setChatData("No token found");
           return;
         }
+        // console.log("토큰---", token);
 
         let gender;
         try {
