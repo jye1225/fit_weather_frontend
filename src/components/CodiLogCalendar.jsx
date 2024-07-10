@@ -17,8 +17,8 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
 
   useEffect(() => {
       fetchLog(0, true); // 초기 데이터 가져오기, reset 파라미터를 true로 설정
-          console.log("****fetchLog ***today",today);
-  }, [today]);
+          console.log("****fetchLog ***feltWeather",feltWeather);
+  }, [feltWeather]);
 
     
     useEffect(() => {//변동감지용
