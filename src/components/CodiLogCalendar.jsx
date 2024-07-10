@@ -15,22 +15,20 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
     const [LastDate, setLastDate] = useState('');//해당 달 며칠까지 있는지
     const [FirstDay, setFirstDay] = useState('');//해당 달 첫날 요일
 
+    const [todaydate,setTodaydate] = usestate('');
+
     // 초기 로드 시 fetchLog 호출
     useEffect(() => {
         fetchLog(0, 32, true); // 초기 데이터 가져오기
+        setTodaydate(today);
     }, []);
 
-    // TheYear 또는 TheMonth가 변경될 때 fetchLog 호출
     useEffect(() => {
-        if (TheYear && TheMonth) {
-            fetchLog(0, 32, true); // 해당 연도와 월에 맞는 데이터 가져오기
-        }
-    }, [TheYear, TheMonth]);
+        fetchLog(0, 32, true); 
+    }, [todaydate]);
 
-    // feltWeather 또는 codiLogList가 변경될 때 fetchLog 호출
-    useEffect(() => {
-        fetchLog(0, 32, true); // 필터가 변경될 때 데이터 가져오기
-    }, [feltWeather, codiLogList]);
+
+    
     
     useEffect(() => {//변동감지용
         console.log('----- TheYear TheMonth 변동 : ', TheYear, TheMonth);
