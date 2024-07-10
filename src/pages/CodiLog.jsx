@@ -61,47 +61,81 @@ const CodiLog = () => {
     }
   };
 
-    const fetchLog = async (page, reset = false) => {
-    if (!userInfo) {
-      return;
-    }
+  const fetchLog = (page, reset = false) => {
+    if (!userInfo) { return };
 
     try {
-      const response = await fetch(`${url}/codiLogList/${userInfo.userid}?page=${page}&limit=${limit}`);
-      const data = await response.json();
-      
-      if (reset) {
-        sessionStorage.setItem('ALLcodiLogList', JSON.stringify(data));
-        sessionStorage.setItem('codiLogList', JSON.stringify(data));
-        setALLCodiLogList(data);
-        setCodiLogList(data);
-      } else {
-        const updatedALLCodiLogList = [...ALLcodiLogList, ...data];
-        sessionStorage.setItem('ALLcodiLogList', JSON.stringify(updatedALLCodiLogList));
-        sessionStorage.setItem('codiLogList', JSON.stringify(updatedALLCodiLogList));
-        setALLCodiLogList(updatedALLCodiLogList);
-        setCodiLogList(updatedALLCodiLogList);
-      }
+      fetch(`${url}/codiLogList/${userInfo.userid}?page=${page}&limit=${limit}`)
+        .then((res) => res.json())//
+        .then((data) => {
+          if (reset) { // reset 파라미터가 true이면 데이터 초기화
+            setALLCodiLogList(data);
+            setCodiLogList(data);
+          } else {
+            setALLCodiLogList(prev => [...prev, ...data]);
+            setCodiLogList(prev => [...prev, ...data]);
+          }
+        })
+
     } catch (error) {
       console.error('Error fetching codi log list:', error);
     }
-  };
+  }
+
+  // const fetchLog = (page, reset = false) => {
+  //   if (!userInfo) { return };
+
+  //   try {
+  //     fetch(`${url}/codiLogList/${userInfo.userid}?page=${page}&limit=${limit}`)
+  //       .then((res) => res.json())//
+  //       .then((data) => {
+  //         if (reset) { // reset 파라미터가 true이면 데이터 초기화
+  //           sessionStorage.setItem('ALLcodiLogList', JSON.stringify(data));// 세션 스토리지에 전체 리스트 저장
+  //           sessionStorage.setItem('codiLogList', JSON.stringify(data));// 세션 스토리지에 필터된/보여질 리스트 저장
+  //           setALLCodiLogList(data);
+  //           setCodiLogList(data);
+  //         } else {
+  //           const updatedALLCodiLogList = [...ALLcodiLogList, ...data];
+  //           sessionStorage.setItem('ALLcodiLogList', JSON.stringify(updatedALLCodiLogList));// 세션 스토리지에 전체 리스트 갱신
+  //           sessionStorage.setItem('codiLogList', JSON.stringify(updatedALLCodiLogList)); // 세션 스토리지에 필터된 리스트 갱신
+  //           setALLCodiLogList(updatedALLCodiLogList);
+  //           // setCodiLogList(updatedALLCodiLogList);
+  //         }
+  //       })
+  //   } catch (error) {
+  //     console.error('Error fetching codi log list:', error);
+  //   }
+  // }
+
 
   useEffect(() => {
-    const storedALLCodiLogList = sessionStorage.getItem('ALLcodiLogList');
-    const storedCodiLogList = sessionStorage.getItem('codiLogList');
-    if (storedALLCodiLogList && storedCodiLogList) {
-      setALLCodiLogList(JSON.parse(storedALLCodiLogList));
-      setCodiLogList(JSON.parse(storedCodiLogList));
-    } else if (userInfo) {
-      setPage(0);
-      fetchLog(0, true);
+    if (userInfo) {  // userInfo가 유효한지 확인
+      setPage(0); // 페이지 번호 초기화
+      fetchLog(0, true); // 초기 데이터 가져오기, reset 파라미터를 true로 설정
     } else {
       console.error('User info is not available');
     }
 
     getToday();
   }, [codiView]);
+  // useEffect(() => {
+  //   const storedALLCodiLogList = sessionStorage.getItem('ALLcodiLogList');// 세션 스토리지에서 전체 리스트 가져오기
+  //   const storedCodiLogList = sessionStorage.getItem('codiLogList'); // 세션 스토리지에서 필터된 리스트 가져오기
+  //   if (storedALLCodiLogList && storedCodiLogList) {
+  //     setALLCodiLogList(JSON.parse(storedALLCodiLogList));// 가져온 데이터를 파싱하여 상태로 설정
+  //     setCodiLogList(JSON.parse(storedCodiLogList)); // 가져온 데이터를 파싱하여 상태로 설정
+  //   } else if (userInfo) {  // userInfo가 유효한지 확인
+  //     setPage(0); // 페이지 번호 초기화
+  //     fetchLog(0, true); // 초기 데이터 가져오기, reset 파라미터를 true로 설정
+  //   } else {
+  //     console.error('User info is not available');
+  //   }
+
+  //   getToday();
+
+  // }, [codiView]);
+
+
 
   useEffect(() => {
     if (page > 0) {
