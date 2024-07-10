@@ -97,15 +97,22 @@
   color: var(--grey-800);
   width: 100%;
 }
-.pofileEdit label:first-of-type input {
-  width: calc(100% - 8rem);
+.pofileEdit .inputWithButton {
+  display: flex;
+  width: 100%; /* 전체 너비를 차지하도록 수정 */
+  align-items: center;
+  gap: 0.5rem; /* 입력창과 버튼 사이의 간격 */
 }
-.pofileEdit label:first-of-type button {
+.pofileEdit .inputWithButton input {
+  flex-grow: 1;
+}
+.pofileEdit .inputWithButton button {
+  flex-shrink: 0;
   background-color: var(--primary-variant-color);
   color: var(--white);
   border-radius: 5rem;
   padding: 0.8rem 1rem;
-  min-width: 1rem;
+  width: 8rem; /* 버튼의 고정 너비를 살짝 줄임 */
   box-shadow: 4px 4px 8px var(--grey-200);
   transition: background-color 0.3s, color 0.3s;
 }
@@ -119,7 +126,7 @@
   color: var(--white);
 }
 
-/*사진추가*/
+/* 사진 추가 */
 
 .profileImg img {
   border-radius: 50%;
@@ -141,4 +148,11 @@
 
 .hiddenFileInput {
   display: none;
+}
+
+/* 중복 확인 메시지 스타일 */
+.errorMessage {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px; /* 메시지와 입력 필드 간격 조절 */
 }
