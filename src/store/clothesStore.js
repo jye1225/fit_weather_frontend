@@ -18,6 +18,7 @@ const useClothesStore = create(() => ({
     청바지: "img/clothes/long_jean.svg",
     청반바지: "img/clothes/short_jean.svg",
     슬랙스: "img/clothes/long_pants.svg",
+    긴바지: "img/clothes/long_pants.svg",
     "트레이닝 바지": "img/clothes/long_pants.svg",
     반바지: "img/clothes/short_pants.svg",
     롱스커트: "img/clothes/long_skirt.svg",

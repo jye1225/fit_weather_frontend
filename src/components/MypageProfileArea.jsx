@@ -120,7 +120,7 @@ function MypageProfileArea() {
         <div className={style.myPofile}>
           <div className={style.pofileImg}>
             <img
-              src={getUserProfileImage()}
+              src={`${url}/${userprofile}`}
               alt={`${userInfo.userid} userprofile`}
             />
           </div>
@@ -142,7 +142,7 @@ function MypageProfileArea() {
         <div className={style.pofileEdit}>
           <div className={style.profileImg}>
             <img
-              src={getUserProfileImage()}
+              src={`${url}/${userprofile}`}
               alt={`${userInfo.userid} userprofile`}
             />
             <input
