@@ -127,10 +127,10 @@ function App() {
       if (!response.ok) {
         throw new Error("Failed to register Kakao user");
       }
-      console.log(userid, username, profile_image);
+      console.log(userid, username, userprofile);
       setUserid(userid);
       setUsername(username);
-      setUserprofile(profile_image);
+      setUserprofile(userprofile);
     } catch (error) {
       console.error("Error registering Kakao user", error);
     }
