@@ -61,46 +61,42 @@ const CodiLog = () => {
     }
   };
 
-  const fetchLog = (page, reset = false) => {
-    if (!userInfo) { return };
+  const fetchLog = (page, limit, reset = false) => {
+    if (!userInfo) return;
 
     try {
       fetch(`${url}/codiLogList/${userInfo.userid}?page=${page}&limit=${limit}`)
-        .then((res) => res.json())//
+        .then((res) => res.json())
         .then((data) => {
-          if (reset) { // reset 파라미터가 true이면 데이터 초기화
-            setALLCodiLogList(data);
-            setCodiLogList(data);
+          if (reset) {
+            setAllCodiLogLists(data); // 전체 리스트 업데이트
+            setCodiLogLists(data); // 보여질 리스트 업데이트
           } else {
-            setALLCodiLogList(prev => [...prev, ...data]);
-            setCodiLogList(prev => [...prev, ...data]);
+            setAllCodiLogLists((prev) => [...prev, ...data]); // 전체 리스트 추가
+            setCodiLogLists((prev) => [...prev, ...data]); // 보여질 리스트 추가
           }
-        })
-
+        });
     } catch (error) {
       console.error('Error fetching codi log list:', error);
     }
-  }
+  };
 
+  
   useEffect(() => {
-    if (userInfo) {  // userInfo가 유효한지 확인
-      setPage(0); // 페이지 번호 초기화
-          setFeltWeather([]); // 필터 초기화
-
-      fetchLog(0, true); // 초기 데이터 가져오기, reset 파라미터를 true로 설정
-          console.log("****fetchLog");
-
+    if (userInfo) {
+            setPage(0); // 페이지 번호 초기화
+      fetchLog(0, 32, true); // 초기 데이터 가져오기
     } else {
       console.error('User info is not available');
     }
+  }, [])
 
-    getToday();
-  }, []);
+
   
   useEffect(() => {
     if (userInfo) {  // userInfo가 유효한지 확인
       setPage(0); // 페이지 번호 초기화
-      fetchLog(0, true); // 초기 데이터 가져오기, reset 파라미터를 true로 설정
+      fetchLog(0, 32, true); // 초기 데이터 가져오기
     } else {
       console.error('User info is not available');
     }
