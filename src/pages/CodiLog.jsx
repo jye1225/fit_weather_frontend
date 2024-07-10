@@ -61,6 +61,8 @@ const CodiLog = () => {
     }
   };
 
+
+  const fetchLog = (page, reset = false) => {
     if (!userInfo) { return };
 
     try {
