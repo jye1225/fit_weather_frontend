@@ -381,7 +381,7 @@ const CodiLog = () => {
           <CodiLogGallery
             feltWeather={feltWeather}
             setModalActive={setModalActive}
-            codiLogLists={codiLogList}
+            codiLogList={codiLogLists}
             lastElementRef={lastElementRef} // 마지막 요소 ref 전달
           />
         ) : (
@@ -390,7 +390,7 @@ const CodiLog = () => {
             TheYear={TheYear}
             feltWeather={feltWeather}
             setModalActive={setModalActive}
-            codiLogLists={codiLogList}
+            codiLogList={codiLogLists}
             ALLcodiLogList={ALLcodiLogList}
             lastElementRef={lastElementRef} // 마지막 요소 ref 전달
             today={today}
