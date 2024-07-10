@@ -23,7 +23,7 @@ const LoginPage = () => {
     });
 
     const data = await response.json();
-    console.log("성별정보", data.gender);
+    console.log('성별정보', data.gender);
 
     if (data.id) {
       console.log("로그인성공");

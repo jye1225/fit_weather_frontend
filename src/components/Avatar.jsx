@@ -31,7 +31,7 @@ const Avatar = ({ topUrl, bottomUrl, outerUrl }) => {
   }, [token]);
 
   useEffect(() => {
-    console.log("Avatar URLs:", { topUrl, bottomUrl, outerUrl });
+    console.log('Avatar URLs:', { topUrl, bottomUrl, outerUrl });
     if (topUrl || bottomUrl || outerUrl) {
       setIsLoading(false);
     }

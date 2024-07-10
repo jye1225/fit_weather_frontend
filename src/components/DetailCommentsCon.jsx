@@ -2,11 +2,11 @@ import style from '../css/DetailCommentsCon.module.css';
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import DetailComment from "./DetailComment";
-import { url } from "../store/ref";
-import { usePostData } from "../store/postDataStore";
-import { useCmntOptnMenu } from "../store/onCmntOptnMenuStore";
-import { useLoginInfoStore } from "../store/loginInfoStore";
+import DetailComment from './DetailComment';
+import { url } from '../store/ref';
+import { usePostData } from '../store/postDataStore';
+import { useCmntOptnMenu } from '../store/onCmntOptnMenuStore';
+import { useLoginInfoStore } from '../store/loginInfoStore';
 
 function DetailCommentsCon({ fetchPostDetail }) {
   const [onCmntRewrite, setOnCmntRewrite] = useState(false); // 수정하기 클릭 유무
@@ -64,15 +64,17 @@ function DetailCommentsCon({ fetchPostDetail }) {
       .then((res) => res.json()) //
       .then((data) => {
         console.log('받아온 데이터', data);
+        console.log('받아온 데이터', data.cmntList);
 
         setCmntData(data.cmntList);
         fetchPostDetail();
-        // console.log('cmntData에 저장된', cmntData);
       });
   }, [postId]);
+
   useEffect(() => {
     setCmntErrMsg();
     fetchCmnts();
+    console.log('cmntData에 저장된', cmntData);
   }, [fetchCmnts]);
 
   return (
