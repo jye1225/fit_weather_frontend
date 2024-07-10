@@ -16,6 +16,7 @@ function TalkPage() {
   useEffect(() => {
     setOnBtn('all');
     setOnCommuCate('talk');
+    window.scrollTo(0, 0);
   }, []);
 
   return (
