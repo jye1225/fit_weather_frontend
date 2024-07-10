@@ -16,7 +16,7 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
     const [FirstDay, setFirstDay] = useState('');//해당 달 첫날 요일
 
   useEffect(() => {
-      fetchLog(0, true); // 초기 데이터 가져오기, reset 파라미터를 true로 설정
+      fetchLog(0, 32, true); // 초기 데이터 가져오기
           console.log("****fetchLog ***feltWeather",feltWeather);
   }, [feltWeather]);
 
