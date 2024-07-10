@@ -43,10 +43,17 @@ const LoginPage = () => {
       console.error("로그인 중 오류 발생:", error);
     }
   };
+  const handleLogoClick = () => {
+    navigate("/");
+  };
 
   return (
     <div className={`mw ${style.page}`}>
-      <div className={style.logo} style={{ cursor: "pointer" }}>
+      <div
+        className={style.logo}
+        style={{ cursor: "pointer" }}
+        onClick={handleLogoClick}
+      >
         <img src="/img/logo/LogoL.svg" alt="Fit Weather Logo" />
       </div>
       <div className={`fontHead2 ${style.titleWrap}`}>로그인</div>
