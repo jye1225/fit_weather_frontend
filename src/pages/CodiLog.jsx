@@ -20,7 +20,7 @@ import { useCodiLogStore } from '../store/codiLogStore'; // Zustand 스토어 �
 
 const CodiLog = () => {
 
-  const { setCodiLogLists, setAllCodiLogLists } = useCodiLogStore();/////////
+  const { setCodiLogLists, setAllCodiLogLists ,codiLogLists} = useCodiLogStore();/////////
 
 
   const navigate = useNavigate();
@@ -381,7 +381,7 @@ const CodiLog = () => {
           <CodiLogGallery
             feltWeather={feltWeather}
             setModalActive={setModalActive}
-            codiLogList={codiLogList}
+            codiLogLists={codiLogList}
             lastElementRef={lastElementRef} // 마지막 요소 ref 전달
           />
         ) : (
@@ -390,7 +390,7 @@ const CodiLog = () => {
             TheYear={TheYear}
             feltWeather={feltWeather}
             setModalActive={setModalActive}
-            codiLogList={codiLogList}
+            codiLogLists={codiLogList}
             ALLcodiLogList={ALLcodiLogList}
             lastElementRef={lastElementRef} // 마지막 요소 ref 전달
             today={today}
