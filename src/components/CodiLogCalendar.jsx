@@ -16,9 +16,13 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
     const [FirstDay, setFirstDay] = useState('');//해당 달 첫날 요일
 
   useEffect(() => {
+    if (userInfo) {
+            setPage(0); // 페이지 번호 초기화
       fetchLog(0, 32, true); // 초기 데이터 가져오기
-          console.log("****fetchLog ***feltWeather",feltWeather);
-  }, [feltWeather]);
+    } else {
+      console.error('User info is not available');
+    }
+  }, [])
 
     
     useEffect(() => {//변동감지용
