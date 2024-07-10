@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
-import style from "../css/Avatar.module.css";
+import { useState, useEffect } from 'react';
+import style from '../css/Avatar.module.css';
 
 const Avatar = ({ topUrl, bottomUrl, outerUrl }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    console.log("Avatar URLs:", { topUrl, bottomUrl, outerUrl });
+    console.log('Avatar URLs:', { topUrl, bottomUrl, outerUrl });
     if (topUrl || bottomUrl || outerUrl) {
       setIsLoading(false);
     }
