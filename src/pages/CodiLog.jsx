@@ -106,7 +106,17 @@ const CodiLog = () => {
   //     console.error('Error fetching codi log list:', error);
   //   }
   // }
+ useEffect(() => {
+    if (userInfo) {  // userInfo가 유효한지 확인
+      setPage(0); // 페이지 번호 초기화
+      fetchLog(0, true); // 초기 데이터 가져오기, reset 파라미터를 true로 설정
+    } else {
+      console.error('User info is not available');
+    }
 
+    getToday();
+  }, []);
+  
 
   useEffect(() => {
     if (userInfo) {  // userInfo가 유효한지 확인
@@ -118,6 +128,10 @@ const CodiLog = () => {
 
     getToday();
   }, [codiView]);
+
+
+
+ 
   // useEffect(() => {
   //   const storedALLCodiLogList = sessionStorage.getItem('ALLcodiLogList');// 세션 스토리지에서 전체 리스트 가져오기
   //   const storedCodiLogList = sessionStorage.getItem('codiLogList'); // 세션 스토리지에서 필터된 리스트 가져오기
@@ -135,6 +149,8 @@ const CodiLog = () => {
 
   // }, [codiView]);
 
+
+  
 
 
   useEffect(() => {
