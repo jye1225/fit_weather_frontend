@@ -14,6 +14,7 @@ const LoginPage = () => {
   const login = async (e) => {
     e.preventDefault();
 
+    //백엔드로 POST 요청 및 응답
     try {
       const response = await fetch(`${url}/login`, {
         method: "POST",
@@ -24,6 +25,7 @@ const LoginPage = () => {
 
       const data = await response.json();
       console.log("로그인 응답 데이터:", data);
+      console.log("성별정보", data.gender);
 
       if (data.token) {
         console.log("로그인 성공, 토큰:", data.token);
