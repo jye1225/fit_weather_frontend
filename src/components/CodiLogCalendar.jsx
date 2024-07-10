@@ -15,21 +15,20 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
     const [LastDate, setLastDate] = useState('');//해당 달 며칠까지 있는지
     const [FirstDay, setFirstDay] = useState('');//해당 달 첫날 요일
 
-    const [todaydate,setTodaydate] = usestate('');
 
     // 초기 로드 시 fetchLog 호출
     useEffect(() => {
+                console.log('*****[] 마운트 useEffect  ');
+
         fetchLog(0, 32, true); // 초기 데이터 가져오기
-        setTodaydate(today);
-                        console.log('----- todaydate: ',todaydate);
 
     }, []);
 
     useEffect(() => {
-                console.log('----- todaydate: ',todaydate);
+        console.log('*****[today,setModalActive] useEffect  ');
 
         fetchLog(0, 32, true); 
-    }, [todaydate,setTodaydate]);
+    }, [today,setModalActive]);
 
 
     
@@ -199,12 +198,3 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
 
 export default CodiLogCalendar
 
-
-{/*----------- li samples -----------*/ }
-
-{/* <li className={`${style.day} ${style.activeToday}`}>
-    <div className={style.imgCon}>
-        <img src={`${url}/uploads/codiLog/1719854442475.jpeg`} alt="" />
-    </div>
-    <span>5</span>
-</li> */}
