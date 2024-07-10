@@ -21,17 +21,21 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
     useEffect(() => {
         fetchLog(0, 32, true); // 초기 데이터 가져오기
         setTodaydate(today);
+                        console.log('----- todaydate: ',todaydate);
+
     }, []);
 
     useEffect(() => {
+                console.log('----- todaydate: ',todaydate);
+
         fetchLog(0, 32, true); 
-    }, [todaydate]);
+    }, [todaydate,setTodaydate]);
 
 
     
     
     useEffect(() => {//변동감지용
-        console.log('----- TheYear TheMonth 변동 : ', TheYear, TheMonth);
+        // console.log('----- TheYear TheMonth 변동 : ', TheYear, TheMonth);
         getFirstLastDate(TheYear, TheMonth);
         // getToday();
 
