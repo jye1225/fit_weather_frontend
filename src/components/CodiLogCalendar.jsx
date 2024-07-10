@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import style from '../css/Codi.module.css'
 import { url } from '../store/ref'
-const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogList, lastElementRef, TheMonth, TheYear, today }) => {
+const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogList, lastElementRef, TheMonth, TheYear, today, fetchLog }) => {
 
     console.log('필터 종류 - 달력/codiLogList', feltWeather,);
     console.log('codiLogList- 달력/', codiLogList);
@@ -15,6 +15,12 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
     const [LastDate, setLastDate] = useState('');//해당 달 며칠까지 있는지
     const [FirstDay, setFirstDay] = useState('');//해당 달 첫날 요일
 
+  useEffect(() => {
+      fetchLog(0, true); // 초기 데이터 가져오기, reset 파라미터를 true로 설정
+          console.log("****fetchLog");
+  }, []);
+
+    
     useEffect(() => {//변동감지용
         // console.log('----- TheYear TheMonth 변동 : ', TheYear, TheMonth);
         getFirstLastDate(TheYear, TheMonth);
