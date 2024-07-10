@@ -113,7 +113,7 @@ function App() {
 
   const registerKakaoUser = async (userid, username, profile_image) => {
     try {
-      const response = await fetch(`${url}/kakao-register`, {
+      const response = await fetch('https://port-0-fit-weather-backend-lydr6a6pb95d7aa4.sel5.cloudtype.app/kakao-register', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
