@@ -125,10 +125,14 @@ const Nav = ({ navOpen, setNavOpen }) => {
               {userInfo.userprofile ? (
                 <img
                   className={style.MyProfileImg}
+                  // 프로필 이미지 URL 처리 로직 수정
                   src={
-                    userInfo.userprofil?.startsWith('http://t1.kakaocdn.net') ||
-                    userInfo.userprofil?.startsWith('http://k.kakaocdn.net/')
+                    // userInfo.userprofile이 다음 URL들로 시작하는지 확인
+                    userInfo.userprofile.startsWith('http://t1.kakaocdn.net') ||
+                    userInfo.userprofile.startsWith('http://k.kakaocdn.net/')
+                      // 해당 URL로 시작하면 그대로 사용
                       ? userInfo.userprofile
+                      // 그렇지 않으면 서버 URL과 결합하여 사용
                       : `${url}${userInfo.userprofile}`
                   }
                   alt="userprofile"
