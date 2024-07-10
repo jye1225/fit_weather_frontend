@@ -17,14 +17,15 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
 
   useEffect(() => {
       fetchLog(0, true); // 초기 데이터 가져오기, reset 파라미터를 true로 설정
-          console.log("****fetchLog");
-  }, []);
+          console.log("****fetchLog ***today",today);
+  }, [today]);
 
     
     useEffect(() => {//변동감지용
         console.log('----- TheYear TheMonth 변동 : ', TheYear, TheMonth);
         getFirstLastDate(TheYear, TheMonth);
         // getToday();
+
     }, [TheYear, TheMonth])
 
     useEffect(() => {//변동감지용
@@ -32,8 +33,6 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
         if (FirstDay !== '' && LastDate !== '') {
             addMonthBox(TheYear, TheMonth, FirstDay, LastDate); // FirstDay와 LastDate가 모두 설정된 후에만 호출
         }
-              fetchLog(0, true); // 초기 데이터 가져오기, reset 파라미터를 true로 설정
-          console.log("****fetchLog");
 
         
     }, [FirstDay, LastDate, codiLogList])
