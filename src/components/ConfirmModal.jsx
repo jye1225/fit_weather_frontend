@@ -1,15 +1,14 @@
-import style from "../css/ConfirmModal.module.css";
+import style from '../css/ConfirmModal.module.css';
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 import CancelBtn from "./CancelBtn";
 import DeleteEditBtn from "./DeleteEditBtn";
 import { useOpenMenuModal } from "../store/detailOpMenuModalStore";
-
 function ConfirmModal({ message, btnText, clickDelAndSubmt, clickCancel }) {
   const { isModalOpen, modalClose, opMenuClose } = useOpenMenuModal();
 
-  const receiveMessage = message || "삭제하시겠습니까?";
+  const receiveMessage = message || '삭제하시겠습니까?';
 
   const confirmModalRef = useRef();
   const clickBg = (e) => {
@@ -23,9 +22,9 @@ function ConfirmModal({ message, btnText, clickDelAndSubmt, clickCancel }) {
     }
   };
   useEffect(() => {
-    document.addEventListener("mousedown", clickBg);
+    document.addEventListener('mousedown', clickBg);
     return () => {
-      document.removeEventListener("mousedown", clickBg);
+      document.removeEventListener('mousedown', clickBg);
     };
   }, []);
 

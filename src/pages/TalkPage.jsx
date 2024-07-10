@@ -1,6 +1,6 @@
-import style from "../css/TalkPage.module.css";
-import CommunityFilter from "../components/CommunityFilter";
-import CommunityPostCon from "../components/CommunityPostCon";
+import style from '../css/TalkPage.module.css';
+import CommunityFilter from '../components/CommunityFilter';
+import CommunityPostCon from '../components/CommunityPostCon';
 
 import { buttonStore } from "../store/talkbuttonStore";
 import { useEffect } from "react";
@@ -11,11 +11,11 @@ function TalkPage() {
   const { setOnCommuCate } = useCategoryStore();
 
   const goPostWrite = () => {
-    window.location = "/postWrite";
+    window.location = '/postWrite';
   };
   useEffect(() => {
-    setOnBtn("all");
-    setOnCommuCate("talk");
+    setOnBtn('all');
+    setOnCommuCate('talk');
   }, []);
 
   return (

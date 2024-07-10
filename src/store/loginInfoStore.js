@@ -6,9 +6,10 @@ const useLoginInfoStore = create((set) => ({
     username: null,
     userprofile: null,
     shortBio: null,
+    usergender: null,
   },
 
-  setUserInfoAll: (id, name, profile, bio) =>
+  setUserInfoAll: (id, name, profile, bio, gender) =>
     set((state) => ({
       userInfo: {
         ...state.userInfo,
@@ -16,6 +17,7 @@ const useLoginInfoStore = create((set) => ({
         username: name,
         userprofile: profile,
         shortBio: bio,
+        usergender: gender,
       },
     })),
   setUserid: (info) =>
@@ -44,6 +46,13 @@ const useLoginInfoStore = create((set) => ({
       userInfo: {
         ...state.userInfo,
         shortBio: info,
+      },
+    })),
+  setUsergender: (info) =>
+    set((state) => ({
+      userInfo: {
+        ...state.userInfo,
+        usergender: info,
       },
     })),
 }));

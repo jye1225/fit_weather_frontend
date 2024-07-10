@@ -1,3 +1,4 @@
+
 import style from "../css/CommunityFilter.module.css";
 import TodayCoordiButton from "./TodayCoordiButton";
 import TodayWeatherButton from "./TodayWeatherButton";
@@ -21,23 +22,23 @@ function CommunityFilter() {
       <h3 className="fontHead3">날씨패션 톡</h3>
       <div className={style.commuCateBtnCon}>
         <button
-          className={`fontBodyM ${style.all} ${
-            onBtn === "all" ? style.on : ""
-          } `}
+          className={`fontBodyM ${style.all} ${onBtn === "all" ? style.on : ""
+            } `}
+
           onClick={() => {
-            handleFilter("all");
+            handleFilter('all');
           }}
         >
           전체
         </button>
         <TodayWeatherButton
           onClick={() => {
-            handleFilter("weather");
+            handleFilter('weather');
           }}
         />
         <TodayCoordiButton
           onClick={() => {
-            handleFilter("coordi");
+            handleFilter('coordi');
           }}
         />
       </div>

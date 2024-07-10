@@ -1,13 +1,15 @@
+
 import style from "../css/CoordiReviewOption.module.css";
 import { useVerifyPost } from "../store/verifyPostContentStore";
+
 
 function CoordiReviewOption() {
   const { onReview, setOnReview, setOffReview } = useVerifyPost();
   const selectYes = () => {
-    setOnReview("yes");
+    setOnReview('yes');
   };
   const selectNo = () => {
-    setOnReview("no");
+    setOnReview('no');
   };
   return (
     <fieldset
@@ -22,7 +24,7 @@ function CoordiReviewOption() {
             type="radio"
             id="coordiOn"
             name="coordiReview"
-            checked={onReview === "yes"}
+            checked={onReview === 'yes'}
             onChange={selectYes}
           />
           <span className={style.checkmark}></span>
@@ -33,7 +35,7 @@ function CoordiReviewOption() {
             type="radio"
             id="coordiOff"
             name="coordiReview"
-            checked={onReview === "no"}
+            checked={onReview === 'no'}
             onChange={selectNo}
           />
           <span className={style.checkmark}></span>
