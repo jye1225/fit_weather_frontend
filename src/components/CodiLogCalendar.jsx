@@ -3,8 +3,8 @@ import style from '../css/Codi.module.css'
 import { url } from '../store/ref'
 const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogList, lastElementRef, TheMonth, TheYear, today, fetchLog }) => {
 
-    console.log('필터 종류 - 달력/codiLogList', feltWeather,);
-    console.log('codiLogList- 달력/', codiLogList);
+    console.log('필터 종류 - 달력/codiLogList', feltWeather,codiLogList);
+    // console.log('codiLogList- 달력/', codiLogList);
     const [monthBoxes, setMonthBoxes] = useState([]); // 렌더링할 달력 박스들
     const dayBoxesRef = useRef([]); // useRef를 사용하여 dayBoxesRef 생성 -> 모든 day
     const hasLogsRef = useRef([]); // useRef를 사용하여 hasLogsRef 생성 -> 기록이 있는 day
@@ -42,7 +42,7 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
     }, [TheYear, TheMonth])
 
     useEffect(() => {//변동감지용
-        console.log('-----FirstDay LastDate 변동 : ', TheMonth, '월:', FirstDay, '요일부터/', LastDate, '일까지');
+        // console.log('-----FirstDay LastDate 변동 : ', TheMonth, '월:', FirstDay, '요일부터/', LastDate, '일까지');
         if (FirstDay !== '' && LastDate !== '') {
             addMonthBox(TheYear, TheMonth, FirstDay, LastDate); // FirstDay와 LastDate가 모두 설정된 후에만 호출
         }
