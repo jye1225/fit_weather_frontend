@@ -23,7 +23,14 @@ const CodiLogCalendar = ({ feltWeather, setModalActive, ALLcodiLogList, codiLogL
       console.error('User info is not available');
     }
   }, [])
-
+  useEffect(() => {
+    if (userInfo) {
+            setPage(0); // 페이지 번호 초기화
+      fetchLog(0, 32, true); // 초기 데이터 가져오기
+    } else {
+      console.error('User info is not available');
+    }
+  }, [monthBoxes,setMonthBoxes])
     
     useEffect(() => {//변동감지용
         console.log('----- TheYear TheMonth 변동 : ', TheYear, TheMonth);
