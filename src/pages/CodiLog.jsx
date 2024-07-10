@@ -130,7 +130,7 @@ const CodiLog = () => {
     }
 
     getToday();
-  }, [codiView,userInfo]);
+  }, [codiView,feltWeather]);
 
   
   // useEffect(() => {
