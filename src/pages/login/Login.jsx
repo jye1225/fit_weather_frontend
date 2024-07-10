@@ -1,6 +1,6 @@
 import style from "../../css/login.module.css";
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { url } from "../../store/ref";
 import KakaoLogin from "./KakaoLogin";
 
@@ -9,41 +9,42 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [message1, setMessage1] = useState("");
   const [message2, setMessage2] = useState("");
-  const [redirect, setRedirect] = useState(false);
+  const navigate = useNavigate();
 
   const login = async (e) => {
     e.preventDefault();
 
     //백엔드로 POST 요청 및 응답
-    const response = await fetch(`${url}/login`, {
-      method: "POST",
-      body: JSON.stringify({ userid, password }),
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-    });
+    try {
+      const response = await fetch(`${url}/login`, {
+        method: "POST",
+        body: JSON.stringify({ userid, password }),
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
 
-    const data = await response.json();
-    console.log('성별정보', data.gender);
+      const data = await response.json();
+      console.log("로그인 응답 데이터:", data);
+      console.log("성별정보", data.gender);
 
-    if (data.id) {
-      console.log("로그인성공");
-      localStorage.setItem("token", data.token);
-      window.location.href = "/";
-      setRedirect(true);
-    }
-    if (data.message === "nouser") {
-      console.log("사용자가 없습니다.");
-      setMessage1("회원이 아닙니다.");
-    }
-    if (data.message === "failed") {
-      console.log("비밀번호가 일치하지 않습니다.");
-      setMessage2("비밀번호가 일치하지 않습니다.");
+      if (data.token) {
+        console.log("로그인 성공, 토큰:", data.token);
+        localStorage.setItem("token", data.token);
+        navigate("/mypage"); // 마이페이지로 리디렉션
+      } else {
+        if (data.message === "nouser") {
+          console.log("사용자가 없습니다.");
+          setMessage1("회원이 아닙니다.");
+        }
+        if (data.message === "failed") {
+          console.log("비밀번호가 일치하지 않습니다.");
+          setMessage2("비밀번호가 일치하지 않습니다.");
+        }
+      }
+    } catch (error) {
+      console.error("로그인 중 오류 발생:", error);
     }
   };
-
-  // if (redirect) {
-  //   return <Navigate to="/" />;
-  // }
 
   return (
     <div className={`mw ${style.page}`}>

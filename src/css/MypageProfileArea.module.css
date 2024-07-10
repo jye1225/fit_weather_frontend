@@ -30,7 +30,7 @@
 
 .btnCon {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   justify-content: center;
   margin: 1.5rem auto 0;
 }
@@ -38,11 +38,13 @@
   background-color: var(--white);
   color: var(--grey-600);
   border-radius: 5rem;
-  padding: 1rem;
+  padding: 0.7rem 4rem;
   width: 100%;
   max-width: 15rem;
   box-shadow: 4px 4px 8px var(--grey-200);
   transition: background-color 0.3s, color 0.3s;
+  white-space: nowrap;
+  margin-bottom: 20px;
 }
 .btnCon button:hover,
 .pofileEdit .btnCon button:first-of-type:hover {
@@ -68,7 +70,7 @@
 }
 
 .myPofile span {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
 }
 
 /* ---- 프로필 수정 영역 ---- */
@@ -115,4 +117,28 @@
 .pofileEdit .btnCon button:last-of-type:hover {
   background-color: var(--grey-600);
   color: var(--white);
+}
+
+/*사진추가*/
+
+.profileImg img {
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+}
+
+.fileInputLabel {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--primary-variant-color);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: 4px 4px 8px var(--grey-200);
+}
+
+.hiddenFileInput {
+  display: none;
 }

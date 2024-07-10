@@ -18,22 +18,41 @@ function MypageProfileArea() {
   const [userprofile, setUserProfile] = useState(
     userInfo.userprofile || defaultProfileImage
   );
-  const [fileName, setFileName] = useState('파일 선택');
+
+  const [fileName, setFileName] = useState("파일 선택");
   const navigate = useNavigate();
 
-  // 컴포넌트 마운트 시  사용자 정보 가져옴
+  const getToken = () => {
+    const token = localStorage.getItem("token");
+    console.log("토큰:", token); // 디버깅 로그 추가
+    return token;
+  };
+// 컴포넌트 마운트 시  사용자 정보 가져옴
   const fetchUserInfo = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = getToken();
+      if (!token) {
+        throw new Error("No token found");
+      }
       const response = await fetch(`${url}/getUserInfo?token=${token}`, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
+//   const [fileName, setFileName] = useState('파일 선택');
+//   const navigate = useNavigate();
+
+//   const fetchUserInfo = async () => {
+//     try {
+//       const token = localStorage.getItem('token');
+//       const response = await fetch(`${url}/getUserInfo?token=${token}`, {
+//         method: 'GET',
+//         headers: {
+//           'Content-Type': 'application/json',
         },
       });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
-      }
+         }
       const data = await response.json();
       if (data) {
         // 사용자 정보 설정
@@ -43,7 +62,10 @@ function MypageProfileArea() {
         console.log('마이페이지 받아온 유저정보', data);
       }
     } catch (error) {
-      console.error('Error fetching user info:', error);
+      console.error("Error fetching user info:", error);
+      if (error.message === "No token found") {
+        navigate("/login");
+      }
     }
   };
 
@@ -73,13 +95,25 @@ function MypageProfileArea() {
     setOnEditProfile(false);
 
     try {
-      const token = localStorage.getItem('token');
-      const formData = new FormData();
-      formData.append('username', username);
-      formData.append('shortBio', shortBio);
-      if (userprofile instanceof File) {
-        formData.append('userprofile', userprofile);
+
+      const token = getToken();
+      if (!token) {
+        throw new Error("No token found");
       }
+      const formData = new FormData();
+      formData.append("username", username);
+      formData.append("shortBio", shortBio);
+      if (userprofile instanceof File) {
+        formData.append("userprofile", userprofile);
+        
+//       const token = localStorage.getItem('token');
+//       const formData = new FormData();
+//       formData.append('username', username);
+//       formData.append('shortBio', shortBio);
+//       if (userprofile instanceof File) {
+//         formData.append('userprofile', userprofile);
+      }
+      console.log("보낼 FormData:", ...formData.entries());
 
       console.log('유저이름', formData.get('username'));
       console.log('소개', formData.get('shortBio'));
@@ -90,6 +124,10 @@ function MypageProfileArea() {
         body: formData,
       });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
 
       if (data) {
@@ -99,14 +137,15 @@ function MypageProfileArea() {
           data.username,
           data.userprofile || defaultProfileImage,
           data.shortBio || defaultShortBio
-        ); // 사용자 정보 업데이트
-        console.log('Updated user info:', data);
+          // 사용자 정보 업데이트
+        );
+        console.log("업데이트된 사용자 정보:", data);
       } else {
         alert('프로필 수정에 실패하였습니다.');
       }
     } catch (error) {
-      console.error('Error updating user profile:', error);
-      alert('서버 오류가 발생하였습니다. 다시 시도해주세요.');
+      console.error("프로필 업데이트 중 오류 발생:", error);
+      alert("서버 오류가 발생하였습니다. 다시 시도해주세요.");
     }
   };
 
@@ -115,7 +154,8 @@ function MypageProfileArea() {
     if (userprofile instanceof File) {
       return URL.createObjectURL(userprofile);
     }
-    return userprofile;
+    return `${url}${userprofile}`;
+//     return userprofile;
   };
 
   return (
@@ -124,7 +164,9 @@ function MypageProfileArea() {
         <div className={style.myPofile}>
           <div className={style.pofileImg}>
             <img
-              src={`${url}/${userprofile}`}
+              src={getUserProfileImage()}
+//               src={`${url}/${userprofile}`}
+
               alt={`${userInfo.userid} userprofile`}
             />
           </div>
@@ -158,7 +200,7 @@ function MypageProfileArea() {
             />
             <button
               className={`fontTitleM ${style.fileInputLabel}`}
-              onClick={() => document.getElementById('userprofile').click()}
+              onClick={() => document.getElementById("userprofile").click()}
             >
               {fileName}
             </button>
