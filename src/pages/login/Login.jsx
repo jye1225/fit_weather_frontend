@@ -30,7 +30,7 @@ const LoginPage = () => {
       if (data.token) {
         console.log("로그인 성공, 토큰:", data.token);
         localStorage.setItem("token", data.token);
-        navigate("/mypage"); // 마이페이지로 리디렉션
+        navigate("/");
       } else {
         if (data.message === "nouser") {
           console.log("사용자가 없습니다.");
