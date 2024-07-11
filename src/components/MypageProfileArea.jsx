@@ -159,6 +159,15 @@ function MypageProfileArea() {
     return true;
   };
 
+  // 개인정보 관리 버튼 클릭 핸들러
+  const handlePersonalInfoClick = (e) => {
+    if (isKakaoLogin) {
+      e.preventDefault();
+      return;
+    }
+    navigate("/myinfomanage");
+  };
+
   return (
     <div className={style.profileArea}>
       {!onEditProfile ? (
@@ -177,9 +186,7 @@ function MypageProfileArea() {
             </button>
             <button
               className="fontTitleM"
-              onClick={() => {
-                if (!isKakaoLogin) navigate("/myinfomanage");
-              }}
+              onClick={handlePersonalInfoClick}
               style={{ backgroundColor: isKakaoLogin ? "gray" : "initial" }}
               disabled={isKakaoLogin}
             >
