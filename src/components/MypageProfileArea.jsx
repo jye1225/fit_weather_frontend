@@ -29,7 +29,7 @@ function MypageProfileArea() {
     return token;
   };
 
-  // 컴포넌트 마운트 시  사용자 정보 가져옴
+  // 컴포넌트 마운트 시 사용자 정보 가져옴
   const fetchUserInfo = async () => {
     try {
       const token = getToken();
@@ -177,7 +177,9 @@ function MypageProfileArea() {
             </button>
             <button
               className="fontTitleM"
-              onClick={() => !isKakaoLogin && navigate("/myinfomanage")}
+              onClick={() => {
+                if (!isKakaoLogin) navigate("/myinfomanage");
+              }}
               style={{ backgroundColor: isKakaoLogin ? "gray" : "initial" }}
               disabled={isKakaoLogin}
             >
