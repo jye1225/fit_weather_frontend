@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { url } from "../../store/ref";
 import KakaoLogin from "./KakaoLogin";
+import Footer from "../../components/Footer";
 
 const LoginPage = () => {
   const [userid, setUserid] = useState("");
@@ -47,6 +48,7 @@ const LoginPage = () => {
   };
 
   return (
+    <>
     <div className={`mw ${style.page}`}>
       <div className={style.logo} style={{ cursor: "pointer" }}>
         <img src="/img/logo/LogoL.svg" alt="Fit Weather Logo" />
@@ -105,6 +107,8 @@ const LoginPage = () => {
         </div>
       </div>
     </div>
+      </>
+    <Footer/>
   );
 };
 
