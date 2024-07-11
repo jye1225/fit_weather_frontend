@@ -28,21 +28,21 @@ function MypageProfileArea() {
     return token;
   };
 
-  // 컴포넌트 마운트 시  사용자 정보 가져옴
+  // 컴포넌트 마운트 시 사용자 정보 가져옴
   const fetchUserInfo = async () => {
     try {
       const token = getToken();
       if (!token) {
         throw new Error("No token found");
       }
-      const response = await fetch(${url}/getUserInfo?token=${token}, {
+      const response = await fetch(`${url}/getUserInfo?token=${token}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       });
       if (!response.ok) {
-        throw new Error(HTTP error! status: ${response.status});
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
       if (data) {
@@ -102,13 +102,13 @@ function MypageProfileArea() {
       console.log("소개", formData.get("shortBio"));
       console.log("파일", formData.get("userprofile"));
 
-      const response = await fetch(${url}/updateUserProfile?token=${token}, {
+      const response = await fetch(`${url}/updateUserProfile?token=${token}`, {
         method: "POST",
         body: formData,
       });
 
       if (!response.ok) {
-        throw new Error(HTTP error! status: ${response.status});
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
@@ -137,12 +137,12 @@ function MypageProfileArea() {
     if (userprofile instanceof File) {
       return URL.createObjectURL(userprofile);
     }
-    return ${url}${userprofile};
+    return `${url}${userprofile}`;
   };
 
   // 닉네임 중복 확인 함수
   const checkDuplicateUsername = async () => {
-    const response = await fetch(${url}/check-duplicate-username, {
+    const response = await fetch(`${url}/check-duplicate-username`, {
       method: "POST",
       body: JSON.stringify({ username }),
       headers: { "Content-Type": "application/json" },
@@ -156,6 +156,15 @@ function MypageProfileArea() {
     return true;
   };
 
+  // 개인정보 관리 버튼 클릭 핸들러
+  const handlePersonalInfoClick = (e) => {
+    if (isKakaoLogin) {
+      e.preventDefault();
+      return;
+    }
+    navigate("/myinfomanage");
+  };
+
   return (
     <div className={style.profileArea}>
       {!onEditProfile ? (
@@ -163,18 +172,20 @@ function MypageProfileArea() {
           <div className={style.pofileImg}>
             <img
               src={getUserProfileImage()}
-              alt={${userInfo.userid} userprofile}
+              alt={`${userInfo.userid} userprofile`}
             />
           </div>
           <span className="fontTitleXL">{username}</span>
           <p className="fontBodyM">{shortBio}</p>
-          <div className={${style.btnCon}}>
+          <div className={`${style.btnCon}`}>
             <button className="fontTitleM" onClick={profileEdit}>
               프로필 관리
             </button>
             <button
               className="fontTitleM"
-              onClick={() => navigate("/myinfomanage")}
+              onClick={handlePersonalInfoClick}
+              style={{ backgroundColor: isKakaoLogin ? "gray" : "initial" }}
+              disabled={isKakaoLogin}
             >
               개인정보 관리
             </button>
@@ -185,7 +196,7 @@ function MypageProfileArea() {
           <div className={style.profileImg}>
             <img
               src={getUserProfileImage()}
-              alt={${userInfo.userid} userprofile}
+              alt={`${userInfo.userid} userprofile`}
             />
             <input
               type="file"
@@ -195,7 +206,7 @@ function MypageProfileArea() {
               onChange={handleProfileImageChange}
             />
             <button
-              className={fontTitleM ${style.fileInputLabel}}
+              className={`fontTitleM ${style.fileInputLabel}`}
               onClick={() => document.getElementById("userprofile").click()}
             >
               {fileName}
@@ -213,7 +224,7 @@ function MypageProfileArea() {
                 onChange={(e) => setUsername(e.target.value)}
               />
               <button
-                className={fontBodyM ${style.checkButton}}
+                className={`fontBodyM ${style.checkButton}`}
                 onClick={checkDuplicateUsername}
               >
                 중복확인
