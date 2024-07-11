@@ -31,7 +31,7 @@ const LoginPage = () => {
       if (data.token) {
         console.log("로그인 성공, 토큰:", data.token);
         localStorage.setItem("token", data.token);
-        window.location = '/';
+        navigate("/");
       } else {
         if (data.message === "nouser") {
           console.log("사용자가 없습니다.");
@@ -46,69 +46,76 @@ const LoginPage = () => {
       console.error("로그인 중 오류 발생:", error);
     }
   };
+  const handleLogoClick = () => {
+    navigate("/");
+  };
 
   return (
     <>
-    <div className={`mw ${style.page}`}>
-      <div className={style.logo} style={{ cursor: "pointer" }}>
-        <img src="/img/logo/LogoL.svg" alt="Fit Weather Logo" />
-      </div>
-      <div className={`fontHead2 ${style.titleWrap}`}>로그인</div>
+      <div className={`mw ${style.page}`}>
+        <div
+          className={style.logo}
+          style={{ cursor: "pointer" }}
+          onClick={handleLogoClick}
+        >
+          <img src="/img/logo/LogoL.svg" alt="Fit Weather Logo" />
+        </div>
+        <div className={`fontHead2 ${style.titleWrap}`}>로그인</div>
 
-      <form onSubmit={login}>
-        <div className={style.contentWrap}>
-          <div className={`fontTitleXL ${style.inputTitle}`}>아이디</div>
-          <div className={style.inputWrap}>
-            <input
-              className={style.input}
-              placeholder="아이디를 입력하세요."
-              value={userid}
-              onChange={(e) => {
-                setUserid(e.target.value);
-              }}
-            />
+        <form onSubmit={login}>
+          <div className={style.contentWrap}>
+            <div className={`fontTitleXL ${style.inputTitle}`}>아이디</div>
+            <div className={style.inputWrap}>
+              <input
+                className={style.input}
+                placeholder="아이디를 입력하세요."
+                value={userid}
+                onChange={(e) => {
+                  setUserid(e.target.value);
+                }}
+              />
+            </div>
+            <span>{message1}</span>
+            <div
+              style={{ marginTop: "26px" }}
+              className={`fontTitleXL ${style.inputTitle}`}
+            >
+              비밀번호
+            </div>
+            <div className={style.inputWrap}>
+              <input
+                type="password"
+                className={style.input}
+                placeholder="비밀번호를 입력하세요."
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </div>
+            <span>{message2}</span>
           </div>
-          <span>{message1}</span>
-          <div
-            style={{ marginTop: "26px" }}
-            className={`fontTitleXL ${style.inputTitle}`}
-          >
-            비밀번호
+          <div>
+            <button type="submit" className={`fontBodyM ${style.bottomButton}`}>
+              로그인
+            </button>
           </div>
-          <div className={style.inputWrap}>
-            <input
-              type="password"
-              className={style.input}
-              placeholder="비밀번호를 입력하세요."
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-            />
+          <div>
+            <KakaoLogin />
           </div>
-          <span>{message2}</span>
-        </div>
-        <div>
-          <button type="submit" className={`fontBodyM ${style.bottomButton}`}>
-            로그인
-          </button>
-        </div>
-        <div>
-          <KakaoLogin />
-        </div>
-      </form>
+        </form>
 
-      <div className={style.signup}>
-        <div className={`fontBodyM ${style.signupMemo}`}>
-          아직 웨더핏 회원이 아니시라면?{" "}
-          <p className={`fontBodyM ${style.signupButton}`}>
-            <Link to="/Signup">회원가입</Link>
-          </p>
+        <div className={style.signup}>
+          <div className={`fontBodyM ${style.signupMemo}`}>
+            아직 웨더핏 회원이 아니시라면?{" "}
+            <p className={`fontBodyM ${style.signupButton}`}>
+              <Link to="/Signup">회원가입</Link>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-      </>
-    <Footer/>
+      <Footer />
+    </>
   );
 };
 
