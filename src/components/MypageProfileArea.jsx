@@ -7,6 +7,7 @@ import { url } from "../store/ref";
 function MypageProfileArea() {
   const { userInfo, setUserInfoAll } = useLoginInfoStore();
   const [onEditProfile, setOnEditProfile] = useState(false);
+  const [isKakaoLogin, setIsKakaoLogin] = useState(false); // 카카오 로그인 상태 추가
   const defaultProfileImage = "/img/default/man_photo.svg";
   const defaultShortBio = "안녕하세요! 만나서 반갑습니다~";
 
@@ -50,6 +51,7 @@ function MypageProfileArea() {
         setUsername(data.username || "");
         setShortBio(data.shortBio || defaultShortBio);
         setUserProfile(data.userprofile || defaultProfileImage);
+        setIsKakaoLogin(data.isKakaoLogin || false); // 카카오 로그인 상태 설정
         console.log("마이페이지 받아온 유저정보", data);
       }
     } catch (error) {
@@ -119,7 +121,8 @@ function MypageProfileArea() {
           data.userid,
           data.username,
           data.userprofile || defaultProfileImage,
-          data.shortBio || defaultShortBio
+          data.shortBio || defaultShortBio,
+          data.isKakaoLogin // 카카오 로그인 상태 업데이트
           // 사용자 정보 업데이트
         );
         console.log("업데이트된 사용자 정보:", data);
@@ -174,7 +177,9 @@ function MypageProfileArea() {
             </button>
             <button
               className="fontTitleM"
-              onClick={() => navigate("/myinfomanage")}
+              onClick={() => !isKakaoLogin && navigate("/myinfomanage")}
+              style={{ backgroundColor: isKakaoLogin ? "gray" : "initial" }}
+              disabled={isKakaoLogin}
             >
               개인정보 관리
             </button>
